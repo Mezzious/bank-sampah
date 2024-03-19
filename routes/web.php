@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LurahController;
+use App\Http\Controllers\SesiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\UserController;
@@ -16,26 +19,43 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    return view('layout.app');
+    return view('app');
 });
 
+Route::middleware(['guest'])->group(function () {
+    Route::get('/index', [SesiController::class, 'index'])->name('index');
+    Route::post('/index', [SesiController::class, 'login']);
+});
 // Super Admin Route //
 Route::get('/dashboard', [SuperAdminController::class, 'index'])->name('dashboard');
 
-Route::get('/data_sampah', [SuperAdminController::class, 'data_sampah' ])->name('data_sampah');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/superAdmin', [SuperAdminController::class, 'index'])->name('dashboard');
+    Route::get('/admin', [AdminController::class, 'index'])->name('dashboard');
+    Route::get('/user', [UserController::class, 'index'])->name('dashboard');
+    Route::get('/logout', [SesiController::class, 'logout'])->name('logout');
+});
 
 Route::get('/data_user', [SuperAdminController::class, 'data_user' ])->name('data_user');
 
-Route::get('/data_nasabah', [SuperAdminController::class, 'data_nasabah' ])->name('data_nasabah');
 
-Route::get('/transaksi_beli', [SuperAdminController::class, 'transaksi_beli' ])->name('transaksi_beli');
+Route::get('/data_sampah', [SuperAdminController::class, 'data_sampah'])->name('data_sampah');
 
-Route::get('/transaksi_jual', [SuperAdminController::class, 'transaksi_jual' ])->name('transaksi_jual');
+Route::get('/data_admin', [SuperAdminController::class, 'data_admin'])->name('data_admin');
 
-Route::get('/laporan_jual', [SuperAdminController::class, 'laporan_jual' ])->name('laporan_jual');
+Route::get('/data_nasabah', [SuperAdminController::class, 'data_nasabah'])->name('data_nasabah');
 
-Route::get('/laporan_beli', [SuperAdminController::class, 'laporan_beli' ])->name('laporan_beli');
+Route::get('/transaksi_beli', [SuperAdminController::class, 'transaksi_beli'])->name('transaksi_beli');
 
+Route::get('/transaksi_jual', [SuperAdminController::class, 'transaksi_jual'])->name('transaksi_jual');
+
+Route::get('/laporan_jual', [SuperAdminController::class, 'laporan_jual'])->name('laporan_jual');
+
+Route::get('/laporan_beli', [SuperAdminController::class, 'laporan_beli'])->name('laporan_beli');
+
+Route::get('/tambah_sampah', [SuperAdminController::class, 'tambah_sampah']);
+
+Route::get('/cari_sampah', [SuperAdminController::class, 'cari_sampah']);
 Route::get('tambah_user', [SuperAdminController::class, 'tambah_user' ])->name('tambah_user');
 
 Route::get('edit_user', [SuperAdminController::class, 'edit_user' ])->name('edit_user');

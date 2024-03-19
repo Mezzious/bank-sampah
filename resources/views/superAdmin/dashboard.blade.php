@@ -5,7 +5,6 @@
     <section class="section">
     <!-- My Css -->
         <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
-
         <!-- Page Heading -->
         <div class="main">
             <div class="page-heading">

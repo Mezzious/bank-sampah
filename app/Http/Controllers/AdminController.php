@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Child;
 
-class SuperAdminController extends Controller
+class AdminController extends Controller
 {
     public function index()
     {
@@ -52,11 +52,11 @@ class SuperAdminController extends Controller
         return view("admin/hapus_sampah");
     }
 
-    public function daftar_sampah(){
-        return view('admin/daftar_sampah', [
-            "sampah" => Sampah::all()
-        ]);
-    }
+    // public function daftar_sampah(){
+    //     return view('admin/daftar_sampah', [
+    //         "sampah" => Sampah::all()
+    //     ]);
+    // }
 
     public function cari_sampah(){
         return view('admin/cari_sampah');
