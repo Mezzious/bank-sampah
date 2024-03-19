@@ -3,7 +3,7 @@
 @section('content')
     <h2 style="font-size: 30px;">Data User</h2>
     <br>
-
+{{-- CSSKU --}}
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
     <link rel="stylesheet" href="./assets/compiled/css/dataTables.bootstrap4.min.css">
 
