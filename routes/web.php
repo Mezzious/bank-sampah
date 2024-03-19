@@ -16,7 +16,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    return view('app');
+    return view('layout.app');
 });
 
 // Super Admin Route //
