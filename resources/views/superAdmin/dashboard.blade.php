@@ -3,7 +3,7 @@
 @section('content')
     <!-- Begin Page Content -->
     <section class="section">
-
+    <!-- My Css -->
         <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
 
         <!-- Page Heading -->
