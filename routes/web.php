@@ -38,7 +38,6 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/data_user', [SuperAdminController::class, 'data_user' ])->name('data_user');
 
-
 Route::get('/data_sampah', [SuperAdminController::class, 'data_sampah'])->name('data_sampah');
 
 Route::get('/data_admin', [SuperAdminController::class, 'data_admin'])->name('data_admin');
@@ -56,6 +55,7 @@ Route::get('/laporan_beli', [SuperAdminController::class, 'laporan_beli'])->name
 Route::get('/tambah_sampah', [SuperAdminController::class, 'tambah_sampah']);
 
 Route::get('/cari_sampah', [SuperAdminController::class, 'cari_sampah']);
+
 Route::get('tambah_user', [SuperAdminController::class, 'tambah_user' ])->name('tambah_user');
 
 Route::get('edit_user', [SuperAdminController::class, 'edit_user' ])->name('edit_user');

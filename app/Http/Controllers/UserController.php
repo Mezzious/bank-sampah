@@ -44,3 +44,4 @@ class UserController extends Controller
     public function ganti_password_user(){
         return view('user/ganti_password_user');
     }
+}

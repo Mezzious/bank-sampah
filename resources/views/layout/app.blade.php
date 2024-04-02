@@ -53,7 +53,7 @@
                 </div>
                 <div class="sidebar-menu">
                     <ul class="menu">
-                        <li class="sidebar-title">Menu</li>
+                        <li class="sidebar-title" style="font-size: 20px;">Menu</li>
 
                         <li class="sidebar-item active">
                             <a href="/dashboard" class='sidebar-link'>
