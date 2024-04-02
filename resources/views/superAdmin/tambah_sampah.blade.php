@@ -40,9 +40,11 @@
                     <input type="text" class="form-control" id="harga" name="harga" required placeholder="Harga">
                 </div>
 
-                <div class="form-group">
-                    <label for="gambar">Gambar*</label>
-                    <input type="file" class="form-control-file" id="gambar" name="gambar" required>
+                <div>
+                    <div class="form-group">
+                    <label for="gambar">Gambar Sampah*</label>
+                    <input type="file" class="form-control" name="upload_gambar_sampah_link" placeholder="Masukan link disini">
+                    </div>
                 </div>
 
                 <div class="form-group">

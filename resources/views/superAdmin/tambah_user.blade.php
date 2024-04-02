@@ -55,11 +55,11 @@
                 <div class="form-group">
                     <label for="level">Level*</label>
                     <select class="form-control" id="level" name="level" required>
+                        <option value="" disabled selected hidden>Pilih Level</option>
                         <option value="admin">Super Admin</option>
                         <option value="superadmin">Admin</option>
                         <option value="superadmin">User</option>
                     </select>
-                </div>
 
                 <button type="submit" class="btn btn-custom">Simpan</button>
             </form>

@@ -179,3 +179,19 @@ h6 {
 .back-button:hover {
     background-color: #3b5740;
 }
+
+/* Style untuk tanda panah ke bawah */
+select {
+    /* Menyembunyikan tombol dropdown default */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* Menambahkan padding di sebelah kanan */
+    padding-right: 25px;
+    /* Mengatur posisi tanda panah */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23343a40" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right center;
+    /* Menambahkan cursor pointer saat di hover */
+    cursor: pointer;
+}

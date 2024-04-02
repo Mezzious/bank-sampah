@@ -42,7 +42,7 @@
                                             height="60px"></td>
                                     <td>Semua Jenis Kardus</td>
                                     <td style="text-align: center;">
-                                        <a href="{{ route('edit_user') }}" class="btn btn-warning btn-sm"
+                                        <a href="{{ route('edit_sampah') }}" class="btn btn-warning btn-sm"
                                             style="color: white"> <i class="fas fa-edit"></i> </a>
                                         <a type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
                                                 class="fas fa-trash"></i> </a>
@@ -57,7 +57,7 @@
                                             width="60px" height="60px"></td>
                                     <td>Botol Tanpa Tutup</td>
                                     <td style="text-align: center;">
-                                        <a href="{{ route('edit_user') }}" class="btn btn-warning btn-sm"
+                                        <a href="{{ route('edit_sampah') }}" class="btn btn-warning btn-sm"
                                             style="color: white"> <i class="fas fa-edit"></i> </a>
                                         <a type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
                                                 class="fas fa-trash"></i> </a>
@@ -66,7 +66,7 @@
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-between">
-                            <a href="{{ route('tambah_user') }}" class="btn btn-custom">
+                            <a href="{{ route('tambah_sampah') }}" class="btn btn-custom">
                                 <i class="fa-solid fa-user-plus" style="color: white; margin-right: 5px;"></i>
                                 <span style="color: white;">Tambah</span>
                             </a>
