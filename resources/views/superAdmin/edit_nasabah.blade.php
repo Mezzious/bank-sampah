@@ -26,9 +26,9 @@
                 @csrf
 
                 <div class="form-group">
-                    <label for="id_nasabah">ID Nasabah</label>
+                    <label for="id_nasabah">Id Nasabah</label>
                     <input type="text" class="form-control" id="id_nasabah" name="id_nasabah"
-                        style="cursor: not-allowed;" disabled="disabled" required placeholder="ID Nasabah">
+                        style="cursor: not-allowed;" disabled="disabled" required placeholder="Id Nasabah">
                 </div>
 
                 <div class="form-group">

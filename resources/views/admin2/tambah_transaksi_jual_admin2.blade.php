@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.app_admin2')
 
 @section('content')
     @if (session('error'))
@@ -18,10 +18,10 @@
 
     <div class="card border-bottom-primary shadow mb-4" style="margin-right: 28px">
         <div class="card-header py-3">
-            <h6 class="m-0">Form Edit Transaksi Jual</h6>
+            <h6 class="m-0">Form Input Transaksi Jual</h6>
         </div>
         <div class="card-body">
-            <form action="/transaksi-jual/store" method="post">
+            <form action="#" method="post">
                 @csrf
 
                 <div class="form-group">
@@ -59,8 +59,7 @@
 
                 <div class="form-group">
                     <label for="id_user">Id User*</label>
-                    <input type="text" class="form-control" id="id_user" name="id_user" style="cursor: not-allowed;"
-                    disabled="disabled" required placeholder="Id User">
+                    <input type="text" class="form-control" id="id_user" name="id_user" required placeholder="Id User">
                 </div>
 
                 <div>

@@ -1,19 +1,18 @@
-@extends('layout.app_user')
+@extends('layout.app_admin1')
 
 @section('content')
 <div class="main">
     <div class="page-heading">
         <div class="row">
-            <div class="d-flex align-items-center justify-content-between ">
-                <h2 style="font-size: 30px" class="h2 mb-0 col-4 col-md-2 text-gray-800">Dashboard</h2>
-                <div
-                    class="col-8 col-xl-10 col-lg-9 col-md-8 col-sm-9 d-flex align-items-center justify-content-end">
+            <div class="d-flex align-items-center justify-content-space-between ">
+                <h2 class= "h2 mb-0 col-4 col-md-2 text-gray-800">Laporan Beli Sampah</h2>
+                <div class="col-8 col-xl-10 col-lg-9 col-md-8 col-sm-9 d-flex align-items-center justify-content-end">
                     <div class="dropdown">
                         <a href="#" id="topbarUserDropdown"
                             class="user-dropdown d-flex align-items-center dropend dropdown-toggle"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="text">
-                                <h6 class="user-dropdown-name">USER212</h6>
+                                <h6 class="user-dropdown-name">RW 07</h6>
                                 <p class="user-dropdown-status text-sm text-muted"></p>
                             </div>
                         </a>
@@ -21,12 +20,12 @@
                             aria-labelledby="topbarUserDropdown" style="border-radius: 10px;">
                             <li>
                                 <a class="btn btn-block btn-custom mb-2" style="border-radius: 8px;"
-                                    href="{{ route('ganti_password_user') }}">
+                                    href="{{ route('ganti_password_admin1') }}">
                                     <i class="bi bi-key-fill"></i> Password
                                 </a>
                             </li>
                             <li>
-                                <form method="POST" action="{{ route('logout') }}">
+                                <form method="GET" action="{{ route('logout') }}">
                                     <input type="hidden" name="_token"
                                         value="Fp6EQq2SXZNoCNVF3DWv21fbnsh5DCjvA7Bgx5UK">
                                     <span class="text-black d-grid gap-5">
@@ -41,16 +40,34 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
     <link rel="stylesheet" href="./assets/compiled/css/dataTables.bootstrap4.min.css">
 
-    <div class="back-button-container" style="margin-bottom: 5px; margin-left: 1px;">
+    <div class="back-button-container" style="margin-bottom: 10px">
         <a class="btn back-button" onclick="goBack()">
             <i class="fa-solid fa-arrow-left" style="color: white;"></i>
             <span style="color: white;">Back</span>
         </a>
     </div>
+
+    <form action="#" method="post" name="form10" target="_self">
+        <div class="row">
+            <div class="col-lg-3">
+                <input name="txtTglAwal" type="date" class="form-control" size="10" />
+            </div>
+            <div class="col-lg-3">
+                <input name="txtTglAkhir" type="date" class="form-control" size="10" />
+            </div>
+
+            <div class="col-lg-3">
+                <input name="btnTampil" style="color: white" class="btn btn-custom" type="submit" value="Tampilkan"
+                    onclick="tampilkanTanggal()" />
+            </div>
+        </div>
+    </form>
 
     <div class="mb-3"></div>
     <div class="row">
@@ -58,42 +75,47 @@
             <div class="card shadow">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="table_sampah" class="table table-bordered">
+                        <table id="table_laporan_beli" class="table table-bordered">
                             <thead class="table-secondary">
                                 <tr>
                                     <th>No</th>
-                                    <th>Jenis_Sampah</th>
-                                    <th>Satuan</th>
-                                    <th>Harga</th>
-                                    <th>Gambar</th>
-                                    <th>Deskripsi</th>
+                                    <th>Tanggal Jual</th>
+                                    <th>RW</th>
+                                    <th>Jenis Sampah</th>
+                                    <th>Banyak</th>
+                                    <th>Harga Satuan</th>
+                                    <th>Total</th>
                                 </tr>
                             </thead>
-                            <tbody id="tableBody">
+                            <tbody>
                                 <tr>
                                     <td>1</td>
+                                    <td>11/03/2024</td>
+                                    <td>1</td>
                                     <td>Kardus</td>
-                                    <td>KG</td>
+                                    <td>5Kg</td>
                                     <td>5000</td>
-                                    <td><img src="https://down-id.img.susercontent.com/file/d41d0ab1c03c710ae114912cf4297f74"width="60px"
-                                            height="60px"></td>
-                                    <td>Semua Jenis Kardus</td>
+                                    <td>25000</td>
                                 </tr>
-                                <tr id="tableBody">
+                                <tr>
+                                    <td>2</td>
+                                    <td>11/03/2024</td>
                                     <td>2</td>
                                     <td>Botol</td>
-                                    <td>KG</td>
+                                    <td>5Kg</td>
                                     <td>3000</td>
-                                    <td><img src="https://st4.depositphotos.com/1971587/25483/i/1600/depositphotos_254834222-stock-photo-new-unused-blue-empty-plastic.jpg"
-                                            width="60px" height="60px"></td>
-                                    <td>Botol Tanpa Tutup</td>
+                                    <td>15000</td>
                                 </tr>
                             </tbody>
                         </table>
+                        <a href="#" class="btn btn-custom" id="printButton">
+                            <i class="fa-solid fa-print" style="color: white;"></i> <span style="color: white;">Cetak</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
 
@@ -104,7 +126,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#table_sampah').DataTable();
+            $('#table_laporan_beli').DataTable();
         });
     </script>
 @endsection

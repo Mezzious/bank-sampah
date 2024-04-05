@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.app_admin2')
 
 @section('content')
     @if (session('error'))
@@ -58,7 +58,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="id_user">Id User*</label>
+                    <label for="id_user">Id RW</label>
                     <input type="text" class="form-control" id="id_user" name="id_user" style="cursor: not-allowed;"
                     disabled="disabled" required placeholder="Id User">
                 </div>

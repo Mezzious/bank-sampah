@@ -5,8 +5,14 @@ table {
 
 h2 {
     font-family: sans-serif;
+    white-space: nowrap; /* Teks tidak pindah ke baris baru */
+    font-size: 2.5vw;
 }
 
+h6 {
+    font-family: sans-serif;
+
+}
 th,
 td {
     border: 1px solid;
