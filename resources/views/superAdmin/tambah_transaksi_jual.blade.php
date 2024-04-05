@@ -59,7 +59,8 @@
 
                 <div class="form-group">
                     <label for="id_user">Id User*</label>
-                    <input type="text" class="form-control" id="id_user" name="id_user" required placeholder="Id User">
+                    <input type="text" class="form-control" id="id_user" name="id_user" style="cursor: not-allowed;"
+                    disabled="disabled" required placeholder="Id User">
                 </div>
 
                 <div>
