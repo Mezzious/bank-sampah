@@ -25,9 +25,9 @@
                 @csrf
 
                 <div class="form-group">
-                    <label for="id_beli">ID Beli</label>
+                    <label for="id_beli">Id Beli</label>
                     <input type="text" class="form-control" id="id_beli" name="id_beli" style="cursor: not-allowed;"
-                        disabled="disabled" required placeholder="ID Beli">
+                        disabled="disabled" required placeholder="Id Beli">
                 </div>
 
                 <div class="form-group">
@@ -58,8 +58,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="id_user">ID User*</label>
-                    <input type="text" class="form-control" id="id_user" name="id_user" required placeholder="ID User">
+                    <label for="id_user">Id User*</label>
+                    <input type="text" class="form-control" id="id_user" name="id_user" style="cursor: not-allowed;"
+                    disabled="disabled" required placeholder="Id User">
                 </div>
 
                 <div>

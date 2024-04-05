@@ -25,9 +25,9 @@
                 @csrf
 
                 <div class="form-group">
-                    <label for="id_user">ID User</label>
+                    <label for="id_user">Id User</label>
                     <input type="text" class="form-control" id="id_user" name="id_user" style="cursor: not-allowed;"
-                        disabled="disabled" required placeholder="ID User">
+                        disabled="disabled" required placeholder="Id User">
                 </div>
 
                 <div class="form-group">
@@ -57,7 +57,8 @@
                     <select class="form-control" id="level" name="level" required>
                         <option value="" disabled selected hidden>Pilih Level</option>
                         <option value="admin">Super Admin</option>
-                        <option value="superadmin">Admin</option>
+                        <option value="superadmin">Admin1</option>
+                        <option value="superadmin">Admin2</option>
                         <option value="superadmin">User</option>
                     </select>
                 </div>

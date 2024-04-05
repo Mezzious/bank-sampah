@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.app_admin2')
 
 @section('content')
     @if (session('error'))
@@ -18,21 +18,21 @@
 
     <div class="card border-bottom-primary shadow mb-4" style="margin-right: 28px">
         <div class="card-header py-3">
-            <h6 class="m-0">Form Input Transaksi Beli</h6>
+            <h6 class="m-0">Form Input Transaksi Jual</h6>
         </div>
         <div class="card-body">
-            <form action="/transaksi-jual/store" method="post">
+            <form action="#" method="post">
                 @csrf
 
                 <div class="form-group">
-                    <label for="id_beli">Id Beli</label>
-                    <input type="text" class="form-control" id="id_beli" name="id_beli" style="cursor: not-allowed;"
-                        disabled="disabled" required placeholder="Id Beli">
+                    <label for="id_jual">Id Jual</label>
+                    <input type="text" class="form-control" id="id_jual" name="id_jual" style="cursor: not-allowed;"
+                        disabled="disabled" required placeholder="Id Jual">
                 </div>
 
                 <div class="form-group">
-                    <label for="tanggal_beli">Tanggal Beli*</label>
-                    <input type="date" class="form-control" id="tanggal_beli" name="tanggal_beli" required>
+                    <label for="tanggal_jual">Tanggal Jual*</label>
+                    <input type="date" class="form-control" id="tanggal_jual" name="tanggal_jual" required>
                 </div>
 
                 <div class="form-group">
@@ -59,14 +59,13 @@
 
                 <div class="form-group">
                     <label for="id_user">Id User*</label>
-                    <input type="text" class="form-control" id="id_user" name="id_user" style="cursor: not-allowed;"
-                    disabled="disabled" required placeholder="Id User">
+                    <input type="text" class="form-control" id="id_user" name="id_user" required placeholder="Id User">
                 </div>
 
                 <div>
                     <div class="form-group">
-                    <label for="gambar">Bukti Transaksi Beli*</label>
-                    <input type="file" class="form-control" name="upload_bukti_transaksi_beli_link" placeholder="Masukan link disini">
+                    <label for="gambar">Bukti Transaksi Jual*</label>
+                    <input type="file" class="form-control" name="upload_bukti_transaksi_jual_link" placeholder="Masukan link disini">
                     </div>
                 </div>
 

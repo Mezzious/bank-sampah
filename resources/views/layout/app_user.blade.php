@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - User Dashboard</title>
+    <title>Dashboard - Super Admin Dashboard</title>
 
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <link rel="shortcut icon" href="./assets/compiled/svg/favicon.svg" type="image/x-icon">
     <link rel="shortcut icon"
@@ -53,7 +53,7 @@
                 </div>
                 <div class="sidebar-menu">
                     <ul class="menu">
-                        <li class="sidebar-title">Menu</li>
+                        <li class="sidebar-title" style="font-size: 20px;">Menu</li>
 
                         <li class="sidebar-item active">
                             <a href="/dashboard" class='sidebar-link'>
@@ -69,6 +69,11 @@
                             </a>
 
                             <ul class="submenu">
+
+                                <li class="submenu-item">
+                                    <a href="{{ route('data_user') }}" class="submenu-link">Data User</a>
+
+                                </li>
 
                                 <li class="submenu-item  ">
                                     <a href="{{ route('data_nasabah') }}" class="submenu-link">Data Nasabah</a>

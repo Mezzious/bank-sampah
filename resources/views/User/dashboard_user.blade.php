@@ -27,12 +27,12 @@
                                     aria-labelledby="topbarUserDropdown" style="border-radius: 10px;">
                                     <li>
                                         <a class="btn btn-block btn-custom mb-2" style="border-radius: 8px;"
-                                            href="/mahasiswa/ubah/password">
+                                            href="{{ route('ganti_password_user') }}">
                                             <i class="bi bi-key-fill"></i> Password
                                         </a>
                                     </li>
                                     <li>
-                                        <form method="POST" action="#">
+                                        <form method="POST" action="{{ route('logout') }}">
                                             <input type="hidden" name="_token"
                                                 value="Fp6EQq2SXZNoCNVF3DWv21fbnsh5DCjvA7Bgx5UK">
                                             <span class="text-black d-grid gap-5">
