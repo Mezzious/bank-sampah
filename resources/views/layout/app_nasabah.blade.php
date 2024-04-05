@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Super Admin Dashboard</title>
+    <title>Dashboard - Nasabah Dashboard</title>
 
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
 
@@ -51,6 +51,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="sidebar-menu">
                     <ul class="menu">
                         <li class="sidebar-title" style="font-size: 20px;">Menu</li>
@@ -71,9 +72,10 @@
                             <ul class="submenu ">
 
                                 <li class="submenu-item  ">
-                                    <a href="{{ route('transaksi_jual') }}" class="submenu-link"> Transaksi Jual</a>
+                                    <a href="{{ route('transaksi_beli') }}" class="submenu-link"> Transaksi Beli</a>
 
                                 </li>
+
                             </ul>
 
                         </li>

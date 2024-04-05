@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
     <link rel="shortcut icon" href="./assets/compiled/svg/favicon.svg" type="image/x-icon">
     <link rel="shortcut icon"
@@ -62,33 +62,6 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-collection-fill"></i>
-                                <span>Data</span>
-                            </a>
-
-                            <ul class="submenu">
-
-                                <li class="submenu-item">
-                                    <a href="{{ route('data_user') }}" class="submenu-link">Data User</a>
-
-                                </li>
-
-                                <li class="submenu-item  ">
-                                    <a href="{{ route('data_nasabah') }}" class="submenu-link">Data Nasabah</a>
-
-                                </li>
-
-                                <li class="submenu-item  ">
-                                    <a href="{{ route('data_sampah') }}" class="submenu-link">Data Sampah</a>
-
-                                </li>
-
-                            </ul>
-
-                        </li>
-
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-basket-fill"></i>
@@ -101,37 +74,9 @@
                                     <a href="{{ route('transaksi_jual') }}" class="submenu-link"> Transaksi Jual</a>
 
                                 </li>
-
-                                <li class="submenu-item  ">
-                                    <a href="{{ route('transaksi_beli') }}" class="submenu-link"> Transaksi Beli</a>
-
-                                </li>
-
                             </ul>
 
                         </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                                <span>Laporan</span>
-                            </a>
-
-                            <ul class="submenu ">
-
-                                <li class="submenu-item  ">
-                                    <a href="{{ route('laporan_jual') }}" class="submenu-link">Laporan Jual</a>
-
-                                </li>
-
-                                <li class="submenu-item  ">
-                                    <a href="{{ route('laporan_beli') }}" class="submenu-link">Laporan Beli</a>
-
-                                </li>
-                            </ul>
-
-                        </li>
-
                 </div>
             </div>
 
