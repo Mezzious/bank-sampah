@@ -94,8 +94,11 @@ class SuperAdminController extends Controller
         return view('superadmin/laporan_beli');
     }
 
-    public function laporan_akhir(){
-        return view('superadmin/laporan_akhir');
+    public function cetak_laporan_jual(){
+        return view('superadmin/cetak_laporan_jual');
+    }
+    public function cetak_laporan_beli(){
+        return view('superadmin/cetak_laporan_beli');
     }
 
 }

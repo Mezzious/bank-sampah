@@ -5,7 +5,7 @@
         <div class="page-heading">
             <div class="row">
                 <div class="d-flex align-items-center justify-content-between ">
-                    <h2 style="font-size: 30px" class="h2 mb-0 col-4 col-md-2 text-gray-800">Dashboard</h2>
+                    <h2 style="font-size: 30px" class="h2 mb-0 col-4 col-md-2 text-gray-800">Laporan Beli Sampah</h2>
                     <div class="col-8 col-xl-10 col-lg-9 col-md-8 col-sm-9 d-flex align-items-center justify-content-end">
                         <div class="dropdown">
                             <a href="#" id="topbarUserDropdown"
@@ -79,7 +79,7 @@
                             <thead class="table-secondary">
                                 <tr>
                                     <th>No</th>
-                                    <th>Tanggal Jual</th>
+                                    <th>Tanggal Beli</th>
                                     <th>RW</th>
                                     <th>Jenis Sampah</th>
                                     <th>Banyak</th>
@@ -129,4 +129,16 @@
             $('#table_laporan_beli').DataTable();
         });
     </script>
+
+    <script>
+    function tampilkanTanggal() {
+        // Mendapatkan nilai tanggal awal dan tanggal akhir dari form
+        var tglAwal = document.forms["form10"]["txtTglAwal"].value;
+        var tglAkhir = document.forms["form10"]["txtTglAkhir"].value;
+
+        // Redirect ke URL cetak laporan dengan parameter tanggal
+        window.location.href = "cetak_laporan_beli.php?tglAwal=" + tglAwal + "&tglAkhir=" + tglAkhir;
+    }
+    </script>
+
 @endsection

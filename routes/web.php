@@ -51,8 +51,6 @@ Route::get('/laporan_beli', [SuperAdminController::class, 'laporan_beli'])->name
 
 Route::get('/tambah_sampah', [SuperAdminController::class, 'tambah_sampah']);
 
-Route::get('/cari_sampah', [SuperAdminController::class, 'cari_sampah']);
-
 Route::get('tambah_user', [SuperAdminController::class, 'tambah_user' ])->name('tambah_user');
 
 Route::get('edit_user', [SuperAdminController::class, 'edit_user' ])->name('edit_user');
@@ -74,6 +72,10 @@ Route::get('/edit_transaksi_jual', [SuperAdminController::class,'edit_transaksi_
 Route::get('/tambah_transaksi_beli', [SuperAdminController::class,'tambah_transaksi_beli'])->name('tambah_transaksi_beli');
 
 Route::get('/edit_transaksi_beli', [SuperAdminController::class,'edit_transaksi_beli'])->name('edit_transaksi_beli');
+
+Route::get('/cetak_laporan_jual', [SuperAdminController::class,'cetak_laporan_jual'])->name('cetak_laporan_jual');
+
+Route::get('/cetak_laporan_beli', [SuperAdminController::class,'cetak_laporan_beli'])->name('cetak_laporan_beli');
 
 // User Route //
 

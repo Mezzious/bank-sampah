@@ -132,4 +132,19 @@
             $('#table_laporan_jual').DataTable();
         });
     </script>
+
+    <script>
+    function tampilkanTanggal() {
+        // Ambil nilai tanggal awal dan tanggal akhir dari input
+        var tanggalAwal = document.forms["form10"]["txtTglAwal"].value;
+        var tanggalAkhir = document.forms["form10"]["txtTglAkhir"].value;
+
+        // Konstruksi URL cetak dengan parameter tanggal
+        var url = "cetak_laporan.php?tgl_awal=" + tanggalAwal + "&tgl_akhir=" + tanggalAkhir;
+
+        // Redirect ke URL cetak
+        window.location.href = url;
+    }
+    </script>
+
 @endsection

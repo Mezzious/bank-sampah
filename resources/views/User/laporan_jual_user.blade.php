@@ -5,7 +5,7 @@
         <div class="page-heading">
             <div class="row">
                 <div class="d-flex align-items-center justify-content-between ">
-                    <h2 style="font-size: 30px" class="h2 mb-0 col-4 col-md-2 text-gray-800">Dashboard</h2>
+                    <h2 style="font-size: 30px" class="h2 mb-0 col-4 col-md-2 text-gray-800">Laporan Jual Sampah</h2>
                     <div class="col-8 col-xl-10 col-lg-9 col-md-8 col-sm-9 d-flex align-items-center justify-content-end">
                         <div class="dropdown">
                             <a href="#" id="topbarUserDropdown"

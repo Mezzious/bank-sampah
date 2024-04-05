@@ -57,7 +57,8 @@
                     <select class="form-control" id="level" name="level" required>
                         <option value="" disabled selected hidden>Pilih Level</option>
                         <option value="admin">Super Admin</option>
-                        <option value="superadmin">Admin</option>
+                        <option value="superadmin">Admin1</option>
+                        <option value="superadmin">Admin2</option>
                         <option value="superadmin">User</option>
                     </select>
                 </div>
