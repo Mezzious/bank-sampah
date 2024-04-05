@@ -1,11 +1,10 @@
-@extends('layout.app_user')
+@extends('layout.app_admin2')
 
 @section('content')
     <!-- Begin Page Content -->
     <section class="section">
-
+    <!-- My Css -->
         <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
-
         <!-- Page Heading -->
         <div class="main">
             <div class="page-heading">
@@ -19,7 +18,7 @@
                                     class="user-dropdown d-flex align-items-center dropend dropdown-toggle"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="text">
-                                        <h6 class="user-dropdown-name">USER212</h6>
+                                        <h6 class="user-dropdown-name">PENGEPUL 07</h6>
                                         <p class="user-dropdown-status text-sm text-muted"></p>
                                     </div>
                                 </a>
@@ -27,12 +26,12 @@
                                     aria-labelledby="topbarUserDropdown" style="border-radius: 10px;">
                                     <li>
                                         <a class="btn btn-block btn-custom mb-2" style="border-radius: 8px;"
-                                            href="{{ route('ganti_password_user') }}">
+                                            href="{{ route('ganti_password_admin2') }}">
                                             <i class="bi bi-key-fill"></i> Password
                                         </a>
                                     </li>
                                     <li>
-                                        <form method="POST" action="{{ route('logout') }}">
+                                        <form method="POST" action="#">
                                             <input type="hidden" name="_token"
                                                 value="Fp6EQq2SXZNoCNVF3DWv21fbnsh5DCjvA7Bgx5UK">
                                             <span class="text-black d-grid gap-5">
@@ -121,42 +120,6 @@
                 </div>
             </div>
         </div>
-
-
-        <!-- Content Row -->
-        <div class="row">
-
-            <div class="col-xl-8 col-lg-7">
-
-                <!-- Area Chart -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-area">
-                            <canvas id="myAreaChart"></canvas>
-                        </div>
-                        <hr>
-                        Grafik Monitoring Untung Rugi per Bulan
-                    </div>
-                </div>
-
-                <!-- Bar Chart -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-bar">
-                            <canvas id="myBarChart"></canvas>
-                        </div>
-                        <hr>
-                        Grafik Monitoring Untung Rugi per Bulan
-                    </div>
-                </div>
-
-            </div>
 
             </body>
 
