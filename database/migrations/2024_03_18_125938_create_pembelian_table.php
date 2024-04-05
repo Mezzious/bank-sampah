@@ -13,15 +13,14 @@ class CreatePembelianTable extends Migration
      */
     public function up()
     {
-        Schema::create('pembelian', function (Blueprint $table) {
-            $table->id('id_beli')->length(5);
-            $table->date('tanggal_beli');
-            $table->string('id_nasabah', 10)->unique();
+        Schema::create('purchases', function (Blueprint $table) {
+            $table->id();
+            $table->dateTime('tanggal_beli');
+            $table->foreignId('customer_id');
             $table->string('jenis_sampah');
-            $table->integer('berat')->length(4);
+            $table->integer('berat');
             $table->string('harga');
             $table->string('total');
-            $table->string('id_user', 9)->unique();
         });
     }
 
@@ -32,6 +31,6 @@ class CreatePembelianTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pembelian');
+        Schema::dropIfExists('purchases');
     }
 }

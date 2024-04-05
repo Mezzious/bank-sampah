@@ -13,15 +13,15 @@ class CreatePenjualanTable extends Migration
      */
     public function up()
     {
-        Schema::create('penjualan', function (Blueprint $table) {
-            $table->id('id_jual')->length(5);
-            $table->date('tanggal_jual');
+        Schema::create('saleses', function (Blueprint $table) {
+            $table->id();
+            $table->dateTime('tanggal_jual');
             $table->string('jenis_sampah');
             $table->string('gambar');
-            $table->integer('berat')->length(4);
+            $table->integer('berat');
             $table->string('harga');
             $table->string('total');
-            $table->string('id_user', 9)->unique();
+            $table->foreignId('user_id');
         });
     }
 
@@ -32,6 +32,6 @@ class CreatePenjualanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('penjualan');
+        Schema::dropIfExists('saleses');
     }
 }

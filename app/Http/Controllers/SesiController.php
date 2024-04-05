@@ -15,22 +15,18 @@ class SesiController extends Controller
 
     function login(Request $request)
     {
-        $request->validate([
+        $validate = $request->validate([
             'email' => 'required',
             'password' => 'required'
         ]);
 
-        $infologin = [
-            'email' => $request->email,
-            'password' => $request->password,
-        ];
-
-        if (Auth::attempt($infologin)) {
-            if (Auth::user()->role == 'super-admin') {
-                return redirect('/superAdmin');
-            } elseif (Auth::user()->role == 'admin') {
+        if (Auth::attempt($validate)) {
+            $request->session()->regenerate();
+            if (Auth::user()->roles == 'super-admin') {
+                return redirect()->intended('/superadmin');
+            } elseif (Auth::user()->roles == 'admin') {
                 return redirect('/admin');
-            } elseif (Auth::user()->role == 'user') {
+            } elseif (Auth::user()->roles == 'user') {
                 return redirect('/user');
             }
         } else {
@@ -38,9 +34,11 @@ class SesiController extends Controller
         }
     }
 
-    function logout()
+    function logout(Request $request)
     {
         Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect('/index');
     }
 }
