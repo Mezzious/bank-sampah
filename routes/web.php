@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin1Controller;
+use App\Http\Controllers\Admin2Controller;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SesiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\UserController;
+use App\Models\Admin1;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,23 +20,32 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('layout.app');
-});
+// Route::get('/', function () {
+//     return view('layout.app');
+// });
 
 Route::middleware(['guest'])->group(function () {
     Route::get('/index', [SesiController::class, 'index'])->name('index');
     Route::post('/index', [SesiController::class, 'login']);
 });
-// Super Admin Route //
-Route::get('/dashboard', [SuperAdminController::class, 'index'])->name('dashboard');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/superAdmin', [SuperAdminController::class, 'index'])->name('dashboard');
-    Route::get('/admin', [AdminController::class, 'index'])->name('dashboard');
-    Route::get('/user', [UserController::class, 'index'])->name('dashboard');
-    Route::get('/logout', [SesiController::class, 'logout'])->name('logout');
+Route::group(['middleware' => ['auth', 'admin:super-admin']], function () {
+    Route::get('/superadmin', [SuperAdminController::class, 'index'])->name('dashboard');
 });
+
+Route::group(['middleware' => ['auth', 'admin:admin1']], function () {
+    Route::get('/superadmin', [Admin1Controller::class, 'index'])->name('dashboard');
+});
+
+Route::group(['middleware' => ['auth', 'admin:admin2']], function () {
+    Route::get('/superadmin', [Admin2Controller::class, 'index'])->name('dashboard');
+});
+
+Route::group(['middleware' => ['auth', 'admin:user']], function () {
+    Route::get('/superadmin', [UserController::class, 'index'])->name('dashboard');
+});
+
+Route::get('/logout', [SesiController::class, 'logout'])->name('logout');
 
 Route::get('/data_user', [SuperAdminController::class, 'data_user' ])->name('data_user');
 

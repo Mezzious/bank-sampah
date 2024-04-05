@@ -13,10 +13,11 @@ class CreateSampahTable extends Migration
      */
     public function up()
     {
-        Schema::create('sampah', function (Blueprint $table) {
+        Schema::create('trashes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->string('jenis_sampah');
-            $table->string('satuan');
+            $table->string('satuan', 2);
             $table->decimal('harga');
             $table->string('gambar');
             $table->text('deskripsi');
@@ -30,6 +31,6 @@ class CreateSampahTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sampah');
+        Schema::dropIfExists('trashes');
     }
 }

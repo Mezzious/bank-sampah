@@ -13,13 +13,15 @@ class CreateNasabahTable extends Migration
      */
     public function up()
     {
-        Schema::create('nasabah', function (Blueprint $table) {
-            $table->id('id_nasabah');
-            $table->string('nama', 100);
-            $table->integer('rw')->length(2);
+        Schema::create('customers', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id');
+            $table->string('nama_nasabah');
+            $table->string('email');
+            $table->integer('rw');
             $table->string('telepon', 12);
-            $table->string('alamat', 100);
-            $table->integer('sampah')->nullable()->length(4);
+            $table->string('alamat');
+            $table->integer('sampah')->nullable();
         });
     }
 
@@ -30,6 +32,6 @@ class CreateNasabahTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nasabah');
+        Schema::dropIfExists('customers');
     }
 }
