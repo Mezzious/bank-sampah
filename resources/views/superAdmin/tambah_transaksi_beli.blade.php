@@ -42,11 +42,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="gambar">Gambar*</label>
-                    <input type="file" class="form-control-file" id="gambar" name="gambar" required>
-                </div>
-
-                <div class="form-group">
                     <label for="berat">Berat (Kg)*</label>
                     <input type="number" step="0.01" class="form-control" id="berat" name="berat" required
                         placeholder="Berat">
@@ -65,6 +60,13 @@
                 <div class="form-group">
                     <label for="id_user">ID User*</label>
                     <input type="text" class="form-control" id="id_user" name="id_user" required placeholder="ID User">
+                </div>
+
+                <div>
+                    <div class="form-group">
+                    <label for="gambar">Bukti Transaksi Beli*</label>
+                    <input type="file" class="form-control" name="upload_bukti_transaksi_beli_link" placeholder="Masukan link disini">
+                    </div>
                 </div>
 
                 <button type="submit" class="btn btn-custom">Simpan</button>
