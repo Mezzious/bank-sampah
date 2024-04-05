@@ -107,7 +107,7 @@ Route::get('ganti_password_user', [UserController::class, 'ganti_password_user' 
 
 //Admin1 Route//
 
-Route::get('/dashboard_admin1', [AdminController::class, 'index'])->name('dashboard_admin1');
+Route::get('/dashboard_admin1', [Admin1Controller::class, 'index'])->name('dashboard_admin1');
 
 Route::get('/transaksi_beli_admin1', [Admin1Controller::class, 'transaksi_beli_admin1'])->name('transaksi_beli_admin1');
 
@@ -132,4 +132,24 @@ Route::get('/edit_transaksi_jual_admin2', [Admin2Controller::class, 'edit_transa
 Route::get('/laporan_jual_admin2', [Admin2Controller::class, 'laporan_jual_admin2'])->name('laporan_jual_admin2');
 
 Route::get('/ganti_password_admin2', [Admin2Controller::class, 'ganti_password_admin2'])->name('ganti_password_admin2');
+
+//Admin Route//
+
+Route::get('/dashboard_admin', [AdminController::class, 'index'])->name('dashboard_admin');
+
+Route::get('/data_nasabah_admin', [AdminController::class, 'data_nasabah_admin'])->name('data_nasabah_admin');
+
+Route::get('/data_sampah_admin', [AdminController::class, 'data_sampah_admin'])->name('data_sampah_admin');
+
+Route::get('/data_user_admin', [AdminController::class, 'data_user_admin'])->name('data_user_admin');
+
+Route::get('/transaksi_jual_admin', [AdminController::class, 'transaksi_jual_admin'])->name('transaksi_jual_admin');
+
+Route::get('/transaksi_beli_admin', [AdminController::class, 'transaksi_beli_admin'])->name('transaksi_beli_admin');
+
+Route::get('/laporan_jual_admin', [AdminController::class, 'laporan_jual_admin'])->name('laporan_jual_admin');
+
+Route::get('/laporan_beli_admin', [AdminController::class, 'laporan_beli_admin'])->name('laporan_beli_admin');
+
+Route::get('/ganti_password_admin', [AdminController::class, 'ganti_password_admin'])->name('ganti_password_admin');
 
