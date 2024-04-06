@@ -3,7 +3,7 @@
 @section('content')
     <!-- Begin Page Content -->
     <section class="section">
-    <!-- My Css -->
+        <!-- My Css -->
         <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
         <!-- Page Heading -->
         <div class="main">
@@ -123,7 +123,7 @@
         <!-- Content Row -->
         <div class="row">
 
-            <div class="col-xl-8 col-lg-7">
+            <div class="col-xl-12 col-lg-7">
 
                 <!-- Area Chart -->
                 <div class="card shadow mb-4">
@@ -152,10 +152,5 @@
                         Grafik Monitoring Untung Rugi per Bulan
                     </div>
                 </div>
-
             </div>
-
-            </body>
-
-            </html>
         @endsection
