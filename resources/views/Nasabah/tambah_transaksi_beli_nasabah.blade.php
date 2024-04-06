@@ -1,4 +1,4 @@
-@extends('layout.app_admin1')
+@extends('layout.app_nasabah')
 
 @section('content')
     @if (session('error'))

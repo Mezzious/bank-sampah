@@ -1,4 +1,4 @@
-@extends('layout.app_admin2')
+@extends('layout.app_user')
 
 @section('content')
     <h2 style="font-size: 30px;">Laporan Jual Sampah</h2>
