@@ -31,16 +31,16 @@ Route::group(['middleware' => ['auth', 'admin:super-admin']], function () {
     Route::get('/superadmin', [SuperAdminController::class, 'index'])->name('dashboard');
 });
 
-// Route::group(['middleware' => ['auth', 'admin:admin']], function () {
-//     Route::get('/superadmin', [AdminController::class, 'index'])->name('dashboard');
-// });
+Route::group(['middleware' => ['auth', 'admin:admin1']], function () {
+    Route::get('/admin1', [Admin1Controller::class, 'index'])->name('dashboard');
+});
 
-// Route::group(['middleware' => ['auth', 'admin:nasabah']], function () {
-//     Route::get('/superadmin', [NasabahController::class, 'index'])->name('dashboard');
-// });
+Route::group(['middleware' => ['auth', 'admin:admin2']], function () {
+    Route::get('/admin2', [Admin2Controller::class, 'index'])->name('dashboard');
+});
 
 Route::group(['middleware' => ['auth', 'admin:user']], function () {
-    Route::get('/superadmin', [UserController::class, 'index'])->name('dashboard');
+    Route::get('/user', [UserController::class, 'index'])->name('dashboard');
 });
 
 Route::get('/logout', [SesiController::class, 'logout'])->name('logout');
