@@ -77,16 +77,15 @@
                                     <thead class="table-secondary">
                                         <tr>
                                             <th>No</th>
-                                            <th>Id_Beli</th>
+                                            <th>Id</th>
                                             <th>Tanggal_Beli</th>
+                                            <th>Customer_Id</th>
                                             <th>Jenis_Sampah</th>
                                             <th>Id_Nasabah</th>
                                             <th>Berat</th>
                                             <th>Harga</th>
                                             <th>Total</th>
-                                            <th>Id_User</th>
                                             <th>Nota</th>
-                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -94,28 +93,13 @@
                                             <td>1</td>
                                             <td>5454</td>
                                             <td>11/03/2024</td>
+                                            <td>8989</td>
                                             <td>Kardus</td>
-                                            <td>555</td>
-                                            <td>5Kg</td>
+                                            <td>565</td>
+                                            <td>10Kg</td>
                                             <td>5000</td>
-                                            <td>25000</td>
-                                            <td>123</td>
+                                            <td>50000</td>
                                             <td style="text-align: center">
-                                                <a href="#" class="btn btn-primary btn-sm" style="color: white"> <i
-                                                        class="bi bi-eye-fill"></i> </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>5353</td>
-                                            <td>11/03/2024</td>
-                                            <td>Botol</td>
-                                            <td>555</td>
-                                            <td>5Kg</td>
-                                            <td>3000</td>
-                                            <td>15000</td>
-                                            <td>123</td>
-                                            <td>
                                                 <a href="#" class="btn btn-primary btn-sm" style="color: white"> <i
                                                         class="bi bi-eye-fill"></i> </a>
                                             </td>

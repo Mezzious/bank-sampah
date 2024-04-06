@@ -25,6 +25,18 @@
                 @csrf
 
                 <div class="form-group">
+                    <label for="id">Id Sampah</label>
+                    <input type="text" class="form-control" id="id" name="id" style="cursor: not-allowed;"
+                        disabled="disabled" required placeholder="Id Sampah">
+                </div>
+
+                <div class="form-group">
+                    <label for="user_id">User Id</label>
+                    <input type="text" class="form-control" id="user_id" name="user_id" style="cursor: not-allowed;"
+                        disabled="disabled" required placeholder="User Id">
+                </div>
+
+                <div class="form-group">
                     <label for="jenis_sampah">Jenis Sampah*</label>
                     <input type="text" class="form-control" id="jenis_sampah" name="jenis_sampah" required
                         placeholder="Jenis Sampah">
@@ -43,7 +55,7 @@
                 <div>
                     <div class="form-group">
                     <label for="gambar">Gambar Sampah*</label>
-                    <input type="file" class="form-control" name="upload_gambar_sampah_link" placeholder="Masukan link disini">
+                    <input type="file" class="form-control" name="upload_gambar_sampah_link" placeholder="Masukan file disini">
                     </div>
                 </div>
 
@@ -51,6 +63,7 @@
                     <label for="deskripsi">Deskripsi*</label>
                     <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required placeholder="Deskripsi"></textarea>
                 </div>
+
 
                 <button type="submit" class="btn btn-custom">Simpan</button>
             </form>

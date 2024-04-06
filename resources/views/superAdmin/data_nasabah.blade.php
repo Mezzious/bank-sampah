@@ -63,8 +63,10 @@
                             <thead class="table-secondary">
                                 <tr>
                                     <th>No</th>
-                                    <th>Id_Nasabah</th>
+                                    <th>Id</th>
+                                    <th>User_Id</th>
                                     <th>Nama</th>
+                                    <th>Email</th>
                                     <th>RW</th>
                                     <th>Telepon</th>
                                     <th>Alamat</th>
@@ -76,26 +78,13 @@
                                 <tr>
                                     <td>1</td>
                                     <td>212</td>
-                                    <td>John Doe</td>
-                                    <td>1</td>
+                                    <td>252</td>
+                                    <td>Asep</td>
+                                    <td>asep@gmail.com</td>
+                                    <td>07</td>
                                     <td>123-456-7890</td>
                                     <td>Jl. Duri Kepa</td>
                                     <td>50Kg</td>
-                                    <td style="text-align: center;">
-                                        <a href="{{ route('edit_nasabah') }}" class="btn btn-warning btn-sm"
-                                            style="color: white"> <i class="fas fa-edit"></i> </a>
-                                        <a type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
-                                                class="fas fa-trash"></i> </a>
-                                    </td>
-                                </tr>
-                                <tr id="tableBody">
-                                    <td>2</td>
-                                    <td>132</td>
-                                    <td>John Cena</td>
-                                    <td>2</td>
-                                    <td>123-555-7890</td>
-                                    <td>Jl. Duri Kepa 2</td>
-                                    <td>30Kg</td>
                                     <td style="text-align: center;">
                                         <a href="{{ route('edit_nasabah') }}" class="btn btn-warning btn-sm"
                                             style="color: white"> <i class="fas fa-edit"></i> </a>
