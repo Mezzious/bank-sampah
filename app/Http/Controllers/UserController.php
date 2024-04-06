@@ -26,9 +26,6 @@ class UserController extends Controller
         return view('user/edit_transaksi_jual_user');
     }
 
-    public function laporan_jual_user(){
-        return view('user/laporan_jual_user');
-    }
     public function ganti_password_user(){
         return view('user/ganti_password_user');
     }

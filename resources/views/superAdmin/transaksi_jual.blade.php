@@ -79,16 +79,15 @@
                             <thead class="table-secondary">
                                 <tr>
                                     <th>No</th>
-                                    <th>Id_Beli</th>
+                                    <th>Id</th>
                                     <th>Tanggal_Jual</th>
                                     <th>Jenis_Sampah</th>
-                                    <th>Id_Nasabah</th>
+                                    <th>Gambar</th>
                                     <th>Berat</th>
                                     <th>Harga</th>
                                     <th>Total</th>
-                                    <th>Id_User</th>
+                                    <th>User_Id</th>
                                     <th>Nota</th>
-                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -97,51 +96,19 @@
                                     <td>5454</td>
                                     <td>11/03/2024</td>
                                     <td>Kardus</td>
-                                    <td>555</td>
-                                    <td>5Kg</td>
+                                    <td><img src="https://down-id.img.susercontent.com/file/d41d0ab1c03c710ae114912cf4297f74"width="60px"
+                                        height="60px"></td>
+                                    <td>10Kg</td>
                                     <td>5000</td>
-                                    <td>25000</td>
+                                    <td>50000</td>
                                     <td>123</td>
                                     <td style="text-align: center">
                                         <a href="#" class="btn btn-primary btn-sm" style="color: white"> <i
                                                 class="bi bi-eye-fill"></i> </a>
-                                    </td>
-                                    <td style="text-align: center;">
-                                        <a href="{{ route('edit_transaksi_jual') }}" class="btn btn-warning btn-sm"
-                                            style="color: white"> <i class="fas fa-edit"></i> </a>
-                                        <a type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
-                                                class="fas fa-trash"></i> </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>5353</td>
-                                    <td>11/03/2024</td>
-                                    <td>Botol</td>
-                                    <td>555</td>
-                                    <td>5Kg</td>
-                                    <td>3000</td>
-                                    <td>15000</td>
-                                    <td>123</td>
-                                    <td style="text-align: center">
-                                        <a href="#" class="btn btn-primary btn-sm" style="color: white"> <i
-                                                class="bi bi-eye-fill"></i> </a>
-                                    </td>
-                                    <td style="text-align: center;">
-                                        <a href="{{ route('edit_transaksi_jual') }}" class="btn btn-warning btn-sm"
-                                            style="color: white"> <i class="fas fa-edit"></i> </a>
-                                        <a type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
-                                                class="fas fa-trash"></i> </a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="d-flex justify-content-between">
-                            <a href="{{ route('tambah_transaksi_jual') }}" class="btn btn-custom">
-                                <i class="fa-solid fa-cart-plus" style="color: white; margin-right: 5px;"></i>
-                                <span style="color: white;">Tambah</span>
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>

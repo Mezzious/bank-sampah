@@ -25,14 +25,20 @@
                 @csrf
 
                 <div class="form-group">
-                    <label for="id_beli">Id Beli</label>
-                    <input type="text" class="form-control" id="id_beli" name="id_beli" style="cursor: not-allowed;"
+                    <label for="id">Id Beli</label>
+                    <input type="text" class="form-control" id="id" name="id" style="cursor: not-allowed;"
                         disabled="disabled" required placeholder="Id Beli">
                 </div>
 
                 <div class="form-group">
                     <label for="tanggal_beli">Tanggal Beli*</label>
                     <input type="date" class="form-control" id="tanggal_beli" name="tanggal_beli" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="customer_id">Customer Id*</label>
+                    <input type="date" class="form-control" id="customer_id" name="customer_id" style="cursor: not-allowed;"
+                    disabled="disabled" required>
                 </div>
 
                 <div class="form-group">
@@ -58,9 +64,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="id_user">Id User*</label>
-                    <input type="text" class="form-control" id="id_user" name="id_user" style="cursor: not-allowed;"
-                    disabled="disabled" required placeholder="Id User">
+                    <label for="user_id">User Id</label>
+                    <input type="text" class="form-control" id="user_id" name="user_id" style="cursor: not-allowed;"
+                        disabled="disabled" required placeholder="User Id">
                 </div>
 
                 <div>

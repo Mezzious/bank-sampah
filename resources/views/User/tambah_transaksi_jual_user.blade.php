@@ -21,12 +21,12 @@
             <h6 class="m-0">Form Input Transaksi Jual</h6>
         </div>
         <div class="card-body">
-            <form action="#" method="post">
+            <form action="/transaksi-jual/store" method="post">
                 @csrf
 
                 <div class="form-group">
-                    <label for="id_jual">Id Jual</label>
-                    <input type="text" class="form-control" id="id_jual" name="id_jual" style="cursor: not-allowed;"
+                    <label for="id">Id Jual</label>
+                    <input type="text" class="form-control" id="id" name="id" style="cursor: not-allowed;"
                         disabled="disabled" required placeholder="Id Jual">
                 </div>
 
@@ -58,8 +58,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="id_user">Id User*</label>
-                    <input type="text" class="form-control" id="id_user" name="id_user" required placeholder="Id User">
+                    <label for="user_id">User Id*</label>
+                    <input type="text" class="form-control" id="user_id" name="user_id" style="cursor: not-allowed;"
+                    disabled="disabled" required placeholder="User Id">
                 </div>
 
                 <div>

@@ -22,9 +22,7 @@ class NasabahController extends Controller
     public function edit_transaksi_beli_nasabah(){
         return view('nasabah/edit_transaksi_beli_nasabah');
         }
-    public function laporan_beli_nasabah(){
-        return view('nasabah/laporan_beli_nasabah');
-        }
+
     public function ganti_password_nasabah(){
         return view('nasabah/ganti_password_nasabah');
             }

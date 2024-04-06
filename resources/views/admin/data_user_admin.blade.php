@@ -62,11 +62,11 @@
                             <thead class="table-secondary">
                                 <tr>
                                     <th>No</th>
-                                    <th>Id_User</th>
-                                    <th>Nama_User</th>
-                                    <th>Nomor_Telepon</th>
+                                    <th>Id</th>
+                                    <th>Nama</th>
                                     <th>E-mail</th>
-                                    <th>Level</th>
+                                    <th>Password</th>
+                                    <th>Roles</th>
                                 </tr>
                             </thead>
                             <tbody id="tableBody">
@@ -74,138 +74,9 @@
                                     <td>1</td>
                                     <td>212</td>
                                     <td>John Doe</td>
-                                    <td>123-456-7890</td>
                                     <td>john.doe@example.com</td>
+                                    <td>123456</td>
                                     <td>Admin</td>
-                                </tr>
-                                <tr id="tableBody">
-                                    <td>2</td>
-                                    <td>124</td>
-                                    <td>John Goe</td>
-                                    <td>123-456-7899</td>
-                                    <td>john.goe@example.com</td>
-                                    <td>User</td>
-                                </tr>
-                                <tr id="tableBody">
-                                    <td>2</td>
-                                    <td>124</td>
-                                    <td>John Goe</td>
-                                    <td>123-456-7899</td>
-                                    <td>john.goe@example.com</td>
-                                    <td>User</td>
-                                </tr>
-                                <tr id="tableBody">
-                                    <td>2</td>
-                                    <td>124</td>
-                                    <td>John Goe</td>
-                                    <td>123-456-7899</td>
-                                    <td>john.goe@example.com</td>
-                                    <td>User</td>
-                                </tr>
-                                <tr id="tableBody">
-                                    <td>2</td>
-                                    <td>124</td>
-                                    <td>John Goe</td>
-                                    <td>123-456-7899</td>
-                                    <td>john.goe@example.com</td>
-                                    <td>User</td>
-                                </tr>
-                                <tr id="tableBody">
-                                    <td>2</td>
-                                    <td>124</td>
-                                    <td>John Goe</td>
-                                    <td>123-456-7899</td>
-                                    <td>john.goe@example.com</td>
-                                    <td>User</td>
-                                </tr>
-                                <tr id="tableBody">
-                                    <td>2</td>
-                                    <td>124</td>
-                                    <td>John Goe</td>
-                                    <td>123-456-7899</td>
-                                    <td>john.goe@example.com</td>
-                                    <td>User</td>
-                                </tr>
-                                <tr id="tableBody">
-                                    <td>2</td>
-                                    <td>124</td>
-                                    <td>John Goe</td>
-                                    <td>123-456-7899</td>
-                                    <td>john.goe@example.com</td>
-                                    <td>User</td>
-                                </tr>
-                                <tr id="tableBody">
-                                    <td>2</td>
-                                    <td>124</td>
-                                    <td>John Goe</td>
-                                    <td>123-456-7899</td>
-                                    <td>john.goe@example.com</td>
-                                    <td>User</td>
-                                </tr>
-                                <tr id="tableBody">
-                                    <td>2</td>
-                                    <td>124</td>
-                                    <td>John Goe</td>
-                                    <td>123-456-7899</td>
-                                    <td>john.goe@example.com</td>
-                                    <td>User</td>
-                                </tr>
-                                <tr id="tableBody">
-                                    <td>2</td>
-                                    <td>124</td>
-                                    <td>John Goe</td>
-                                    <td>123-456-7899</td>
-                                    <td>john.goe@example.com</td>
-                                    <td>User</td>
-                                </tr>
-                                <tr id="tableBody">
-                                    <td>2</td>
-                                    <td>124</td>
-                                    <td>John Goe</td>
-                                    <td>123-456-7899</td>
-                                    <td>john.goe@example.com</td>
-                                    <td>User</td>
-                                </tr>
-                                <tr id="tableBody">
-                                    <td>2</td>
-                                    <td>124</td>
-                                    <td>John Goe</td>
-                                    <td>123-456-7899</td>
-                                    <td>john.goe@example.com</td>
-                                    <td>User</td>
-                                </tr>
-                                <tr id="tableBody">
-                                    <td>2</td>
-                                    <td>124</td>
-                                    <td>John Goe</td>
-                                    <td>123-456-7899</td>
-                                    <td>john.goe@example.com</td>
-                                    <td>User</td>
-                                </tr>
-                                <tr id="tableBody">
-                                    <td>2</td>
-                                    <td>124</td>
-                                    <td>John Goe</td>
-                                    <td>123-456-7899</td>
-                                    <td>john.goe@example.com</td>
-                                    <td>User</td>
-                                </tr>
-                                <tr id="tableBody">
-                                    <td>2</td>
-                                    <td>124</td>
-                                    <td>John Goe</td>
-                                    <td>123-456-7899</td>
-                                    <td>john.goe@example.com</td>
-                                    <td>User</td>
-                                </tr>
-                                <tr id="tableBody">
-                                    <td>2</td>
-                                    <td>124</td>
-                                    <td>John Goe</td>
-                                    <td>123-456-7899</td>
-                                    <td>john.goe@example.com</td>
-                                    <td>User</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>

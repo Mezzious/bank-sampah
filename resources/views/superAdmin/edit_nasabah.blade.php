@@ -26,9 +26,15 @@
                 @csrf
 
                 <div class="form-group">
-                    <label for="id_nasabah">Id Nasabah</label>
-                    <input type="text" class="form-control" id="id_nasabah" name="id_nasabah"
+                    <label for="id">Id Nasabah</label>
+                    <input type="text" class="form-control" id="id" name="id"
                         style="cursor: not-allowed;" disabled="disabled" required placeholder="Id Nasabah">
+                </div>
+
+                <div class="form-group">
+                    <label for="user_id">User Id</label>
+                    <input type="text" class="form-control" id="user_id" name="user_id"
+                        style="cursor: not-allowed;" disabled="disabled" required placeholder="User Id">
                 </div>
 
                 <div class="form-group">
@@ -38,14 +44,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="telepon">Telepon*</label>
-                    <input type="text" class="form-control" id="telepon" name="telepon" required
-                        placeholder="Nomor Telepon">
-                </div>
-
-                <div class="form-group">
-                    <label for="alamat">Alamat*</label>
-                    <textarea class="form-control" id="alamat" name="alamat" rows="3" required placeholder="Alamat lengkap"></textarea>
+                    <label for="email">Email*</label>
+                    <input type="text" class="form-control" id="email" name="email" required
+                        placeholder="Email">
                 </div>
 
                 <div class="form-group">
@@ -54,9 +55,19 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="telepon">Telepon*</label>
+                    <input type="text" class="form-control" id="telepon" name="telepon" required placeholder="telepon">
+                </div>
+
+                <div class="form-group">
+                    <label for="alamat">Alamat*</label>
+                    <textarea class="form-control" id="alamat" name="alamat" rows="3" required placeholder="Alamat lengkap"></textarea>
+                </div>
+
+                <div class="form-group">
                     <label for="sampah">Sampah*</label>
                     <input type="text" class="form-control" id="sampah" name="sampah" required
-                        placeholder="Jenis Sampah">
+                        placeholder="Sampah">
                 </div>
 
                 <button type="submit" class="btn btn-custom">Simpan</button>
