@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Super Admin Dashboard</title>
+    <title>Dashboard - User Dashboard</title>
 
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
 
