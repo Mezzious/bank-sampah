@@ -31,13 +31,13 @@ Route::group(['middleware' => ['auth', 'admin:super-admin']], function () {
     Route::get('/superadmin', [SuperAdminController::class, 'index'])->name('dashboard');
 });
 
-Route::group(['middleware' => ['auth', 'admin:admin']], function () {
-    Route::get('/superadmin', [AdminController::class, 'index'])->name('dashboard');
-});
+// Route::group(['middleware' => ['auth', 'admin:admin']], function () {
+//     Route::get('/superadmin', [AdminController::class, 'index'])->name('dashboard');
+// });
 
-Route::group(['middleware' => ['auth', 'admin:nasabah']], function () {
-    Route::get('/superadmin', [NasabahController::class, 'index'])->name('dashboard');
-});
+// Route::group(['middleware' => ['auth', 'admin:nasabah']], function () {
+//     Route::get('/superadmin', [NasabahController::class, 'index'])->name('dashboard');
+// });
 
 Route::group(['middleware' => ['auth', 'admin:user']], function () {
     Route::get('/superadmin', [UserController::class, 'index'])->name('dashboard');
