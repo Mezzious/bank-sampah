@@ -1,13 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admin1Controller;
-use App\Http\Controllers\Admin2Controller;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SesiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\UserController;
-use App\Models\Admin1;
+use App\Http\Controllers\NasabahController;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,59 +89,31 @@ Route::get('/cetak_laporan_beli', [SuperAdminController::class,'cetak_laporan_be
 
 // User Route //
 
-Route::get('/data_user_user', [UserController::class, 'data_user_user' ])->name('data_user_user');
-
-Route::get('/data_nasabah_user', [UserController::class, 'data_nasabah_user' ])->name('data_nasabah_user');
-
-Route::get('/data_sampah_user', [UserController::class, 'data_sampah_user' ])->name('data_sampah_user');
-
-Route::get('ganti_password_user', [UserController::class, 'ganti_password_user' ])->name('ganti_password_user');
-
-Route::get('/laporan_jual_user', [UserController::class, 'laporan_jual_user' ])->name('laporan_jual_user');
-
-Route::get('/laporan_beli_user', [UserController::class, 'laporan_beli_user' ])->name('laporan_beli_user');
-
-Route::get('/transaksi_beli_user', [UserController::class, 'transaksi_beli_user' ])->name('transaksi_beli_user');
-
-Route::get('/transaksi_jual_user', [UserController::class, 'transaksi_jual_user' ])->name('transaksi_jual_user');
-
-Route::get('/transaksi_beli_user', [UserController::class, 'transaksi_beli_user'])->name('transaksi_beli_user');
+Route::get('/dashboard_user', [UserController::class, 'index'])->name('dashboard_user');
 
 Route::get('/transaksi_jual_user', [UserController::class, 'transaksi_jual_user'])->name('transaksi_jual_user');
 
+Route::get('/tambah_transaksi_jual_user', [UserController::class, 'tambah_transaksi_jual_user'])->name('tambah_transaksi_jual_user');
+
+Route::get('/edit_transaksi_jual_user', [UserController::class, 'edit_transaksi_jual_user'])->name('edit_transaksi_jual_user');
+
 Route::get('/laporan_jual_user', [UserController::class, 'laporan_jual_user'])->name('laporan_jual_user');
 
-Route::get('/laporan_beli_user', [UserController::class, 'laporan_beli_user'])->name('laporan_beli_user');
+Route::get('/ganti_password_user', [UserController::class, 'ganti_password_user'])->name('ganti_password_user');
 
-Route::get('ganti_password_user', [UserController::class, 'ganti_password_user' ])->name('ganti_password_user');
+// Nasabah Route //
 
-//Admin1 Route//
+Route::get('/dashboard_nasabah', [NasabahController::class, 'index'])->name('dashboard_nasabah');
 
-Route::get('/dashboard_admin1', [Admin1Controller::class, 'index'])->name('dashboard_admin1');
+Route::get('/transaksi_beli_nasabah', [NasabahController::class, 'transaksi_beli_nasabah'])->name('transaksi_beli_nasabah');
 
-Route::get('/transaksi_beli_admin1', [Admin1Controller::class, 'transaksi_beli_admin1'])->name('transaksi_beli_admin1');
+Route::get('/tambah_transaksi_beli_nasabah', [NasabahController::class, 'tambah_transaksi_beli_nasabah'])->name('tambah_transaksi_beli_nasabah');
 
-Route::get('/tambah_transaksi_beli_admin1', [Admin1Controller::class, 'tambah_transaksi_beli_admin1'])->name('tambah_transaksi_beli_admin1');
+Route::get('/edit_transaksi_beli_nasabah', [NasabahController::class, 'edit_transaksi_beli_nasabah'])->name('edit_transaksi_beli_nasabah');
 
-Route::get('/edit_transaksi_beli_admin1', [Admin1Controller::class, 'edit_transaksi_beli_admin1'])->name('edit_transaksi_beli_admin1');
+Route::get('/laporan_beli_nasabah', [NasabahController::class, 'laporan_beli_nasabah'])->name('laporan_beli_nasabah');
 
-Route::get('/laporan_beli_admin1', [Admin1Controller::class, 'laporan_beli_admin1'])->name('laporan_beli_admin1');
-
-Route::get('/ganti_password_admin1', [Admin1Controller::class, 'ganti_password_admin1'])->name('ganti_password_admin1');
-
-//Admin2 Route//
-
-Route::get('/dashboard_admin2', [Admin2Controller::class, 'index'])->name('dashboard_admin2');
-
-Route::get('/transaksi_jual_admin2', [Admin2Controller::class, 'transaksi_jual_admin2'])->name('transaksi_jual_admin2');
-
-Route::get('/tambah_transaksi_jual_admin2', [Admin2Controller::class, 'tambah_transaksi_jual_admin2'])->name('tambah_transaksi_jual_admin2');
-
-Route::get('/edit_transaksi_jual_admin2', [Admin2Controller::class, 'edit_transaksi_jual_admin2'])->name('edit_transaksi_jual_admin2');
-
-Route::get('/laporan_jual_admin2', [Admin2Controller::class, 'laporan_jual_admin2'])->name('laporan_jual_admin2');
-
-Route::get('/ganti_password_admin2', [Admin2Controller::class, 'ganti_password_admin2'])->name('ganti_password_admin2');
+Route::get('/ganti_password_nasabah', [NasabahController::class, 'ganti_password_nasabah'])->name('ganti_password_nasabah');
 
 //Admin Route//
 

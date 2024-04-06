@@ -33,15 +33,15 @@ class AdminController extends Controller
 
 
     public function laporan_jual_admin(){
-        return view('admin/laporan_jual_user');
+        return view('admin/laporan_jual_admin');
     }
 
     public function laporan_beli_admin(){
-        return view('admin/laporan_beli_user');
+        return view('admin/laporan_beli_admin');
     }
 
     public function ganti_password_admin(){
-        return view('admin/ganti_password_user');
+        return view('admin/ganti_password_admin');
     }
 
 }
