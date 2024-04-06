@@ -34,15 +34,15 @@ Route::group(['middleware' => ['auth', 'admin:super-admin']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'admin:admin1']], function () {
-    Route::get('/superadmin', [Admin1Controller::class, 'index'])->name('dashboard');
+    Route::get('/admin1', [Admin1Controller::class, 'index'])->name('dashboard');
 });
 
 Route::group(['middleware' => ['auth', 'admin:admin2']], function () {
-    Route::get('/superadmin', [Admin2Controller::class, 'index'])->name('dashboard');
+    Route::get('/admin2', [Admin2Controller::class, 'index'])->name('dashboard');
 });
 
 Route::group(['middleware' => ['auth', 'admin:user']], function () {
-    Route::get('/superadmin', [UserController::class, 'index'])->name('dashboard');
+    Route::get('/user', [UserController::class, 'index'])->name('dashboard');
 });
 
 Route::get('/logout', [SesiController::class, 'logout'])->name('logout');

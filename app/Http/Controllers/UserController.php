@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view("user/dashboard");
+        return view("user/dashboard_user");
     }
 
     public function data_nasabah_user()
