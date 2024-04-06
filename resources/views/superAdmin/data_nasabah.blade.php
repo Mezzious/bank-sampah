@@ -90,6 +90,8 @@
                                             style="color: white"> <i class="fas fa-edit"></i> </a>
                                         <a type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
                                                 class="fas fa-trash"></i> </a>
+                                        <a href="{{ route('ganti_password') }}" class="btn btn-primary btn-sm"><i
+                                                class="fa-solid fa-key"></i></a>
                                     </td>
                                 </tr>
                             </tbody>
