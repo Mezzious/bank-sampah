@@ -21,7 +21,7 @@
                                 aria-labelledby="topbarUserDropdown" style="border-radius: 10px;">
                                 <li>
                                     <a class="btn btn-block btn-custom mb-2" style="border-radius: 8px;"
-                                        href="{{ route('ganti_password_admin') }}">
+                                        href="{{ route('ganti_password_user') }}">
                                         <i class="bi bi-key-fill"></i> Password
                                     </a>
                                 </li>
