@@ -1,4 +1,4 @@
-@extends('layout.app_user')
+@extends('layout.app_admin')
 
 @section('content')
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
