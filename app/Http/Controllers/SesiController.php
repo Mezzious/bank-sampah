@@ -25,13 +25,13 @@ class SesiController extends Controller
             if (Auth::user()->roles == 'super-admin') {
                 return redirect()->intended('/superadmin');
             } elseif (Auth::user()->roles == 'admin') {
-                return redirect('/admin');
+                return redirect()->intended('/admin');
             } elseif (Auth::user()->roles == 'user') {
-                return redirect('/user');
+                return redirect()->intended('/user');
             }
         } else {
-            return redirect('/index')->withErrors('Email atau password yang anda masukkan salah')->withInput();
-        }
+            return redirect('/index')->with('error', 'Email atau password yang Anda masukkan salah')->withInput();
+        }        
     }
 
     function logout(Request $request)

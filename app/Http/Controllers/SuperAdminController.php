@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SuperAdmin;
+use App\Models\User;
 
 class SuperAdminController extends Controller
 {
@@ -14,12 +15,34 @@ class SuperAdminController extends Controller
 
     public function data_user()
     {
-        return view('superadmin/data_user');
+        $users = SuperAdmin::all();
+        return view('superAdmin.data_user', compact('users'));
     }
 
     public function tambah_user()
     {
-        return view("superadmin/tambah_user");
+        $roles = SuperAdmin::all();
+        return view("superadmin/tambah_user", compact('roles'));
+    }
+    
+    public function store_user(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'password' => 'required|string|min:6',
+            'roles' => 'required|in:super-admin,admin,user', // Pastikan rolenya sesuai dengan yang diizinkan
+        ]);
+
+        // Simpan data ke dalam database
+        $users = new SuperAdmin();
+        $users->name = $request->input('name');
+        $users->email = $request->input('email');
+        $users->password = bcrypt($request->input('password')); // Encrypt password menggunakan bcrypt
+        $users->roles = $request->input('roles');
+        $users->save();
+
+        return redirect()->route('data_user')->with('success', 'User berhasil ditambahkan');
     }
 
     public function edit_user()
