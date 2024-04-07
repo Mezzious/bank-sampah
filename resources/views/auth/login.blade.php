@@ -49,6 +49,12 @@
                         <p>We are happy to have you back.</p>
                     </div>
 
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
                     <form method="POST" action="" class="w-100">
                         @csrf
 

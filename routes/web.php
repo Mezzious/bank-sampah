@@ -27,19 +27,10 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/index', [SesiController::class, 'login']);
 });
 
+//Superadmin
 Route::group(['middleware' => ['auth', 'admin:super-admin']], function () {
-    Route::get('/superadmin', [SuperAdminController::class, 'index'])->name('dashboard');
-});
-
-Route::group(['middleware' => ['auth', 'admin:admin']], function () {
-    Route::get('/admin1', [AdminController::class, 'index'])->name('dashboard');
-});
-
-Route::group(['middleware' => ['auth', 'admin:user']], function () {
-    Route::get('/user', [UserController::class, 'index'])->name('dashboard');
-});
-
-Route::get('/logout', [SesiController::class, 'logout'])->name('logout');
+    
+Route::get('/superadmin', [SuperAdminController::class, 'index'])->name('dashboard');
 
 Route::get('/data_user', [SuperAdminController::class, 'data_user' ])->name('data_user');
 
@@ -57,15 +48,17 @@ Route::get('/laporan_beli', [SuperAdminController::class, 'laporan_beli'])->name
 
 Route::get('/tambah_sampah', [SuperAdminController::class, 'tambah_sampah']);
 
-Route::get('tambah_user', [SuperAdminController::class, 'tambah_user' ])->name('tambah_user');
+Route::get('/tambah_user', [SuperAdminController::class, 'tambah_user' ])->name('tambah_user');
 
-Route::get('edit_user', [SuperAdminController::class, 'edit_user' ])->name('edit_user');
+Route::post('/tambah_user', [SuperAdminController::class, 'store_user' ])->name('store_user');
 
-Route::get('ganti_password', [SuperAdminController::class, 'ganti_password' ])->name('ganti_password');
+Route::get('/edit_user', [SuperAdminController::class, 'edit_user' ])->name('edit_user');
 
-Route::get('tambah_nasabah', [SuperAdminController::class, 'tambah_nasabah' ])->name('tambah_nasabah');
+Route::get('/ganti_password', [SuperAdminController::class, 'ganti_password' ])->name('ganti_password');
 
-Route::get('edit_nasabah', [SuperAdminController::class, 'edit_nasabah' ])->name('edit_nasabah');
+Route::get('/tambah_nasabah', [SuperAdminController::class, 'tambah_nasabah' ])->name('tambah_nasabah');
+
+Route::get('/edit_nasabah', [SuperAdminController::class, 'edit_nasabah' ])->name('edit_nasabah');
 
 Route::get('/tambah_sampah', [SuperAdminController::class,'tambah_sampah'])->name('tambah_sampah');
 
@@ -82,36 +75,12 @@ Route::get('/edit_transaksi_beli', [SuperAdminController::class,'edit_transaksi_
 Route::get('/cetak_laporan_jual', [SuperAdminController::class,'cetak_laporan_jual'])->name('cetak_laporan_jual');
 
 Route::get('/cetak_laporan_beli', [SuperAdminController::class,'cetak_laporan_beli'])->name('cetak_laporan_beli');
+});
 
-// User Route //
+//Admin
+Route::group(['middleware' => ['auth', 'admin:admin']], function () {
 
-Route::get('/dashboard_user', [UserController::class, 'index'])->name('dashboard_user');
-
-Route::get('/transaksi_jual_user', [UserController::class, 'transaksi_jual_user'])->name('transaksi_jual_user');
-
-Route::get('/tambah_transaksi_jual_user', [UserController::class, 'tambah_transaksi_jual_user'])->name('tambah_transaksi_jual_user');
-
-Route::get('/edit_transaksi_jual_user', [UserController::class, 'edit_transaksi_jual_user'])->name('edit_transaksi_jual_user');
-
-Route::get('/laporan_jual_user', [UserController::class, 'laporan_jual_user'])->name('laporan_jual_user');
-
-Route::get('/ganti_password_user', [UserController::class, 'ganti_password_user'])->name('ganti_password_user');
-
-// Nasabah Route //
-
-Route::get('/dashboard_nasabah', [NasabahController::class, 'index'])->name('dashboard_nasabah');
-
-Route::get('/transaksi_beli_nasabah', [NasabahController::class, 'transaksi_beli_nasabah'])->name('transaksi_beli_nasabah');
-
-Route::get('/tambah_transaksi_beli_nasabah', [NasabahController::class, 'tambah_transaksi_beli_nasabah'])->name('tambah_transaksi_beli_nasabah');
-
-Route::get('/edit_transaksi_beli_nasabah', [NasabahController::class, 'edit_transaksi_beli_nasabah'])->name('edit_transaksi_beli_nasabah');
-
-Route::get('/laporan_beli_nasabah', [NasabahController::class, 'laporan_beli_nasabah'])->name('laporan_beli_nasabah');
-
-Route::get('/ganti_password_nasabah', [NasabahController::class, 'ganti_password_nasabah'])->name('ganti_password_nasabah');
-
-//Admin Route//
+Route::get('/admin', [AdminController::class, 'index'])->name('dashboard');
 
 Route::get('/dashboard_admin', [AdminController::class, 'index'])->name('dashboard_admin');
 
@@ -130,4 +99,38 @@ Route::get('/laporan_jual_admin', [AdminController::class, 'laporan_jual_admin']
 Route::get('/laporan_beli_admin', [AdminController::class, 'laporan_beli_admin'])->name('laporan_beli_admin');
 
 Route::get('/ganti_password_admin', [AdminController::class, 'ganti_password_admin'])->name('ganti_password_admin');
+});
 
+//User
+Route::group(['middleware' => ['auth', 'admin:user']], function () {
+Route::get('/user', [UserController::class, 'index'])->name('dashboard');
+
+Route::get('/dashboard_user', [UserController::class, 'index'])->name('dashboard_user');
+
+Route::get('/transaksi_jual_user', [UserController::class, 'transaksi_jual_user'])->name('transaksi_jual_user');
+
+Route::get('/tambah_transaksi_jual_user', [UserController::class, 'tambah_transaksi_jual_user'])->name('tambah_transaksi_jual_user');
+
+Route::get('/edit_transaksi_jual_user', [UserController::class, 'edit_transaksi_jual_user'])->name('edit_transaksi_jual_user');
+
+Route::get('/laporan_jual_user', [UserController::class, 'laporan_jual_user'])->name('laporan_jual_user');
+
+Route::get('/ganti_password_user', [UserController::class, 'ganti_password_user'])->name('ganti_password_user');
+});
+
+Route::get('/logout', [SesiController::class, 'logout'])->name('logout');
+
+
+// Nasabah Route //
+
+Route::get('/dashboard_nasabah', [NasabahController::class, 'index'])->name('dashboard_nasabah');
+
+Route::get('/transaksi_beli_nasabah', [NasabahController::class, 'transaksi_beli_nasabah'])->name('transaksi_beli_nasabah');
+
+Route::get('/tambah_transaksi_beli_nasabah', [NasabahController::class, 'tambah_transaksi_beli_nasabah'])->name('tambah_transaksi_beli_nasabah');
+
+Route::get('/edit_transaksi_beli_nasabah', [NasabahController::class, 'edit_transaksi_beli_nasabah'])->name('edit_transaksi_beli_nasabah');
+
+Route::get('/laporan_beli_nasabah', [NasabahController::class, 'laporan_beli_nasabah'])->name('laporan_beli_nasabah');
+
+Route::get('/ganti_password_nasabah', [NasabahController::class, 'ganti_password_nasabah'])->name('ganti_password_nasabah');

@@ -25,7 +25,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <form method="POST" action="{{ route('logout') }}">
+                                    <form method="get" action="{{ route('logout') }}">
                                         <input type="hidden" name="_token"
                                             value="Fp6EQq2SXZNoCNVF3DWv21fbnsh5DCjvA7Bgx5UK">
                                         <span class="text-black d-grid gap-5">
@@ -53,6 +53,12 @@
         </a>
     </div>
 
+    @if (session()->has('success'))
+    <div class="alert alert-success alert-dimissible fade show" role="alert">
+        {{ session('success') }}
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+    @endif
     <div class="mb-3"></div>
     <div class="row">
         <div class="col">
@@ -72,13 +78,14 @@
                                 </tr>
                             </thead>
                             <tbody id="tableBody">
+                                @foreach ($users as $user)
                                 <tr>
-                                    <td>1</td>
-                                    <td>212</td>
-                                    <td>John Doe</td>
-                                    <td>john.doe@example.com</td>
-                                    <td>123456</td>
-                                    <td>Admin</td>
+                                    <td> {{ $loop->iteration }} </td>
+                                    <td> {{ $user->id }} </td>
+                                    <td> {{ $user->name }} </td>
+                                    <td> {{ $user->email }} </td>
+                                    <td> {{ $user->password }} </td>
+                                    <td> {{ $user->roles }} </td>
                                     <td style="text-align: center;">
                                         <a href="{{ route('edit_user') }}" class="btn btn-warning btn-sm"
                                             style="color: white"> <i class="fas fa-edit"></i> </a>
@@ -88,6 +95,7 @@
                                                 class="fa-solid fa-key"></i></a>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
