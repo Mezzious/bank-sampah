@@ -53,6 +53,12 @@
         </a>
     </div>
 
+    <!-- Alert -->
+    <div id="alertSuccess" class="alert alert-success mt-3" role="alert" style="display:none;">
+        Tanggal awal: <span id="tglAwal"></span><br>
+        Tanggal akhir: <span id="tglAkhir"></span>
+    </div>
+
     <form action="#" method="post" name="form10" target="_self">
         <div class="row">
             <div class="col-lg-3">
@@ -68,6 +74,13 @@
             </div>
         </div>
     </form>
+
+    @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+        </div>
+    @endif
 
     <div class="mb-3"></div>
     <div class="row">

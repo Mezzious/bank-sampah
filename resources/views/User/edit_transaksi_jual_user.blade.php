@@ -16,6 +16,12 @@
         </a>
     </div>
 
+
+    <!-- Alert -->
+    <div id="alertEditSuccess" class="alert alert-success mt-3" role="alert" style="display:none;">
+        Data berhasil di edit.
+    </div>
+
     <div class="card border-bottom-primary shadow mb-4" style="margin-right: 28px">
         <div class="card-header py-3">
             <h6 class="m-0">Form Edit Transaksi Jual</h6>
@@ -60,13 +66,14 @@
                 <div class="form-group">
                     <label for="user_id">User Id*</label>
                     <input type="text" class="form-control" id="user_id" name="user_id" style="cursor: not-allowed;"
-                    disabled="disabled" required placeholder="User Id">
+                        disabled="disabled" required placeholder="User Id">
                 </div>
 
                 <div>
                     <div class="form-group">
-                    <label for="gambar">Bukti Transaksi Jual*</label>
-                    <input type="file" class="form-control" name="upload_bukti_transaksi_jual_link" placeholder="Masukan link disini">
+                        <label for="gambar">Bukti Transaksi Jual*</label>
+                        <input type="file" class="form-control" name="upload_bukti_transaksi_jual_link"
+                            placeholder="Masukan link disini">
                     </div>
                 </div>
 
