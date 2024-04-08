@@ -19,7 +19,7 @@ use App\Http\Controllers\NasabahController;
 */
 
 // Route::get('/', function () {
-//     return view('layout.app');
+//     return view('auth.login');
 // });
 
 Route::middleware(['guest'])->group(function () {
@@ -31,6 +31,9 @@ Route::middleware(['guest'])->group(function () {
 Route::group(['middleware' => ['auth', 'admin:super-admin']], function () {
     
 Route::get('/superadmin', [SuperAdminController::class, 'index'])->name('dashboard');
+
+Route::get('/dashboard', function () {
+})->name('dashboard');
 
 Route::get('/data_user', [SuperAdminController::class, 'data_user' ])->name('data_user');
 
@@ -55,6 +58,8 @@ Route::post('/tambah_user', [SuperAdminController::class, 'store_user' ])->name(
 Route::get('/edit_user', [SuperAdminController::class, 'edit_user' ])->name('edit_user');
 
 Route::put('/edit_user', [SuperAdminController::class, 'update_user' ])->name('update_user');
+
+Route::get('/data_user/{id}/destroy_user', [SuperAdminController::class, 'destroy' ])->name('destroy_user');
 
 Route::get('/ganti_password', [SuperAdminController::class, 'ganti_password' ])->name('ganti_password');
 

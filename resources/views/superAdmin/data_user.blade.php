@@ -90,10 +90,8 @@
                                     <td style="text-align: center;">
                                         <a href="{{ route('edit_user', ['id' => $user->id])}}" class="btn btn-warning btn-sm"
                                             style="color: white"> <i class="fas fa-edit"></i> </a>
-                                        <a type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
+                                        <a href="{{ route('destroy_user', $user->id) }}" type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
                                                 class="fas fa-trash"></i> </a>
-                                        <a href="{{ route('ganti_password') }}" class="btn btn-primary btn-sm"><i
-                                                class="fa-solid fa-key"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

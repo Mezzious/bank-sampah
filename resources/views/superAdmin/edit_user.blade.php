@@ -40,16 +40,6 @@
                     <input type="password" class="form-control" id="password" name="password" required placeholder="Password" value="{{ $user->password }}">
                 </div>
 
-                <div class="form-group">
-                    <label for="roles">Roles*</label>
-                    <select class="form-control" id="roles" name="roles" required>
-                        <option value="" disabled selected hidden>Pilih Roles</option>
-                        @foreach($roles as $role)
-                            <option value="{{ $role->roles }}" {{ $user->roles == $role->roles ? 'selected' : '' }}>{{ $role->roles }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
                 <button type="submit" class="btn btn-custom">Simpan</button>
             </form>
         </div>

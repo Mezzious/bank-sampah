@@ -24,12 +24,6 @@
             <form action="{{ route('store_user') }}" method="post">
                 @csrf
 
-                {{-- <div class="form-group">
-                    <label for="id">Id User</label>
-                    <input type="text" class="form-control" id="id" name="id" style="cursor: not-allowed;"
-                        disabled="disabled" required placeholder="Id User">
-                </div> --}}
-
                 <div class="form-group">
                     <label for="nama_user">Nama*</label>
                     <input type="text" class="form-control" id="nama_user" name="name" required placeholder="Nama">
@@ -50,9 +44,10 @@
                     <label for="roles">Roles*</label>
                     <select class="form-control" id="roles" name="roles" required>
                         <option value="" disabled selected hidden>Pilih Roles</option>
-                    @foreach($roles as $role)
-                        <option value="{{ $role->roles }}">{{ $role->roles }}</option>
-                    @endforeach
+                        <option value="super-admin">Super Admin</option>
+                        <option value="admin">Admin</option>
+                        <option value="nasabah">Nasabah</option>
+                        <option value="user">User</option>
                     </select>
                 </div>
 
