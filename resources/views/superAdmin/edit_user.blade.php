@@ -16,11 +16,6 @@
         </a>
     </div>
 
-     <!-- Alert -->
-     <div id="alertEditSuccess" class="alert alert-success mt-3" role="alert" style="display:none;">
-        Data berhasil di edit.
-    </div>
-
     <div class="card border-bottom-primary shadow mb-4" style="margin-right: 28px">
         <div class="card-header py-3">
             <h6 class="m-0">Form Edit Data User</h6>
