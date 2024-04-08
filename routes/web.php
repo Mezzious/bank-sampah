@@ -54,6 +54,8 @@ Route::post('/tambah_user', [SuperAdminController::class, 'store_user' ])->name(
 
 Route::get('/edit_user', [SuperAdminController::class, 'edit_user' ])->name('edit_user');
 
+Route::put('/edit_user', [SuperAdminController::class, 'update_user' ])->name('update_user');
+
 Route::get('/ganti_password', [SuperAdminController::class, 'ganti_password' ])->name('ganti_password');
 
 Route::get('/tambah_nasabah', [SuperAdminController::class, 'tambah_nasabah' ])->name('tambah_nasabah');
