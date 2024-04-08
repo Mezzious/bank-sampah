@@ -137,4 +137,36 @@
                 $('#table_beli').DataTable();
             });
         </script>
+
+        <script>
+            function tampilkanTanggal() {
+                // Mendapatkan nilai tanggal awal dan tanggal akhir dari form
+                var tglAwal = document.forms["form10"]["txtTglAwal"].value;
+                var tglAkhir = document.forms["form10"]["txtTglAkhir"].value;
+
+                // Redirect ke URL cetak laporan dengan parameter tanggal
+                window.location.href = "cetak_laporan_beli.php?tglAwal=" + tglAwal + "&tglAkhir=" + tglAkhir;
+            }
+        </script>
+
+        <script>
+            function tampilkanTanggal() {
+                // Mengambil nilai dari input date
+                var tglAwal = document.getElementById("txtTglAwal").value;
+                var tglAkhir = document.getElementById("txtTglAkhir").value;
+
+                // Memecah tanggal menjadi tahun, bulan, dan tanggal
+                var tglAwalArr = tglAwal.split('-');
+                var tglAkhirArr = tglAkhir.split('-');
+
+                // Format tanggal, bulan, dan tahun
+                var tglAwalFormatted = tglAwalArr[2] + '-' + tglAwalArr[1] + '-' + tglAwalArr[0];
+                var tglAkhirFormatted = tglAkhirArr[2] + '-' + tglAkhirArr[1] + '-' + tglAkhirArr[0];
+
+                // Menampilkan alert
+                document.getElementById("tglAwal").innerText = tglAwalFormatted;
+                document.getElementById("tglAkhir").innerText = tglAkhirFormatted;
+                document.getElementById("alertSuccess").style.display = "block";
+            }
+        </script>
     @endsection

@@ -24,11 +24,11 @@
             <form action="/transaksi-jual/store" method="post">
                 @csrf
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="id">Id Jual</label>
                     <input type="text" class="form-control" id="id" name="id" style="cursor: not-allowed;"
                         disabled="disabled" required placeholder="Id Jual">
-                </div>
+                </div> --}}
 
                 <div class="form-group">
                     <label for="tanggal_jual">Tanggal Jual*</label>
