@@ -24,11 +24,11 @@
             <form action="/transaksi-jual/store" method="post">
                 @csrf
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="id">Id Beli</label>
                     <input type="text" class="form-control" id="id" name="id" style="cursor: not-allowed;"
                         disabled="disabled" required placeholder="Id Beli">
-                </div>
+                </div> --}}
 
                 <div class="form-group">
                     <label for="tanggal_beli">Tanggal Beli*</label>
@@ -61,12 +61,6 @@
                 <div class="form-group">
                     <label for="total">Total (Rp)*</label>
                     <input type="number" class="form-control" id="total" name="total" required placeholder="Total">
-                </div>
-
-                <div class="form-group">
-                    <label for="user_id">User Id</label>
-                    <input type="text" class="form-control" id="user_id" name="user_id" style="cursor: not-allowed;"
-                        disabled="disabled" required placeholder="User Id">
                 </div>
 
                 <div>

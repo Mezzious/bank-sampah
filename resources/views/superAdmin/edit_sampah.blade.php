@@ -24,11 +24,11 @@
             <form action="/sampah/store" method="post">
                 @csrf
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="id">Id Sampah</label>
                     <input type="text" class="form-control" id="id" name="id" style="cursor: not-allowed;"
                         disabled="disabled" required placeholder="Id Sampah">
-                </div>
+                </div> --}}
 
                 <div class="form-group">
                     <label for="user_id">User Id</label>
