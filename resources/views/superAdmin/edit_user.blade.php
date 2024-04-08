@@ -21,39 +21,32 @@
             <h6 class="m-0">Form Edit Data User</h6>
         </div>
         <div class="card-body">
-            <form action="/admin/store" method="post">
+            <form action="{{ route('update_user', ['id' => $user->id]) }}" method="post">
                 @csrf
-
-                <div class="form-group">
-                    <label for="id">Id User</label>
-                    <input type="text" class="form-control" id="id" name="id" style="cursor: not-allowed;"
-                        disabled="disabled" required placeholder="Id User">
-                </div>
-
+                @method('PUT')
+                
                 <div class="form-group">
                     <label for="nama_user">Nama*</label>
-                    <input type="text" class="form-control" id="nama_user" name="nama_user" required placeholder="Nama">
+                    <input type="text" class="form-control" id="nama_user" name="name" required placeholder="Nama" value="{{ $user->name }}">
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email*</label>
-                    <input type="email" class="form-control" id="email" name="email" required placeholder="Email">
+                    <input type="email" class="form-control" id="email" name="email" required placeholder="Email" value="{{ $user->email }}">
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password*</label>
-                    <input type="password" class="form-control" id="password" name="password" required
-                        placeholder="Password">
+                    <input type="password" class="form-control" id="password" name="password" required placeholder="Password" value="{{ $user->password }}">
                 </div>
 
                 <div class="form-group">
-                    <label for="level">Roles*</label>
-                    <select class="form-control" id="level" name="level" required>
+                    <label for="roles">Roles*</label>
+                    <select class="form-control" id="roles" name="roles" required>
                         <option value="" disabled selected hidden>Pilih Roles</option>
-                        <option value="admin">Super Admin</option>
-                        <option value="superadmin">Admin</option>
-                        <option value="superadmin">Nasabah</option>
-                        <option value="superadmin">User</option>
+                        @foreach($roles as $role)
+                            <option value="{{ $role->roles }}" {{ $user->roles == $role->roles ? 'selected' : '' }}>{{ $role->roles }}</option>
+                        @endforeach
                     </select>
                 </div>
 
