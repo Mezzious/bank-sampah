@@ -59,6 +59,7 @@
     </div>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
     @endif
+
     <div class="mb-3"></div>
     <div class="row">
         <div class="col">
@@ -87,7 +88,7 @@
                                     <td> {{ $user->password }} </td>
                                     <td> {{ $user->roles }} </td>
                                     <td style="text-align: center;">
-                                        <a href="{{ route('edit_user') }}" class="btn btn-warning btn-sm"
+                                        <a href="{{ route('edit_user', ['id' => $user->id])}}" class="btn btn-warning btn-sm"
                                             style="color: white"> <i class="fas fa-edit"></i> </a>
                                         <a type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
                                                 class="fas fa-trash"></i> </a>
