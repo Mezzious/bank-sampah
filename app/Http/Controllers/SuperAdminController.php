@@ -54,7 +54,7 @@ class SuperAdminController extends Controller
             return back()->with('error', 'Pengguna tidak ditemukan.');
         }
     
-        $roles = SuperAdmin::all();
+        $roles = SuperAdmin::distinct('roles')->pluck('roles');
         return view("superadmin/edit_user", compact('user', 'roles'));
     }
 
@@ -77,6 +77,14 @@ class SuperAdminController extends Controller
         $user->save();
 
         return redirect()->route('data_user', $id)->with('success', 'User updated successfully.');
+    }
+
+    public function destroy(Request $request, $id)
+    {   
+        $user = SuperAdmin::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('data_user')->with('success', 'User deleted successfully');
     }
 
     public function ganti_password()
