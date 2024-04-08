@@ -54,10 +54,10 @@
     </div>
 
     @if (session()->has('success'))
-    <div class="alert alert-success alert-dimissible fade show" role="alert">
-        {{ session('success') }}
-    </div>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+        </div>
     @endif
 
     <div class="mb-3"></div>
@@ -80,6 +80,7 @@
                             </thead>
                             <tbody id="tableBody">
                                 @foreach ($users as $user)
+
                                 <tr>
                                     <td> {{ $loop->iteration }} </td>
                                     <td> {{ $user->id }} </td>
@@ -96,6 +97,7 @@
                                                 class="fa-solid fa-key"></i></a>
                                     </td>
                                 </tr>
+
                                 @endforeach
                             </tbody>
                         </table>

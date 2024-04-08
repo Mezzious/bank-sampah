@@ -53,6 +53,13 @@
         </a>
     </div>
 
+    <!-- Alert -->
+    <div id="alertSuccess" class="alert alert-success mt-3" role="alert" style="display:none;">
+        Tanggal awal: <span id="tglAwal"></span><br>
+        Tanggal akhir: <span id="tglAkhir"></span>
+    </div>
+
+
     <form action="#" method="post" name="form10" target="_self">
         <div class="row">
             <div class="col-lg-3">
@@ -98,7 +105,7 @@
                                     <td>8989</td>
                                     <td>Kardus</td>
                                     <td><img src="https://down-id.img.susercontent.com/file/d41d0ab1c03c710ae114912cf4297f74"width="60px"
-                                        height="60px"></td>
+                                            height="60px"></td>
                                     <td>565</td>
                                     <td>10Kg</td>
                                     <td>5000</td>
@@ -129,14 +136,34 @@
     </script>
 
     <script>
-    function tampilkanTanggal() {
-        // Mendapatkan nilai tanggal awal dan tanggal akhir dari form
-        var tglAwal = document.forms["form10"]["txtTglAwal"].value;
-        var tglAkhir = document.forms["form10"]["txtTglAkhir"].value;
+        function tampilkanTanggal() {
+            // Mendapatkan nilai tanggal awal dan tanggal akhir dari form
+            var tglAwal = document.forms["form10"]["txtTglAwal"].value;
+            var tglAkhir = document.forms["form10"]["txtTglAkhir"].value;
 
-        // Redirect ke URL cetak laporan dengan parameter tanggal
-        window.location.href = "cetak_laporan_beli.php?tglAwal=" + tglAwal + "&tglAkhir=" + tglAkhir;
-    }
+            // Redirect ke URL cetak laporan dengan parameter tanggal
+            window.location.href = "cetak_laporan_beli.php?tglAwal=" + tglAwal + "&tglAkhir=" + tglAkhir;
+        }
     </script>
 
+    <script>
+        function tampilkanTanggal() {
+            // Mengambil nilai dari input date
+            var tglAwal = document.getElementById("txtTglAwal").value;
+            var tglAkhir = document.getElementById("txtTglAkhir").value;
+
+            // Memecah tanggal menjadi tahun, bulan, dan tanggal
+            var tglAwalArr = tglAwal.split('-');
+            var tglAkhirArr = tglAkhir.split('-');
+
+            // Format tanggal, bulan, dan tahun
+            var tglAwalFormatted = tglAwalArr[2] + '-' + tglAwalArr[1] + '-' + tglAwalArr[0];
+            var tglAkhirFormatted = tglAkhirArr[2] + '-' + tglAkhirArr[1] + '-' + tglAkhirArr[0];
+
+            // Menampilkan alert
+            document.getElementById("tglAwal").innerText = tglAwalFormatted;
+            document.getElementById("tglAkhir").innerText = tglAkhirFormatted;
+            document.getElementById("alertSuccess").style.display = "block";
+        }
+    </script>
 @endsection
