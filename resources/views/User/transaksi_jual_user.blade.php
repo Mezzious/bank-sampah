@@ -6,8 +6,7 @@
             <div class="row">
                 <div class="d-flex align-items-center justify-content-between ">
                     <h2 style="font-size: 30px" class="h2 mb-0 col-4 col-md-2 text-gray-800">Transaksi Jual Sampah</h2>
-                    <div
-                        class="col-8 col-xl-10 col-lg-9 col-md-8 col-sm-9 d-flex align-items-center justify-content-end">
+                    <div class="col-8 col-xl-10 col-lg-9 col-md-8 col-sm-9 d-flex align-items-center justify-content-end">
                         <div class="dropdown">
                             <a href="#" id="topbarUserDropdown"
                                 class="user-dropdown d-flex align-items-center dropend dropdown-toggle"
@@ -27,8 +26,8 @@
                                 </li>
                                 <li>
 
-                                    <form method="get" action="{{ route('logout') }}">                                            <input type="hidden" name="_token"
-                                            value="Fp6EQq2SXZNoCNVF3DWv21fbnsh5DCjvA7Bgx5UK">
+                                    <form method="get" action="{{ route('logout') }}"> <input type="hidden"
+                                            name="_token" value="Fp6EQq2SXZNoCNVF3DWv21fbnsh5DCjvA7Bgx5UK">
                                         <span class="text-black d-grid gap-5">
                                             <button class="btn btn-danger" type="submit" style="border-radius: 8px;">
                                                 <i class="bi bi-box-arrow-left"></i> Logout
@@ -55,6 +54,12 @@
         </a>
     </div>
 
+    <!-- Alert -->
+    <div id="alertSuccess" class="alert alert-success mt-3" role="alert" style="display:none;">
+        Tanggal awal: <span id="tglAwal"></span><br>
+        Tanggal akhir: <span id="tglAkhir"></span>
+    </div>
+
     <form action="#" method="post" name="form10" target="_self">
         <div class="row">
             <div class="col-lg-3">
@@ -70,6 +75,13 @@
             </div>
         </div>
     </form>
+
+    @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+        </div>
+    @endif
 
     <div class="mb-3"></div>
     <div class="row">
@@ -99,14 +111,14 @@
                                     <td>11/03/2024</td>
                                     <td>Kardus</td>
                                     <td><img src="https://down-id.img.susercontent.com/file/d41d0ab1c03c710ae114912cf4297f74"width="60px"
-                                        height="60px"></td>
+                                            height="60px"></td>
                                     <td>10Kg</td>
                                     <td>5000</td>
                                     <td>50000</td>
                                     <td>123</td>
                                     <td>
-                                        <a href="#" class="btn btn-primary btn-sm"
-                                            style="color: white"> <i class="bi bi-eye-fill"></i> </a>
+                                        <a href="#" class="btn btn-primary btn-sm" style="color: white"> <i
+                                                class="bi bi-eye-fill"></i> </a>
                                     </td>
                                     <td style="text-align: center;">
                                         <a href="{{ route('edit_transaksi_jual_user') }}" class="btn btn-warning btn-sm"

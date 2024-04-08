@@ -16,6 +16,11 @@
         </a>
     </div>
 
+     <!-- Alert -->
+     <div id="alertEditSuccess" class="alert alert-success mt-3" role="alert" style="display:none;">
+        Data berhasil di edit.
+    </div>
+
     <div class="card border-bottom-primary shadow mb-4" style="margin-right: 28px">
         <div class="card-header py-3">
             <h6 class="m-0">Form Edit Data User</h6>
@@ -24,7 +29,7 @@
             <form action="{{ route('update_user', ['id' => $user->id]) }}" method="post">
                 @csrf
                 @method('PUT')
-                
+
                 <div class="form-group">
                     <label for="nama_user">Nama*</label>
                     <input type="text" class="form-control" id="nama_user" name="name" required placeholder="Nama" value="{{ $user->name }}">
