@@ -54,11 +54,12 @@
     </div>
 
     @if (session()->has('success'))
-    <div class="alert alert-success alert-dimissible fade show" role="alert">
-        {{ session('success') }}
-    </div>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+        </div>
     @endif
+
     <div class="mb-3"></div>
     <div class="row">
         <div class="col">
@@ -79,22 +80,22 @@
                             </thead>
                             <tbody id="tableBody">
                                 @foreach ($users as $user)
-                                <tr>
-                                    <td> {{ $loop->iteration }} </td>
-                                    <td> {{ $user->id }} </td>
-                                    <td> {{ $user->name }} </td>
-                                    <td> {{ $user->email }} </td>
-                                    <td> {{ $user->password }} </td>
-                                    <td> {{ $user->roles }} </td>
-                                    <td style="text-align: center;">
-                                        <a href="{{ route('edit_user') }}" class="btn btn-warning btn-sm"
-                                            style="color: white"> <i class="fas fa-edit"></i> </a>
-                                        <a type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
-                                                class="fas fa-trash"></i> </a>
-                                        <a href="{{ route('ganti_password') }}" class="btn btn-primary btn-sm"><i
-                                                class="fa-solid fa-key"></i></a>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td> {{ $loop->iteration }} </td>
+                                        <td> {{ $user->id }} </td>
+                                        <td> {{ $user->name }} </td>
+                                        <td> {{ $user->email }} </td>
+                                        <td> {{ $user->password }} </td>
+                                        <td> {{ $user->roles }} </td>
+                                        <td>
+                                            <a href="{{ route('edit_user') }}" class="btn btn-warning btn-sm"
+                                                style="color: white"> <i class="fas fa-edit"></i> </a>
+                                            <a type="submit" class="btn btn-danger btn-sm"
+                                                onclick="return confirmDelete()"><i class="fas fa-trash"></i> </a>
+                                            <a href="{{ route('ganti_password') }}" class="btn btn-primary btn-sm"><i
+                                                    class="fa-solid fa-key"></i></a>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>

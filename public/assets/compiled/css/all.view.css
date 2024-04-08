@@ -20,7 +20,6 @@ td {
     padding: 8px;
     border-color: #fff;
     /* warna garis untuk dark mode */
-    text-align: center;
 
 }
 
@@ -200,4 +199,26 @@ select {
     background-position: right center;
     /* Menambahkan cursor pointer saat di hover */
     cursor: pointer;
+}
+
+.alert {
+    position: relative;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
+.alert-success {
+    color: #4F6F52;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-dismissible .btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.75rem 1.25rem;
+    color: inherit;
 }
