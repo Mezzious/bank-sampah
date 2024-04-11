@@ -98,6 +98,7 @@
                                             <th>Harga</th>
                                             <th>Total</th>
                                             <th>Nota</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>

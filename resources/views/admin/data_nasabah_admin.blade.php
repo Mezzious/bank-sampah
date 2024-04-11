@@ -70,7 +70,6 @@
                                             <th>RW</th>
                                             <th>Telepon</th>
                                             <th>Alamat</th>
-                                            <th>Sampah</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tableBody">
@@ -83,7 +82,6 @@
                                             <td>07</td>
                                             <td>123-456-7890</td>
                                             <td>Jl. Duri Kepa</td>
-                                            <td>50Kg</td>
                                     </tbody>
                                 </table>
                             </div>
