@@ -87,12 +87,12 @@
                                             <th>No</th>
                                             <th>Id</th>
                                             <th>Tanggal_Jual</th>
+                                            <th>User_Id</th>
                                             <th>Jenis_Sampah</th>
                                             <th>Gambar</th>
                                             <th>Berat</th>
                                             <th>Harga</th>
                                             <th>Total</th>
-                                            <th>User_Id</th>
                                         </tr>
                                     </thead>
                                     <tbody>

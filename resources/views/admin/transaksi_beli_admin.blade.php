@@ -89,7 +89,6 @@
                                             <th>Tanggal_Beli</th>
                                             <th>Customer_Id</th>
                                             <th>Jenis_Sampah</th>
-                                            <th>Id_Nasabah</th>
                                             <th>Berat</th>
                                             <th>Harga</th>
                                             <th>Total</th>
@@ -103,7 +102,6 @@
                                             <td>11/03/2024</td>
                                             <td>8989</td>
                                             <td>Kardus</td>
-                                            <td>565</td>
                                             <td>10Kg</td>
                                             <td>5000</td>
                                             <td>50000</td>

@@ -64,7 +64,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Id</th>
-                                            <th>User_Id</th>
+                                            <th>Customer_Id</th>
                                             <th>Nama</th>
                                             <th>Email</th>
                                             <th>RW</th>

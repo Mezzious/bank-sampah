@@ -106,7 +106,6 @@
                                     <td>Kardus</td>
                                     <td><img src="https://down-id.img.susercontent.com/file/d41d0ab1c03c710ae114912cf4297f74"width="60px"
                                             height="60px"></td>
-                                    <td>565</td>
                                     <td>10Kg</td>
                                     <td>5000</td>
                                     <td>50000</td>
