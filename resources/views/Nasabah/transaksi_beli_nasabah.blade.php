@@ -20,7 +20,7 @@
                                 aria-labelledby="topbarUserDropdown" style="border-radius: 10px;">
                                 <li>
                                     <a class="btn btn-block btn-custom mb-2" style="border-radius: 8px;"
-                                        href="{{ route('ganti_password_admin') }}">
+                                        href="{{ route('ganti_password_nasabah') }}">
                                         <i class="bi bi-key-fill"></i> Password
                                     </a>
                                 </li>
@@ -90,16 +90,15 @@
                                     <thead class="table-secondary">
                                         <tr>
                                             <th>No</th>
-                                            <th>Id_Beli</th>
+                                            <th>Id</th>
                                             <th>Tanggal_Beli</th>
+                                            <th>Customer_Id</th>
                                             <th>Jenis_Sampah</th>
                                             <th>Id_Nasabah</th>
                                             <th>Berat</th>
                                             <th>Harga</th>
                                             <th>Total</th>
-                                            <th>RW</th>
                                             <th>Nota</th>
-                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -107,40 +106,18 @@
                                             <td>1</td>
                                             <td>5454</td>
                                             <td>11/03/2024</td>
+                                            <td>123</td>
                                             <td>Kardus</td>
                                             <td>555</td>
                                             <td>5Kg</td>
                                             <td>5000</td>
                                             <td>25000</td>
-                                            <td>123</td>
                                             <td style="text-align: center">
                                                 <a href="#" class="btn btn-primary btn-sm" style="color: white"> <i
                                                         class="bi bi-eye-fill"></i> </a>
                                             </td>
                                             <td style="text-align: center;">
-                                                <a href="{{ route('edit_transaksi_beli_admin1') }}"
-                                                    class="btn btn-warning btn-sm" style="color: white"> <i
-                                                        class="fas fa-edit"></i> </a>
-                                                <a type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="return confirmDelete()"><i class="fas fa-trash"></i> </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>5353</td>
-                                            <td>11/03/2024</td>
-                                            <td>Botol</td>
-                                            <td>555</td>
-                                            <td>5Kg</td>
-                                            <td>3000</td>
-                                            <td>15000</td>
-                                            <td>123</td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary btn-sm" style="color: white"> <i
-                                                        class="bi bi-eye-fill"></i> </a>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <a href="{{ route('edit_transaksi_beli_admin1') }}"
+                                                <a href="{{ route('edit_transaksi_beli_nasabah') }}"
                                                     class="btn btn-warning btn-sm" style="color: white"> <i
                                                         class="fas fa-edit"></i> </a>
                                                 <a type="submit" class="btn btn-danger btn-sm"
@@ -150,7 +127,7 @@
                                     </tbody>
                                 </table>
                                 <div class="d-flex justify-content-between">
-                                    <a href="{{ route('tambah_transaksi_beli_admin1') }}" class="btn btn-custom">
+                                    <a href="{{ route('tambah_transaksi_beli_nasabah') }}" class="btn btn-custom">
                                         <i class="fa-solid fa-cart-plus" style="color: white; margin-right: 5px;"></i>
                                         <span style="color: white;">Tambah</span>
                                     </a>
