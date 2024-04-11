@@ -32,7 +32,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <form method="POST" action="{{ route('logout') }}">
+                                        <form method="get" action="{{ route('logout') }}">
                                             <input type="hidden" name="_token"
                                                 value="Fp6EQq2SXZNoCNVF3DWv21fbnsh5DCjvA7Bgx5UK">
                                             <span class="text-black d-grid gap-5">
