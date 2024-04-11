@@ -91,7 +91,6 @@
                                     <th>Customer_Id</th>
                                     <th>Jenis_Sampah</th>
                                     <th>Gambar</th>
-                                    <th>Id_Nasabah</th>
                                     <th>Berat</th>
                                     <th>Harga</th>
                                     <th>Total</th>

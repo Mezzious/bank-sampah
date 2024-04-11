@@ -77,7 +77,6 @@
                                     <th>RW</th>
                                     <th>Telepon</th>
                                     <th>Alamat</th>
-                                    <th>Sampah</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -91,7 +90,6 @@
                                     <td>07</td>
                                     <td>123-456-7890</td>
                                     <td>Jl. Duri Kepa</td>
-                                    <td>50Kg</td>
                                     <td style="text-align: center;">
                                         <a href="{{ route('edit_nasabah') }}" class="btn btn-warning btn-sm"
                                             style="color: white"> <i class="fas fa-edit"></i> </a>
