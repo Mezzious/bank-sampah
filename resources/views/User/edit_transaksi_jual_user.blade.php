@@ -36,6 +36,12 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="user_id">User Id*</label>
+                    <input type="text" class="form-control" id="user_id" name="user_id" style="cursor: not-allowed;"
+                        disabled="disabled" required placeholder="User Id">
+                </div>
+
+                <div class="form-group">
                     <label for="jenis_sampah">Jenis Sampah*</label>
                     <input type="text" class="form-control" id="jenis_sampah" name="jenis_sampah" required
                         placeholder="Jenis Sampah">
@@ -55,12 +61,6 @@
                 <div class="form-group">
                     <label for="total">Total (Rp)*</label>
                     <input type="number" class="form-control" id="total" name="total" required placeholder="Total">
-                </div>
-
-                <div class="form-group">
-                    <label for="user_id">User Id*</label>
-                    <input type="text" class="form-control" id="user_id" name="user_id" style="cursor: not-allowed;"
-                        disabled="disabled" required placeholder="User Id">
                 </div>
 
                 <div>
