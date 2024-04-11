@@ -3,7 +3,7 @@
 @section('content')
     <!-- Begin Page Content -->
     <section class="section">
-    <!-- My Css -->
+        <!-- My Css -->
         <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
         <!-- Page Heading -->
         <div class="main">
@@ -26,7 +26,7 @@
                                     aria-labelledby="topbarUserDropdown" style="border-radius: 10px;">
                                     <li>
                                         <a class="btn btn-block btn-custom mb-2" style="border-radius: 8px;"
-                                            href="{{ route('ganti_password_nasabah') }}">
+                                            href="{{ route('ganti_password_admin') }}">
                                             <i class="bi bi-key-fill"></i> Password
                                         </a>
                                     </li>
@@ -46,80 +46,78 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body d-grid" style="width: 100%">
-                        <div class="row d-flex justify-content-between align-items-center">
-                            <div class="col-auto">
-                                <div class="h4 mb-0 font-bold text-gray-800">500</div>
-                                <div class="text-xs font-bold text-primary text-uppercase mb-1">
-                                    Total Sampah</div>
-                            </div>
+                <div class="row">
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body d-grid" style="width: 100%">
+                                <div class="row d-flex justify-content-between align-items-center">
+                                    <div class="col-auto">
+                                        <div class="h4 mb-0 font-bold text-gray-800">500</div>
+                                        <div class="text-xs font-bold text-primary text-uppercase mb-1">
+                                            Total Sampah</div>
+                                    </div>
 
-                            <div class="col-auto">
-                                <i class="fa-regular fa-trash-can"></i>
+                                    <div class="col-auto">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body d-flex align-items-center align-center">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="h4 mb-0 font-bold text-gray-800">500</div>
+                                        <div class="text-xs font-bold text-success text-uppercase mb-1">
+                                            Total Penjualan Sampah(Month)</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-dollar-sign fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body d-flex align-items-center align-center">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="h4 mb-0 font-bold text-gray-800">500</div>
+                                        <div class="text-xs font-bold text-success text-uppercase mb-1">
+                                            Total Pembelian Sampah(Month)</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-dollar-sign fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body d-grid">
+                                <div class="row d-flex justify-content-between align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="h4 mb-0 font-bold text-gray-800">18</div>
+                                        <div class="text-xs font-bold text-warning text-uppercase mb-1">
+                                            Total User</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa-solid fa-users"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body d-flex align-items-center align-center">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="h4 mb-0 font-bold text-gray-800">500</div>
-                                <div class="text-xs font-bold text-success text-uppercase mb-1">
-                                    Total Penjualan Sampah(Month)</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-dollar-sign fa-2x"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </body>
 
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body d-flex align-items-center align-center">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="h4 mb-0 font-bold text-gray-800">500</div>
-                                <div class="text-xs font-bold text-success text-uppercase mb-1">
-                                    Total Pembelian Sampah(Month)</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-dollar-sign fa-2x"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-warning shadow h-100 py-2">
-                    <div class="card-body d-grid">
-                        <div class="row d-flex justify-content-between align-items-center">
-                            <div class="col mr-2">
-                                <div class="h4 mb-0 font-bold text-gray-800">18</div>
-                                <div class="text-xs font-bold text-warning text-uppercase mb-1">
-                                    Total User</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fa-solid fa-users"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-            </body>
-
-            </html>
-        @endsection
+                </html>
+            @endsection

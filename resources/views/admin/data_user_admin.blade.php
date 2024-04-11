@@ -6,8 +6,7 @@
         <div class="row">
             <div class="d-flex align-items-center justify-content-between ">
                 <h2 style="font-size: 30px" class="h2 mb-0 col-4 col-md-2 text-gray-800">Data User</h2>
-                <div
-                    class="col-8 col-xl-10 col-lg-9 col-md-8 col-sm-9 d-flex align-items-center justify-content-end">
+                <div class="col-8 col-xl-10 col-lg-9 col-md-8 col-sm-9 d-flex align-items-center justify-content-end">
                     <div class="dropdown">
                         <a href="#" id="topbarUserDropdown"
                             class="user-dropdown d-flex align-items-center dropend dropdown-toggle"
@@ -21,12 +20,12 @@
                             aria-labelledby="topbarUserDropdown" style="border-radius: 10px;">
                             <li>
                                 <a class="btn btn-block btn-custom mb-2" style="border-radius: 8px;"
-                                    href="{{ route('ganti_password_admin') }}">
+                                    href="{{ route('ganti_password') }}">
                                     <i class="bi bi-key-fill"></i> Password
                                 </a>
                             </li>
                             <li>
-                                <form method="POST" action="{{ route('logout') }}">
+                                <form method="get" action="{{ route('logout') }}">
                                     <input type="hidden" name="_token"
                                         value="Fp6EQq2SXZNoCNVF3DWv21fbnsh5DCjvA7Bgx5UK">
                                     <span class="text-black d-grid gap-5">
@@ -41,6 +40,8 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
     <link rel="stylesheet" href="./assets/compiled/css/dataTables.bootstrap4.min.css">
