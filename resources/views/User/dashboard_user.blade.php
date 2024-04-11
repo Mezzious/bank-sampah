@@ -3,7 +3,7 @@
 @section('content')
     <!-- Begin Page Content -->
     <section class="section">
-    <!-- My Css -->
+        <!-- My Css -->
         <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
         <!-- Page Heading -->
         <div class="main">
@@ -26,13 +26,13 @@
                                     aria-labelledby="topbarUserDropdown" style="border-radius: 10px;">
                                     <li>
                                         <a class="btn btn-block btn-custom mb-2" style="border-radius: 8px;"
-                                            href="{{ route('ganti_password_user') }}">
+                                            href="{{ route('ganti_password_admin') }}">
                                             <i class="bi bi-key-fill"></i> Password
                                         </a>
                                     </li>
                                     <li>
-
-                                        <form method="get" action="{{ route('logout') }}">                                            <input type="hidden" name="_token"
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            <input type="hidden" name="_token"
                                                 value="Fp6EQq2SXZNoCNVF3DWv21fbnsh5DCjvA7Bgx5UK">
                                             <span class="text-black d-grid gap-5">
                                                 <button class="btn btn-danger" type="submit" style="border-radius: 8px;">
@@ -121,7 +121,7 @@
             </div>
         </div>
 
-            </body>
+        </body>
 
-            </html>
-        @endsection
+        </html>
+    @endsection

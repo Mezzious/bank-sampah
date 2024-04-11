@@ -22,6 +22,11 @@ class AdminController extends Controller
         return view('admin/data_sampah_admin');
     }
 
+    public function data_user_admin()
+    {
+        return view('admin/data_user_admin');
+    }
+
 
     public function transaksi_jual_admin(){
         return view('admin/transaksi_jual_admin');

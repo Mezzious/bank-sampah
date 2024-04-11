@@ -71,17 +71,17 @@
                             <ul class="submenu">
 
                                 <li class="submenu-item">
-                                    <a href="{{ route('data_user') }}" class="submenu-link">Data User</a>
+                                    <a href="{{ route('data_user_admin') }}" class="submenu-link">Data User</a>
 
                                 </li>
 
                                 <li class="submenu-item  ">
-                                    <a href="{{ route('data_nasabah') }}" class="submenu-link">Data Nasabah</a>
+                                    <a href="{{ route('data_nasabah_admin') }}" class="submenu-link">Data Nasabah</a>
 
                                 </li>
 
                                 <li class="submenu-item  ">
-                                    <a href="{{ route('data_sampah') }}" class="submenu-link">Data Sampah</a>
+                                    <a href="{{ route('data_sampah_admin') }}" class="submenu-link">Data Sampah</a>
 
                                 </li>
 
@@ -98,12 +98,12 @@
                             <ul class="submenu ">
 
                                 <li class="submenu-item  ">
-                                    <a href="{{ route('transaksi_jual') }}" class="submenu-link"> Transaksi Jual</a>
+                                    <a href="{{ route('transaksi_jual_admin') }}" class="submenu-link"> Transaksi Jual</a>
 
                                 </li>
 
                                 <li class="submenu-item  ">
-                                    <a href="{{ route('transaksi_beli') }}" class="submenu-link"> Transaksi Beli</a>
+                                    <a href="{{ route('transaksi_beli_admin') }}" class="submenu-link"> Transaksi Beli</a>
 
                                 </li>
 
@@ -120,12 +120,12 @@
                             <ul class="submenu ">
 
                                 <li class="submenu-item  ">
-                                    <a href="{{ route('laporan_jual') }}" class="submenu-link">Laporan Jual</a>
+                                    <a href="{{ route('laporan_jual_admin') }}" class="submenu-link">Laporan Jual</a>
 
                                 </li>
 
                                 <li class="submenu-item  ">
-                                    <a href="{{ route('laporan_beli') }}" class="submenu-link">Laporan Beli</a>
+                                    <a href="{{ route('laporan_beli_admin') }}" class="submenu-link">Laporan Beli</a>
 
                                 </li>
                             </ul>
