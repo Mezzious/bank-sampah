@@ -64,12 +64,6 @@
                     <textarea class="form-control" id="alamat" name="alamat" rows="3" required placeholder="Alamat lengkap"></textarea>
                 </div>
 
-                <div class="form-group">
-                    <label for="sampah">Sampah*</label>
-                    <input type="text" class="form-control" id="sampah" name="sampah" required
-                        placeholder="Sampah">
-                </div>
-
                 <button type="submit" class="btn btn-custom">Simpan</button>
             </form>
         </div>
