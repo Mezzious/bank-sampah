@@ -63,12 +63,6 @@
                     <input type="number" class="form-control" id="total" name="total" required placeholder="Total">
                 </div>
 
-                <div class="form-group">
-                    <label for="user_id">User Id</label>
-                    <input type="text" class="form-control" id="user_id" name="user_id" style="cursor: not-allowed;"
-                        disabled="disabled" required placeholder="User Id">
-                </div>
-
                 <div>
                     <div class="form-group">
                     <label for="gambar">Bukti Transaksi Beli*</label>
