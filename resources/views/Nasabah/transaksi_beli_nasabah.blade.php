@@ -94,6 +94,7 @@
                                             <th>Tanggal_Beli</th>
                                             <th>Customer_Id</th>
                                             <th>Jenis_Sampah</th>
+                                            <th>Gambar</th>
                                             <th>Berat</th>
                                             <th>Harga</th>
                                             <th>Total</th>
@@ -108,6 +109,9 @@
                                             <td>11/03/2024</td>
                                             <td>123</td>
                                             <td>Kardus</td>
+                                            <td><img
+                                                    src="https://down-id.img.susercontent.com/file/d41d0ab1c03c710ae114912cf4297f74"
+                                                    width="60px" height="60px"></td>
                                             <td>5Kg</td>
                                             <td>5000</td>
                                             <td>25000</td>
