@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SesiController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,9 @@ use App\Http\Controllers\NasabahController;
 //     return view('auth.login');
 // });
 
+Route::get('/home', [LandingPageController::class, 'home' ])->name('home');
+
+
 Route::middleware(['guest'])->group(function () {
     Route::get('/index', [SesiController::class, 'index'])->name('index');
     Route::post('/index', [SesiController::class, 'login']);
@@ -29,7 +33,7 @@ Route::middleware(['guest'])->group(function () {
 
 //Superadmin
 Route::group(['middleware' => ['auth', 'admin:super-admin']], function () {
-    
+
 Route::get('/superadmin', [SuperAdminController::class, 'index'])->name('dashboard');
 
 Route::get('/dashboard', function () {
