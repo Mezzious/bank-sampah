@@ -22,15 +22,10 @@
 
             <!-- Left Box -->
             <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
-                style="background: #103cbe;">
+                style="background: #D3E3C8;">
                 <div class="featured-image mb-3">
-                    <img src="./assets/bootstrap_login/images/1.png" class="img-fluid" style="width: 250px;">
+                    <img src="./assets/compiled/png/logo3.png" class="img-fluid" style="width: 350px;">
                 </div>
-                <p class="text-white fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">Be
-                    Verified</p>
-                <small class="text-white text-wrap text-center"
-                    style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Join experienced Designers on
-                    this platform.</small>
             </div>
 
             <!-- Right Box -->
@@ -96,7 +91,7 @@
 
                         <div class="input-group mb-3">
                             <button type="submit"
-                                class="btn btn-lg btn-primary w-100 fs-6">{{ __('Login') }}</button>
+                                class="btn btn-lg w-100 fs-6" style=" color: white; background-color:#4F6F52 ">{{ __('Login') }}</button>
                         </div>
                     </form>
 
