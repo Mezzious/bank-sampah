@@ -36,9 +36,6 @@ Route::group(['middleware' => ['auth', 'admin:super-admin']], function () {
 
 Route::get('/superadmin', [SuperAdminController::class, 'index'])->name('dashboard');
 
-Route::get('/dashboard', function () {
-})->name('dashboard');
-
 Route::get('/data_user', [SuperAdminController::class, 'data_user' ])->name('data_user');
 
 Route::get('/data_sampah', [SuperAdminController::class, 'data_sampah'])->name('data_sampah');
