@@ -92,9 +92,9 @@
                                     <td> {{ $customer->telepon }} </td>
                                     <td> {{ $customer->alamat }} </td>
                                     <td style="text-align: center;">
-                                        <a href="{{ route('edit_nasabah') }}" class="btn btn-warning btn-sm"
+                                        <a href="{{ route('edit_nasabah', ['id' => $customer->id]) }}" class="btn btn-warning btn-sm"
                                         style="color: white"> <i class="fas fa-edit"></i> </a>
-                                        <a type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
+                                        <a href="{{ route('destroy_nasabah', $customer->id) }}" type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
                                             class="fas fa-trash"></i> </a>
                                         </td>
                                     </tr>

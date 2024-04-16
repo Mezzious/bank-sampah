@@ -48,7 +48,7 @@ class SuperAdminController extends Controller
     public function edit_user(Request $request)
     {
         $id = $request->input('id');
-        $user = SuperAdmin::findOrFail($id);
+        $user = SuperAdmin::find($id);
     
         if (!$user) {
             return back()->with('error', 'Pengguna tidak ditemukan.');
@@ -76,7 +76,7 @@ class SuperAdminController extends Controller
         }
         $user->save();
 
-        return redirect()->route('data_user', $id)->with('success', 'User updated successfully.');
+        return redirect()->route('data_user', $id)->with('success', 'User berhasil diupdate');
     }
 
     public function destroy($id)
@@ -84,7 +84,7 @@ class SuperAdminController extends Controller
         $user = SuperAdmin::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('data_user')->with('success', 'User deleted successfully');
+        return redirect()->route('data_user')->with('success', 'User berhasil dihapus');
     }
 
     public function ganti_password()
@@ -126,9 +126,46 @@ class SuperAdminController extends Controller
         return redirect()->route('data_nasabah')->with('success', 'Nasabah berhasil ditambahkan');
     }    
 
-    public function edit_nasabah()
+    public function edit_nasabah(Request $request)
     {
-        return view("superadmin/edit_nasabah");
+        $id = $request->input('id');
+        $customer = Customer::findOrFail($id);
+    
+        if (!$customer) {
+            return back()->with('error', 'Data nasabah tidak ditemukan.');
+        }
+    
+        return view('superadmin/edit_nasabah', compact('customer'));
+    }
+
+    public function update_nasabah(Request $request)
+    {
+        $id = $request->input('id');
+        $request->validate([
+            'nama_nasabah' => 'required|string',
+            'email' => 'required|email',
+            'RW' => 'required|string|min:1',
+            'telepon' => 'required|string|min:12', 
+            'alamat' => 'required', 
+        ]);
+
+        $customers = Customer::find($id);
+        $customers->nama_nasabah = $request->input('nama_nasabah');
+        $customers->email = $request->input('email');
+        $customers->RW = $request->input('RW');
+        $customers->telepon = $request->input('telepon');
+        $customers->alamat = $request->input('alamat');
+        $customers->save();
+
+        return redirect()->route('data_nasabah', $id)->with('success', 'User berhasil diupdate');
+    }
+
+    public function destroy_nasabah($id)
+    {   
+        $customers = Customer::findOrFail($id);
+        $customers->delete();
+
+        return redirect()->route('data_nasabah')->with('success', 'User berhasil dihapus');
     }
 
     public function data_sampah()
