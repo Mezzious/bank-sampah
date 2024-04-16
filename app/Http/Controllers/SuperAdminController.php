@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Models\SuperAdmin;
-use App\Models\User;
+
 
 class SuperAdminController extends Controller
 {
@@ -21,8 +22,7 @@ class SuperAdminController extends Controller
 
     public function tambah_user()
     {
-        $roles = SuperAdmin::all();
-        return view("superadmin/tambah_user", compact('roles'));
+        return view("superadmin/tambah_user");
     }
 
     public function store_user(Request $request)
@@ -48,7 +48,7 @@ class SuperAdminController extends Controller
     public function edit_user(Request $request)
     {
         $id = $request->input('id');
-        $user = SuperAdmin::find($id);
+        $user = SuperAdmin::findOrFail($id);
     
         if (!$user) {
             return back()->with('error', 'Pengguna tidak ditemukan.');
@@ -79,7 +79,7 @@ class SuperAdminController extends Controller
         return redirect()->route('data_user', $id)->with('success', 'User updated successfully.');
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {   
         $user = SuperAdmin::findOrFail($id);
         $user->delete();
@@ -94,13 +94,37 @@ class SuperAdminController extends Controller
 
     public function data_nasabah()
     {
-        return view('superadmin/data_nasabah');
+        $cust = Customer::all();
+        return view('superadmin/data_nasabah', compact('cust'));
     }
 
     public function tambah_nasabah()
     {
         return view("superadmin/tambah_nasabah");
     }
+
+    public function store_nasabah(Request $request)
+    {
+        $request->validate([
+            'nama_nasabah' => 'required|string',
+            'email' => 'required|email',
+            'RW' => 'required|string|min:2',
+            'telepon' => 'required|string|min:12', 
+            'alamat' => 'required', 
+        ]);
+    
+        // Simpan data ke dalam database
+        $customers = new Customer();
+        $customers->user_id = auth()->id();
+        $customers->nama_nasabah = $request->input('nama_nasabah');
+        $customers->email = $request->input('email');
+        $customers->RW = $request->input('RW');
+        $customers->telepon = $request->input('telepon');
+        $customers->alamat = $request->input('alamat');
+        $customers->save();
+    
+        return redirect()->route('data_nasabah')->with('success', 'Nasabah berhasil ditambahkan');
+    }    
 
     public function edit_nasabah()
     {

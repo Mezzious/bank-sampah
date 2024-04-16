@@ -80,7 +80,6 @@
                             </thead>
                             <tbody id="tableBody">
                                 @foreach ($users as $user)
-
                                 <tr>
                                     <td> {{ $loop->iteration }} </td>
                                     <td> {{ $user->id }} </td>
@@ -95,7 +94,6 @@
                                                 class="fas fa-trash"></i> </a>
                                     </td>
                                 </tr>
-
                                 @endforeach
                             </tbody>
                         </table>

@@ -7,6 +7,16 @@
         </div>
     @endif
 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
 
     <div class="back-button-container" style="margin-bottom: 15px">
@@ -21,7 +31,7 @@
             <h6 class="m-0">Form Input Data Nasabah</h6>
         </div>
         <div class="card-body">
-            <form action="/nasabah/store" method="post">
+            <form action="{{ route('store_nasabah') }}" method="post">
                 @csrf
 
                 {{-- <div class="form-group">
@@ -30,11 +40,11 @@
                         style="cursor: not-allowed;" disabled="disabled" required placeholder="Id Nasabah">
                 </div> --}}
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="customer_id">Customer_Id</label>
                     <input type="text" class="form-control" id="customer_id" name="customer_id"
                         style="cursor: not-allowed;" disabled="disabled" required placeholder="Customer_Id">
-                </div>
+                </div> --}}
 
                 <div class="form-group">
                     <label for="nama_nasabah">Nama*</label>

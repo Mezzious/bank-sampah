@@ -71,7 +71,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Id</th>
-                                    <th>Customer_Id</th>
+                                    <th>User_Id</th>
                                     <th>Nama</th>
                                     <th>Email</th>
                                     <th>RW</th>
@@ -81,23 +81,25 @@
                                 </tr>
                             </thead>
                             <tbody id="tableBody">
+                                @foreach ($cust as $customer)
                                 <tr>
-                                    <td>1</td>
-                                    <td>212</td>
-                                    <td>252</td>
-                                    <td>Asep</td>
-                                    <td>asep@gmail.com</td>
-                                    <td>07</td>
-                                    <td>123-456-7890</td>
-                                    <td>Jl. Duri Kepa</td>
+                                    <td> {{ $loop->iteration }} </td>
+                                    <td> {{ $customer->id }} </td>
+                                    <td> {{ $customer->user_id }} </td>
+                                    <td> {{ $customer->nama_nasabah }} </td>
+                                    <td> {{ $customer->email }} </td>
+                                    <td> {{ $customer->rw }} </td>
+                                    <td> {{ $customer->telepon }} </td>
+                                    <td> {{ $customer->alamat }} </td>
                                     <td style="text-align: center;">
                                         <a href="{{ route('edit_nasabah') }}" class="btn btn-warning btn-sm"
-                                            style="color: white"> <i class="fas fa-edit"></i> </a>
+                                        style="color: white"> <i class="fas fa-edit"></i> </a>
                                         <a type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
-                                                class="fas fa-trash"></i> </a>
-                                    </td>
-                                </tr>
-                            </tbody>
+                                            class="fas fa-trash"></i> </a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
                         </table>
                         <div class="d-flex justify-content-between">
                             <a href="{{ route('tambah_nasabah') }}" class="btn btn-custom">
