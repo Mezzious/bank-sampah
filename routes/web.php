@@ -68,6 +68,10 @@ Route::group(['middleware' => ['auth', 'admin:super-admin']], function () {
 
     Route::get('/edit_nasabah', [SuperAdminController::class, 'edit_nasabah' ])->name('edit_nasabah');
 
+    Route::put('/edit_nasabah', [SuperAdminController::class, 'update_nasabah' ])->name('update_nasabah');
+    
+    Route::get('/data_user/{id}/destroy_nasabah', [SuperAdminController::class, 'destroy_nasabah' ])->name('destroy_nasabah');
+
     Route::get('/tambah_sampah', [SuperAdminController::class,'tambah_sampah'])->name('tambah_sampah');
 
     Route::get('/edit_sampah', [SuperAdminController::class,'edit_sampah'])->name('edit_sampah');
