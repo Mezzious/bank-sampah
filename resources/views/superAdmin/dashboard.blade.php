@@ -27,7 +27,7 @@
                                     <li>
                                         <a class="btn btn-block btn-custom mb-2" style="border-radius: 8px;"
                                             href="{{ route('ganti_password') }}">
-                                            <i class="bi bi-key-fill"></i> Password
+                                            <i class="bi bi-key-fill"></i> Ganti Password
                                         </a>
                                     </li>
                                     <li>
