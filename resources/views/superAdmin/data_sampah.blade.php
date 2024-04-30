@@ -102,7 +102,7 @@
                         </table>
                         <div class="d-flex justify-content-between">
                             <a href="{{ route('tambah_sampah') }}" class="btn btn-custom">
-                                <i class="fa-solid fa-trash-can" style="color: white; margin-right: 5px;"></i>
+                                <i class="fa-solid fa-plus" style="color: white; margin-right: 5px;"></i>
                                 <span style="color: white;">Tambah</span>
                             </a>
                         </div>
