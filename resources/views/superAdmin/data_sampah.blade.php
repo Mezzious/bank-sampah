@@ -81,23 +81,24 @@
                                 </tr>
                             </thead>
                             <tbody id="tableBody">
+                                @foreach ($trashes as $trash)
                                 <tr>
-                                    <td>1</td>
-                                    <td>212</td>
-                                    <td>252</td>
-                                    <td>Kardus</td>
-                                    <td>KG</td>
-                                    <td>5000</td>
-                                    <td><img src="https://down-id.img.susercontent.com/file/d41d0ab1c03c710ae114912cf4297f74"width="60px"
-                                            height="60px"></td>
-                                    <td>Semua Jenis Kardus</td>
+                                    <td> {{$loop->iteration}} </td>
+                                    <td> {{$trash->id}} </td>
+                                    <td> {{$trash->user_id}} </td>
+                                    <td> {{$trash->jenis_sampah}} </td>
+                                    <td> {{$trash->satuan}} </td>
+                                    <td> {{$trash->harga}} </td>
+                                    <td><img src="{{ asset('storage/assets/sampah/'.$trash->gambar) }}" width="60px" height="60px"></td>
+                                    <td> {{$trash->deskripsi}} </td>
                                     <td style="text-align: center;">
-                                        <a href="{{ route('edit_sampah') }}" class="btn btn-warning btn-sm"
+                                        <a href="{{ route('edit_sampah', ['id' => $trash->id]) }}" class="btn btn-warning btn-sm"
                                             style="color: white"> <i class="fas fa-edit"></i> </a>
                                         <a type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
                                                 class="fas fa-trash"></i> </a>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-between">

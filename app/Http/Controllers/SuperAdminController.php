@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Models\SuperAdmin;
-
+use App\Models\Trash;
 
 class SuperAdminController extends Controller
 {
@@ -108,7 +108,7 @@ class SuperAdminController extends Controller
         $request->validate([
             'nama_nasabah' => 'required|string',
             'email' => 'required|email',
-            'RW' => 'required|string|min:2',
+            'RW' => 'required|string|min:1',
             'telepon' => 'required|string|min:12', 
             'alamat' => 'required', 
         ]);
@@ -170,17 +170,78 @@ class SuperAdminController extends Controller
 
     public function data_sampah()
     {
-        return view('superadmin/data_sampah');
+        $trashes = Trash::all();
+        return view('superadmin/data_sampah', compact('trashes'));
     }
 
     public function tambah_sampah()
     {
         return view("superadmin/tambah_sampah");
     }
-
-    public function edit_sampah()
+    
+    public function store_sampah(Request $request)
     {
-        return view("superadmin/edit_sampah");
+        $request->validate([
+            'jenis_sampah' => 'required|string',
+            'satuan' => 'required|string|max:2',
+            'harga' => 'required|numeric',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'deskripsi' => 'required',
+        ]);
+
+        //simpan gambar
+        $gambarName = time() . '.' . $request->gambar->extension();
+        if (!$request->gambar->isValid()) {
+            return back()->withErrors(['gambar' => 'File gambar tidak valid']);
+        }
+        $request->gambar->storeAs('public/assets/sampah', $gambarName);
+
+        //Simpan data ke dalam database
+        $trashes = new Trash();
+        $trashes->user_id = auth()->id();
+        $trashes->jenis_sampah = $request->input('jenis_sampah');
+        $trashes->satuan = $request->input('satuan');
+        $trashes->harga = $request->input('harga');
+        $trashes->gambar = $gambarName;
+        $trashes->deskripsi = $request->input('deskripsi');
+        $trashes->save();
+
+        return redirect()->route('data_sampah')->with('success', 'Data Sampah berhasil ditambahkan');
+    }
+
+    public function edit_sampah(Request $request)
+    {
+        {
+            $id = $request->input('id');
+            $trashes = Trash::findOrFail($id);
+        
+            if (!$trashes) {
+                return back()->with('error', 'Data sampah tidak ditemukan.');
+            }
+        
+            return view('superadmin/edit_sampah', compact('trashes'));
+        }
+    }
+
+    public function update_sampah(Request $request)
+    {
+        $id = $request->input('id');
+        $request->validate([
+            'jenis_sampah' => 'required|string',
+            'satuan' => 'required|string|max:2',
+            'harga' => 'required|numeric',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'deskripsi' => 'required',
+        ]);
+
+        $trashes = Trash::find($id);
+        $trashes->jenis_sampah = $request->input('jenis_sampah');
+        $trashes->satuan = $request->input('satuan');
+        $trashes->harga = $request->input('harga');
+        $trashes->deskripsi = $request->input('deskripsi');
+        $trashes->save();
+
+        return redirect()->route('data_nasabah', $id)->with('success', 'User berhasil diupdate');
     }
 
     public function transaksi_jual()

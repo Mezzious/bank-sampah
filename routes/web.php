@@ -74,6 +74,8 @@ Route::group(['middleware' => ['auth', 'admin:super-admin']], function () {
 
     Route::get('/tambah_sampah', [SuperAdminController::class,'tambah_sampah'])->name('tambah_sampah');
 
+    Route::post('/tambah_sampah', [SuperAdminController::class,'store_sampah'])->name('store_sampah');
+
     Route::get('/edit_sampah', [SuperAdminController::class,'edit_sampah'])->name('edit_sampah');
 
     Route::get('/tambah_transaksi_jual', [SuperAdminController::class,'tambah_transaksi_jual'])->name('tambah_transaksi_jual');
