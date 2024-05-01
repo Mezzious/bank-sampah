@@ -7,6 +7,16 @@
         </div>
     @endif
 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
 
     <div class="back-button-container" style="margin-bottom: 15px">
@@ -21,7 +31,7 @@
             <h6 class="m-0">Form Input Data Sampah</h6>
         </div>
         <div class="card-body">
-            <form action="/sampah/store" method="post">
+            <form action="{{ route('store_sampah') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
                 {{-- <div class="form-group">
@@ -30,11 +40,11 @@
                         disabled="disabled" required placeholder="Id Sampah">
                 </div> --}}
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="user_id">User Id</label>
                     <input type="text" class="form-control" id="user_id" name="user_id" style="cursor: not-allowed;"
                         disabled="disabled" required placeholder="User Id">
-                </div>
+                </div> --}}
 
                 <div class="form-group">
                     <label for="jenis_sampah">Jenis Sampah*</label>
@@ -55,7 +65,7 @@
                 <div>
                     <div class="form-group">
                     <label for="gambar">Gambar Sampah*</label>
-                    <input type="file" class="form-control" name="upload_gambar_sampah_link" placeholder="Masukan file disini">
+                    <input type="file" class="form-control" name="gambar" placeholder="Masukan file disini">
                     </div>
                 </div>
 
