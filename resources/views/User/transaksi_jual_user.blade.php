@@ -118,7 +118,7 @@
                                             <td>50000</td>
                                             <td style="text-align: center">
                                                 <a href="#" class="btn btn-primary btn-sm" style="color: white"> <i
-                                                        class="bi bi-eye-fill"></i> </a>
+                                                    class="bi bi-eye-fill"></i> </a>
                                             </td>
                                             <td style="text-align: center;">
                                                 <a href="{{ route('edit_transaksi_jual_user') }}"
