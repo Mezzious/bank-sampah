@@ -30,7 +30,7 @@
             <h6 class="m-0">Form Edit Data Sampah</h6>
         </div>
         <div class="card-body">
-            <form action="" method="post">
+            <form action="{{ route('update_sampah', ['id' => $trashes->id]) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -65,7 +65,7 @@
                 <div>
                     <div class="form-group">
                     <label for="gambar">Gambar Sampah*</label>
-                    <input type="file" class="form-control" name="upload_gambar_sampah_link" placeholder="Masukan file disini" value="{{ $trashes->gambar }}">
+                    <input type="file" class="form-control" name="gambar" placeholder="Masukan file disini" value="{{ $trashes->gambar }}">
                     </div>
                 </div>
 

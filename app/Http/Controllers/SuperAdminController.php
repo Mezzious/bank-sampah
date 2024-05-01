@@ -6,6 +6,8 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Models\SuperAdmin;
 use App\Models\Trash;
+use Illuminate\Support\Facades\Storage;
+
 
 class SuperAdminController extends Controller
 {
@@ -49,11 +51,11 @@ class SuperAdminController extends Controller
     {
         $id = $request->input('id');
         $user = SuperAdmin::find($id);
-    
+
         if (!$user) {
             return back()->with('error', 'Pengguna tidak ditemukan.');
         }
-    
+
         $roles = SuperAdmin::distinct('roles')->pluck('roles');
         return view("superadmin/edit_user", compact('user', 'roles'));
     }
@@ -80,7 +82,7 @@ class SuperAdminController extends Controller
     }
 
     public function destroy($id)
-    {   
+    {
         $user = SuperAdmin::findOrFail($id);
         $user->delete();
 
@@ -109,10 +111,10 @@ class SuperAdminController extends Controller
             'nama_nasabah' => 'required|string',
             'email' => 'required|email',
             'RW' => 'required|string|min:1',
-            'telepon' => 'required|string|min:12', 
-            'alamat' => 'required', 
+            'telepon' => 'required|string|min:12',
+            'alamat' => 'required',
         ]);
-    
+
         // Simpan data ke dalam database
         $customers = new Customer();
         $customers->user_id = auth()->id();
@@ -122,19 +124,19 @@ class SuperAdminController extends Controller
         $customers->telepon = $request->input('telepon');
         $customers->alamat = $request->input('alamat');
         $customers->save();
-    
+
         return redirect()->route('data_nasabah')->with('success', 'Nasabah berhasil ditambahkan');
-    }    
+    }
 
     public function edit_nasabah(Request $request)
     {
         $id = $request->input('id');
         $customer = Customer::findOrFail($id);
-    
+
         if (!$customer) {
             return back()->with('error', 'Data nasabah tidak ditemukan.');
         }
-    
+
         return view('superadmin/edit_nasabah', compact('customer'));
     }
 
@@ -145,8 +147,8 @@ class SuperAdminController extends Controller
             'nama_nasabah' => 'required|string',
             'email' => 'required|email',
             'RW' => 'required|string|min:1',
-            'telepon' => 'required|string|min:12', 
-            'alamat' => 'required', 
+            'telepon' => 'required|string|min:12',
+            'alamat' => 'required',
         ]);
 
         $customers = Customer::find($id);
@@ -161,7 +163,7 @@ class SuperAdminController extends Controller
     }
 
     public function destroy_nasabah($id)
-    {   
+    {
         $customers = Customer::findOrFail($id);
         $customers->delete();
 
@@ -178,7 +180,7 @@ class SuperAdminController extends Controller
     {
         return view("superadmin/tambah_sampah");
     }
-    
+
     public function store_sampah(Request $request)
     {
         $request->validate([
@@ -210,17 +212,15 @@ class SuperAdminController extends Controller
     }
 
     public function edit_sampah(Request $request)
-    {
-        {
-            $id = $request->input('id');
-            $trashes = Trash::findOrFail($id);
-        
-            if (!$trashes) {
-                return back()->with('error', 'Data sampah tidak ditemukan.');
-            }
-        
-            return view('superadmin/edit_sampah', compact('trashes'));
+    { 
+        $id = $request->input('id');
+        $trashes = Trash::findOrFail($id);
+
+        if (!$trashes) {
+            return back()->with('error', 'Data sampah tidak ditemukan.');
         }
+
+        return view('superadmin/edit_sampah', compact('trashes'));
     }
 
     public function update_sampah(Request $request)
@@ -230,20 +230,43 @@ class SuperAdminController extends Controller
             'jenis_sampah' => 'required|string',
             'satuan' => 'required|string|max:2',
             'harga' => 'required|numeric',
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'deskripsi' => 'required',
         ]);
-
-        $trashes = Trash::find($id);
-        $trashes->jenis_sampah = $request->input('jenis_sampah');
-        $trashes->satuan = $request->input('satuan');
-        $trashes->harga = $request->input('harga');
-        $trashes->deskripsi = $request->input('deskripsi');
-        $trashes->save();
-
-        return redirect()->route('data_nasabah', $id)->with('success', 'User berhasil diupdate');
+    
+        // Temukan sampah berdasarkan ID
+        $trash = Trash::findOrFail($id);
+    
+        // Hapus gambar lama jika pengguna mengunggah gambar baru
+        if ($request->hasFile('gambar')) {
+            Storage::delete('public/assets/sampah/' . $trash->gambar);
+    
+            $gambarName = time() . '.' . $request->gambar->extension();
+            if (!$request->gambar->isValid()) {
+                return back()->withErrors(['gambar' => 'File gambar tidak valid']);
+            }
+            $request->gambar->storeAs('public/assets/sampah', $gambarName);
+            $trash->gambar = $gambarName;
+        }
+    
+        // Perbarui data lainnya
+        $trash->jenis_sampah = $request->input('jenis_sampah');
+        $trash->satuan = $request->input('satuan');
+        $trash->harga = $request->input('harga');
+        $trash->deskripsi = $request->input('deskripsi');
+        $trash->save();
+    
+        return redirect()->route('data_sampah')->with('success', 'Data Sampah berhasil diperbarui');
     }
 
+    public function destroy_sampah($id)
+    {
+        $trashes = Trash::findOrFail($id);
+        $trashes->delete();
+
+        return redirect()->route('data_sampah')->with('success', 'Sampah berhasil dihapus');
+    }
+    
     public function transaksi_jual()
     {
         return view('superadmin/transaksi_jual');
