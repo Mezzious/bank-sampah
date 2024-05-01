@@ -116,7 +116,7 @@
                                             <td>10Kg</td>
                                             <td>5000</td>
                                             <td>50000</td>
-                                            <td>
+                                            <td style="text-align: center">
                                                 <a href="#" class="btn btn-primary btn-sm" style="color: white"> <i
                                                         class="bi bi-eye-fill"></i> </a>
                                             </td>
