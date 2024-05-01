@@ -35,11 +35,11 @@
                     <input type="date" class="form-control" id="tanggal_jual" name="tanggal_jual" required>
                 </div>
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="user_id">User Id*</label>
                     <input type="text" class="form-control" id="user_id" name="user_id" style="cursor: not-allowed;"
                         disabled="disabled" required placeholder="User Id">
-                </div>
+                </div> --}}
 
                 <div class="form-group">
                     <label for="jenis_sampah">Jenis Sampah*</label>
