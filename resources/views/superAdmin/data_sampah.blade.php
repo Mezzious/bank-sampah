@@ -94,7 +94,7 @@
                                     <td style="text-align: center;">
                                         <a href="{{ route('edit_sampah', ['id' => $trash->id]) }}" class="btn btn-warning btn-sm"
                                             style="color: white"> <i class="fas fa-edit"></i> </a>
-                                        <a type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
+                                        <a href="{{ route('destroy_sampah', $trash->id) }}" type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
                                                 class="fas fa-trash"></i> </a>
                                     </td>
                                 </tr>
