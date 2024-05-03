@@ -6,6 +6,8 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Models\SuperAdmin;
 use App\Models\Trash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -92,6 +94,31 @@ class SuperAdminController extends Controller
     public function ganti_password()
     {
         return view("superadmin/ganti_password");
+    }
+    
+    public function update_password(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|confirmed|min:8',
+        ]);
+
+        $user = SuperAdmin::find(Auth::id());
+
+        //cek password lama
+        if (!Hash::check($request->current_password, auth()->user()->password)) {
+            return back()->with('status', 'Password anda saat ini tidak sesuai');
+        }
+
+        //cek password baru dan konfirmasi password
+        if ($request->password != $request->password_confirmation) {
+            return back()->with('status', 'Password baru dan Konfirmasi Password Baru tidak sesuai');
+        }
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return back()->with('success', 'Password successfully updated.');
     }
 
     public function data_nasabah()

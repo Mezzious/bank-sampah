@@ -3,6 +3,17 @@
 @section('content')
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
 
+@if (session('status'))
+    <div class="alert alert-danger" role="alert">
+        {{ session('status') }}
+    </div>
+@endif
+
+@if (session('success'))
+    <div class="alert alert-primary" role="alert">
+        {{ session('success') }}
+    </div>
+@endif
     <div class="back-button-container" style="margin-bottom: 15px">
         <a class="btn back-button" onclick="goBack()">
             <i class="fa-solid fa-arrow-left" style="color: white;"></i>
@@ -14,17 +25,26 @@
         <div class="  card-header" style="color: #4F6F52; font-weight: bold; font-size: 20px; font-family: sans-serif;">
             Ganti Password</div>
 
-
-
         <div class="card-body">
-            @if (session('status'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
-                </div>
-            @endif
-
-            <form method="POST" action="#">
+            <div class="card-body">
+            <form method="POST" action="{{ route('update_password') }}">
                 @csrf
+
+                <div class="form-group row">
+                    <label for="current_password" class="col-md-4 col-form-label text-md-right">Password Saat Ini</label>
+
+                    <div class="col-md-6">
+                        <input id="current_password" type="password"
+                            class="form-control @error('current_password') is-invalid @enderror" name="current_password"
+                            required autocomplete="current-password">
+
+                        @error('current_password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
 
                 <div class="form-group row">
                     <label for="password" class="col-md-4 col-form-label text-md-right">Password Baru</label>
@@ -53,7 +73,7 @@
 
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-4">
-                        <button type="submit" class="btn btn-custom">
+                        <button type="submit" class="btn btn-primary">
                             Ganti Password
                         </button>
                     </div>

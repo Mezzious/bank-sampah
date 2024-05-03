@@ -33,9 +33,11 @@ Route::middleware(['guest'])->group(function () {
 
 //Superadmin
 Route::group(['middleware' => ['auth', 'admin:super-admin']], function () {
-
+    
     Route::get('/superadmin', [SuperAdminController::class, 'index'])->name('dashboard');
-
+    
+    Route::get('/dashboard_superadmin', [SuperAdminController::class, 'index'])->name('dashboard_superadmin');
+    
     Route::get('/data_user', [SuperAdminController::class, 'data_user' ])->name('data_user');
 
     Route::get('/data_sampah', [SuperAdminController::class, 'data_sampah'])->name('data_sampah');
@@ -61,6 +63,8 @@ Route::group(['middleware' => ['auth', 'admin:super-admin']], function () {
     Route::get('/data_user/{id}/destroy_user', [SuperAdminController::class, 'destroy' ])->name('destroy_user');
 
     Route::get('/ganti_password', [SuperAdminController::class, 'ganti_password' ])->name('ganti_password');
+    
+    Route::post('/ganti_password', [SuperAdminController::class, 'update_password' ])->name('update_password');
 
     Route::get('/tambah_nasabah', [SuperAdminController::class, 'tambah_nasabah' ])->name('tambah_nasabah');
 
@@ -121,6 +125,7 @@ Route::get('/ganti_password_admin', [AdminController::class, 'ganti_password_adm
 
 //User
 Route::group(['middleware' => ['auth', 'admin:user']], function () {
+    
 Route::get('/user', [UserController::class, 'index'])->name('dashboard');
 
 Route::get('/dashboard_user', [UserController::class, 'index'])->name('dashboard_user');
