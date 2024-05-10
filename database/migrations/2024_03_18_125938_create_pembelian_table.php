@@ -15,12 +15,14 @@ class CreatePembelianTable extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('tanggal_beli');
+            $table->date('tanggal_beli');
             $table->foreignId('customer_id');
             $table->string('jenis_sampah');
             $table->integer('berat');
             $table->string('harga');
             $table->string('total');
+            $table->string('gambar_nota');
+            $table->string('gambar_sampah');
         });
     }
 

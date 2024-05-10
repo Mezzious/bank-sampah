@@ -44,4 +44,8 @@ class Customer extends Model
     public $timestamps = false;
     
     protected $table = 'customers';
+
+    public function user(){
+        return $this->belongsTo(SuperAdmin::class);
+    }
 }

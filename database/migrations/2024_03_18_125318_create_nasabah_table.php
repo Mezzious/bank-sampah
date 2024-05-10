@@ -16,8 +16,6 @@ class CreateNasabahTable extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->string('nama_nasabah');
-            $table->string('email');
             $table->integer('rw');
             $table->string('telepon', 12);
             $table->string('alamat');

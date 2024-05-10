@@ -21,7 +21,7 @@
             <h6 class="m-0">Form Input Transaksi Jual</h6>
         </div>
         <div class="card-body">
-            <form action="/transaksi-jual/store" method="post">
+            <form action="{{ route('store_transaksi_jual') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
                 {{-- <div class="form-group">
@@ -30,16 +30,16 @@
                         disabled="disabled" required placeholder="Id Jual">
                 </div> --}}
 
-                <div class="form-group">
-                    <label for="tanggal_jual">Tanggal Jual*</label>
-                    <input type="date" class="form-control" id="tanggal_jual" name="tanggal_jual" required>
-                </div>
-
                 {{-- <div class="form-group">
                     <label for="user_id">User Id*</label>
                     <input type="text" class="form-control" id="user_id" name="user_id" style="cursor: not-allowed;"
                     disabled="disabled" required placeholder="User Id">
                 </div> --}}
+                
+                <div class="form-group">
+                    <label for="tanggal_jual">Tanggal Jual*</label>
+                    <input type="date" class="form-control" id="tanggal_jual" name="tanggal_jual" required>
+                </div>
 
                 <div class="form-group">
                     <label for="jenis_sampah">Jenis Sampah*</label>
@@ -49,24 +49,24 @@
 
                 <div class="form-group">
                     <label for="berat">Berat (Kg)*</label>
-                    <input type="number" step="0.01" class="form-control" id="berat" name="berat" required
+                    <input type="number" class="form-control" id="berat" onchange="sum();" name="berat" required
                         placeholder="Berat">
                 </div>
 
                 <div class="form-group">
                     <label for="harga">Harga (Rp)*</label>
-                    <input type="number" class="form-control" id="harga" name="harga" required placeholder="Harga">
+                    <input type="number" class="form-control" id="harga" onchange="sum();" name="harga" required placeholder="Harga">
                 </div>
 
                 <div class="form-group">
                     <label for="total">Total (Rp)*</label>
-                    <input type="number" class="form-control" id="total" name="total" required placeholder="Total">
+                    <input type="number" class="form-control" id="total" onchange="sum();" name="total" readonly>
                 </div>
 
                 <div>
                     <div class="form-group">
-                    <label for="gambar">Bukti Transaksi Jual*</label>
-                    <input type="file" class="form-control" name="upload_bukti_transaksi_jual_link" placeholder="Masukan link disini">
+                    <label for="gambar">Gambar Sampah*</label>
+                    <input type="file" class="form-control" name="gambar" placeholder="Masukan link disini">
                     </div>
                 </div>
 
@@ -74,4 +74,18 @@
             </form>
         </div>
     </div>
+@endsection
+@section('script')
+<script>
+    function sum() {
+        var txtFirstNumberValue = document.getElementById('berat').value;
+        console.log(txtFirstNumberValue)
+        var txtSecondNumberValue = document.getElementById('harga').value;
+        console.log(txtSecondNumberValue)
+        var result = parseInt(txtFirstNumberValue) * parseInt(txtSecondNumberValue);
+        if (!isNaN(result)) {
+            document.getElementById('total').value=result;
+        }
+    }
+</script>
 @endsection

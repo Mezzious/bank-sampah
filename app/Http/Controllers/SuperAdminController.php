@@ -6,6 +6,7 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Models\SuperAdmin;
 use App\Models\Trash;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -20,7 +21,7 @@ class SuperAdminController extends Controller
 
     public function data_user()
     {
-        $users = SuperAdmin::all();
+        $users = SuperAdmin::whereNotIn('roles', ['nasabah'])->get();
         return view('superadmin/data_user', compact('users'));
     }
 
@@ -85,9 +86,15 @@ class SuperAdminController extends Controller
 
     public function destroy($id)
     {
-        $user = SuperAdmin::findOrFail($id);
+        $user = SuperAdmin::findOrFail($id); 
+        if($user->roles == 'nasabah'){
+            $customer = Customer::where('user_id', $id)->first();
+            if($customer){
+                $customer->delete();
+            }
+        }
         $user->delete();
-
+        
         return redirect()->route('data_user')->with('success', 'User berhasil dihapus');
     }
 
@@ -123,7 +130,8 @@ class SuperAdminController extends Controller
 
     public function data_nasabah()
     {
-        $cust = Customer::all();
+        // $cust = User::where('roles', 'nasabah')->with('customer')->get();
+        $cust = Customer::with('user')->get();
         return view('superadmin/data_nasabah', compact('cust'));
     }
 
@@ -137,20 +145,26 @@ class SuperAdminController extends Controller
         $request->validate([
             'nama_nasabah' => 'required|string',
             'email' => 'required|email',
+            'password' => 'required|string|min:6',
             'RW' => 'required|string|min:1',
             'telepon' => 'required|string|min:12',
             'alamat' => 'required',
         ]);
 
         // Simpan data ke dalam database
-        $customers = new Customer();
-        $customers->user_id = auth()->id();
-        $customers->nama_nasabah = $request->input('nama_nasabah');
-        $customers->email = $request->input('email');
-        $customers->RW = $request->input('RW');
-        $customers->telepon = $request->input('telepon');
-        $customers->alamat = $request->input('alamat');
-        $customers->save();
+        $user = new User();
+        $user->name = $request->input('nama_nasabah');
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request->input('password'));
+        $user->roles = 'nasabah';
+        $user->save();
+
+        $customer = new Customer();
+        $customer->user_id = $user->id;
+        $customer->RW = $request->input('RW');
+        $customer->telepon = $request->input('telepon');
+        $customer->alamat = $request->input('alamat');
+        $customer->save();
 
         return redirect()->route('data_nasabah')->with('success', 'Nasabah berhasil ditambahkan');
     }
@@ -173,6 +187,7 @@ class SuperAdminController extends Controller
         $request->validate([
             'nama_nasabah' => 'required|string',
             'email' => 'required|email',
+            'password' => 'required|string|min:6',
             'RW' => 'required|string|min:1',
             'telepon' => 'required|string|min:12',
             'alamat' => 'required',
@@ -181,6 +196,7 @@ class SuperAdminController extends Controller
         $customers = Customer::find($id);
         $customers->nama_nasabah = $request->input('nama_nasabah');
         $customers->email = $request->input('email');
+        $customers->password = $request->input('password');
         $customers->RW = $request->input('RW');
         $customers->telepon = $request->input('telepon');
         $customers->alamat = $request->input('alamat');
@@ -191,8 +207,14 @@ class SuperAdminController extends Controller
 
     public function destroy_nasabah($id)
     {
-        $customers = Customer::findOrFail($id);
-        $customers->delete();
+        $user = SuperAdmin::findOrFail($id); 
+        if($user->roles == 'nasabah'){
+            $customer = Customer::where('user_id', $id)->first();
+            if($customer){
+                $customer->delete();
+            }
+        }
+        $user->delete();
 
         return redirect()->route('data_nasabah')->with('success', 'User berhasil dihapus');
     }
@@ -292,6 +314,11 @@ class SuperAdminController extends Controller
         $trashes->delete();
 
         return redirect()->route('data_sampah')->with('success', 'Sampah berhasil dihapus');
+    }
+    
+    public function tampilkan_tanggal(Request $request)
+    {
+        return view('superadmin/transaksi_jual');
     }
     
     public function transaksi_jual()
