@@ -28,6 +28,8 @@ class SesiController extends Controller
                 return redirect()->intended('/admin');
             } elseif (Auth::user()->roles == 'user') {
                 return redirect()->intended('/user');
+            } elseif (Auth::user()->roles == 'nasabah'){
+                return redirect()->intended('/nasabah');
             }
         } else {
             return redirect('/index')->with('error', 'Email atau password yang Anda masukkan salah')->withInput();

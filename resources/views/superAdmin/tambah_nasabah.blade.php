@@ -59,6 +59,12 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="password">Password*</label>
+                    <input type="password" class="form-control" id="password" name="password" required
+                        placeholder="Password">
+                </div>
+
+                <div class="form-group">
                     <label for="RW">RW*</label>
                     <input type="text" class="form-control" id="RW" name="RW" required placeholder="RW">
                 </div>

@@ -74,6 +74,7 @@
                                     <th>User_Id</th>
                                     <th>Nama</th>
                                     <th>Email</th>
+                                    {{-- <th>Password</th> --}}
                                     <th>RW</th>
                                     <th>Telepon</th>
                                     <th>Alamat</th>
@@ -86,15 +87,16 @@
                                     <td> {{ $loop->iteration }} </td>
                                     <td> {{ $customer->id }} </td>
                                     <td> {{ $customer->user_id }} </td>
-                                    <td> {{ $customer->nama_nasabah }} </td>
-                                    <td> {{ $customer->email }} </td>
+                                    <td> {{ $customer->user->name }} </td>
+                                    <td> {{ $customer->user->email }} </td>
+                                    {{-- <td> {{ $customer->user->password }} </td> --}}
                                     <td> {{ $customer->rw }} </td>
                                     <td> {{ $customer->telepon }} </td>
                                     <td> {{ $customer->alamat }} </td>
                                     <td style="text-align: center;">
-                                        <a href="{{ route('edit_nasabah', ['id' => $customer->id]) }}" class="btn btn-warning btn-sm"
+                                        <a href="{{ route('edit_nasabah', ['id' => $customer->user_id]) }}" class="btn btn-warning btn-sm"
                                         style="color: white"> <i class="fas fa-edit"></i> </a>
-                                        <a href="{{ route('destroy_nasabah', $customer->id) }}" type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
+                                        <a href="{{ route('destroy_nasabah', $customer->user_id) }}" type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
                                             class="fas fa-trash"></i> </a>
                                         </td>
                                     </tr>

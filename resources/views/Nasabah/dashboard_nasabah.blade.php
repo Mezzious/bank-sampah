@@ -3,6 +3,7 @@
 @section('content')
     <!-- Begin Page Content -->
     <section class="section">
+        
         <!-- My Css -->
         <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
         <!-- Page Heading -->
@@ -18,8 +19,10 @@
                                     class="user-dropdown d-flex align-items-center dropend dropdown-toggle"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="text">
-                                        <h6 class="user-dropdown-name">RW 07</h6>
+                                        @foreach ($cust as $customer)    
+                                        <h6 class="user-dropdown-name"> RW 0{{ $customer->rw }} </h6>
                                         <p class="user-dropdown-status text-sm text-muted"></p>
+                                        @endforeach
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-center shadow-lg text-center p-3"

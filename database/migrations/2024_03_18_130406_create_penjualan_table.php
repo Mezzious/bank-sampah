@@ -15,9 +15,10 @@ class CreatePenjualanTable extends Migration
     {
         Schema::create('saleses', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('tanggal_jual');
+            $table->date('tanggal_jual');
             $table->string('jenis_sampah');
-            $table->string('gambar');
+            $table->string('gambar_sampah');
+            $table->string('gambar_nota');
             $table->integer('berat');
             $table->string('harga');
             $table->string('total');

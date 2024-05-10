@@ -4,22 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 
-class SuperAdmin extends Model
+class Sales extends Model
 {
     use HasFactory;
-
-    /**
+        /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'roles',
+        'tanggal_jual',
+        'jenis_sampah',
+        'gambar',
+        'berat',
+        'harga',
+        'total'
     ];
 
         /**
@@ -41,9 +41,7 @@ class SuperAdmin extends Model
         'email_verified_at' => 'datetime',
     ];
 
-    protected $table = 'users';
+    public $timestamps = false;
     
-    // public function customer(){
-    //     return $this->hasOne(Customer::class);
-    // }
+    protected $table = 'saleses';
 }

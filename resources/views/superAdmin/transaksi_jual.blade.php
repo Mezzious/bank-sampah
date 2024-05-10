@@ -59,7 +59,7 @@
         Tanggal akhir: <span id="tglAkhir"></span>
     </div>
 
-    <form action="#" method="post" name="form10" target="_self">
+    <form action="{{ route('tampilkanTanggal') }}" method="post" name="form10" target="_self">
         <div class="row">
             <div class="col-lg-3">
                 <input name="txtTglAwal" type="date" class="form-control" size="10" />
@@ -108,6 +108,24 @@
                                     <td>1</td>
                                     <td>5454</td>
                                     <td>11/03/2024</td>
+                                    <td>123</td>
+                                    <td>Kardus</td>
+                                    <td><img src="https://down-id.img.susercontent.com/file/d41d0ab1c03c710ae114912cf4297f74"width="60px"
+                                            height="60px"></td>
+                                    <td>10Kg</td>
+                                    <td>5000</td>
+                                    <td>50000</td>
+                                    <td style="text-align: center">
+                                        <a href="#" class="btn btn-primary btn-sm" style="color: white"> <i
+                                                class="bi bi-eye-fill"></i> </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>5454</td>
+                                    <td>12/03/2024</td>
                                     <td>123</td>
                                     <td>Kardus</td>
                                     <td><img src="https://down-id.img.susercontent.com/file/d41d0ab1c03c710ae114912cf4297f74"width="60px"
