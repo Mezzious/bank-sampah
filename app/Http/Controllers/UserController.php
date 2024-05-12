@@ -6,6 +6,7 @@ use App\Models\Sales;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -13,7 +14,16 @@ class UserController extends Controller
 
     public function index()
     {
-    return view("user/dashboard_user");
+        // Mendapatkan data pengguna yang sedang login
+        $user = Auth::user();
+
+        // Pastikan pengguna telah login sebelum menampilkan data
+        if ($user) {
+            return view('user/dashboard_user', compact('user'));
+        } else {
+            // Jika pengguna belum login, bisa diarahkan ke halaman login atau tindakan lainnya
+            return redirect()->route('login');
+        }
     }
 
     public function transaksi_jual_user(){

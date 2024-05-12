@@ -4,27 +4,50 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\Customer;
+use App\Models\SuperAdmin;
+use App\Models\Trash;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        return view("admin/dashboard_admin");
+        // Mendapatkan data pengguna yang sedang login
+        $user = Auth::user();
+
+        // Pastikan pengguna telah login sebelum menampilkan data
+        if ($user) {
+            // Mendapatkan data SuperAdmin yang terkait dengan pengguna yang sedang login
+            $superAdmin = SuperAdmin::where('id', $user->id)->first();
+
+            // Mendapatkan roles pengguna
+            $roles = $superAdmin ? $superAdmin->roles : 'Default Role';
+
+            // Mengirimkan data ke tampilan
+            return view('admin/dashboard_admin', compact('roles'));
+        } else {
+            // Jika pengguna belum login, bisa diarahkan ke halaman login atau tindakan lainnya
+            return redirect()->route('login');
+        }
     }
 
     public function data_nasabah_admin()
     {
-        return view('admin/data_nasabah_admin');
+        $cust = Customer::with('user')->get();
+        return view('admin/data_nasabah_admin', compact('cust'));
     }
 
     public function data_sampah_admin()
     {
-        return view('admin/data_sampah_admin');
+        $trashes = Trash::all();
+        return view('admin/data_sampah_admin', compact('trashes'));
     }
 
     public function data_user_admin()
     {
-        return view('admin/data_user_admin');
+        $users = SuperAdmin::whereNotIn('roles', ['nasabah'])->get();
+        return view('admin/data_user_admin', compact('users'));
     }
 
 

@@ -12,7 +12,7 @@
                                 class="user-dropdown d-flex align-items-center dropend dropdown-toggle"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="text">
-                                    <h6 class="user-dropdown-name">SUPERADMIN212</h6>
+                                    <h6 class="user-dropdown-name">Selamat Datang, {{ auth()->user()->name }}</h6>
                                     <p class="user-dropdown-status text-sm text-muted"></p>
                                 </div>
                             </a>
@@ -70,8 +70,8 @@
                             <thead class="table-secondary">
                                 <tr>
                                     <th>No</th>
-                                    <th>Id</th>
-                                    <th>User_Id</th>
+                                    {{-- <th>Id</th> --}}
+                                    {{-- <th>User_Id</th> --}}
                                     <th>Jenis_Sampah</th>
                                     <th>Satuan</th>
                                     <th>Harga</th>
@@ -84,8 +84,8 @@
                                 @foreach ($trashes as $trash)
                                 <tr>
                                     <td> {{$loop->iteration}} </td>
-                                    <td> {{$trash->id}} </td>
-                                    <td> {{$trash->user_id}} </td>
+                                    {{-- <td> {{$trash->id}} </td> --}}
+                                    {{-- <td> {{$trash->user_id}} </td> --}}
                                     <td> {{$trash->jenis_sampah}} </td>
                                     <td> {{$trash->satuan}} </td>
                                     <td> {{$trash->harga}} </td>

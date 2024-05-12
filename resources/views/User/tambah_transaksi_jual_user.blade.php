@@ -70,6 +70,13 @@
                     </div>
                 </div>
 
+                <div>
+                    <div class="form-group">
+                    <label for="nota">Gambar Nota*</label>
+                    <input type="file" class="form-control" name="nota" placeholder="Masukan link disini">
+                    </div>
+                </div>
+
                 <button type="submit" class="btn btn-custom">Simpan</button>
             </form>
         </div>

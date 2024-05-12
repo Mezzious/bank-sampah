@@ -12,7 +12,7 @@
                             class="user-dropdown d-flex align-items-center dropend dropdown-toggle"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="text">
-                                <h6 class="user-dropdown-name">ADMIN212</h6>
+                                <h6 class="user-dropdown-name">Selamat Datang, {{ ucfirst(auth()->user()->roles) }}</h6>
                                 <p class="user-dropdown-status text-sm text-muted"></p>
                             </div>
                         </a>
@@ -63,8 +63,8 @@
                                     <thead class="table-secondary">
                                         <tr>
                                             <th>No</th>
-                                            <th>Id</th>
-                                            <th>Customer_Id</th>
+                                            {{-- <th>Id</th> --}}
+                                            {{-- <th>Customer_Id</th> --}}
                                             <th>Nama</th>
                                             <th>Email</th>
                                             <th>RW</th>
@@ -73,15 +73,18 @@
                                         </tr>
                                     </thead>
                                     <tbody id="tableBody">
+                                        @foreach ($cust as $customer)
                                         <tr>
-                                            <td>1</td>
-                                            <td>212</td>
-                                            <td>252</td>
-                                            <td>Asep</td>
-                                            <td>asep@gmail.com</td>
-                                            <td>07</td>
-                                            <td>123-456-7890</td>
-                                            <td>Jl. Duri Kepa</td>
+                                            <td> {{ $loop->iteration }} </td>
+                                            {{-- <td>212</td> --}}
+                                            {{-- <td>252</td> --}}
+                                            <td> {{ $customer->user->name }} </td>
+                                            <td> {{ $customer->user->email }} </td>
+                                            <td> {{ $customer->rw }} </td>
+                                            <td> {{ $customer->telepon }} </td>
+                                            <td> {{ $customer->alamat }} </td>
+                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

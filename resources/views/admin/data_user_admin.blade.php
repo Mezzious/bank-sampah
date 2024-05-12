@@ -12,7 +12,7 @@
                             class="user-dropdown d-flex align-items-center dropend dropdown-toggle"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="text">
-                                <h6 class="user-dropdown-name">ADMIN212</h6>
+                                <h6 class="user-dropdown-name">Selamat Datang, {{ ucfirst(auth()->user()->roles) }}</h6>
                                 <p class="user-dropdown-status text-sm text-muted"></p>
                             </div>
                         </a>
@@ -63,21 +63,24 @@
                             <thead class="table-secondary">
                                 <tr>
                                     <th>No</th>
-                                    <th>Id</th>
+                                    {{-- <th>Id</th> --}}
                                     <th>Nama</th>
                                     <th>E-mail</th>
-                                    <th>Password</th>
+                                    {{-- <th>Password</th> --}}
                                     <th>Roles</th>
                                 </tr>
                             </thead>
                             <tbody id="tableBody">
+                                @foreach ($users as $user)
                                 <tr>
-                                    <td>1</td>
-                                    <td>212</td>
-                                    <td>John Doe</td>
-                                    <td>john.doe@example.com</td>
-                                    <td>123456</td>
-                                    <td>Admin</td>
+                                    <td> {{ $loop->iteration }} </td>
+                                    {{-- <td> {{ $user->id }} </td> --}}
+                                    <td> {{ $user->name }} </td>
+                                    <td> {{ $user->email }} </td>
+                                    {{-- <td>123456</td> --}}
+                                    <td> {{ $user->roles }} </td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
