@@ -20,7 +20,7 @@
                             aria-labelledby="topbarUserDropdown" style="border-radius: 10px;">
                             <li>
                                 <a class="btn btn-block btn-custom mb-2" style="border-radius: 8px;"
-                                    href="{{ route('ganti_password') }}">
+                                    href="{{ route('ganti_password_user') }}">
                                     <i class="bi bi-key-fill"></i> Password
                                 </a>
                             </li>
@@ -92,8 +92,8 @@
                                     <thead class="table-secondary">
                                         <tr>
                                             <th>No</th>
-                                            <th>Id</th>
-                                            <th>User_Id</th>
+                                            {{-- <th>Id</th>
+                                            <th>User_Id</th> --}}
                                             <th>Tanggal_Jual</th>
                                             <th>Jenis_Sampah</th>
                                             <th>Gambar Sampah</th>
@@ -108,23 +108,23 @@
                                         @foreach ($saleses as $sales)
                                         <tr>
                                             <td> {{ $loop->iteration }} </td>
-                                            <td> {{ $sales->id }} </td>
-                                            <td> {{ $sales->user_id }} </td>
+                                            {{-- <td> {{ $sales->id }} </td>
+                                            <td> {{ $sales->user_id }} </td> --}}
                                             <td> {{ $sales->tanggal_jual }} </td>
                                             <td> {{ $sales->jenis_sampah }} </td>
-                                            <td><img src="{{ asset('storage/assets/nota_jual/'.$sales->gambar) }}"width="60px" height="60px"></td>
+                                            <td><img src="{{ asset('storage/assets/sampah_penjualan/'.$sales->gambar_sampah) }}"width="60px" height="60px"></td>
                                             <td> {{ $sales->berat }} </td>
                                             <td> {{ $sales->harga }} </td>
                                             <td> {{ $sales->total }} </td>
                                             <td style="text-align: center">
-                                                <a href="#" class="btn btn-primary btn-sm" style="color: white"> <i
+                                                <a href="#" class="btn btn-primary btn-sm" style="color: white" onclick="showNotaImage('{{ asset('storage/assets/nota_jual/'.$sales->gambar_nota) }}')"> <i
                                                     class="bi bi-eye-fill"></i> </a>
                                             </td>
                                             <td style="text-align: center;">
-                                                <a href="{{ route('edit_transaksi_jual_user') }}"
+                                                <a href="{{ route('edit_transaksi_jual_user', ['id' => $sales->id]) }}"
                                                     class="btn btn-warning btn-sm" style="color: white"> <i
                                                         class="fas fa-edit"></i> </a>
-                                                <a href="" type="submit" class="btn btn-danger btn-sm"
+                                                <a href="{{ route('destroy_transaksi_jual_user', $sales->id) }}" type="submit" class="btn btn-danger btn-sm"
                                                     onclick="return confirmDelete()"><i class="fas fa-trash"></i> </a>
                                             </td>
                                         </tr>
@@ -137,6 +137,20 @@
                                         <span style="color: white;">Tambah</span>
                                     </a>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="gambarNotaModal" tabindex="-1" aria-labelledby="gambarNotaModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="gambarNotaModalLabel">Gambar Nota</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <img id="notaImage" src="" class="img-fluid">
                             </div>
                         </div>
                     </div>
@@ -183,6 +197,13 @@
                         document.getElementById("tglAwal").innerText = tglAwalFormatted;
                         document.getElementById("tglAkhir").innerText = tglAkhirFormatted;
                         document.getElementById("alertSuccess").style.display = "block";
+                    }
+                </script>
+
+                <script>
+                    function showNotaImage(imageUrl) {
+                    $('#notaImage').attr('src', imageUrl);
+                    $('#gambarNotaModal').modal('show');
                     }
                 </script>
             @endsection
