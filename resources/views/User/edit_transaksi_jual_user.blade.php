@@ -21,8 +21,9 @@
             <h6 class="m-0">Form Edit Transaksi Jual</h6>
         </div>
         <div class="card-body">
-            <form action="/transaksi-jual/store" method="post">
+            <form action="{{ route('update_transaksi_jual_user', ['id' => $sales->id]) }}" method="post">
                 @csrf
+                @method('PUT')
 
                 {{-- <div class="form-group">
                     <label for="id">Id Jual</label>
@@ -32,7 +33,7 @@
 
                 <div class="form-group">
                     <label for="tanggal_jual">Tanggal Jual*</label>
-                    <input type="date" class="form-control" id="tanggal_jual" name="tanggal_jual" required>
+                    <input type="date" class="form-control" id="tanggal_jual" name="tanggal_jual" value="{{ $sales->tanggal_jual }}" required>
                 </div>
 
                 {{-- <div class="form-group">
@@ -44,35 +45,49 @@
                 <div class="form-group">
                     <label for="jenis_sampah">Jenis Sampah*</label>
                     <input type="text" class="form-control" id="jenis_sampah" name="jenis_sampah" required
-                        placeholder="Jenis Sampah">
+                        placeholder="Jenis Sampah" value="{{ $sales->jenis_sampah }}">
                 </div>
 
                 <div class="form-group">
                     <label for="berat">Berat (Kg)*</label>
-                    <input type="number" step="0.01" class="form-control" id="berat" name="berat" required
-                        placeholder="Berat">
+                    <input type="number" step="0.01" class="form-control" onchange="sum();" id="berat" name="berat" required
+                        placeholder="Berat" value="{{ $sales->berat }}">
                 </div>
 
                 <div class="form-group">
                     <label for="harga">Harga (Rp)*</label>
-                    <input type="number" class="form-control" id="harga" name="harga" required placeholder="Harga">
+                    <input type="number" class="form-control" onchange="sum();" id="harga" name="harga" required placeholder="Harga" value="{{ $sales->harga }}">
                 </div>
 
                 <div class="form-group">
                     <label for="total">Total (Rp)*</label>
-                    <input type="number" class="form-control" id="total" name="total" required placeholder="Total">
+                    <input type="number" class="form-control" onchange="sum();" id="total" name="total" required placeholder="Total" value="{{ $sales->total }}" readonly>
                 </div>
 
-                <div>
+                {{-- <div>
                     <div class="form-group">
                         <label for="gambar">Bukti Transaksi Jual*</label>
                         <input type="file" class="form-control" name="upload_bukti_transaksi_jual_link"
                             placeholder="Masukan link disini">
                     </div>
-                </div>
+                </div> --}}
 
                 <button type="submit" class="btn btn-custom">Simpan</button>
             </form>
         </div>
     </div>
+@endsection
+@section('script')
+<script>
+    function sum() {
+        var txtFirstNumberValue = document.getElementById('berat').value;
+        console.log(txtFirstNumberValue)
+        var txtSecondNumberValue = document.getElementById('harga').value;
+        console.log(txtSecondNumberValue)
+        var result = parseInt(txtFirstNumberValue) * parseInt(txtSecondNumberValue);
+        if (!isNaN(result)) {
+            document.getElementById('total').value=result;
+        }
+    }
+</script>
 @endsection

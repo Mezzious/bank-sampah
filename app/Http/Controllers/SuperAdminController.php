@@ -134,7 +134,7 @@ class SuperAdminController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return back()->with('success', 'Password successfully updated.');
+        return back()->with('success', 'Password berhasil diubah');
     }
 
     public function data_nasabah()
@@ -331,12 +331,21 @@ class SuperAdminController extends Controller
         $trash->deskripsi = $request->input('deskripsi');
         $trash->save();
     
-        return redirect()->route('data_sampah')->with('success', 'Data Sampah berhasil diperbarui');
-    }
+            return redirect()->route('data_sampah')->with('success', 'Data Sampah berhasil diperbarui');
+        }
 
     public function destroy_sampah($id)
     {
         $trashes = Trash::findOrFail($id);
+
+        // Path gambar di storage
+        $gambarPath = 'public/assets/sampah/' . $trashes->gambar;
+
+        // Hapus gambar dari storage
+        if (Storage::exists($gambarPath)) {
+            Storage::delete($gambarPath);
+        }
+
         $trashes->delete();
 
         return redirect()->route('data_sampah')->with('success', 'Sampah berhasil dihapus');

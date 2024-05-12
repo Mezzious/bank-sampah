@@ -141,9 +141,15 @@ Route::group(['middleware' => ['auth', 'admin:user']], function () {
 
     Route::get('/edit_transaksi_jual_user', [UserController::class, 'edit_transaksi_jual_user'])->name('edit_transaksi_jual_user');
 
-    Route::get('/laporan_jual_user', [UserController::class, 'laporan_jual_user'])->name('laporan_jual_user');
+    Route::put('/edit_transaksi_jual_user', [UserController::class, 'update_transaksi_jual_user'])->name('update_transaksi_jual_user');
+
+    Route::get('/transaksi_jual_user/{id}/destroy_transaksi_jual_user', [UserController::class, 'destroy_transaksi_jual_user'])->name('destroy_transaksi_jual_user');
 
     Route::get('/ganti_password_user', [UserController::class, 'ganti_password_user'])->name('ganti_password_user');
+    
+    Route::post('/ganti_password_user', [UserController::class, 'update_password_user'])->name('update_password_user');
+    
+    // Route::get('/laporan_jual_user', [UserController::class, 'laporan_jual_user'])->name('laporan_jual_user');
 });
 
 // Nasabah Route //
