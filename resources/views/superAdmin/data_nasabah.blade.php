@@ -12,7 +12,7 @@
                                 class="user-dropdown d-flex align-items-center dropend dropdown-toggle"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="text">
-                                    <h6 class="user-dropdown-name">SUPERADMIN212</h6>
+                                    <h6 class="user-dropdown-name">Selamat Datang, {{ auth()->user()->name }}</h6>
                                     <p class="user-dropdown-status text-sm text-muted"></p>
                                 </div>
                             </a>
@@ -71,7 +71,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Id</th>
-                                    <th>User_Id</th>
+                                    {{-- <th>User_Id</th> --}}
                                     <th>Nama</th>
                                     <th>Email</th>
                                     {{-- <th>Password</th> --}}
@@ -86,7 +86,7 @@
                                 <tr>
                                     <td> {{ $loop->iteration }} </td>
                                     <td> {{ $customer->id }} </td>
-                                    <td> {{ $customer->user_id }} </td>
+                                    {{-- <td> {{ $customer->user_id }} </td> --}}
                                     <td> {{ $customer->user->name }} </td>
                                     <td> {{ $customer->user->email }} </td>
                                     {{-- <td> {{ $customer->user->password }} </td> --}}
@@ -94,7 +94,7 @@
                                     <td> {{ $customer->telepon }} </td>
                                     <td> {{ $customer->alamat }} </td>
                                     <td style="text-align: center;">
-                                        <a href="{{ route('edit_nasabah', ['id' => $customer->user_id]) }}" class="btn btn-warning btn-sm"
+                                        <a href="{{ route('edit_nasabah', ['id' => $customer->id]) }}" class="btn btn-warning btn-sm"
                                         style="color: white"> <i class="fas fa-edit"></i> </a>
                                         <a href="{{ route('destroy_nasabah', $customer->user_id) }}" type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
                                             class="fas fa-trash"></i> </a>

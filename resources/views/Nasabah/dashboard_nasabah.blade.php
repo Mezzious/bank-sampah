@@ -18,11 +18,9 @@
                                 <a href="#" id="topbarUserDropdown"
                                     class="user-dropdown d-flex align-items-center dropend dropdown-toggle"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    <div class="text">
-                                        @foreach ($cust as $customer)    
-                                        <h6 class="user-dropdown-name"> RW 0{{ $customer->rw }} </h6>
+                                    <div class="text">  
+                                        <h6 class="user-dropdown-name">Selamat Datang, RW 0{{ $customer->rw }}</h6>
                                         <p class="user-dropdown-status text-sm text-muted"></p>
-                                        @endforeach
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-center shadow-lg text-center p-3"

@@ -16,7 +16,16 @@ class SuperAdminController extends Controller
 {
     public function index()
     {
-        return view("superadmin/dashboard");
+        // Mendapatkan data pengguna yang sedang login
+        $user = Auth::user();
+
+        // Pastikan pengguna telah login sebelum menampilkan data
+        if ($user) {
+            return view('superadmin/dashboard', compact('user'));
+        } else {
+            // Jika pengguna belum login, bisa diarahkan ke halaman login atau tindakan lainnya
+            return redirect()->route('login');
+        }
     }
 
     public function data_user()
@@ -88,7 +97,7 @@ class SuperAdminController extends Controller
     {
         $user = SuperAdmin::findOrFail($id); 
         if($user->roles == 'nasabah'){
-            $customer = Customer::where('user_id', $id)->first();
+                $customer = Customer::where('user_id', $id)->first();
             if($customer){
                 $customer->delete();
             }
@@ -107,7 +116,7 @@ class SuperAdminController extends Controller
     {
         $request->validate([
             'current_password' => 'required',
-            'password' => 'required|confirmed|min:8',
+            'password' => 'required|confirmed|min:6',
         ]);
 
         $user = SuperAdmin::find(Auth::id());
@@ -130,7 +139,6 @@ class SuperAdminController extends Controller
 
     public function data_nasabah()
     {
-        // $cust = User::where('roles', 'nasabah')->with('customer')->get();
         $cust = Customer::with('user')->get();
         return view('superadmin/data_nasabah', compact('cust'));
     }
@@ -173,34 +181,52 @@ class SuperAdminController extends Controller
     {
         $id = $request->input('id');
         $customer = Customer::findOrFail($id);
+        $user = SuperAdmin::findOrFail($customer->user_id);
 
         if (!$customer) {
             return back()->with('error', 'Data nasabah tidak ditemukan.');
         }
 
-        return view('superadmin/edit_nasabah', compact('customer'));
+        return view('superadmin/edit_nasabah', compact('customer', 'user'));
     }
 
     public function update_nasabah(Request $request)
     {
         $id = $request->input('id');
+    
+        // Validasi input
         $request->validate([
             'nama_nasabah' => 'required|string',
             'email' => 'required|email',
-            'password' => 'required|string|min:6',
             'RW' => 'required|string|min:1',
             'telepon' => 'required|string|min:12',
             'alamat' => 'required',
         ]);
 
-        $customers = Customer::find($id);
-        $customers->nama_nasabah = $request->input('nama_nasabah');
-        $customers->email = $request->input('email');
-        $customers->password = $request->input('password');
-        $customers->RW = $request->input('RW');
-        $customers->telepon = $request->input('telepon');
-        $customers->alamat = $request->input('alamat');
-        $customers->save();
+        // Ambil data nasabah berdasarkan id
+        $customer = Customer::findOrFail($id);
+
+        if (!$customer) {
+            return back()->with('error', 'Data nasabah tidak ditemukan.');
+        }
+
+        // Update data nasabah
+        $customer->RW = $request->input('RW');
+        $customer->telepon = $request->input('telepon');
+        $customer->alamat = $request->input('alamat');
+        $customer->save();
+
+        // Ambil data pengguna (user) yang terkait dengan nasabah
+        $user = SuperAdmin::findOrFail($customer->user_id);
+
+        if (!$user) {
+            return back()->with('error', 'Data pengguna tidak ditemukan.');
+        }
+
+        // Update data pengguna (user)
+        $user->name = $request->input('nama_nasabah');
+        $user->email = $request->input('email');
+        $user->save();
 
         return redirect()->route('data_nasabah', $id)->with('success', 'User berhasil diupdate');
     }

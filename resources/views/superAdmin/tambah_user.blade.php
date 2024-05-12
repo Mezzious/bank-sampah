@@ -46,7 +46,6 @@
                         <option value="" disabled selected hidden>Pilih Roles</option>
                         <option value="super-admin">Super Admin</option>
                         <option value="admin">Admin</option>
-                        <option value="nasabah">Nasabah</option>
                         <option value="user">User</option>
                     </select>
                 </div>

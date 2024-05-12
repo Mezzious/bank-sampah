@@ -50,13 +50,13 @@
                 <div class="form-group">
                     <label for="nama_nasabah">Nama*</label>
                     <input type="text" class="form-control" id="nama_nasabah" name="nama_nasabah" required
-                        placeholder="Nama" value="{{ $customer->nama_nasabah }}">
+                        placeholder="Nama" value="{{ $user->name }}">
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email*</label>
                     <input type="text" class="form-control" id="email" name="email" required
-                        placeholder="Email" value="{{ $customer->email }}">
+                        placeholder="Email" value="{{ $user->email }}">
                 </div>
 
                 <div class="form-group">

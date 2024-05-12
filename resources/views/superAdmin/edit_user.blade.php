@@ -35,10 +35,10 @@
                     <input type="email" class="form-control" id="email" name="email" required placeholder="Email" value="{{ $user->email }}">
                 </div>
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="password">Password*</label>
                     <input type="password" class="form-control" id="password" name="password" required placeholder="Password" value="{{ $user->password }}">
-                </div>
+                </div> --}}
 
                 <button type="submit" class="btn btn-custom">Simpan</button>
             </form>
