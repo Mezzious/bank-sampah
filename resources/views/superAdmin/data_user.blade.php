@@ -70,7 +70,7 @@
                             <thead class="table-secondary">
                                 <tr>
                                     <th>No</th>
-                                    <th>Id</th>
+                                    {{-- <th>Id</th> --}}
                                     <th>Nama</th>
                                     <th>E-mail</th>
                                     {{-- <th>Password</th> --}}
@@ -82,7 +82,7 @@
                                 @foreach ($users as $user)
                                 <tr>
                                     <td> {{ $loop->iteration }} </td>
-                                    <td> {{ $user->id }} </td>
+                                    {{-- <td> {{ $user->id }} </td> --}}
                                     <td> {{ $user->name }} </td>
                                     <td> {{ $user->email }} </td>
                                     {{-- <td> {{ $user->password }} </td> --}}
