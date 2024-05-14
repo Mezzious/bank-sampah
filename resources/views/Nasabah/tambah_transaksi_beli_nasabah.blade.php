@@ -65,8 +65,15 @@
 
                 <div>
                     <div class="form-group">
-                    <label for="gambar">Bukti Transaksi Beli*</label>
-                    <input type="file" class="form-control" name="upload_bukti_transaksi_beli_link" placeholder="Masukan link disini">
+                    <label for="gambar">Gambar Sampah*</label>
+                    <input type="file" class="form-control" name="gambar" placeholder="Masukan link disini">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="form-group">
+                    <label for="nota">Gambar Nota*</label>
+                    <input type="file" class="form-control" name="nota" placeholder="Masukan link disini">
                     </div>
                 </div>
 

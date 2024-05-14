@@ -35,11 +35,11 @@
                     <input type="date" class="form-control" id="tanggal_beli" name="tanggal_beli" required>
                 </div>
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="customer_id">Customer Id*</label>
                     <input type="date" class="form-control" id="customer_id" name="customer_id" style="cursor: not-allowed;"
                     disabled="disabled" required>
-                </div>
+                </div> --}}
 
                 <div class="form-group">
                     <label for="jenis_sampah">Jenis Sampah*</label>
@@ -63,12 +63,12 @@
                     <input type="number" class="form-control" id="total" name="total" required placeholder="Total">
                 </div>
 
-                <div>
+                {{-- <div>
                     <div class="form-group">
                     <label for="gambar">Bukti Transaksi Beli*</label>
                     <input type="file" class="form-control" name="upload_bukti_transaksi_beli_link" placeholder="Masukan link disini">
                     </div>
-                </div>
+                </div> --}}
 
                 <button type="submit" class="btn btn-custom">Simpan</button>
             </form>
