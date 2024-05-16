@@ -3,24 +3,24 @@
 @section('content')
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
 
-@if (session('status'))
-    <div class="alert alert-danger" role="alert">
-        {{ session('status') }}
-    </div>
-@endif
-
-@if (session('success'))
-    <div class="alert alert-primary" role="alert">
-        {{ session('success') }}
-    </div>
-@endif
-
     <div class="back-button-container" style="margin-bottom: 15px">
         <a class="btn back-button" onclick="goBack()">
             <i class="fa-solid fa-arrow-left" style="color: white;"></i>
             <span style="color: white;">Back</span>
         </a>
     </div>
+
+    @if (session('status'))
+    <div class="alert alert-danger" role="alert">
+        {{ session('status') }}
+    </div>
+    @endif
+
+    @if (session('success'))
+        <div class="alert alert-primary" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
 
     <div class="card" style="margin-right: 28px">
         <div class="  card-header" style="color: #4F6F52; font-weight: bold; font-size: 20px; font-family: sans-serif;">
