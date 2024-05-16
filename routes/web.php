@@ -124,6 +124,8 @@ Route::group(['middleware' => ['auth', 'admin:admin']], function () {
     Route::get('/laporan_beli_admin', [AdminController::class, 'laporan_beli_admin'])->name('laporan_beli_admin');
 
     Route::get('/ganti_password_admin', [AdminController::class, 'ganti_password_admin'])->name('ganti_password_admin');
+
+    Route::post('/ganti_password_admin', [AdminController::class, 'update_ganti_password_admin'])->name('update_ganti_password_admin');
 });
 
 //User
@@ -168,6 +170,8 @@ Route::group(['middleware' => ['auth', 'admin:nasabah']], function () {
     Route::get('/laporan_beli_nasabah', [NasabahController::class, 'laporan_beli_nasabah'])->name('laporan_beli_nasabah');
 
     Route::get('/ganti_password_nasabah', [NasabahController::class, 'ganti_password_nasabah'])->name('ganti_password_nasabah');
+
+    Route::post('/ganti_password_nasabah', [NasabahController::class, 'update_ganti_password_nasabah'])->name('update_ganti_password_nasabah');
 });
 
 

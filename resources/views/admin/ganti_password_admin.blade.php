@@ -10,6 +10,18 @@
         </a>
     </div>
 
+    @if (session('status'))
+    <div class="alert alert-danger" role="alert">
+        {{ session('status') }}
+    </div>
+    @endif
+
+    @if (session('success'))
+        <div class="alert alert-primary" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="card" style="margin-right: 28px">
         <div class="  card-header" style="color: #4F6F52; font-weight: bold; font-size: 20px; font-family: sans-serif;">
             Ganti Password</div>
@@ -17,13 +29,7 @@
 
 
         <div class="card-body">
-            @if (session('status'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
-                </div>
-            @endif
-
-            <form method="POST" action="#">
+            <form method="POST" action="{{ route('update_ganti_password_admin') }}">
                 @csrf
 
                 <div class="form-group row">
