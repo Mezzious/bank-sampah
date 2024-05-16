@@ -5,25 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sales extends Model
+class Purchase extends Model
 {
     use HasFactory;
-        /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'tanggal_jual',
+        'tanggal_beli',
         'jenis_sampah',
-        'gambar_sampah',
-        'gambar_nota',
         'berat',
         'harga',
-        'total'
+        'total',
+        'gambar_sampah',
+        'gambar_nota',
     ];
 
-        /**
+    /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
@@ -43,6 +43,6 @@ class Sales extends Model
     ];
 
     public $timestamps = false;
-    
-    protected $table = 'saleses';
+
+    protected $table = 'purchases';
 }

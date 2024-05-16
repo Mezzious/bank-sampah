@@ -87,28 +87,30 @@
                                 <tr>
                                     <th>No</th>
                                     {{-- <th>Id</th> --}}
-                                    <th>Tanggal_Jual</th>
                                     {{-- <th>User_Id</th> --}}
+                                    <th>Tanggal_Jual</th>
                                     <th>Jenis_Sampah</th>
                                     <th>Gambar</th>
-                                    <th>Berat</th>
+                                    <th>Berat (Kg)</th>
                                     <th>Harga</th>
                                     <th>Total</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($saleses as $sales)
                                 <tr>
-                                    <td>1</td>
-                                    {{-- <td>5454</td> --}}
-                                    <td>11/03/2024</td>
-                                    {{-- <td>123</td> --}}
-                                    <td>Kardus</td>
-                                    <td><img src="https://down-id.img.susercontent.com/file/d41d0ab1c03c710ae114912cf4297f74"width="60px"
+                                    <td> {{ $loop->iteration }} </td>
+                                    {{-- <td> {{ $sales->id }} </td>
+                                    <td> {{ $sales->user_id }} </td> --}}
+                                    <td> {{ $sales->tanggal_jual }} </td>
+                                    <td> {{ $sales->jenis_sampah }} </td>
+                                    <td><img src="{{ asset('storage/assets/sampah_penjualan/'.$sales->gambar_sampah) }}"width="60px"
                                             height="60px"></td>
-                                    <td>10Kg</td>
-                                    <td>5000</td>
-                                    <td>50000</td>
+                                    <td> {{ $sales->berat }} </td>
+                                    <td> {{ $sales->harga }} </td>
+                                    <td> {{ $sales->total }} </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                         <div>

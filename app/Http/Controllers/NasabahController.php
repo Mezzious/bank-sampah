@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Nasabah;
+use App\Models\Purchase;
 use App\Models\SuperAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class NasabahController extends Controller
 {
@@ -33,12 +35,61 @@ class NasabahController extends Controller
     }
 
     public function transaksi_beli_nasabah(){
-        return view('nasabah/transaksi_beli_nasabah');
-        }
+        $purchases = Purchase::all();
+        return view('nasabah/transaksi_beli_nasabah', compact('purchases'));
+    }
 
     public function tambah_transaksi_beli_nasabah(){
         return view('nasabah/tambah_transaksi_beli_nasabah');
-        }
+    }
+
+    public function store_transaksi_beli(Request $request){
+            // Validasi input
+            $request->validate([
+                'tanggal_beli' => 'required|date',
+                'jenis_sampah' => 'required|string',
+                'berat' => 'required|numeric',
+                'harga' => 'required|numeric',
+                'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'nota' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
+    
+            // Membuat direktori baru untuk menyimpan nota jual
+            $path = 'public/assets/nota_beli';
+            Storage::makeDirectory($path);
+    
+            $path1 = 'public/assets/sampah_pembelian';
+            Storage::makeDirectory($path1);
+            
+            // Proses upload gambar nota jual
+            $notaBeliName = time() . '.' . $request->nota->extension();
+            if (!$request->nota->isValid()) {
+                return back()->withErrors(['nota' => 'File gambar tidak valid']);
+            }
+            $request->nota->storeAs($path, $notaBeliName);
+    
+            // Proses upload gambar nota jual
+            $sampahBeli = time() . '.' . $request->gambar->extension();
+            if (!$request->gambar->isValid()) {
+                return back()->withErrors(['gambar' => 'File gambar tidak valid']);
+            }
+            $request->gambar->storeAs($path1, $sampahBeli);
+    
+            // Simpan data ke dalam database
+            $purchase = new Purchase();
+            $purchase->customer_id = auth()->id();
+            $purchase->tanggal_beli = $request->input('tanggal_beli');
+            $purchase->jenis_sampah = $request->input('jenis_sampah');
+            $purchase->berat = $request->input('berat');
+            $purchase->harga = $request->input('harga');
+            $purchase->total = $request->input('berat') * $request->input('harga');
+            $purchase->gambar_nota = $notaBeliName;
+            $purchase->gambar_sampah = $sampahBeli;
+            $purchase->save();
+    
+            // Redirect ke halaman yang sesuai dengan pesan sukses atau lainnya
+            return redirect()->route('transaksi_beli_nasabah')->with('success', 'Data penjualan berhasil disimpan.');
+    }
 
     public function edit_transaksi_beli_nasabah(){
         return view('nasabah/edit_transaksi_beli_nasabah');

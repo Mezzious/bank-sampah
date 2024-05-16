@@ -21,7 +21,7 @@
             <h6 class="m-0">Form Input Transaksi Beli</h6>
         </div>
         <div class="card-body">
-            <form action="/transaksi-jual/store" method="post">
+            <form action="{{ route('store_transaksi_beli') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
                 {{-- <div class="form-group">
@@ -35,11 +35,11 @@
                     <input type="date" class="form-control" id="tanggal_beli" name="tanggal_beli" required>
                 </div>
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="customer_id">Customer Id*</label>
                     <input type="text" class="form-control" id="customer_id" name="customer_id" style="cursor: not-allowed;"
                     disabled="disabled" required>
-                </div>
+                </div> --}}
 
                 <div class="form-group">
                     <label for="jenis_sampah">Jenis Sampah*</label>
@@ -49,18 +49,18 @@
 
                 <div class="form-group">
                     <label for="berat">Berat (Kg)*</label>
-                    <input type="number" step="0.01" class="form-control" id="berat" name="berat" required
+                    <input type="number" step="0.01" class="form-control" id="berat" onchange="sum();" name="berat" required
                         placeholder="Berat">
                 </div>
 
                 <div class="form-group">
                     <label for="harga">Harga (Rp)*</label>
-                    <input type="number" class="form-control" id="harga" name="harga" required placeholder="Harga">
+                    <input type="number" class="form-control" id="harga" onchange="sum();" name="harga" required placeholder="Harga">
                 </div>
 
                 <div class="form-group">
                     <label for="total">Total (Rp)*</label>
-                    <input type="number" class="form-control" id="total" name="total" required placeholder="Total">
+                    <input type="number" class="form-control" id="total" onchange="sum();" name="total" required placeholder="Total" readonly>
                 </div>
 
                 <div>
@@ -81,4 +81,18 @@
             </form>
         </div>
     </div>
+@endsection
+@section('script')
+<script>
+    function sum() {
+        var txtFirstNumberValue = document.getElementById('berat').value;
+        console.log(txtFirstNumberValue)
+        var txtSecondNumberValue = document.getElementById('harga').value;
+        console.log(txtSecondNumberValue)
+        var result = parseInt(txtFirstNumberValue) * parseInt(txtSecondNumberValue);
+        if (!isNaN(result)) {
+            document.getElementById('total').value=result;
+        }
+    }
+</script>
 @endsection
