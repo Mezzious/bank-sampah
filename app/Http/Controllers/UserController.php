@@ -46,6 +46,7 @@ class UserController extends Controller
             'berat' => 'required|numeric',
             'harga' => 'required|numeric',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nota' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         // Membuat direktori baru untuk menyimpan nota jual

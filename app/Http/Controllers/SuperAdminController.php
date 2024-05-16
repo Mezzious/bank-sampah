@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Sales;
 use Illuminate\Http\Request;
 use App\Models\SuperAdmin;
 use App\Models\Trash;
@@ -358,18 +359,19 @@ class SuperAdminController extends Controller
     
     public function transaksi_jual()
     {
-        return view('superadmin/transaksi_jual');
+        $saleses = Sales::all();
+        return view('superadmin/transaksi_jual', compact('saleses'));
     }
 
-    public function tambah_transaksi_jual()
-    {
-        return view('superadmin/tambah_transaksi_jual');
-    }
+    // public function tambah_transaksi_jual()
+    // {
+    //     return view('superadmin/tambah_transaksi_jual');
+    // }
 
-    public function edit_transaksi_jual()
-    {
-        return view('superadmin/edit_transaksi_jual');
-    }
+    // public function edit_transaksi_jual()
+    // {
+    //     return view('superadmin/edit_transaksi_jual');
+    // }
 
     public function transaksi_beli()
     {
@@ -388,7 +390,8 @@ class SuperAdminController extends Controller
 
     public function laporan_jual()
     {
-        return view('superadmin/laporan_jual');
+        $saleses = Sales::all();
+        return view('superadmin/laporan_jual', compact('saleses'));
     }
 
     public function laporan_beli()
