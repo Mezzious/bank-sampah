@@ -83,10 +83,6 @@
                                 <label for="remember"
                                     class="form-check-label text-secondary"><small>{{ __('Remember Me') }}</small></label>
                             </div>
-                            <div class="forgot">
-                                <small><a
-                                        href="#">{{ __('Forgot Password?') }}</a></small>
-                            </div>
                         </div>
 
                         <div class="input-group mb-3">
