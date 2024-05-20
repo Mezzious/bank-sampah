@@ -109,6 +109,10 @@
                                     <td>5000</td>
                                     <td>50000</td>
                                 </tr>
+                                <tr>
+                                    <td colspan="6">Jumlah Total</td>
+                                    <td>100000</td>
+                                </tr>
                             </tbody>
                         </table>
                         <a href="#" class="btn btn-custom" id="printButton">

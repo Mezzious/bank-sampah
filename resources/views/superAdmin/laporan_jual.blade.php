@@ -94,6 +94,7 @@
                                     <th>Berat (Kg)</th>
                                     <th>Harga</th>
                                     <th>Total</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -109,6 +110,11 @@
                                     <td> {{ $sales->berat }} </td>
                                     <td> {{ $sales->harga }} </td>
                                     <td> {{ $sales->total }} </td>
+
+                                </tr>
+                                <tr>
+                                    <td colspan="6">Jumlah Total</td>
+                                    <td>100000</td>
                                 </tr>
                                 @endforeach
                             </tbody>
