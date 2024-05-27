@@ -169,7 +169,11 @@ Route::group(['middleware' => ['auth', 'admin:nasabah']], function () {
 
     Route::get('/edit_transaksi_beli_nasabah', [NasabahController::class, 'edit_transaksi_beli_nasabah'])->name('edit_transaksi_beli_nasabah');
 
-    Route::get('/laporan_beli_nasabah', [NasabahController::class, 'laporan_beli_nasabah'])->name('laporan_beli_nasabah');
+    Route::put('/edit_transaksi_beli_nasabah', [NasabahController::class, 'update_transaksi_beli_nasabah'])->name('update_transaksi_beli_nasabah');
+
+    Route::get('/transaksi_beli_nasabah/{id}/destroy_transaksi_beli_nasabah', [NasabahController::class, 'destroy_transaksi_beli_nasabah'])->name('destroy_transaksi_beli_nasabah');
+
+    // Route::get('/laporan_beli_nasabah', [NasabahController::class, 'laporan_beli_nasabah'])->name('laporan_beli_nasabah');
 
     Route::get('/ganti_password_nasabah', [NasabahController::class, 'ganti_password_nasabah'])->name('ganti_password_nasabah');
 

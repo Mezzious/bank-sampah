@@ -352,7 +352,7 @@ class SuperAdminController extends Controller
         return redirect()->route('data_sampah')->with('success', 'Sampah berhasil dihapus');
     }
     
-    public function tampilkan_tanggal(Request $request)
+    public function tampilkan_tanggal()
     {
         return view('superadmin/transaksi_jual');
     }
