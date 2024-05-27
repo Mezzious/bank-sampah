@@ -12,7 +12,7 @@
                                 class="user-dropdown d-flex align-items-center dropend dropdown-toggle"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="text">
-                                    <h6 class="user-dropdown-name">RW 07</h6>
+                                    <h6 class="user-dropdown-name">Selamat Datang, RW 0{{ $user->customer->rw }}</h6>
                                     <p class="user-dropdown-status text-sm text-muted"></p>
                                 </div>
                             </a>
@@ -91,7 +91,7 @@
                                         <tr>
                                             <th>No</th>
                                             {{-- <th>Id</th> --}}
-                                            {{-- <th>RW</th> --}}
+                                            <th>RW</th>
                                             <th>Tanggal_Beli</th>
                                             <th>Jenis_Sampah</th>
                                             <th>Gambar</th>
@@ -107,7 +107,7 @@
                                         <tr>
                                             <td> {{ $loop->iteration }} </td>
                                             {{-- <td> {{ $purchase->id }} </td> --}}
-                                            {{-- <td> {{ $purchase->customer_id }} </td>  --}}
+                                            <td> 0{{ $purchase->user->customer->rw }} </td> 
                                             <td> {{ $purchase->tanggal_beli }} </td>
                                             <td> {{ $purchase->jenis_sampah }} </td>
                                             <td><img src="{{ asset('storage/assets/sampah_pembelian/'.$purchase->gambar_sampah) }}"
@@ -120,10 +120,10 @@
                                                         class="bi bi-eye-fill"></i> </a>
                                             </td>
                                             <td style="text-align: center;">
-                                                <a href="{{ route('edit_transaksi_beli_nasabah') }}"
+                                                <a href="{{ route('edit_transaksi_beli_nasabah', ['id' => $purchase->id]) }}"
                                                     class="btn btn-warning btn-sm" style="color: white"> <i
                                                     class="fas fa-edit"></i> </a>
-                                                    <a type="submit" class="btn btn-danger btn-sm"
+                                                <a href="{{ route('destroy_transaksi_beli_nasabah', $purchase->id) }}" type="submit" class="btn btn-danger btn-sm"
                                                     onclick="return confirmDelete()"><i class="fas fa-trash"></i> </a>
                                                 </td>
                                             </tr>

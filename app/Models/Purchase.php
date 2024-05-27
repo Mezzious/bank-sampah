@@ -14,6 +14,7 @@ class Purchase extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_id',
         'tanggal_beli',
         'jenis_sampah',
         'berat',
@@ -45,4 +46,9 @@ class Purchase extends Model
     public $timestamps = false;
 
     protected $table = 'purchases';
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

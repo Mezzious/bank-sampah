@@ -43,7 +43,8 @@ class SuperAdmin extends Model
 
     protected $table = 'users';
     
-    // public function customer(){
-    //     return $this->hasOne(Customer::class);
+    // public function purchase(){
+    //     return $this->hasMany(Purchase::class);
     // }
+
 }
