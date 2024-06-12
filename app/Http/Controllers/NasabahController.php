@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\Nasabah;
 use App\Models\Purchase;
 use App\Models\SuperAdmin;
+use App\Models\Trash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -49,7 +50,8 @@ class NasabahController extends Controller
     }
 
     public function tambah_transaksi_beli_nasabah(){
-        return view('nasabah/tambah_transaksi_beli_nasabah');
+        $trashes = Trash::all();
+        return view('nasabah/tambah_transaksi_beli_nasabah', compact('trashes'));
     }
 
     public function store_transaksi_beli(Request $request){

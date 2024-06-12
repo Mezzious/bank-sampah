@@ -85,7 +85,7 @@
                                     <thead class="table-secondary">
                                         <tr>
                                             <th>No</th>
-                                            {{-- <th>Id</th> --}}
+                                            <th>RW</th>
                                             <th>Tanggal_Beli</th>
                                             {{-- <th>Customer_Id</th> --}}
                                             <th>Jenis_Sampah</th>
@@ -97,22 +97,25 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($purchases as $purchase)
                                         <tr>
-                                            <td>1</td>
-                                            {{-- <td>5454</td> --}}
-                                            <td>11/03/2024</td>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>0{{ $purchase->user->customer->rw }}</td>
+                                            <td>{{ $purchase->tanggal_beli }}</td>
                                             {{-- <td>8989</td> --}}
-                                            <td>Kardus</td>
-                                            <td><img src="https://down-id.img.susercontent.com/file/d41d0ab1c03c710ae114912cf4297f74"width="60px"
-                                                height="60px"></td>
-                                            <td>10Kg</td>
-                                            <td>5000</td>
-                                            <td>50000</td>
+                                            <td>{{ $purchase->jenis_sampah }}</td>
+                                            <td><img
+                                                    src="{{ asset('storage/assets/sampah_pembelian/'.$purchase->gambar_sampah) }}"
+                                                    width="60px" height="60px"></td>
+                                            <td>{{ $purchase->berat }}</td>
+                                            <td>{{ $purchase->harga }}</td>
+                                            <td>{{ $purchase->total }}</td>
                                             <td style="text-align: center">
-                                                <a href="#" class="btn btn-primary btn-sm" style="color: white"> <i
-                                                        class="bi bi-eye-fill"></i> </a>
-                                            </td>
+                                                <a href="#" class="btn btn-primary btn-sm" style="color: white" onclick="showNotaImage('{{ asset('storage/assets/nota_beli/'.$purchase->gambar_nota) }}')"> <i
+                                                    class="bi bi-eye-fill"></i> </a>
+                                                </td>
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

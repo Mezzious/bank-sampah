@@ -100,6 +100,7 @@ Route::group(['middleware' => ['auth', 'admin:super-admin']], function () {
     Route::get('/cetak_laporan_jual', [SuperAdminController::class, 'cetak_laporan_jual'])->name('cetak_laporan_jual');
 
     Route::get('/cetak_laporan_beli', [SuperAdminController::class, 'cetak_laporan_beli'])->name('cetak_laporan_beli');
+
 });
 
 //Admin
