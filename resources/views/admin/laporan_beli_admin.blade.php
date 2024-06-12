@@ -89,23 +89,31 @@
                                             {{-- <th>Customer_Id</th> --}}
                                             <th>Jenis_Sampah</th>
                                             <th>Gambar</th>
-                                            <th>Berat</th>
+                                            <th>Berat (Kg)</th>
                                             <th>Harga</th>
                                             <th>Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php $grandTotal = 0; @endphp
+                                        @foreach ($purchases as $purchase)
+                                        @php $grandTotal += $purchase->total; @endphp
                                         <tr>
-                                            <td>1</td>
+                                            <td> {{ $loop->iteration }} </td>
                                             {{-- <td>5454</td> --}}
-                                            <td>11/03/2024</td>
+                                            <td> {{ $purchase->tanggal_beli }} </td>
                                             {{-- <td>8989</td> --}}
-                                            <td>Kardus</td>
-                                            <td><img src="https://down-id.img.susercontent.com/file/d41d0ab1c03c710ae114912cf4297f74"width="60px"
+                                            <td> {{ $purchase->jenis_sampah }} </td>
+                                            <td><img src="{{ asset('storage/assets/sampah_pembelian/'.$purchase->gambar_sampah) }}"width="60px"
                                                     height="60px"></td>
-                                            <td>10Kg</td>
-                                            <td>5000</td>
-                                            <td>50000</td>
+                                            <td>{{ $purchase->berat }}</td>
+                                            <td>{{ $purchase->harga }}</td>
+                                            <td>{{ $purchase->total }}</td>
+                                        </tr>
+                                        @endforeach
+                                        <tr>
+                                            <td colspan="6" class="text-right font-weight-bold">Jumlah Total</td>
+                                            <td class="font-weight-bold">{{ $grandTotal }}</td>
                                         </tr>
                                     </tbody>
                                 </table>

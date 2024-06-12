@@ -91,7 +91,7 @@
                                         <tr>
                                             <th>No</th>
                                             {{-- <th>Id</th> --}}
-                                            <th>RW</th>
+                                            {{-- <th>RW</th> --}}
                                             <th>Tanggal_Beli</th>
                                             <th>Jenis_Sampah</th>
                                             <th>Gambar</th>
@@ -107,7 +107,7 @@
                                         <tr>
                                             <td> {{ $loop->iteration }} </td>
                                             {{-- <td> {{ $purchase->id }} </td> --}}
-                                            <td> 0{{ $purchase->user->customer->rw }} </td> 
+                                            {{-- <td> 0{{ $purchase->user->customer->rw }} </td>  --}}
                                             <td> {{ $purchase->tanggal_beli }} </td>
                                             <td> {{ $purchase->jenis_sampah }} </td>
                                             <td><img src="{{ asset('storage/assets/sampah_pembelian/'.$purchase->gambar_sampah) }}"

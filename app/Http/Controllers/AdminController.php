@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\Customer;
+use App\Models\Purchase;
+use App\Models\Sales;
 use App\Models\SuperAdmin;
 use App\Models\Trash;
 use Illuminate\Support\Facades\Auth;
@@ -53,20 +55,24 @@ class AdminController extends Controller
 
 
     public function transaksi_jual_admin(){
-        return view('admin/transaksi_jual_admin');
+        $saleses = Sales::all();
+        return view('admin/transaksi_jual_admin', compact('saleses'));
     }
 
     public function transaksi_beli_admin(){
-        return view('admin/transaksi_beli_admin');
+        $purchases = Purchase::all();
+        return view('admin/transaksi_beli_admin', compact('purchases'));
     }
 
 
     public function laporan_jual_admin(){
-        return view('admin/laporan_jual_admin');
+        $saleses = Sales::all();
+        return view('admin/laporan_jual_admin', compact('saleses'));
     }
 
     public function laporan_beli_admin(){
-        return view('admin/laporan_beli_admin');
+        $purchases = Purchase::all();
+        return view('admin/laporan_beli_admin', compact('purchases'));
     }
 
     public function ganti_password_admin(){

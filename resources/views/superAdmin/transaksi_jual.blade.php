@@ -92,8 +92,8 @@
                             <thead class="table-secondary">
                                 <tr>
                                     <th>No</th>
-                                    <th>Id</th>
-                                    <th>User_Id</th>
+                                    {{-- <th>Id</th>
+                                    <th>User_Id</th> --}}
                                     <th>Tanggal_Jual</th>
                                     <th>Jenis_Sampah</th>
                                     <th>Gambar</th>
@@ -107,8 +107,8 @@
                                 @foreach ($saleses as $sales)
                                 <tr>
                                     <td> {{ $loop->iteration }} </td>
-                                    <td> {{ $sales->id }} </td>
-                                    <td> {{ $sales->user_id }} </td>
+                                    {{-- <td> {{ $sales->id }} </td>
+                                    <td> {{ $sales->user_id }} </td> --}}
                                     <td> {{ $sales->tanggal_jual }} </td>
                                     <td> {{ $sales->jenis_sampah }} </td>
                                     <td><img src="{{ asset('storage/assets/sampah_penjualan/'.$sales->gambar_sampah) }}"width="60px"

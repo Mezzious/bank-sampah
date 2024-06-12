@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Purchase;
 use App\Models\Sales;
 use Illuminate\Http\Request;
 use App\Models\SuperAdmin;
@@ -96,15 +97,15 @@ class SuperAdminController extends Controller
 
     public function destroy($id)
     {
-        $user = SuperAdmin::findOrFail($id); 
-        if($user->roles == 'nasabah'){
-                $customer = Customer::where('user_id', $id)->first();
-            if($customer){
+        $user = SuperAdmin::findOrFail($id);
+        if ($user->roles == 'nasabah') {
+            $customer = Customer::where('user_id', $id)->first();
+            if ($customer) {
                 $customer->delete();
             }
         }
         $user->delete();
-        
+
         return redirect()->route('data_user')->with('success', 'User berhasil dihapus');
     }
 
@@ -112,7 +113,7 @@ class SuperAdminController extends Controller
     {
         return view("superadmin/ganti_password");
     }
-    
+
     public function update_password(Request $request)
     {
         $request->validate([
@@ -194,7 +195,7 @@ class SuperAdminController extends Controller
     public function update_nasabah(Request $request)
     {
         $id = $request->input('id');
-    
+
         // Validasi input
         $request->validate([
             'nama_nasabah' => 'required|string',
@@ -234,10 +235,10 @@ class SuperAdminController extends Controller
 
     public function destroy_nasabah($id)
     {
-        $user = SuperAdmin::findOrFail($id); 
-        if($user->roles == 'nasabah'){
+        $user = SuperAdmin::findOrFail($id);
+        if ($user->roles == 'nasabah') {
             $customer = Customer::where('user_id', $id)->first();
-            if($customer){
+            if ($customer) {
                 $customer->delete();
             }
         }
@@ -288,7 +289,7 @@ class SuperAdminController extends Controller
     }
 
     public function edit_sampah(Request $request)
-    { 
+    {
         $id = $request->input('id');
         $trashes = Trash::findOrFail($id);
 
@@ -309,14 +310,14 @@ class SuperAdminController extends Controller
             'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'deskripsi' => 'required',
         ]);
-    
+
         // Temukan sampah berdasarkan ID
         $trash = Trash::findOrFail($id);
-    
+
         // Hapus gambar lama jika pengguna mengunggah gambar baru
         if ($request->hasFile('gambar')) {
             Storage::delete('public/assets/sampah/' . $trash->gambar);
-    
+
             $gambarName = time() . '.' . $request->gambar->extension();
             if (!$request->gambar->isValid()) {
                 return back()->withErrors(['gambar' => 'File gambar tidak valid']);
@@ -324,16 +325,16 @@ class SuperAdminController extends Controller
             $request->gambar->storeAs('public/assets/sampah', $gambarName);
             $trash->gambar = $gambarName;
         }
-    
+
         // Perbarui data lainnya
         $trash->jenis_sampah = $request->input('jenis_sampah');
         $trash->satuan = $request->input('satuan');
         $trash->harga = $request->input('harga');
         $trash->deskripsi = $request->input('deskripsi');
         $trash->save();
-    
-            return redirect()->route('data_sampah')->with('success', 'Data Sampah berhasil diperbarui');
-        }
+
+        return redirect()->route('data_sampah')->with('success', 'Data Sampah berhasil diperbarui');
+    }
 
     public function destroy_sampah($id)
     {
@@ -351,41 +352,22 @@ class SuperAdminController extends Controller
 
         return redirect()->route('data_sampah')->with('success', 'Sampah berhasil dihapus');
     }
-    
+
     public function tampilkan_tanggal()
     {
         return view('superadmin/transaksi_jual');
     }
-    
+
     public function transaksi_jual()
     {
         $saleses = Sales::all();
         return view('superadmin/transaksi_jual', compact('saleses'));
     }
 
-    // public function tambah_transaksi_jual()
-    // {
-    //     return view('superadmin/tambah_transaksi_jual');
-    // }
-
-    // public function edit_transaksi_jual()
-    // {
-    //     return view('superadmin/edit_transaksi_jual');
-    // }
-
     public function transaksi_beli()
     {
-        return view('superadmin/transaksi_beli');
-    }
-
-    public function tambah_transaksi_beli()
-    {
-        return view('superadmin/tambah_transaksi_beli');
-    }
-
-    public function edit_transaksi_beli()
-    {
-        return view('superadmin/edit_transaksi_beli');
+        $purchases = Purchase::all();
+        return view('superadmin/transaksi_beli', compact('purchases'));
     }
 
     public function laporan_jual()
@@ -396,13 +378,15 @@ class SuperAdminController extends Controller
 
     public function laporan_beli()
     {
-        return view('superadmin/laporan_beli');
+        $purchases = Purchase::all();
+        return view('superadmin/laporan_beli', compact('purchases'));
     }
 
     public function cetak_laporan_jual()
     {
         return view('superadmin/cetak_laporan_jual');
     }
+
     public function cetak_laporan_beli()
     {
         return view('superadmin/cetak_laporan_beli');
