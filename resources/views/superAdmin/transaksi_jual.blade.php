@@ -26,8 +26,7 @@
                                 </li>
                                 <li>
                                     <form method="get" action="{{ route('logout') }}">
-                                        <input type="hidden" name="_token"
-                                            value="Fp6EQq2SXZNoCNVF3DWv21fbnsh5DCjvA7Bgx5UK">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <span class="text-black d-grid gap-5">
                                             <button class="btn btn-danger" type="submit" style="border-radius: 8px;">
                                                 <i class="bi bi-box-arrow-left"></i> Logout
@@ -53,35 +52,22 @@
         </a>
     </div>
 
-    <!-- Alert -->
-    <div id="alertSuccess" class="alert alert-success mt-3" role="alert" style="display:none;">
-        Tanggal awal: <span id="tglAwal"></span><br>
-        Tanggal akhir: <span id="tglAkhir"></span>
-    </div>
-
-    <form action="{{ route('tampilkanTanggal') }}" method="post" name="form10" target="_self">
+    <form action="{{ route('tampilkan_tanggal_jual_transaksi') }}" method="post" name="form10">
+        @csrf
         <div class="row">
             <div class="col-lg-3">
-                <input name="txtTglAwal" type="date" class="form-control" size="10" />
+                <input name="txtTglAwal" id="txtTglAwal" type="date" class="form-control" size="10" required />
             </div>
             <div class="col-lg-3">
-                <input name="txtTglAkhir" type="date" class="form-control" size="10" />
+                <input name="txtTglAkhir" id="txtTglAkhir" type="date" class="form-control" size="10" required />
             </div>
-
             <div class="col-lg-3">
-                <input name="btnTampil" style="color: white" class="btn btn-custom" type="submit" value="Tampilkan"
-                    onclick="tampilkanTanggal()" />
+                <input name="btnTampil" style="color: white" class="btn btn-custom" type="submit" value="Tampilkan" />
             </div>
         </div>
     </form>
 
-    @if (session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
-        </div>
-    @endif
-
+    @if(isset($saleses))
     <div class="mb-3"></div>
     <div class="row">
         <div class="col">
@@ -92,8 +78,6 @@
                             <thead class="table-secondary">
                                 <tr>
                                     <th>No</th>
-                                    {{-- <th>Id</th>
-                                    <th>User_Id</th> --}}
                                     <th>Tanggal_Jual</th>
                                     <th>Jenis_Sampah</th>
                                     <th>Gambar</th>
@@ -106,91 +90,57 @@
                             <tbody>
                                 @foreach ($saleses as $sales)
                                 <tr>
-                                    <td> {{ $loop->iteration }} </td>
-                                    {{-- <td> {{ $sales->id }} </td>
-                                    <td> {{ $sales->user_id }} </td> --}}
-                                    <td> {{ $sales->tanggal_jual }} </td>
-                                    <td> {{ $sales->jenis_sampah }} </td>
-                                    <td><img src="{{ asset('storage/assets/sampah_penjualan/'.$sales->gambar_sampah) }}"width="60px"
-                                            height="60px"></td>
-                                    <td> {{ $sales->berat }} </td>
-                                    <td> {{ $sales->harga }} </td>
-                                    <td> {{ $sales->total }} </td>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $sales->tanggal_jual }}</td>
+                                    <td>{{ $sales->jenis_sampah }}</td>
+                                    <td><img src="{{ asset('storage/assets/sampah_penjualan/'.$sales->gambar_sampah) }}" width="60px" height="60px"></td>
+                                    <td>{{ $sales->berat }}</td>
+                                    <td>{{ $sales->harga }}</td>
+                                    <td>{{ $sales->total }}</td>
                                     <td style="text-align: center">
-                                        <a href="#" class="btn btn-primary btn-sm" style="color: white" onclick="showNotaImage('{{ asset('storage/assets/nota_jual/'.$sales->gambar_nota) }}')"> <i
-                                            class="bi bi-eye-fill"></i> </a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
+                                        <a href="#" class="btn btn-primary btn-sm" style="color: white" onclick="showNotaImage('{{ asset('storage/assets/nota_jual/'.$sales->gambar_nota) }}')">
+                                            <i class="bi bi-eye-fill"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Modal -->
-        <div class="modal fade" id="gambarNotaModal" tabindex="-1" aria-labelledby="gambarNotaModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="gambarNotaModalLabel">Gambar Nota</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <img id="notaImage" src="" class="img-fluid">
-                    </div>
+    </div>
+    @endif
+
+    <div class="modal fade" id="gambarNotaModal" tabindex="-1" aria-labelledby="gambarNotaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="gambarNotaModalLabel">Gambar Nota</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="notaImage" src="" class="img-fluid">
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection
 
-    @section('script')
-        <script src="/assets/compiled/js/jquery.min.js"></script>
-        <script src="/assets/compiled/js/jquery.dataTables.min.js"></script>
-        <script src="/assets/compiled/js/dataTables.bootstrap4.min.js"></script>
+@section('script')
+    <script src="/assets/compiled/js/jquery.min.js"></script>
+    <script src="/assets/compiled/js/jquery.dataTables.min.js"></script>
+    <script src="/assets/compiled/js/dataTables.bootstrap4.min.js"></script>
 
-        <script>
-            $(document).ready(function() {
-                $('#table_jual').DataTable();
-            });
-        </script>
+    <script>
+        $(document).ready(function() {
+            $('#table_jual').DataTable();
+        });
 
-        <script>
-            function tampilkanTanggal() {
-                // Mendapatkan nilai tanggal awal dan tanggal akhir dari form
-                var tglAwal = document.forms["form10"]["txtTglAwal"].value;
-                var tglAkhir = document.forms["form10"]["txtTglAkhir"].value;
-
-                // Redirect ke URL cetak laporan dengan parameter tanggal
-                window.location.href = "cetak_laporan_beli.php?tglAwal=" + tglAwal + "&tglAkhir=" + tglAkhir;
-            }
-        </script>
-
-        <script>
-            function tampilkanTanggal() {
-                // Mengambil nilai dari input date
-                var tglAwal = document.getElementById("txtTglAwal").value;
-                var tglAkhir = document.getElementById("txtTglAkhir").value;
-
-                // Memecah tanggal menjadi tahun, bulan, dan tanggal
-                var tglAwalArr = tglAwal.split('-');
-                var tglAkhirArr = tglAkhir.split('-');
-
-                // Format tanggal, bulan, dan tahun
-                var tglAwalFormatted = tglAwalArr[2] + '-' + tglAwalArr[1] + '-' + tglAwalArr[0];
-                var tglAkhirFormatted = tglAkhirArr[2] + '-' + tglAkhirArr[1] + '-' + tglAkhirArr[0];
-
-                // Menampilkan alert
-                document.getElementById("tglAwal").innerText = tglAwalFormatted;
-                document.getElementById("tglAkhir").innerText = tglAkhirFormatted;
-                document.getElementById("alertSuccess").style.display = "block";
-            }
-        </script>
-
-        <script>
-            function showNotaImage(imageUrl) {
-                $('#notaImage').attr('src', imageUrl);
-                $('#gambarNotaModal').modal('show');
-            }
-        </script>
-    @endsection
+        function showNotaImage(imageUrl) {
+            $('#notaImage').attr('src', imageUrl);
+            $('#gambarNotaModal').modal('show');
+        }
+    </script>
+@endsection

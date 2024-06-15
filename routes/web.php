@@ -87,8 +87,6 @@ Route::group(['middleware' => ['auth', 'admin:super-admin']], function () {
 
     Route::get('/data_user/{id}/destroy_sampah', [SuperAdminController::class, 'destroy_sampah'])->name('destroy_sampah');
 
-    Route::post('/transaksi_jual', [SuperAdmin::class, 'tampilkanTanggal'])->name('tampilkanTanggal');
-
     Route::get('/tambah_transaksi_jual', [SuperAdminController::class, 'tambah_transaksi_jual'])->name('tambah_transaksi_jual');
 
     Route::get('/edit_transaksi_jual', [SuperAdminController::class, 'edit_transaksi_jual'])->name('edit_transaksi_jual');
@@ -101,6 +99,13 @@ Route::group(['middleware' => ['auth', 'admin:super-admin']], function () {
 
     Route::get('/cetak_laporan_beli', [SuperAdminController::class, 'cetak_laporan_beli'])->name('cetak_laporan_beli');
 
+    Route::post('/transaksi_jual', [SuperAdminController::class, 'tampilkan_tanggal_jual_transaksi'])->name('tampilkan_tanggal_jual_transaksi');
+    
+    Route::post('/transaksi_beli', [SuperAdminController::class, 'tampilkan_tanggal_beli_transaksi'])->name('tampilkan_tanggal_beli_transaksi');
+
+    Route::post('/laporan_jual', [SuperAdminController::class, 'tampilkan_tanggal_jual_laporan'])->name('tampilkan_tanggal_jual_laporan');
+
+    Route::post('/laporan_beli', [SuperAdminController::class, 'tampilkan_tanggal_beli_laporan'])->name('tampilkan_tanggal_beli_laporan');
 });
 
 //Admin
@@ -118,15 +123,27 @@ Route::group(['middleware' => ['auth', 'admin:admin']], function () {
 
     Route::get('/transaksi_jual_admin', [AdminController::class, 'transaksi_jual_admin'])->name('transaksi_jual_admin');
 
+    Route::post('/transaksi_jual_admin', [AdminController::class, 'tampilkan_tanggal_jual_admin'])->name('tampilkan_tanggal_jual_admin');
+
     Route::get('/transaksi_beli_admin', [AdminController::class, 'transaksi_beli_admin'])->name('transaksi_beli_admin');
+
+    Route::post('/transaksi_beli_admin', [AdminController::class, 'tampilkan_tanggal_beli_admin'])->name('tampilkan_tanggal_beli_admin');
 
     Route::get('/laporan_jual_admin', [AdminController::class, 'laporan_jual_admin'])->name('laporan_jual_admin');
 
+    Route::post('/laporan_jual_admin', [AdminController::class, 'tampilkan_tanggal_jual_laporan_admin'])->name('tampilkan_tanggal_jual_laporan_admin');
+
     Route::get('/laporan_beli_admin', [AdminController::class, 'laporan_beli_admin'])->name('laporan_beli_admin');
+
+    Route::post('/laporan_beli_admin', [AdminController::class, 'tampilkan_tanggal_beli_laporan_admin'])->name('tampilkan_tanggal_beli_laporan_admin');
 
     Route::get('/ganti_password_admin', [AdminController::class, 'ganti_password_admin'])->name('ganti_password_admin');
 
     Route::post('/ganti_password_admin', [AdminController::class, 'update_ganti_password_admin'])->name('update_ganti_password_admin');
+
+    Route::get('/cetak_laporan_jual', [AdminController::class, 'cetak_laporan_jual_admin'])->name('cetak_laporan_jual_admin');
+
+    Route::get('/cetak_laporan_beli', [AdminController::class, 'cetak_laporan_beli_admin'])->name('cetak_laporan_beli_admin');
 });
 
 //User

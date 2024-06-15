@@ -53,117 +53,97 @@
                 </a>
             </div>
 
-            <!-- Alert -->
-            <div id="alertSuccess" class="alert alert-success mt-3" role="alert" style="display:none;">
-                Tanggal awal: <span id="tglAwal"></span><br>
-                Tanggal akhir: <span id="tglAkhir"></span>
-            </div>
-
-            <form action="#" method="post" name="form10" target="_self">
+            <form action="{{ route('tampilkan_tanggal_beli_admin') }}" method="post" name="form10">
+                @csrf
                 <div class="row">
                     <div class="col-lg-3">
-                        <input name="txtTglAwal" type="date" class="form-control" size="10" />
+                        <input name="txtTglAwal" id="txtTglAwal" type="date" class="form-control" size="10" required />
                     </div>
                     <div class="col-lg-3">
-                        <input name="txtTglAkhir" type="date" class="form-control" size="10" />
+                        <input name="txtTglAkhir" id="txtTglAkhir" type="date" class="form-control" size="10" required />
                     </div>
-
                     <div class="col-lg-3">
-                        <input name="btnTampil" style="color: white" class="btn btn-custom" type="submit" value="Tampilkan"
-                            onclick="tampilkanTanggal()" />
+                        <input name="btnTampil" style="color: white" class="btn btn-custom" type="submit" value="Tampilkan" />
                     </div>
                 </div>
             </form>
 
-            <div class="mb-3"></div>
-            <div class="row">
-                <div class="col">
-                    <div class="card shadow">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="table_beli" class="table table-bordered">
-                                    <thead class="table-secondary">
-                                        <tr>
-                                            <th>No</th>
-                                            <th>RW</th>
-                                            <th>Tanggal_Beli</th>
-                                            {{-- <th>Customer_Id</th> --}}
-                                            <th>Jenis_Sampah</th>
-                                            <th>Gambar</th>
-                                            <th>Berat</th>
-                                            <th>Harga</th>
-                                            <th>Total</th>
-                                            <th>Nota</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($purchases as $purchase)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>0{{ $purchase->user->customer->rw }}</td>
-                                            <td>{{ $purchase->tanggal_beli }}</td>
-                                            {{-- <td>8989</td> --}}
-                                            <td>{{ $purchase->jenis_sampah }}</td>
-                                            <td><img
-                                                    src="{{ asset('storage/assets/sampah_pembelian/'.$purchase->gambar_sampah) }}"
-                                                    width="60px" height="60px"></td>
-                                            <td>{{ $purchase->berat }}</td>
-                                            <td>{{ $purchase->harga }}</td>
-                                            <td>{{ $purchase->total }}</td>
-                                            <td style="text-align: center">
-                                                <a href="#" class="btn btn-primary btn-sm" style="color: white" onclick="showNotaImage('{{ asset('storage/assets/nota_beli/'.$purchase->gambar_nota) }}')"> <i
-                                                    class="bi bi-eye-fill"></i> </a>
-                                                </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+            @if(isset($purchases))
+    <div class="mb-3"></div>
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="table_beli" class="table table-bordered">
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th>No</th>
+                                    <th>RW</th>
+                                    <th>Tanggal Beli</th>
+                                    <th>Jenis Sampah</th>
+                                    <th>Gambar</th>
+                                    <th>Berat</th>
+                                    <th>Harga</th>
+                                    <th>Total</th>
+                                    <th>Nota</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($purchases as $purchase)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>0{{ $purchase->user->customer->rw }}</td>
+                                    <td>{{ $purchase->tanggal_beli }}</td>
+                                    <td>{{ $purchase->jenis_sampah }}</td>
+                                    <td><img src="{{ asset('storage/assets/sampah_pembelian/'.$purchase->gambar_sampah) }}" width="60px" height="60px"></td>
+                                    <td>{{ $purchase->berat }}</td>
+                                    <td>{{ $purchase->harga }}</td>
+                                    <td>{{ $purchase->total }}</td>
+                                    <td style="text-align: center">
+                                        <a href="#" class="btn btn-primary btn-sm" style="color: white" onclick="showNotaImage('{{ asset('storage/assets/nota_beli/'.$purchase->gambar_nota) }}')">
+                                            <i class="bi bi-eye-fill"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            @endsection
+            </div>
+        </div>
+    </div>
+    @endif
 
-            @section('script')
-                <script src="/assets/compiled/js/jquery.min.js"></script>
-                <script src="/assets/compiled/js/jquery.dataTables.min.js"></script>
-                <script src="/assets/compiled/js/dataTables.bootstrap4.min.js"></script>
+    <div class="modal fade" id="gambarNotaModal" tabindex="-1" aria-labelledby="gambarNotaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="gambarNotaModalLabel">Gambar Nota</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="notaImage" src="" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
 
-                <script>
-                    $(document).ready(function() {
-                        $('#table_beli').DataTable();
-                    });
-                </script>
+@section('script')
+    <script src="/assets/compiled/js/jquery.min.js"></script>
+    <script src="/assets/compiled/js/jquery.dataTables.min.js"></script>
+    <script src="/assets/compiled/js/dataTables.bootstrap4.min.js"></script>
 
-                <script>
-                    function tampilkanTanggal() {
-                        // Mendapatkan nilai tanggal awal dan tanggal akhir dari form
-                        var tglAwal = document.forms["form10"]["txtTglAwal"].value;
-                        var tglAkhir = document.forms["form10"]["txtTglAkhir"].value;
+    <script>
+        $(document).ready(function() {
+            $('#table_beli').DataTable();
+        });
 
-                        // Redirect ke URL cetak laporan dengan parameter tanggal
-                        window.location.href = "cetak_laporan_beli.php?tglAwal=" + tglAwal + "&tglAkhir=" + tglAkhir;
-                    }
-                </script>
-
-                <script>
-                    function tampilkanTanggal() {
-                        // Mengambil nilai dari input date
-                        var tglAwal = document.getElementById("txtTglAwal").value;
-                        var tglAkhir = document.getElementById("txtTglAkhir").value;
-
-                        // Memecah tanggal menjadi tahun, bulan, dan tanggal
-                        var tglAwalArr = tglAwal.split('-');
-                        var tglAkhirArr = tglAkhir.split('-');
-
-                        // Format tanggal, bulan, dan tahun
-                        var tglAwalFormatted = tglAwalArr[2] + '-' + tglAwalArr[1] + '-' + tglAwalArr[0];
-                        var tglAkhirFormatted = tglAkhirArr[2] + '-' + tglAkhirArr[1] + '-' + tglAkhirArr[0];
-
-                        // Menampilkan alert
-                        document.getElementById("tglAwal").innerText = tglAwalFormatted;
-                        document.getElementById("tglAkhir").innerText = tglAkhirFormatted;
-                        document.getElementById("alertSuccess").style.display = "block";
-                    }
-                </script>
-            @endsection
+        function showNotaImage(imageUrl) {
+            $('#notaImage').attr('src', imageUrl);
+            $('#gambarNotaModal').modal('show');
+        }
+    </script>
+@endsection
