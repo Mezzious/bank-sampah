@@ -4,7 +4,7 @@
     <div class="main">
         <div class="page-heading">
             <div class="row">
-                <div class="d-flex align-items-center justify-content-space-between">
+                <div class="d-flex align-items-center justify-content-between">
                     <h2 class="h2 mb-0 col-4 col-md-2 text-gray-800">Laporan Jual Sampah</h2>
                     <div class="col-8 col-xl-10 col-lg-9 col-md-8 col-sm-9 d-flex align-items-center justify-content-end">
                         <div class="dropdown">
@@ -13,6 +13,7 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="text">
                                     <h6 class="user-dropdown-name">Selamat Datang, {{ auth()->user()->name }}</h6>
+                                    <p class="user-dropdown-status text-sm text-muted"></p>
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-center shadow-lg text-center p-3"
@@ -25,8 +26,7 @@
                                 </li>
                                 <li>
                                     <form method="get" action="{{ route('logout') }}">
-                                        <input type="hidden" name="_token"
-                                            value="Fp6EQq2SXZNoCNVF3DWv21fbnsh5DCjvA7Bgx5UK">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <span class="text-black d-grid gap-5">
                                             <button class="btn btn-danger" type="submit" style="border-radius: 8px;">
                                                 <i class="bi bi-box-arrow-left"></i> Logout
@@ -45,28 +45,29 @@
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
     <link rel="stylesheet" href="./assets/compiled/css/dataTables.bootstrap4.min.css">
 
-    <div class="back-button-container" style="margin-bottom: 10px">
+    <div class="back-button-container" style="margin-bottom: 10px;">
         <a class="btn back-button" onclick="goBack()">
             <i class="fa-solid fa-arrow-left" style="color: white;"></i>
             <span style="color: white;">Kembali</span>
         </a>
     </div>
 
-    <form action="" method="get" name="form10" target="_self">
+    <form action="{{ route('tampilkan_tanggal_jual_laporan') }}" method="post" name="form10">
+        @csrf
         <div class="row">
             <div class="col-lg-3">
-                <input id="txtTglAwal" name="txtTglAwal" type="date" class="form-control" size="10" />
+                <input id="txtTglAwal" name="txtTglAwal" type="date" class="form-control" size="10" required />
             </div>
             <div class="col-lg-3">
-                <input id="txtTglAkhir" name="txtTglAkhir" type="date" class="form-control" size="10" />
+                <input id="txtTglAkhir" name="txtTglAkhir" type="date" class="form-control" size="10" required />
             </div>
-
             <div class="col-lg-3">
                 <input name="btnTampil" style="color: white" class="btn btn-custom" type="submit" value="Tampilkan" />
             </div>
         </div>
     </form>
 
+    @if(isset($saleses))
     <div class="mb-3"></div>
     <div class="row">
         <div class="col">
@@ -101,16 +102,31 @@
                                 @endforeach
                                 <tr>
                                     <td colspan="6" class="text-right font-weight-bold">Jumlah Total</td>
-                                    <td class="font-weight-bold">{{ $grandTotal }}</td>
+                                    <td colspan="2" class="font-weight-bold">{{ $grandTotal }}</td>
                                 </tr>
                             </tbody>
                         </table>
                         <div>
-                            <a href="#" class="btn btn-custom" id="printButton" onclick="window.print()">
+                            <a href="{{ route('cetak_laporan_jual') }}" target="_blank" class="btn btn-custom" id="printButton">
                                 <i class="fa-solid fa-print" style="color: white;"></i> <span style="color: white;">Cetak</span>
                             </a>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
+    <div class="modal fade" id="gambarNotaModal" tabindex="-1" aria-labelledby="gambarNotaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="gambarNotaModalLabel">Gambar Nota</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="notaImage" src="" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -127,24 +143,9 @@
             $('#table_laporan_jual').DataTable();
         });
 
-        function tampilkanTanggal() {
-            var tglAwal = document.getElementById("txtTglAwal").value;
-            var tglAkhir = document.getElementById("txtTglAkhir").value;
-
-            if (!tglAwal || !tglAkhir) {
-                alert("Silakan isi kedua tanggal.");
-                return;
-            }
-
-            var tglAwalArr = tglAwal.split('-');
-            var tglAkhirArr = tglAkhir.split('-');
-
-            var tglAwalFormatted = tglAwalArr[2] + '-' + tglAwalArr[1] + '-' + tglAwalArr[0];
-            var tglAkhirFormatted = tglAkhirArr[2] + '-' + tglAkhirArr[1] + '-' + tglAkhirArr[0];
-
-            document.getElementById("tglAwal").innerText = tglAwalFormatted;
-            document.getElementById("tglAkhir").innerText = tglAkhirFormatted;
-            document.getElementById("alertSuccess").style.display = "block";
+        function showNotaImage(imageUrl) {
+            $('#notaImage').attr('src', imageUrl);
+            $('#gambarNotaModal').modal('show');
         }
     </script>
 @endsection

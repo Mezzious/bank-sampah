@@ -10,6 +10,7 @@ use App\Models\SuperAdmin;
 use App\Models\Trash;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -20,13 +21,18 @@ class SuperAdminController extends Controller
     {
         // Mendapatkan data pengguna yang sedang login
         $user = Auth::user();
-
+        
         // Pastikan pengguna telah login sebelum menampilkan data
         if ($user) {
-            return view('superadmin/dashboard', compact('user'));
-        } else {
-            // Jika pengguna belum login, bisa diarahkan ke halaman login atau tindakan lainnya
-            return redirect()->route('login');
+            $totalBerat = Purchase::sum('berat');
+            $totalPenjualan = Sales::sum('total');
+            $totalPembelian = Purchase::sum('total');
+            $totalNasabah = Customer::count();
+
+            return view('superadmin/dashboard', compact('user', 'totalBerat', 'totalPenjualan', 'totalPembelian', 'totalNasabah'));
+            } else {
+                // Jika pengguna belum login, bisa diarahkan ke halaman login atau tindakan lainnya
+                return redirect()->route('login');
         }
     }
 
@@ -367,6 +373,7 @@ class SuperAdminController extends Controller
     public function transaksi_beli()
     {
         $purchases = Purchase::all();
+        // dd($purchases[0]->user);
         return view('superadmin/transaksi_beli', compact('purchases'));
     }
 
@@ -382,13 +389,140 @@ class SuperAdminController extends Controller
         return view('superadmin/laporan_beli', compact('purchases'));
     }
 
-    public function cetak_laporan_jual()
+    public function cetak_laporan_jual(Request $request)
     {
-        return view('superadmin/cetak_laporan_jual');
+        // Ambil tanggal dari sesi
+        $tglAwal = session('tglAwal');
+        $tglAkhir = session('tglAkhir');
+
+        // Cek apakah tanggal awal dan akhir diberikan
+        if ($tglAwal && $tglAkhir) {
+            // Ambil data dari database sesuai dengan rentang tanggal
+            $saleses = Sales::whereBetween('tanggal_jual', [$tglAwal, $tglAkhir])->get();
+        } else {
+            // Jika tanggal tidak diberikan, ambil semua data
+            $saleses = Sales::all();
+        }
+
+        // Hapus sesi tanggal setelah data diambil
+        session()->forget(['tglAwal', 'tglAkhir']);
+
+        // Return view cetak laporan dengan data yang difilter
+        return view('superadmin/cetak_laporan_jual', compact('saleses', 'tglAwal', 'tglAkhir'));
     }
 
-    public function cetak_laporan_beli()
+    public function cetak_laporan_beli(Request $request)
     {
-        return view('superadmin/cetak_laporan_beli');
+        // Ambil tanggal dari sesi
+        $tglAwal = session('tglAwal');
+        $tglAkhir = session('tglAkhir');
+
+        // Cek apakah tanggal awal dan akhir diberikan
+        if ($tglAwal && $tglAkhir) {
+            // Ambil data dari database sesuai dengan rentang tanggal
+            $purchases = Purchase::whereBetween('tanggal_beli', [$tglAwal, $tglAkhir])->get();
+        } else {
+            // Jika tanggal tidak diberikan, ambil semua data
+            $purchases = Purchase::all();
+        }
+
+        // Hapus sesi tanggal setelah data diambil
+        session()->forget(['tglAwal', 'tglAkhir']);
+
+        return view('superadmin/cetak_laporan_beli', compact('purchases', 'tglAwal', 'tglAkhir'));
+    }
+    
+    public function tampilkan_tanggal_jual_transaksi(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'txtTglAwal' => 'required|date',
+            'txtTglAkhir' => 'required|date|after_or_equal:txtTglAwal',
+        ]);
+
+        $tglAwal = $request->input('txtTglAwal');
+        $tglAkhir = $request->input('txtTglAkhir');
+
+        // Ambil data dari database sesuai dengan rentang tanggal
+        $saleses = Sales::whereBetween('tanggal_jual', [$tglAwal, $tglAkhir])->get();
+
+        // Kembalikan view dengan data yang difilter
+        return view('superadmin/transaksi_jual', compact('saleses'));
+    }
+    
+    public function tampilkan_tanggal_beli_transaksi(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'txtTglAwal' => 'required|date',
+            'txtTglAkhir' => 'required|date|after_or_equal:txtTglAwal',
+        ]);
+
+        $tglAwal = $request->input('txtTglAwal');
+        $tglAkhir = $request->input('txtTglAkhir');
+
+        // Ambil data dari database sesuai dengan rentang tanggal
+        $purchases = Purchase::whereBetween('tanggal_beli', [$tglAwal, $tglAkhir])->get();
+
+        // Kembalikan view dengan data yang difilter
+        return view('superadmin/transaksi_beli', compact('purchases'));
+    }
+
+    public function tampilkan_tanggal_jual_laporan(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'txtTglAwal' => 'required|date',
+            'txtTglAkhir' => 'required|date|after_or_equal:txtTglAwal',
+        ]);
+
+        $tglAwal = $request->input('txtTglAwal');
+        $tglAkhir = $request->input('txtTglAkhir');
+
+        // Simpan tanggal di sesi jika diberikan
+        if ($tglAwal && $tglAkhir) {
+            session(['tglAwal' => $tglAwal, 'tglAkhir' => $tglAkhir]);
+        } else {
+            session()->forget(['tglAwal', 'tglAkhir']);
+        }
+
+        // Ambil data dari database sesuai dengan rentang tanggal jika ada, jika tidak ambil semua data
+        if ($tglAwal && $tglAkhir) {
+            $saleses = Sales::whereBetween('tanggal_jual', [$tglAwal, $tglAkhir])->get();
+        } else {
+            $saleses = Sales::all();
+        }
+
+        // Kembalikan view dengan data yang difilter
+        return view('superadmin/laporan_jual', compact('saleses'));
+    }
+    
+    public function tampilkan_tanggal_beli_laporan(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'txtTglAwal' => 'required|date',
+            'txtTglAkhir' => 'required|date|after_or_equal:txtTglAwal',
+        ]);
+
+        $tglAwal = $request->input('txtTglAwal');
+        $tglAkhir = $request->input('txtTglAkhir');
+
+        // Simpan tanggal di sesi jika diberikan
+        if ($tglAwal && $tglAkhir) {
+            session(['tglAwal' => $tglAwal, 'tglAkhir' => $tglAkhir]);
+        } else {
+            session()->forget(['tglAwal', 'tglAkhir']);
+        }
+
+        // Ambil data dari database sesuai dengan rentang tanggal jika ada, jika tidak ambil semua data
+        if ($tglAwal && $tglAkhir) {
+            $purchases = Purchase::whereBetween('tanggal_beli', [$tglAwal, $tglAkhir])->get();
+        } else {
+            $purchases = Purchase::all();
+        }
+
+        // Kembalikan view dengan data yang difilter
+        return view('superadmin/laporan_beli', compact('purchases'));
     }
 }
