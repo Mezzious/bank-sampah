@@ -34,19 +34,23 @@ class UserController extends Controller
         }
     }
 
-    public function transaksi_jual_user()
+    public function transaksi_beli_user()
     {
-        $saleses = Sales::all();
-        return view('user/transaksi_jual_user', compact('saleses'));
+       // Ambil data pengguna yang sedang login
+       $user = auth()->user();
+
+       // Ambil transaksi pembelian terkait dengan pengguna yang login
+       $saleses = Sales::where('user_id', $user->id)->get();
+        return view('user/transaksi_beli_user', compact('saleses', 'user'));
     }
 
-    public function tambah_transaksi_jual_user()
+    public function tambah_transaksi_beli_user()
     {
         $trashes = Trash::all();
-        return view('user/tambah_transaksi_jual_user', compact('trashes'));
+        return view('user/tambah_transaksi_beli_user', compact('trashes'));
     }
 
-    public function store_transaksi_jual(Request $request)
+    public function store_transaksi_beli(Request $request)
     {
         // Validasi input
         $request->validate([
@@ -92,10 +96,10 @@ class UserController extends Controller
         $sales->save();
 
         // Redirect ke halaman yang sesuai dengan pesan sukses atau lainnya
-        return redirect()->route('transaksi_jual_user')->with('success', 'Data penjualan berhasil disimpan.');
+        return redirect()->route('transaksi_beli_user')->with('success', 'Data pembelian berhasil disimpan.');
     }
 
-    public function edit_transaksi_jual_user(Request $request)
+    public function edit_transaksi_beli_user(Request $request)
     {
         $id = $request->input('id');
         $sales = Sales::findOrFail($id);
@@ -104,10 +108,12 @@ class UserController extends Controller
             return back()->with('error', 'Data penjualan tidak ditemukan.');
         }
 
-        return view('user/edit_transaksi_jual_user', compact('sales'));
+        $trashes = Trash::all();
+
+        return view('user/edit_transaksi_beli_user', compact('sales', 'trashes'));
     }
 
-    public function update_transaksi_jual_user(Request $request)
+    public function update_transaksi_beli_user(Request $request)
     {
         $id = $request->input('id');
         $request->validate([
@@ -152,11 +158,11 @@ class UserController extends Controller
         $sales->total = $request->input('berat') * $request->input('harga');
         $sales->save();
 
-        return redirect()->route('transaksi_jual_user')->with('success', 'Data penjualan berhasil diperbarui.');
+        return redirect()->route('transaksi_beli_user')->with('success', 'Data pembelian berhasil diperbarui.');
     }
 
 
-    public function destroy_transaksi_jual_user($id)
+    public function destroy_transaksi_beli_user($id)
     {
         $sales = Sales::findOrFail($id);
 
@@ -172,7 +178,7 @@ class UserController extends Controller
 
         $sales->delete();
 
-        return redirect()->route('transaksi_jual_user')->with('success', 'Data penjualan berhasil dihapus.');
+        return redirect()->route('transaksi_beli_user')->with('success', 'Data pembelian berhasil dihapus.');
     }
 
     public function ganti_password_user()
@@ -225,6 +231,6 @@ class UserController extends Controller
             ->get();
 
         // Kembalikan view dengan data yang difilter
-        return view('user/transaksi_jual_user', compact('saleses', 'user'));
+        return view('user/transaksi_beli_user', compact('saleses', 'user'));
     }
 }

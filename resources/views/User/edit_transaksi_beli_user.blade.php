@@ -21,7 +21,7 @@
             <h6 class="m-0">Form Edit Transaksi Jual</h6>
         </div>
         <div class="card-body">
-            <form action="{{ route('update_transaksi_jual_user', ['id' => $sales->id]) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('update_transaksi_beli_user', ['id' => $sales->id]) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
             
@@ -32,7 +32,14 @@
             
                 <div class="form-group">
                     <label for="jenis_sampah">Jenis Sampah*</label>
-                    <input type="text" class="form-control" id="jenis_sampah" name="jenis_sampah" required placeholder="Jenis Sampah" value="{{ $sales->jenis_sampah }}">
+                    <select class="form-control" id="jenis_sampah" name="jenis_sampah" required onchange="updateSampahDetails()">
+                        <option value="">Pilih Jenis Sampah</option>
+                        @foreach($trashes as $trash)
+                            <option value="{{ $trash->jenis_sampah }}">
+                                {{ $trash->jenis_sampah }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
             
                 <div class="form-group">

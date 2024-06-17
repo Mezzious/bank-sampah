@@ -5,7 +5,7 @@
     <div class="page-heading">
         <div class="row">
             <div class="d-flex align-items-center justify-content-between ">
-                <h2 style="font-size: 30px" class="h2 mb-0 col-4 col-md-2 text-gray-800">Transaksi Beli Sampah</h2>
+                <h2 style="font-size: 30px" class="h2 mb-0 col-4 col-md-2 text-gray-800">Transaksi Jual Sampah</h2>
                 <div class="col-8 col-xl-10 col-lg-9 col-md-8 col-sm-9 d-flex align-items-center justify-content-end">
                     <div class="dropdown">
                         <a href="#" id="topbarUserDropdown"
@@ -46,7 +46,7 @@
             <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
             <link rel="stylesheet" href="./assets/compiled/css/dataTables.bootstrap4.min.css">
 
-            <div class="back-button-container" style="margin-bottom: 10px;">
+            <div class="back-button-container" style="margin-bottom: 10px">
                 <a class="btn back-button" onclick="goBack()">
                     <i class="fa-solid fa-arrow-left" style="color: white;"></i>
                     <span style="color: white;">Back</span>
@@ -68,38 +68,40 @@
                 </div>
             </form>
 
-    @if(isset($saleses))
+            @if(isset($purchases))
     <div class="mb-3"></div>
     <div class="row">
         <div class="col">
             <div class="card shadow">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="table_jual" class="table table-bordered">
+                        <table id="table_beli" class="table table-bordered">
                             <thead class="table-secondary">
                                 <tr>
                                     <th>No</th>
-                                    <th>Tanggal Beli</th>
+                                    <th>RW</th>
+                                    <th>Tanggal Jual</th>
                                     <th>Jenis Sampah</th>
                                     <th>Gambar</th>
-                                    <th>Berat (Kg)</th>
+                                    <th>Berat</th>
                                     <th>Harga</th>
                                     <th>Total</th>
                                     <th>Nota</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($saleses as $sales)
+                                @foreach ($purchases as $purchase)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $sales->tanggal_jual }}</td>
-                                    <td>{{ $sales->jenis_sampah }}</td>
-                                    <td><img src="{{ asset('storage/assets/sampah_penjualan/'.$sales->gambar_sampah) }}" width="60px" height="60px"></td>
-                                    <td>{{ $sales->berat }}</td>
-                                    <td>{{ $sales->harga }}</td>
-                                    <td>{{ $sales->total }}</td>
+                                    <td>0{{ $purchase->user->customer->rw }}</td>
+                                    <td>{{ $purchase->tanggal_beli }}</td>
+                                    <td>{{ $purchase->jenis_sampah }}</td>
+                                    <td><img src="{{ asset('storage/assets/sampah_pembelian/'.$purchase->gambar_sampah) }}" width="60px" height="60px"></td>
+                                    <td>{{ $purchase->berat }}</td>
+                                    <td>{{ $purchase->harga }}</td>
+                                    <td>{{ $purchase->total }}</td>
                                     <td style="text-align: center">
-                                        <a href="#" class="btn btn-primary btn-sm" style="color: white" onclick="showNotaImage('{{ asset('storage/assets/nota_jual/'.$sales->gambar_nota) }}')">
+                                        <a href="#" class="btn btn-primary btn-sm" style="color: white" onclick="showNotaImage('{{ asset('storage/assets/nota_beli/'.$purchase->gambar_nota) }}')">
                                             <i class="bi bi-eye-fill"></i>
                                         </a>
                                     </td>
@@ -113,7 +115,7 @@
         </div>
     </div>
     @endif
-    
+
     <div class="modal fade" id="gambarNotaModal" tabindex="-1" aria-labelledby="gambarNotaModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -130,18 +132,18 @@
 @endsection
 
 @section('script')
-<script src="/assets/compiled/js/jquery.min.js"></script>
-<script src="/assets/compiled/js/jquery.dataTables.min.js"></script>
-<script src="/assets/compiled/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/assets/compiled/js/jquery.min.js"></script>
+    <script src="/assets/compiled/js/jquery.dataTables.min.js"></script>
+    <script src="/assets/compiled/js/dataTables.bootstrap4.min.js"></script>
 
-<script>
-    $(document).ready(function() {
-        $('#table_jual').DataTable();
-    });
+    <script>
+        $(document).ready(function() {
+            $('#table_beli').DataTable();
+        });
 
-    function showNotaImage(imageUrl) {
-        $('#notaImage').attr('src', imageUrl);
-        $('#gambarNotaModal').modal('show');
-    }
-</script>
+        function showNotaImage(imageUrl) {
+            $('#notaImage').attr('src', imageUrl);
+            $('#gambarNotaModal').modal('show');
+        }
+    </script>
 @endsection

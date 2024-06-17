@@ -18,10 +18,10 @@
 
     <div class="card border-bottom-primary shadow mb-4" style="margin-right: 28px">
         <div class="card-header py-3">
-            <h6 class="m-0">Form Input Transaksi Jual</h6>
+            <h6 class="m-0">Form Input Transaksi Beli</h6>
         </div>
         <div class="card-body">
-            <form action="{{ route('store_transaksi_jual') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('store_transaksi_beli') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
                 {{-- <div class="form-group">
@@ -37,7 +37,7 @@
                 </div> --}}
                 
                 <div class="form-group">
-                    <label for="tanggal_jual">Tanggal Jual*</label>
+                    <label for="tanggal_jual">Tanggal Beli*</label>
                     <input type="date" class="form-control" id="tanggal_jual" name="tanggal_jual" required>
                 </div>
 

@@ -141,9 +141,9 @@ Route::group(['middleware' => ['auth', 'admin:admin']], function () {
 
     Route::post('/ganti_password_admin', [AdminController::class, 'update_ganti_password_admin'])->name('update_ganti_password_admin');
 
-    Route::get('/cetak_laporan_jual_admin', [AdminController::class, 'cetak_laporan_jual_admin'])->name('cetak_laporan_jual_admin');
+    // Route::get('/cetak_laporan_jual_admin', [AdminController::class, 'cetak_laporan_jual_admin'])->name('cetak_laporan_jual_admin');
 
-    Route::get('/cetak_laporan_beli_admin', [AdminController::class, 'cetak_laporan_beli_admin'])->name('cetak_laporan_beli_admin');
+    // Route::get('/cetak_laporan_beli_admin', [AdminController::class, 'cetak_laporan_beli_admin'])->name('cetak_laporan_beli_admin');
 });
 
 //User
@@ -153,19 +153,19 @@ Route::group(['middleware' => ['auth', 'admin:user']], function () {
 
     Route::get('/dashboard_user', [UserController::class, 'index'])->name('dashboard_user');
 
-    Route::get('/transaksi_jual_user', [UserController::class, 'transaksi_jual_user'])->name('transaksi_jual_user');
+    Route::get('/transaksi_beli_user', [UserController::class, 'transaksi_beli_user'])->name('transaksi_beli_user');
 
-    Route::post('/transaksi_jual_user', [UserController::class, 'tampilkan_tanggal_transaksi_user'])->name('tampilkan_tanggal_transaksi_user');
+    Route::post('/transaksi_beli_user', [UserController::class, 'tampilkan_tanggal_transaksi_user'])->name('tampilkan_tanggal_transaksi_user');
 
-    Route::get('/tambah_transaksi_jual_user', [UserController::class, 'tambah_transaksi_jual_user'])->name('tambah_transaksi_jual_user');
+    Route::get('/tambah_transaksi_beli_user', [UserController::class, 'tambah_transaksi_beli_user'])->name('tambah_transaksi_beli_user');
 
-    Route::post('/tambah_transaksi_jual_user', [UserController::class, 'store_transaksi_jual'])->name('store_transaksi_jual');
+    Route::post('/tambah_transaksi_beli_user', [UserController::class, 'store_transaksi_beli'])->name('store_transaksi_beli');
 
-    Route::get('/edit_transaksi_jual_user', [UserController::class, 'edit_transaksi_jual_user'])->name('edit_transaksi_jual_user');
+    Route::get('/edit_transaksi_beli_user', [UserController::class, 'edit_transaksi_beli_user'])->name('edit_transaksi_beli_user');
 
-    Route::put('/edit_transaksi_jual_user', [UserController::class, 'update_transaksi_jual_user'])->name('update_transaksi_jual_user');
+    Route::put('/edit_transaksi_beli_user', [UserController::class, 'update_transaksi_beli_user'])->name('update_transaksi_beli_user');
 
-    Route::get('/transaksi_jual_user/{id}/destroy_transaksi_jual_user', [UserController::class, 'destroy_transaksi_jual_user'])->name('destroy_transaksi_jual_user');
+    Route::get('/transaksi_beli_user/{id}/destroy_transaksi_beli_user', [UserController::class, 'destroy_transaksi_beli_user'])->name('destroy_transaksi_beli_user');
 
     Route::get('/ganti_password_user', [UserController::class, 'ganti_password_user'])->name('ganti_password_user');
     
@@ -181,19 +181,19 @@ Route::group(['middleware' => ['auth', 'admin:nasabah']], function () {
 
     Route::get('/dashboard_nasabah', [NasabahController::class, 'index'])->name('dashboard_nasabah');
 
-    Route::get('/transaksi_beli_nasabah', [NasabahController::class, 'transaksi_beli_nasabah'])->name('transaksi_beli_nasabah');
+    Route::get('/transaksi_jual_nasabah', [NasabahController::class, 'transaksi_jual_nasabah'])->name('transaksi_jual_nasabah');
 
-    Route::post('/transaksi_beli_nasabah', [NasabahController::class, 'tampilkan_tanggal_transaksi_nasabah'])->name('tampilkan_tanggal_transaksi_nasabah');
+    Route::post('/transaksi_jual_nasabah', [NasabahController::class, 'tampilkan_tanggal_transaksi_nasabah'])->name('tampilkan_tanggal_transaksi_nasabah');
 
-    Route::get('/tambah_transaksi_beli_nasabah', [NasabahController::class, 'tambah_transaksi_beli_nasabah'])->name('tambah_transaksi_beli_nasabah');
+    Route::get('/tambah_transaksi_jual_nasabah', [NasabahController::class, 'tambah_transaksi_jual_nasabah'])->name('tambah_transaksi_jual_nasabah');
 
-    Route::post('/tambah_transaksi_beli_nasabah', [NasabahController::class, 'store_transaksi_beli'])->name('store_transaksi_beli');
+    Route::post('/tambah_transaksi_jual_nasabah', [NasabahController::class, 'store_transaksi_jual'])->name('store_transaksi_jual');
 
-    Route::get('/edit_transaksi_beli_nasabah', [NasabahController::class, 'edit_transaksi_beli_nasabah'])->name('edit_transaksi_beli_nasabah');
+    Route::get('/edit_transaksi_jual_nasabah', [NasabahController::class, 'edit_transaksi_jual_nasabah'])->name('edit_transaksi_jual_nasabah');
 
-    Route::put('/edit_transaksi_beli_nasabah', [NasabahController::class, 'update_transaksi_beli_nasabah'])->name('update_transaksi_beli_nasabah');
+    Route::put('/edit_transaksi_jual_nasabah', [NasabahController::class, 'update_transaksi_jual_nasabah'])->name('update_transaksi_jual_nasabah');
 
-    Route::get('/transaksi_beli_nasabah/{id}/destroy_transaksi_beli_nasabah', [NasabahController::class, 'destroy_transaksi_beli_nasabah'])->name('destroy_transaksi_beli_nasabah');
+    Route::get('/transaksi_jual_nasabah/{id}/destroy_transaksi_jual_nasabah', [NasabahController::class, 'destroy_transaksi_jual_nasabah'])->name('destroy_transaksi_jual_nasabah');
 
     // Route::get('/laporan_beli_nasabah', [NasabahController::class, 'laporan_beli_nasabah'])->name('laporan_beli_nasabah');
 

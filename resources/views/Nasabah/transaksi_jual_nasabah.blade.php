@@ -86,7 +86,7 @@
                                             <th>No</th>
                                             {{-- <th>Id</th> --}}
                                             {{-- <th>RW</th> --}}
-                                            <th>Tanggal Beli</th>
+                                            <th>Tanggal Jual</th>
                                             <th>Jenis Sampah</th>
                                             <th>Gambar</th>
                                             <th>Berat</th>
@@ -114,10 +114,10 @@
                                                         class="bi bi-eye-fill"></i> </a>
                                             </td>
                                             <td style="text-align: center;">
-                                                <a href="{{ route('edit_transaksi_beli_nasabah', ['id' => $purchase->id]) }}"
+                                                <a href="{{ route('edit_transaksi_jual_nasabah', ['id' => $purchase->id]) }}"
                                                     class="btn btn-warning btn-sm" style="color: white"> <i
                                                     class="fas fa-edit"></i> </a>
-                                                <a href="{{ route('destroy_transaksi_beli_nasabah', $purchase->id) }}" type="submit" class="btn btn-danger btn-sm"
+                                                <a href="{{ route('destroy_transaksi_jual_nasabah', $purchase->id) }}" type="submit" class="btn btn-danger btn-sm"
                                                     onclick="return confirmDelete()"><i class="fas fa-trash"></i> </a>
                                                 </td>
                                             </tr>
@@ -125,7 +125,7 @@
                                         </tbody>
                                 </table>
                                 <div class="d-flex justify-content-between">
-                                    <a href="{{ route('tambah_transaksi_beli_nasabah') }}" class="btn btn-custom">
+                                    <a href="{{ route('tambah_transaksi_jual_nasabah') }}" class="btn btn-custom">
                                         <i class="fa-solid fa-cart-plus" style="color: white; margin-right: 5px;"></i>
                                         <span style="color: white;">Tambah</span>
                                     </a>

@@ -18,12 +18,13 @@
 
     <div class="card border-bottom-primary shadow mb-4" style="margin-right: 28px">
         <div class="card-header py-3">
-            <h6 class="m-0">Form Input Transaksi Jual</h6>
+            <h6 class="m-0">Form Edit Transaksi Jual</h6>
         </div>
         <div class="card-body">
-            <form action="{{ route('store_transaksi_beli') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('update_transaksi_jual_nasabah', ['id' => $purchase->id]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
-
+                @method('PUT')
+                
                 {{-- <div class="form-group">
                     <label for="id">Id Beli</label>
                     <input type="text" class="form-control" id="id" name="id" style="cursor: not-allowed;"
@@ -32,12 +33,12 @@
 
                 <div class="form-group">
                     <label for="tanggal_beli">Tanggal Jual*</label>
-                    <input type="date" class="form-control" id="tanggal_beli" name="tanggal_beli" required>
+                    <input type="date" class="form-control" id="tanggal_beli" name="tanggal_beli" value="{{ $purchase->tanggal_beli }}" required>
                 </div>
 
                 {{-- <div class="form-group">
                     <label for="customer_id">Customer Id*</label>
-                    <input type="text" class="form-control" id="customer_id" name="customer_id" style="cursor: not-allowed;"
+                    <input type="date" class="form-control" id="customer_id" name="customer_id" style="cursor: not-allowed;"
                     disabled="disabled" required>
                 </div> --}}
 
@@ -55,32 +56,28 @@
 
                 <div class="form-group">
                     <label for="berat">Berat (Kg)*</label>
-                    <input type="number" step="0.01" class="form-control" id="berat" onchange="sum();" name="berat" required
+                    <input type="number" step="0.01" class="form-control" id="berat" onchange="sum();" name="berat" value="{{ $purchase->berat }}" required
                         placeholder="Berat">
                 </div>
 
                 <div class="form-group">
                     <label for="harga">Harga (Rp)*</label>
-                    <input type="number" class="form-control" id="harga" onchange="sum();" name="harga" required placeholder="Harga" readonly>
+                    <input type="number" class="form-control" id="harga" onchange="sum();" name="harga" value="{{ $purchase->harga }}" required placeholder="Harga" readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="total">Total (Rp)*</label>
-                    <input type="number" class="form-control" id="total" onchange="sum();" name="total" required placeholder="Total" readonly>
+                    <input type="number" class="form-control" id="total" onchange="sum();" name="total" value="{{ $purchase->total }}" required placeholder="Total" readonly>
                 </div>
 
-                <div>
-                    <div class="form-group">
-                    <label for="gambar">Gambar Sampah*</label>
-                    <input type="file" class="form-control" name="gambar" placeholder="Masukan link disini">
-                    </div>
+                <div class="form-group">
+                    <label for="gambar_sampah">Gambar Sampah</label>
+                    <input type="file" class="form-control" id="gambar_sampah" name="gambar_sampah">
                 </div>
-
-                <div>
-                    <div class="form-group">
-                    <label for="nota">Gambar Nota*</label>
-                    <input type="file" class="form-control" name="nota" placeholder="Masukan link disini">
-                    </div>
+            
+                <div class="form-group">
+                    <label for="gambar_nota">Gambar Nota</label>
+                    <input type="file" class="form-control" id="gambar_nota" name="gambar_nota">
                 </div>
 
                 <button type="submit" class="btn btn-custom">Simpan</button>
