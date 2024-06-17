@@ -25,28 +25,29 @@ class NasabahController extends Controller
             // $customer = Customer::where('user_id', $user->id)->first();
             $customer = $user->customer;
 
+            $totalSampah = Purchase::where('user_id', $user->id)->sum('berat');
+            $totalPenjualanSampah = Purchase::where('user_id', $user->id)->sum('total');
+
             // Mendapatkan nilai RW dari customer yang terkait
-            $rw = $customer ? $customer->RW : 'Default RW';
+            // $rw = $customer ? $customer->RW : 'Default RW';
 
             // Mengirimkan data ke tampilan
-            return view('nasabah/dashboard_nasabah', compact('customer'));
+            return view('nasabah/dashboard_nasabah', compact('customer', 'totalSampah', 'totalPenjualanSampah'));
         } else {
             // Jika pengguna belum login, bisa diarahkan ke halaman login atau tindakan lainnya
             return redirect()->route('login');
         }
     }
 
-    public function transaksi_beli_nasabah(){
-        // Ambil id pengguna yang sedang login
-        // $userId = auth()->id();
-
+    public function transaksi_beli_nasabah()
+    {
+        // Ambil data pengguna yang sedang login
         $user = auth()->user();
-        $purchases = $user->purchase;
 
-        // Ambil pembelian yang terkait dengan pengguna yang login
-        // $purchases = Purchase::where('user_id', $userId)->get();
-        // $customer = Customer::where('user_id', $userId)->first();
-        return view('nasabah/transaksi_beli_nasabah', compact('purchases', 'user'));
+        // Ambil transaksi pembelian terkait dengan pengguna yang login
+        $purchases = Purchase::where('user_id', $user->id)->get();
+
+        return view('nasabah.transaksi_beli_nasabah', compact('purchases', 'user'));
     }
 
     public function tambah_transaksi_beli_nasabah(){
@@ -110,7 +111,9 @@ class NasabahController extends Controller
             return back()->with('error', 'Data penjualan tidak ditemukan.');
         }
 
-        return view('nasabah/edit_transaksi_beli_nasabah', compact('purchase'));
+        $trashes = Trash::all();
+
+        return view('nasabah/edit_transaksi_beli_nasabah', compact('purchase', 'trashes'));
     }
 
     public function update_transaksi_beli_nasabah(Request $request) 
@@ -158,7 +161,7 @@ class NasabahController extends Controller
         $purchase->total = $request->input('berat') * $request->input('harga');
         $purchase->save();
 
-        return redirect()->route('transaksi_beli_nasabah')->with('success', 'Data pembelian berhasil diperbarui.');
+        return redirect()->route('transaksi_beli_nasabah')->with('success', 'Data Penjualan berhasil diperbarui.');
     }
 
     public function destroy_transaksi_beli_nasabah($id)
@@ -177,7 +180,7 @@ class NasabahController extends Controller
 
         $purchase->delete();
 
-        return redirect()->route('transaksi_beli_nasabah')->with('success', 'Data pembelian berhasil dihapus.');
+        return redirect()->route('transaksi_beli_nasabah')->with('success', 'Data Penjualan berhasil dihapus.');
     }
 
     public function ganti_password_nasabah(){
@@ -207,4 +210,28 @@ class NasabahController extends Controller
 
         return back()->with('success', 'Password berhasil diubah');
     }
+
+    public function tampilkan_tanggal_transaksi_nasabah(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'txtTglAwal' => 'required|date',
+            'txtTglAkhir' => 'required|date|after_or_equal:txtTglAwal',
+        ]);
+
+        $tglAwal = $request->input('txtTglAwal');
+        $tglAkhir = $request->input('txtTglAkhir');
+
+        // Ambil data pengguna yang sedang login
+        $user = auth()->user();
+
+        // Ambil data transaksi pembelian sesuai dengan rentang tanggal
+        $purchases = Purchase::where('user_id', $user->id)
+            ->whereBetween('tanggal_beli', [$tglAwal, $tglAkhir])
+            ->get();
+
+        // Kembalikan view dengan data yang difilter
+        return view('nasabah/transaksi_beli_nasabah', compact('purchases', 'user'));
+    }
+
 }

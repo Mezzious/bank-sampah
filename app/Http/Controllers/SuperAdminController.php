@@ -44,7 +44,12 @@ class SuperAdminController extends Controller
 
     public function tambah_user()
     {
-        return view("superadmin/tambah_user");
+        $roles = User::select('roles')
+            ->whereIn('roles', ['super-admin', 'admin', 'user'])
+            ->distinct()
+            ->get();
+
+        return view("superadmin/tambah_user", compact('roles'));
     }
 
     public function store_user(Request $request)
@@ -373,7 +378,7 @@ class SuperAdminController extends Controller
     public function transaksi_beli()
     {
         $purchases = Purchase::all();
-        // dd($purchases[0]->user);
+        
         return view('superadmin/transaksi_beli', compact('purchases'));
     }
 

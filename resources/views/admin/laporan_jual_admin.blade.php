@@ -5,7 +5,7 @@
     <div class="page-heading">
         <div class="row">
             <div class="d-flex align-items-center justify-content-between ">
-                <h2 style="font-size: 30px" class="h2 mb-0 col-4 col-md-2 text-gray-800">Laporan Jual Sampah</h2>
+                <h2 style="font-size: 30px" class="h2 mb-0 col-4 col-md-2 text-gray-800">Laporan Beli Sampah</h2>
                 <div class="col-8 col-xl-10 col-lg-9 col-md-8 col-sm-9 d-flex align-items-center justify-content-end">
                     <div class="dropdown">
                         <a href="#" id="topbarUserDropdown"
@@ -79,7 +79,7 @@
                             <thead class="table-secondary">
                                 <tr>
                                     <th>No</th>
-                                    <th>Tanggal Jual</th>
+                                    <th>Tanggal Beli</th>
                                     <th>Jenis Sampah</th>
                                     <th>Gambar</th>
                                     <th>Berat (Kg)</th>
@@ -107,11 +107,11 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div>
+                        {{-- <div>
                             <a href="{{ route('cetak_laporan_jual_admin') }}" target="_blank" class="btn btn-custom" id="printButton">
                                 <i class="fa-solid fa-print" style="color: white;"></i> <span style="color: white;">Cetak</span>
                             </a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

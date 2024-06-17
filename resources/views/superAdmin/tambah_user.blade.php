@@ -44,9 +44,9 @@
                     <label for="roles">Roles*</label>
                     <select class="form-control" id="roles" name="roles" required>
                         <option value="" disabled selected hidden>Pilih Roles</option>
-                        <option value="super-admin">Super Admin</option>
-                        <option value="admin">Admin</option>
-                        <option value="user">User</option>
+                        @foreach($roles as $role)
+                            <option value="{{ $role->roles }}">{{ ucfirst($role->roles) }}</option>
+                        @endforeach
                     </select>
                 </div>
 

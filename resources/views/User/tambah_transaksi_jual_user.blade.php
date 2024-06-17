@@ -43,8 +43,14 @@
 
                 <div class="form-group">
                     <label for="jenis_sampah">Jenis Sampah*</label>
-                    <input type="text" class="form-control" id="jenis_sampah" name="jenis_sampah" required
-                        placeholder="Jenis Sampah">
+                    <select class="form-control" id="jenis_sampah" name="jenis_sampah" required onchange="updateSampahDetails()">
+                        <option value="">Pilih Jenis Sampah</option>
+                        @foreach($trashes as $trash)
+                            <option value="{{ $trash->jenis_sampah }}">
+                                {{ $trash->jenis_sampah }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -93,6 +99,16 @@
         if (!isNaN(result)) {
             document.getElementById('total').value=result;
         }
+    }
+
+    function updateSampahDetails() {
+        var select = document.getElementById('jenis_sampah');
+        var selectedOption = select.options[select.selectedIndex];
+        var harga = selectedOption.getAttribute('data-harga');
+        var gambar = selectedOption.getAttribute('data-gambar');
+
+        document.getElementById('harga').value = harga;
+        document.getElementById('gambar').value = gambar;
     }
 </script>
 @endsection
