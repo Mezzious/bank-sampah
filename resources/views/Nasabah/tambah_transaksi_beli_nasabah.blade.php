@@ -18,7 +18,7 @@
 
     <div class="card border-bottom-primary shadow mb-4" style="margin-right: 28px">
         <div class="card-header py-3">
-            <h6 class="m-0">Form Input Transaksi Beli</h6>
+            <h6 class="m-0">Form Input Transaksi Jual</h6>
         </div>
         <div class="card-body">
             <form action="{{ route('store_transaksi_beli') }}" method="post" enctype="multipart/form-data">
@@ -31,7 +31,7 @@
                 </div> --}}
 
                 <div class="form-group">
-                    <label for="tanggal_beli">Tanggal Beli*</label>
+                    <label for="tanggal_beli">Tanggal Jual*</label>
                     <input type="date" class="form-control" id="tanggal_beli" name="tanggal_beli" required>
                 </div>
 
@@ -46,7 +46,7 @@
                     <select class="form-control" id="jenis_sampah" name="jenis_sampah" required onchange="updateSampahDetails()">
                         <option value="">Pilih Jenis Sampah</option>
                         @foreach($trashes as $trash)
-                            <option value="{{ $trash->id }}" data-harga="{{ $trash->harga }}" data-gambar="{{ $trash->gambar }}">
+                            <option value="{{ $trash->jenis_sampah }}" data-harga="{{ $trash->harga }}">
                                 {{ $trash->jenis_sampah }}
                             </option>
                         @endforeach
@@ -61,7 +61,7 @@
 
                 <div class="form-group">
                     <label for="harga">Harga (Rp)*</label>
-                    <input type="number" class="form-control" id="harga" onchange="sum();" name="harga" required placeholder="Harga">
+                    <input type="number" class="form-control" id="harga" onchange="sum();" name="harga" required placeholder="Harga" readonly>
                 </div>
 
                 <div class="form-group">

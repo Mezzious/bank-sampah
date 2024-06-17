@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Purchase;
 use App\Models\Sales;
 use App\Models\SuperAdmin;
+use App\Models\Trash;
 use Illuminate\Http\Request;
 
 use App\Models\User;
@@ -21,7 +23,11 @@ class UserController extends Controller
 
         // Pastikan pengguna telah login sebelum menampilkan data
         if ($user) {
-            return view('user/dashboard_user', compact('user'));
+            
+            $totalSampah = Sales::where('user_id', $user->id)->sum('berat');
+            $totalPenjualanSampah = Sales::where('user_id', $user->id)->sum('total');
+
+            return view('user/dashboard_user', compact('user', 'totalSampah', 'totalPenjualanSampah'));
         } else {
             // Jika pengguna belum login, bisa diarahkan ke halaman login atau tindakan lainnya
             return redirect()->route('login');
@@ -36,7 +42,8 @@ class UserController extends Controller
 
     public function tambah_transaksi_jual_user()
     {
-        return view('user/tambah_transaksi_jual_user');
+        $trashes = Trash::all();
+        return view('user/tambah_transaksi_jual_user', compact('trashes'));
     }
 
     public function store_transaksi_jual(Request $request)
@@ -196,5 +203,28 @@ class UserController extends Controller
         $user->save();
 
         return back()->with('success', 'Password berhasil diubah');
+    }
+
+    public function tampilkan_tanggal_transaksi_user(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'txtTglAwal' => 'required|date',
+            'txtTglAkhir' => 'required|date|after_or_equal:txtTglAwal',
+        ]);
+
+        $tglAwal = $request->input('txtTglAwal');
+        $tglAkhir = $request->input('txtTglAkhir');
+
+        // Ambil data pengguna yang sedang login
+        $user = auth()->user();
+
+        // Ambil data transaksi pembelian sesuai dengan rentang tanggal
+        $saleses = Sales::where('user_id', $user->id)
+            ->whereBetween('tanggal_jual', [$tglAwal, $tglAkhir])
+            ->get();
+
+        // Kembalikan view dengan data yang difilter
+        return view('user/transaksi_jual_user', compact('saleses', 'user'));
     }
 }

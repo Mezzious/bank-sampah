@@ -141,9 +141,9 @@ Route::group(['middleware' => ['auth', 'admin:admin']], function () {
 
     Route::post('/ganti_password_admin', [AdminController::class, 'update_ganti_password_admin'])->name('update_ganti_password_admin');
 
-    Route::get('/cetak_laporan_jual', [AdminController::class, 'cetak_laporan_jual_admin'])->name('cetak_laporan_jual_admin');
+    Route::get('/cetak_laporan_jual_admin', [AdminController::class, 'cetak_laporan_jual_admin'])->name('cetak_laporan_jual_admin');
 
-    Route::get('/cetak_laporan_beli', [AdminController::class, 'cetak_laporan_beli_admin'])->name('cetak_laporan_beli_admin');
+    Route::get('/cetak_laporan_beli_admin', [AdminController::class, 'cetak_laporan_beli_admin'])->name('cetak_laporan_beli_admin');
 });
 
 //User
@@ -154,6 +154,8 @@ Route::group(['middleware' => ['auth', 'admin:user']], function () {
     Route::get('/dashboard_user', [UserController::class, 'index'])->name('dashboard_user');
 
     Route::get('/transaksi_jual_user', [UserController::class, 'transaksi_jual_user'])->name('transaksi_jual_user');
+
+    Route::post('/transaksi_jual_user', [UserController::class, 'tampilkan_tanggal_transaksi_user'])->name('tampilkan_tanggal_transaksi_user');
 
     Route::get('/tambah_transaksi_jual_user', [UserController::class, 'tambah_transaksi_jual_user'])->name('tambah_transaksi_jual_user');
 
@@ -180,6 +182,8 @@ Route::group(['middleware' => ['auth', 'admin:nasabah']], function () {
     Route::get('/dashboard_nasabah', [NasabahController::class, 'index'])->name('dashboard_nasabah');
 
     Route::get('/transaksi_beli_nasabah', [NasabahController::class, 'transaksi_beli_nasabah'])->name('transaksi_beli_nasabah');
+
+    Route::post('/transaksi_beli_nasabah', [NasabahController::class, 'tampilkan_tanggal_transaksi_nasabah'])->name('tampilkan_tanggal_transaksi_nasabah');
 
     Route::get('/tambah_transaksi_beli_nasabah', [NasabahController::class, 'tambah_transaksi_beli_nasabah'])->name('tambah_transaksi_beli_nasabah');
 

@@ -18,7 +18,7 @@
 
     <div class="card border-bottom-primary shadow mb-4" style="margin-right: 28px">
         <div class="card-header py-3">
-            <h6 class="m-0">Form Edit Transaksi Beli</h6>
+            <h6 class="m-0">Form Edit Transaksi Jual</h6>
         </div>
         <div class="card-body">
             <form action="{{ route('update_transaksi_beli_nasabah', ['id' => $purchase->id]) }}" method="POST" enctype="multipart/form-data">
@@ -32,7 +32,7 @@
                 </div> --}}
 
                 <div class="form-group">
-                    <label for="tanggal_beli">Tanggal Beli*</label>
+                    <label for="tanggal_beli">Tanggal Jual*</label>
                     <input type="date" class="form-control" id="tanggal_beli" name="tanggal_beli" value="{{ $purchase->tanggal_beli }}" required>
                 </div>
 
@@ -44,8 +44,14 @@
 
                 <div class="form-group">
                     <label for="jenis_sampah">Jenis Sampah*</label>
-                    <input type="text" class="form-control" id="jenis_sampah" name="jenis_sampah" value="{{ $purchase->jenis_sampah }}" required
-                        placeholder="Jenis Sampah">
+                    <select class="form-control" id="jenis_sampah" name="jenis_sampah" required onchange="updateSampahDetails()">
+                        <option value="">Pilih Jenis Sampah</option>
+                        @foreach($trashes as $trash)
+                            <option value="{{ $trash->jenis_sampah }}" data-harga="{{ $trash->harga }}">
+                                {{ $trash->jenis_sampah }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -56,12 +62,12 @@
 
                 <div class="form-group">
                     <label for="harga">Harga (Rp)*</label>
-                    <input type="number" class="form-control" id="harga" onchange="sum();" name="harga" value="{{ $purchase->harga }}" required placeholder="Harga">
+                    <input type="number" class="form-control" id="harga" onchange="sum();" name="harga" value="{{ $purchase->harga }}" required placeholder="Harga" readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="total">Total (Rp)*</label>
-                    <input type="number" class="form-control" id="total" onchange="sum();" name="total" value="{{ $purchase->total }}" required placeholder="Total">
+                    <input type="number" class="form-control" id="total" onchange="sum();" name="total" value="{{ $purchase->total }}" required placeholder="Total" readonly>
                 </div>
 
                 <div class="form-group">
@@ -91,5 +97,15 @@
             document.getElementById('total').value=result;
         }
     }
+
+    function updateSampahDetails() {
+            var select = document.getElementById('jenis_sampah');
+            var selectedOption = select.options[select.selectedIndex];
+            var harga = selectedOption.getAttribute('data-harga');
+            var gambar = selectedOption.getAttribute('data-gambar');
+
+            document.getElementById('harga').value = harga;
+            document.getElementById('gambar').value = gambar;
+        }
 </script>
 @endsection

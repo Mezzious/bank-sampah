@@ -43,4 +43,9 @@ class Trash extends Model
     public $timestamps = false;
     
     protected $table = 'trashes';
+
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
+    }
 }
