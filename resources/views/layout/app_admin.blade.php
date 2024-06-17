@@ -96,14 +96,14 @@
                             </a>
 
                             <ul class="submenu ">
-
+                                
                                 <li class="submenu-item  ">
-                                    <a href="{{ route('transaksi_jual_admin') }}" class="submenu-link"> Transaksi Beli</a>
+                                    <a href="{{ route('transaksi_beli_admin') }}" class="submenu-link"> Transaksi Beli</a>
 
                                 </li>
 
                                 <li class="submenu-item  ">
-                                    <a href="{{ route('transaksi_beli_admin') }}" class="submenu-link"> Transaksi Jual</a>
+                                    <a href="{{ route('transaksi_jual_admin') }}" class="submenu-link"> Transaksi Jual</a>
 
                                 </li>
 
@@ -120,12 +120,12 @@
                             <ul class="submenu ">
 
                                 <li class="submenu-item  ">
-                                    <a href="{{ route('laporan_jual_admin') }}" class="submenu-link">Laporan Beli</a>
+                                    <a href="{{ route('laporan_beli_admin') }}" class="submenu-link">Laporan Beli</a>
 
                                 </li>
 
                                 <li class="submenu-item  ">
-                                    <a href="{{ route('laporan_beli_admin') }}" class="submenu-link">Laporan Jual</a>
+                                    <a href="{{ route('laporan_jual_admin') }}" class="submenu-link">Laporan Jual</a>
 
                                 </li>
                             </ul>

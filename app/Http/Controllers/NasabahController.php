@@ -39,7 +39,7 @@ class NasabahController extends Controller
         }
     }
 
-    public function transaksi_beli_nasabah()
+    public function transaksi_jual_nasabah()
     {
         // Ambil data pengguna yang sedang login
         $user = auth()->user();
@@ -47,15 +47,15 @@ class NasabahController extends Controller
         // Ambil transaksi pembelian terkait dengan pengguna yang login
         $purchases = Purchase::where('user_id', $user->id)->get();
 
-        return view('nasabah.transaksi_beli_nasabah', compact('purchases', 'user'));
+        return view('nasabah/transaksi_jual_nasabah', compact('purchases', 'user'));
     }
 
-    public function tambah_transaksi_beli_nasabah(){
+    public function tambah_transaksi_jual_nasabah(){
         $trashes = Trash::all();
-        return view('nasabah/tambah_transaksi_beli_nasabah', compact('trashes'));
+        return view('nasabah/tambah_transaksi_jual_nasabah', compact('trashes'));
     }
 
-    public function store_transaksi_beli(Request $request){
+    public function store_transaksi_jual(Request $request){
             // Validasi input
             $request->validate([
                 'tanggal_beli' => 'required|date',
@@ -100,10 +100,10 @@ class NasabahController extends Controller
             $purchase->save();
     
             // Redirect ke halaman yang sesuai dengan pesan sukses atau lainnya
-            return redirect()->route('transaksi_beli_nasabah')->with('success', 'Data penjualan berhasil disimpan.');
+            return redirect()->route('transaksi_jual_nasabah')->with('success', 'Data penjualan berhasil disimpan.');
     }
 
-    public function edit_transaksi_beli_nasabah(Request $request){
+    public function edit_transaksi_jual_nasabah(Request $request){
         $id = $request->input('id');
         $purchase = Purchase::findOrFail($id);
 
@@ -113,10 +113,10 @@ class NasabahController extends Controller
 
         $trashes = Trash::all();
 
-        return view('nasabah/edit_transaksi_beli_nasabah', compact('purchase', 'trashes'));
+        return view('nasabah/edit_transaksi_jual_nasabah', compact('purchase', 'trashes'));
     }
 
-    public function update_transaksi_beli_nasabah(Request $request) 
+    public function update_transaksi_jual_nasabah(Request $request) 
     {
         $id = $request->input('id');
         $request->validate([
@@ -161,10 +161,10 @@ class NasabahController extends Controller
         $purchase->total = $request->input('berat') * $request->input('harga');
         $purchase->save();
 
-        return redirect()->route('transaksi_beli_nasabah')->with('success', 'Data Penjualan berhasil diperbarui.');
+        return redirect()->route('transaksi_jual_nasabah')->with('success', 'Data Penjualan berhasil diperbarui.');
     }
 
-    public function destroy_transaksi_beli_nasabah($id)
+    public function destroy_transaksi_jual_nasabah($id)
     {
         $purchase = Purchase::findOrFail($id);
 
@@ -180,7 +180,7 @@ class NasabahController extends Controller
 
         $purchase->delete();
 
-        return redirect()->route('transaksi_beli_nasabah')->with('success', 'Data Penjualan berhasil dihapus.');
+        return redirect()->route('transaksi_jual_nasabah')->with('success', 'Data Penjualan berhasil dihapus.');
     }
 
     public function ganti_password_nasabah(){
@@ -231,7 +231,7 @@ class NasabahController extends Controller
             ->get();
 
         // Kembalikan view dengan data yang difilter
-        return view('nasabah/transaksi_beli_nasabah', compact('purchases', 'user'));
+        return view('nasabah/transaksi_jual_nasabah', compact('purchases', 'user'));
     }
 
 }

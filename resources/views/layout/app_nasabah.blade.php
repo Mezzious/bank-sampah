@@ -72,7 +72,7 @@
                             <ul class="submenu ">
 
                                 <li class="submenu-item  ">
-                                    <a href="{{ route('transaksi_beli_nasabah') }}" class="submenu-link"> Transaksi Jual</a>
+                                    <a href="{{ route('transaksi_jual_nasabah') }}" class="submenu-link"> Transaksi Jual</a>
 
                                 </li>
 

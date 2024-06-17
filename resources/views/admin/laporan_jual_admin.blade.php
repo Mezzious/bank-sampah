@@ -5,7 +5,7 @@
     <div class="page-heading">
         <div class="row">
             <div class="d-flex align-items-center justify-content-between ">
-                <h2 style="font-size: 30px" class="h2 mb-0 col-4 col-md-2 text-gray-800">Laporan Beli Sampah</h2>
+                <h2 style="font-size: 30px" class="h2 mb-0 col-4 col-md-2 text-gray-800">Laporan Jual Sampah</h2>
                 <div class="col-8 col-xl-10 col-lg-9 col-md-8 col-sm-9 d-flex align-items-center justify-content-end">
                     <div class="dropdown">
                         <a href="#" id="topbarUserDropdown"
@@ -43,43 +43,44 @@
     </div>
 </div>
 
-            <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
-            <link rel="stylesheet" href="./assets/compiled/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
+    <link rel="stylesheet" href="./assets/compiled/css/dataTables.bootstrap4.min.css">
 
-            <div class="back-button-container" style="margin-bottom: 10px">
-                <a class="btn back-button" onclick="goBack()">
-                    <i class="fa-solid fa-arrow-left" style="color: white;"></i>
-                    <span style="color: white;">Back</span>
-                </a>
+    <div class="back-button-container" style="margin-bottom: 10px">
+        <a class="btn back-button" onclick="goBack()">
+            <i class="fa-solid fa-arrow-left" style="color: white;"></i>
+            <span style="color: white;">Back</span>
+        </a>
+    </div>
+
+    <form action="{{ route('tampilkan_tanggal_jual_laporan_admin') }}" method="post" name="form10">
+        @csrf
+        <div class="row">
+            <div class="col-lg-3">
+                <input id="txtTglAwal" name="txtTglAwal" type="date" class="form-control" size="10" required />
             </div>
+            <div class="col-lg-3">
+                <input id="txtTglAkhir" name="txtTglAkhir" type="date" class="form-control" size="10" required />
+            </div>
+            <div class="col-lg-3">
+                <input name="btnTampil" style="color: white" class="btn btn-custom" type="submit" value="Tampilkan" />
+            </div>
+        </div>
+    </form>
 
-            <form action="{{ route('tampilkan_tanggal_jual_laporan_admin') }}" method="post" name="form10">
-                @csrf
-                <div class="row">
-                    <div class="col-lg-3">
-                        <input id="txtTglAwal" name="txtTglAwal" type="date" class="form-control" size="10" required />
-                    </div>
-                    <div class="col-lg-3">
-                        <input id="txtTglAkhir" name="txtTglAkhir" type="date" class="form-control" size="10" required />
-                    </div>
-                    <div class="col-lg-3">
-                        <input name="btnTampil" style="color: white" class="btn btn-custom" type="submit" value="Tampilkan" />
-                    </div>
-                </div>
-            </form>
-
-            @if(isset($saleses))
+    @if(isset($purchases))
     <div class="mb-3"></div>
     <div class="row">
         <div class="col">
             <div class="card shadow">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="table_laporan_jual" class="table table-bordered">
+                        <table id="table_laporan_beli" class="table table-bordered">
                             <thead class="table-secondary">
                                 <tr>
                                     <th>No</th>
-                                    <th>Tanggal Beli</th>
+                                    <th>RW</th>
+                                    <th>Tanggal Jual</th>
                                     <th>Jenis Sampah</th>
                                     <th>Gambar</th>
                                     <th>Berat (Kg)</th>
@@ -89,26 +90,27 @@
                             </thead>
                             <tbody>
                                 @php $grandTotal = 0; @endphp
-                                @foreach ($saleses as $sales)
-                                    @php $grandTotal += $sales->total; @endphp
+                                @foreach ($purchases as $purchase)
+                                    @php $grandTotal += $purchase->total; @endphp
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $sales->tanggal_jual }}</td>
-                                        <td>{{ $sales->jenis_sampah }}</td>
-                                        <td><img src="{{ asset('storage/assets/sampah_penjualan/'.$sales->gambar_sampah) }}" width="60px" height="60px"></td>
-                                        <td>{{ $sales->berat }}</td>
-                                        <td>{{ $sales->harga }}</td>
-                                        <td>{{ $sales->total }}</td>
+                                        <td>0{{ $purchase->user->customer->rw }}</td>
+                                        <td>{{ $purchase->tanggal_beli }}</td>
+                                        <td>{{ $purchase->jenis_sampah }}</td>
+                                        <td><img src="{{ asset('storage/assets/sampah_pembelian/'.$purchase->gambar_sampah) }}" width="60px" height="60px"></td>
+                                        <td>{{ $purchase->berat }}</td>
+                                        <td>{{ $purchase->harga }}</td>
+                                        <td>{{ $purchase->total }}</td>
                                     </tr>
                                 @endforeach
                                 <tr>
-                                    <td colspan="6" class="text-right font-weight-bold">Jumlah Total</td>
+                                    <td colspan="7" class="text-right font-weight-bold">Jumlah Total</td>
                                     <td colspan="2" class="font-weight-bold">{{ $grandTotal }}</td>
                                 </tr>
                             </tbody>
                         </table>
                         {{-- <div>
-                            <a href="{{ route('cetak_laporan_jual_admin') }}" target="_blank" class="btn btn-custom" id="printButton">
+                            <a href="{{ route('cetak_laporan_beli_admin') }}" target="_blank" class="btn btn-custom" id="printButton">
                                 <i class="fa-solid fa-print" style="color: white;"></i> <span style="color: white;">Cetak</span>
                             </a>
                         </div> --}}
@@ -141,7 +143,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#table_laporan_jual').DataTable();
+            $('#table_laporan_beli').DataTable();
         });
 
         function showNotaImage(imageUrl) {
