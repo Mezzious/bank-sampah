@@ -67,17 +67,18 @@
         </div>
     </form>
 
-    @if(isset($saleses))
+    @if(isset($purchases))
     <div class="mb-3"></div>
     <div class="row">
         <div class="col">
             <div class="card shadow">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="table_laporan_jual" class="table table-bordered">
+                        <table id="table_laporan_beli" class="table table-bordered">
                             <thead class="table-secondary">
                                 <tr>
                                     <th>No</th>
+                                    <th>RW</th>
                                     <th>Tanggal Jual</th>
                                     <th>Jenis Sampah</th>
                                     <th>Gambar</th>
@@ -88,20 +89,21 @@
                             </thead>
                             <tbody>
                                 @php $grandTotal = 0; @endphp
-                                @foreach ($saleses as $sales)
-                                    @php $grandTotal += $sales->total; @endphp
+                                @foreach ($purchases as $purchase)
+                                    @php $grandTotal += $purchase->total; @endphp
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $sales->tanggal_jual }}</td>
-                                        <td>{{ $sales->jenis_sampah }}</td>
-                                        <td><img src="{{ asset('storage/assets/sampah_penjualan/'.$sales->gambar_sampah) }}" width="60px" height="60px"></td>
-                                        <td>{{ $sales->berat }}</td>
-                                        <td>{{ $sales->harga }}</td>
-                                        <td>{{ $sales->total }}</td>
+                                        <td>0{{ $purchase->user->customer->rw }}</td>
+                                        <td>{{ $purchase->tanggal_beli }}</td>
+                                        <td>{{ $purchase->jenis_sampah }}</td>
+                                        <td><img src="{{ asset('storage/assets/sampah_pembelian/'.$purchase->gambar_sampah) }}" width="60px" height="60px"></td>
+                                        <td>{{ $purchase->berat }}</td>
+                                        <td>{{ $purchase->harga }}</td>
+                                        <td>{{ $purchase->total }}</td>
                                     </tr>
                                 @endforeach
                                 <tr>
-                                    <td colspan="6" class="text-right font-weight-bold">Jumlah Total</td>
+                                    <td colspan="7" class="text-right font-weight-bold">Jumlah Total</td>
                                     <td colspan="2" class="font-weight-bold">{{ $grandTotal }}</td>
                                 </tr>
                             </tbody>
@@ -140,7 +142,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#table_laporan_jual').DataTable();
+            $('#table_laporan_beli').DataTable();
         });
 
         function showNotaImage(imageUrl) {
