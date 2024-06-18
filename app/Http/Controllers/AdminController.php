@@ -23,6 +23,7 @@ class AdminController extends Controller
 
         // Pastikan pengguna telah login sebelum menampilkan data
         if ($user) {
+            // Mendapatkan total berat, penjualan, pembelian, dan jumlah nasabah
             $totalBerat = Purchase::sum('berat');
             $totalPenjualan = Sales::sum('total');
             $totalPembelian = Purchase::sum('total');
@@ -34,13 +35,41 @@ class AdminController extends Controller
             // Mendapatkan roles pengguna
             $roles = $superAdmin ? $superAdmin->roles : 'Default Role';
 
+            // Mendapatkan data penjualan per bulan
+            $sales = Sales::selectRaw('DATE_FORMAT(tanggal_jual, "%Y-%m") as month, SUM(berat) as total_berat, SUM(total) as total_harga')
+                            ->groupBy('month')
+                            ->orderBy('month')
+                            ->get();
+
+            // Mendapatkan data pembelian per bulan
+            $purchases = Purchase::selectRaw('DATE_FORMAT(tanggal_beli, "%Y-%m") as month, SUM(berat) as total_berat, SUM(total) as total_harga')
+                                ->groupBy('month')
+                                ->orderBy('month')
+                                ->get();
+
+            // Menggabungkan bulan-bulan dari penjualan dan pembelian, diurutkan dan unik
+            $months = $sales->pluck('month')->union($purchases->pluck('month'))->unique()->sort();
+
+            // Mengambil total berat dan total harga penjualan per bulan
+            $totalBeratPenjualanPerBulan = $sales->pluck('total_berat', 'month');
+            $totalHargaPenjualanPerBulan = $sales->pluck('total_harga', 'month');
+
+            // Mengambil total berat dan total harga pembelian per bulan
+            $totalBeratPembelianPerBulan = $purchases->pluck('total_berat', 'month');
+            $totalHargaPembelianPerBulan = $purchases->pluck('total_harga', 'month');
+
             // Mengirimkan data ke tampilan
-            return view('admin/dashboard_admin', compact('roles', 'totalBerat', 'totalPenjualan', 'totalPembelian', 'totalNasabah'));
+            return view('admin/dashboard_admin', compact(
+                'roles', 'totalBerat', 'totalPenjualan', 'totalPembelian', 'totalNasabah',
+                'months', 'totalBeratPenjualanPerBulan', 'totalHargaPenjualanPerBulan',
+                'totalBeratPembelianPerBulan', 'totalHargaPembelianPerBulan'
+            ));
         } else {
             // Jika pengguna belum login, bisa diarahkan ke halaman login atau tindakan lainnya
             return redirect()->route('login');
         }
     }
+
 
     public function data_nasabah_admin()
     {
