@@ -120,42 +120,111 @@
             </div>
         </div>
 
-        <!-- Content Row -->
-        <div class="row">
-
-            <div class="col-xl-12 col-lg-7">
-
-                <!-- Area Chart -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-area">
-                            <canvas id="myAreaChart"></canvas>
+                <!-- Content Row -->
+                <div class="row">
+                    <div class="col-xl-12 col-lg-7">
+                        <!-- Line Chart -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Line Chart</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-area" style="height: 400px;">
+                                    <canvas id="myLineChart"></canvas>
+                                </div>
+                                <hr>
+                                Grafik Monitoring Penjualan dan Pembelian per Bulan
+                            </div>
                         </div>
-                        <hr>
-                        Grafik Monitoring Untung Rugi per Bulan
-                    </div>
-                </div>
-
-                <!-- Bar Chart -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-bar">
-                            <canvas id="myBarChart"></canvas>
+                    
+                        <!-- Bar Chart -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-bar" style="height: 400px;">
+                                    <canvas id="myBarChart"></canvas>
+                                </div>
+                                <hr>
+                                Grafik Monitoring Penjualan dan Pembelian per Bulan
+                            </div>
                         </div>
-                        <hr>
-                        Grafik Monitoring Untung Rugi per Bulan
-                    </div>
+                    </div>            
                 </div>
-
-            </div>
-
-            </body>
-
-            </html>
-        @endsection
+            @endsection
+        
+            @section('script')
+                <!-- Chart.js Script -->
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script>
+                    var months = @json($months);
+                    var totalBeratPenjualanPerBulan = @json($totalBeratPenjualanPerBulan);
+                    var totalHargaPenjualanPerBulan = @json($totalHargaPenjualanPerBulan);
+                    var totalBeratPembelianPerBulan = @json($totalBeratPembelianPerBulan);
+                    var totalHargaPembelianPerBulan = @json($totalHargaPembelianPerBulan);
+        
+                    // Line Chart
+                    var ctxLine = document.getElementById('myLineChart').getContext('2d');
+                    var myLineChart = new Chart(ctxLine, {
+                        type: 'line',
+                        data: {
+                            labels: months,
+                            datasets: [
+                                {
+                                    label: 'Total Berat Penjualan (Kg)',
+                                    data: totalBeratPenjualanPerBulan,
+                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                    fill: true
+                                },
+                                {
+                                    label: 'Total Berat Pembelian (Kg)',
+                                    data: totalBeratPembelianPerBulan,
+                                    borderColor: 'rgba(255, 99, 132, 1)',
+                                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                    fill: true
+                                }
+                            ]
+                        },
+                        options: {
+                            scales: {
+                                x: { title: { display: true, text: 'Bulan' } },
+                                y: { title: { display: true, text: 'Total Berat (Kg)' } }
+                            }
+                        }
+                    });
+        
+                    // Bar Chart
+                    var ctxBar = document.getElementById('myBarChart').getContext('2d');
+                    var myBarChart = new Chart(ctxBar, {
+                        type: 'bar',
+                        data: {
+                            labels: months,
+                            datasets: [
+                                {
+                                    label: 'Total Penjualan (Rp)',
+                                    data: totalHargaPenjualanPerBulan,
+                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                    fill: true
+                                },
+                                {
+                                    label: 'Total Pembelian (Rp)',
+                                    data: totalHargaPembelianPerBulan,
+                                    borderColor: 'rgba(255, 99, 132, 1)',
+                                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                    fill: true
+                                }
+                            ]
+                        },
+                        options: {
+                            scales: {
+                                x: { title: { display: true, text: 'Bulan' } },
+                                y: { title: { display: true, text: 'Total (Rp)' } }
+                            }
+                        }
+                    });
+                </script>    
+            @endsection
+        

@@ -24,17 +24,42 @@ class SuperAdminController extends Controller
         
         // Pastikan pengguna telah login sebelum menampilkan data
         if ($user) {
+            // Data statistik
             $totalBerat = Purchase::sum('berat');
             $totalPenjualan = Sales::sum('total');
             $totalPembelian = Purchase::sum('total');
             $totalNasabah = Customer::count();
 
-            return view('superadmin/dashboard', compact('user', 'totalBerat', 'totalPenjualan', 'totalPembelian', 'totalNasabah'));
-            } else {
-                // Jika pengguna belum login, bisa diarahkan ke halaman login atau tindakan lainnya
+            // Data untuk grafik
+            $sales = Sales::selectRaw('DATE_FORMAT(tanggal_jual, "%Y-%m") as month, SUM(berat) as total_berat, SUM(total) as total_harga')
+                        ->groupBy('month')
+                        ->orderBy('month')
+                        ->get();
+
+            $purchases = Purchase::selectRaw('DATE_FORMAT(tanggal_beli, "%Y-%m") as month, SUM(berat) as total_berat, SUM(total) as total_harga')
+                        ->groupBy('month')
+                        ->orderBy('month')
+                        ->get();
+
+            $months = $sales->pluck('month')->union($purchases->pluck('month'))->unique()->sort();
+
+            $totalBeratPenjualanPerBulan = $sales->pluck('total_berat', 'month');
+            $totalHargaPenjualanPerBulan = $sales->pluck('total_harga', 'month');
+
+            $totalBeratPembelianPerBulan = $purchases->pluck('total_berat', 'month');
+            $totalHargaPembelianPerBulan = $purchases->pluck('total_harga', 'month');
+
+            return view('superadmin/dashboard', compact(
+                'user', 'totalBerat', 'totalPenjualan', 'totalPembelian', 'totalNasabah', 
+                'months', 'totalBeratPenjualanPerBulan', 'totalHargaPenjualanPerBulan',
+                'totalBeratPembelianPerBulan', 'totalHargaPembelianPerBulan'
+            ));
+        } else {
+            // Jika pengguna belum login, bisa diarahkan ke halaman login atau tindakan lainnya
             return redirect()->route('login');
         }
     }
+
 
     public function data_user()
     {
