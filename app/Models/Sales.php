@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -45,4 +46,13 @@ class Sales extends Model
     public $timestamps = false;
     
     protected $table = 'saleses';
+
+    // Jika tanggal_jual adalah atribut tanggal di model
+    protected $dates = ['tanggal_jual'];
+
+    // Mutator untuk format tanggal_jual
+    public function getTanggalJualAttribute($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y');
+    }
 }

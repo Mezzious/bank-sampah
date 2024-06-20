@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -46,6 +47,15 @@ class Purchase extends Model
     public $timestamps = false;
 
     protected $table = 'purchases';
+
+    // Pastikan atribut tanggal_beli dikenal sebagai tanggal
+    protected $dates = ['tanggal_beli'];
+
+    // Mutator untuk format tanggal_beli
+    public function getTanggalBeliAttribute($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y');
+    }
 
     public function user()
     {

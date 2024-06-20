@@ -25,9 +25,13 @@
                 @csrf
                 @method('PUT')
             
+                @php
+                    $today = \Carbon\Carbon::today()->format('Y-m-d');
+                @endphp
+
                 <div class="form-group">
                     <label for="tanggal_jual">Tanggal Jual*</label>
-                    <input type="date" class="form-control" id="tanggal_jual" name="tanggal_jual" value="{{ $sales->tanggal_jual }}" required>
+                    <input type="date" class="form-control" id="tanggal_jual" name="tanggal_jual" value="{{ $today }}" required>
                 </div>
             
                 <div class="form-group">
