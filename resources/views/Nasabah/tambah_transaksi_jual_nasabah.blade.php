@@ -30,9 +30,13 @@
                         disabled="disabled" required placeholder="Id Beli">
                 </div> --}}
 
+                @php
+                    $today = \Carbon\Carbon::today()->format('Y-m-d');
+                @endphp
+
                 <div class="form-group">
                     <label for="tanggal_beli">Tanggal Jual*</label>
-                    <input type="date" class="form-control" id="tanggal_beli" name="tanggal_beli" required>
+                    <input type="date" class="form-control" id="tanggal_beli" name="tanggal_beli" value="{{ $today }}" required>
                 </div>
 
                 {{-- <div class="form-group">
