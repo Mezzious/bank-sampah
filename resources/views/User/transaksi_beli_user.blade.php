@@ -91,9 +91,9 @@
                                             <th>Tanggal Beli</th>
                                             <th>Jenis Sampah</th>
                                             <th>Gambar Sampah</th>
-                                            <th>Berat</th>
-                                            <th>Harga</th>
-                                            <th>Total</th>
+                                            <th>Berat (Kg)</th>
+                                            <th>Harga (Rp)</th>
+                                            <th>Total (Rp)</th>
                                             <th>Nota</th>
                                             <th>Aksi</th>
                                         </tr>

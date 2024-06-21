@@ -63,7 +63,7 @@ class SuperAdminController extends Controller
 
     public function data_user()
     {
-        $users = SuperAdmin::whereNotIn('roles', ['nasabah'])->get();
+        $users = User::whereNotIn('roles', ['nasabah'])->get();
         return view('superadmin/data_user', compact('users'));
     }
 
@@ -87,7 +87,7 @@ class SuperAdminController extends Controller
         ]);
 
         // Simpan data ke dalam database
-        $users = new SuperAdmin();
+        $users = new User();
         $users->name = $request->input('name');
         $users->email = $request->input('email');
         $users->password = bcrypt($request->input('password')); // Encrypt password menggunakan bcrypt
@@ -100,13 +100,13 @@ class SuperAdminController extends Controller
     public function edit_user(Request $request)
     {
         $id = $request->input('id');
-        $user = SuperAdmin::find($id);
+        $user = User::find($id);
 
         if (!$user) {
             return back()->with('error', 'Pengguna tidak ditemukan.');
         }
 
-        $roles = SuperAdmin::distinct('roles')->pluck('roles');
+        $roles = User::distinct('roles')->pluck('roles');
         return view("superadmin/edit_user", compact('user', 'roles'));
     }
 
@@ -119,7 +119,7 @@ class SuperAdminController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
-        $user = SuperAdmin::find($id);
+        $user = User::find($id);
         $user->name = $request->input('name');
         $user->email = $request->input('email');
 
@@ -133,7 +133,7 @@ class SuperAdminController extends Controller
 
     public function destroy($id)
     {
-        $user = SuperAdmin::findOrFail($id);
+        $user = User::findOrFail($id);
         if ($user->roles == 'nasabah') {
             $customer = Customer::where('user_id', $id)->first();
             if ($customer) {
@@ -157,7 +157,7 @@ class SuperAdminController extends Controller
             'password' => 'required|confirmed|min:6',
         ]);
 
-        $user = SuperAdmin::find(Auth::id());
+        $user = User::find(Auth::id());
 
         //cek password lama
         if (!Hash::check($request->current_password, auth()->user()->password)) {
@@ -219,7 +219,7 @@ class SuperAdminController extends Controller
     {
         $id = $request->input('id');
         $customer = Customer::findOrFail($id);
-        $user = SuperAdmin::findOrFail($customer->user_id);
+        $user = User::findOrFail($customer->user_id);
 
         if (!$customer) {
             return back()->with('error', 'Data nasabah tidak ditemukan.');
@@ -255,7 +255,7 @@ class SuperAdminController extends Controller
         $customer->save();
 
         // Ambil data pengguna (user) yang terkait dengan nasabah
-        $user = SuperAdmin::findOrFail($customer->user_id);
+        $user = User::findOrFail($customer->user_id);
 
         if (!$user) {
             return back()->with('error', 'Data pengguna tidak ditemukan.');
@@ -271,7 +271,7 @@ class SuperAdminController extends Controller
 
     public function destroy_nasabah($id)
     {
-        $user = SuperAdmin::findOrFail($id);
+        $user = User::findOrFail($id);
         if ($user->roles == 'nasabah') {
             $customer = Customer::where('user_id', $id)->first();
             if ($customer) {

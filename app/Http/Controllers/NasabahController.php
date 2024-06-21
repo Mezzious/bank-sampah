@@ -7,6 +7,7 @@ use App\Models\Nasabah;
 use App\Models\Purchase;
 use App\Models\SuperAdmin;
 use App\Models\Trash;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -193,7 +194,7 @@ class NasabahController extends Controller
             'password' => 'required|confirmed|min:6',
         ]);
 
-        $user = SuperAdmin::find(Auth::id());
+        $user = User::find(Auth::id());
 
         //cek password lama
         if (!Hash::check($request->current_password, auth()->user()->password)) {

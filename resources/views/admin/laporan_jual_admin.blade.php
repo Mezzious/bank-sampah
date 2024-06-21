@@ -84,8 +84,8 @@
                                     <th>Jenis Sampah</th>
                                     <th>Gambar</th>
                                     <th>Berat (Kg)</th>
-                                    <th>Harga</th>
-                                    <th>Total</th>
+                                    <th>Harga (Rp)</th>
+                                    <th>Total (Rp)</th>
                                 </tr>
                             </thead>
                             <tbody>

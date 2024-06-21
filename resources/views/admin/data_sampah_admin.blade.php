@@ -67,7 +67,7 @@
                                     <th>User_Id</th> --}}
                                     <th>Jenis_Sampah</th>
                                     <th>Satuan</th>
-                                    <th>Harga</th>
+                                    <th>Harga per Kg (Rp)</th>
                                     <th>Gambar</th>
                                     <th>Deskripsi</th>
                                 </tr>
