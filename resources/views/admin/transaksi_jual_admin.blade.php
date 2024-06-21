@@ -83,9 +83,9 @@
                                     <th>Tanggal Jual</th>
                                     <th>Jenis Sampah</th>
                                     <th>Gambar</th>
-                                    <th>Berat</th>
-                                    <th>Harga</th>
-                                    <th>Total</th>
+                                    <th>Berat (Kg)</th>
+                                    <th>Harga (Rp)</th>
+                                    <th>Total (Rp)</th>
                                     <th>Nota</th>
                                 </tr>
                             </thead>

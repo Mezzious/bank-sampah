@@ -85,7 +85,7 @@ class AdminController extends Controller
 
     public function data_user_admin()
     {
-        $users = SuperAdmin::whereNotIn('roles', ['nasabah'])->get();
+        $users = User::whereNotIn('roles', ['nasabah'])->get();
         return view('admin/data_user_admin', compact('users'));
     }
 
@@ -121,7 +121,7 @@ class AdminController extends Controller
             'password' => 'required|confirmed|min:6',
         ]);
 
-        $user = SuperAdmin::find(Auth::id());
+        $user = User::find(Auth::id());
 
         //cek password lama
         if (!Hash::check($request->current_password, auth()->user()->password)) {
