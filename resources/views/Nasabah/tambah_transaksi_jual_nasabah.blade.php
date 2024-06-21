@@ -65,12 +65,12 @@
 
                 <div class="form-group">
                     <label for="harga">Harga (Rp)*</label>
-                    <input type="number" class="form-control" id="harga" onchange="sum();" name="harga" required placeholder="Harga" readonly>
+                    <input type="number" class="form-control" id="harga" onchange="sum();" name="harga" required disabled placeholder="Harga" readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="total">Total (Rp)*</label>
-                    <input type="number" class="form-control" id="total" onchange="sum();" name="total" required placeholder="Total" readonly>
+                    <input type="number" class="form-control" id="total" onchange="sum();" name="total" required disabled placeholder="Total" readonly>
                 </div>
 
                 <div>

@@ -70,7 +70,7 @@
 
                 <div class="form-group">
                     <label for="total">Total (Rp)*</label>
-                    <input type="number" class="form-control" id="total" onchange="sum();" name="total" readonly placeholder="Total">
+                    <input type="number" class="form-control" id="total" onchange="sum();" name="total" readonly disabled placeholder="Total">
                 </div>
 
                 <div>

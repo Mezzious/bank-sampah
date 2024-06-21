@@ -58,7 +58,7 @@
             
                 <div class="form-group">
                     <label for="total">Total (Rp)*</label>
-                    <input type="number" class="form-control" onchange="sum();" id="total" name="total" required placeholder="Total" value="{{ $sales->total }}" readonly>
+                    <input type="number" class="form-control" onchange="sum();" id="total" name="total" required disabled placeholder="Total" value="{{ $sales->total }}" readonly>
                 </div>
             
                 <div class="form-group">
