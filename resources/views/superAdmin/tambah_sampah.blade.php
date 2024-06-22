@@ -74,7 +74,6 @@
                     <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required placeholder="Deskripsi"></textarea>
                 </div>
 
-
                 <button type="submit" class="btn btn-custom">Simpan</button>
             </form>
         </div>
