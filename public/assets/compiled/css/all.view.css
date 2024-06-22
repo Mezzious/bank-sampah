@@ -213,12 +213,17 @@ select {
     color: #4F6F52;
     background-color: #d4edda;
     border-color: #c3e6cb;
+    margin-right: 23px; /* Menggeser tombol lebih ke kiri */
+    top: 5px; /* Mengatur posisi tombol ke bawah */;
 }
 
 .alert-dismissible .btn-close {
     position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0.75rem 1.25rem;
     color: inherit;
+    width: 10px;  /* Mengatur lebar tombol lebih kecil */
+    height: 8px; /* Mengatur tinggi tombol lebih kecil */
+    padding: 20px; /* Mengurangi padding agar tombol lebih kecil */
+    margin-right: -5px; /* Menggeser tombol lebih ke kiri */
+    top: 5px; /* Mengatur posisi tombol ke bawah */
+    font-size: 10px;
 }
