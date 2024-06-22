@@ -66,7 +66,7 @@
                     <div class="card-body d-flex align-items-center align-center">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="h4 mb-0 font-bold text-gray-800">{{ $totalPenjualan }}</div>
+                                <div class="h4 mb-0 font-bold text-gray-800">{{ $totalPembelian }}</div>
                                 <div class="text-xs font-bold text-success text-uppercase mb-1">
                                     Total Penjualan Sampah</div>
                             </div>
@@ -83,7 +83,7 @@
                     <div class="card-body d-flex align-items-center align-center">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="h4 mb-0 font-bold text-gray-800">{{ $totalPembelian }}</div>
+                                <div class="h4 mb-0 font-bold text-gray-800">{{ $totalPenjualan }}</div>
                                 <div class="text-xs font-bold text-success text-uppercase mb-1">
                                     Total Pembelian Sampah</div>
                             </div>
@@ -165,14 +165,14 @@
                     labels: months,
                     datasets: [
                         {
-                            label: 'Total Berat Penjualan (Kg)',
+                            label: 'Total Berat Pembelian (Kg)',
                             data: totalBeratPenjualanPerBulan,
                             borderColor: 'rgba(75, 192, 192, 1)',
                             backgroundColor: 'rgba(75, 192, 192, 0.2)',
                             fill: true
                         },
                         {
-                            label: 'Total Berat Pembelian (Kg)',
+                            label: 'Total Berat Penjualan (Kg)',
                             data: totalBeratPembelianPerBulan,
                             borderColor: 'rgba(255, 99, 132, 1)',
                             backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -196,14 +196,14 @@
                     labels: months,
                     datasets: [
                         {
-                            label: 'Total Penjualan (Rp)',
+                            label: 'Total Pembelian (Rp)',
                             data: totalHargaPenjualanPerBulan,
                             borderColor: 'rgba(75, 192, 192, 1)',
                             backgroundColor: 'rgba(75, 192, 192, 0.2)',
                             fill: true
                         },
                         {
-                            label: 'Total Pembelian (Rp)',
+                            label: 'Total Penjualan (Rp)',
                             data: totalHargaPembelianPerBulan,
                             borderColor: 'rgba(255, 99, 132, 1)',
                             backgroundColor: 'rgba(255, 99, 132, 0.2)',

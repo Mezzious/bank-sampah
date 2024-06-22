@@ -7,6 +7,16 @@
         </div>
     @endif
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
 
     <div class="back-button-container" style="margin-bottom: 15px">
@@ -65,7 +75,8 @@
 
                 <div class="form-group">
                     <label for="harga">Harga (Rp)*</label>
-                    <input type="number" class="form-control" id="harga" onchange="sum();" name="harga" required disabled placeholder="Harga" readonly>
+                    <input type="number" class="form-control" id="harga_display" onchange="sum();" name="harga" disabled placeholder="Harga" readonly>
+                    <input type="hidden" id="harga" name="harga">
                 </div>
 
                 <div class="form-group">
@@ -112,7 +123,7 @@
             var gambar = selectedOption.getAttribute('data-gambar');
 
             document.getElementById('harga').value = harga;
-            document.getElementById('gambar').value = gambar;
+            document.getElementById('harga_display').value = harga;
         }
 </script>
 @endsection
