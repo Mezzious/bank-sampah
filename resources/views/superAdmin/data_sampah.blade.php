@@ -82,22 +82,32 @@
                             </thead>
                             <tbody id="tableBody">
                                 @foreach ($trashes as $trash)
-                                <tr>
-                                    <td> {{$loop->iteration}} </td>
-                                    {{-- <td> {{$trash->id}} </td> --}}
-                                    {{-- <td> {{$trash->user_id}} </td> --}}
-                                    <td> {{$trash->jenis_sampah}} </td>
-                                    <td> {{$trash->satuan}} </td>
-                                    <td> {{$trash->harga}} </td>
-                                    <td><img src="{{ asset('storage/assets/sampah/'.$trash->gambar) }}" width="60px" height="60px"></td>
-                                    <td> {{$trash->deskripsi}} </td>
-                                    <td style="text-align: center;">
-                                        <a href="{{ route('edit_sampah', ['id' => $trash->id]) }}" class="btn btn-warning btn-sm"
-                                            style="color: white"> <i class="fas fa-edit"></i> </a>
-                                        <a href="{{ route('destroy_sampah', $trash->id  ) }}" type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
-                                                class="fas fa-trash"></i> </a>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td> {{ $loop->iteration }} </td>
+                                        {{-- <td> {{$trash->id}} </td> --}}
+                                        {{-- <td> {{$trash->user_id}} </td> --}}
+                                        <td> {{ $trash->jenis_sampah }} </td>
+                                        <td> {{ $trash->satuan }} </td>
+                                        <td> {{ $trash->harga }} </td>
+                                        <td><img src="{{ asset('storage/assets/sampah/' . $trash->gambar) }}" width="60px"
+                                                height="60px"></td>
+                                        <td> {{ $trash->deskripsi }} </td>
+                                        <td style="text-align: center;">
+                                            <a href="{{ route('edit_sampah', ['id' => $trash->id]) }}"
+                                                class="btn btn-warning btn-sm" style="color: white"> <i
+                                                    class="fas fa-edit"></i> </a>
+                                            <a href="#" class="btn btn-danger btn-sm deleteButton"
+                                                data-id="{{ $trash->id }}">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                            <form id="delete-form-{{ $trash->id }}"
+                                                action="{{ route('destroy_sampah', $trash->id) }}" method="get"
+                                                style="display: none;">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -118,10 +128,28 @@
     <script src="/assets/compiled/js/jquery.min.js"></script>
     <script src="/assets/compiled/js/jquery.dataTables.min.js"></script>
     <script src="/assets/compiled/js/dataTables.bootstrap4.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
             $('#table_sampah').DataTable();
+
+            $('.deleteButton').on('click', function(e) {
+                e.preventDefault();
+                var trashId = $(this).data('id');
+                Swal.fire({
+                    title: 'Apakah kamu yakin?',
+                    text: "Ingin Menghapus Data Sampah Ini!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#delete-form-' + trashId).submit();
+                    }
+                })
+            });
         });
     </script>
 @endsection

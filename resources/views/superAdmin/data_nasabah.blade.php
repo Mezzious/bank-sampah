@@ -83,25 +83,31 @@
                             </thead>
                             <tbody id="tableBody">
                                 @foreach ($cust as $customer)
-                                <tr>
-                                    <td> {{ $loop->iteration }} </td>
-                                    <td> {{ $customer->id }} </td>
-                                    {{-- <td> {{ $customer->user_id }} </td> --}}
-                                    <td> {{ $customer->user->name }} </td>
-                                    <td> {{ $customer->user->email }} </td>
-                                    {{-- <td> {{ $customer->user->password }} </td> --}}
-                                    <td> {{ $customer->rw }} </td>
-                                    <td> {{ $customer->telepon }} </td>
-                                    <td> {{ $customer->alamat }} </td>
-                                    <td style="text-align: center;">
-                                        <a href="{{ route('edit_nasabah', ['id' => $customer->id]) }}" class="btn btn-warning btn-sm"
-                                        style="color: white"> <i class="fas fa-edit"></i> </a>
-                                        <a href="{{ route('destroy_nasabah', $customer->user_id) }}" type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
-                                            class="fas fa-trash"></i> </a>
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $customer->id }}</td>
+                                        {{-- <td>{{ $customer->user_id }}</td> --}}
+                                        <td>{{ $customer->user->name }}</td>
+                                        <td>{{ $customer->user->email }}</td>
+                                        {{-- <td>{{ $customer->user->password }}</td> --}}
+                                        <td>{{ $customer->rw }}</td>
+                                        <td>{{ $customer->telepon }}</td>
+                                        <td>{{ $customer->alamat }}</td>
+                                        <td style="text-align: center;">
+                                            <a href="{{ route('edit_nasabah', ['id' => $customer->id]) }}" class="btn btn-warning btn-sm" style="color: white">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-danger btn-sm deleteButton" data-id="{{ $customer->user_id }}">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                            <form id="delete-form-{{ $customer->user_id }}" action="{{ route('destroy_nasabah', $customer->user_id) }}" method="get" style="display: none;">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
                                         </td>
                                     </tr>
-                                    @endforeach
-                                </tbody>
+                                @endforeach
+                            </tbody>
                         </table>
                         <div class="d-flex justify-content-between">
                             <a href="{{ route('tambah_nasabah') }}" class="btn btn-custom">
@@ -124,6 +130,24 @@
     <script>
         $(document).ready(function() {
             $('#table_nasabah').DataTable();
+
+            $('.deleteButton').on('click', function(e) {
+                e.preventDefault();
+                var userId = $(this).data('id');
+                Swal.fire({
+                    title: 'Apakah kamu yakin?',
+                    text: "Ingin Menghapus Data Nasabah Ini!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, hapus!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#delete-form-' + userId).submit();
+                    }
+                })
+            });
         });
     </script>
 @endsection

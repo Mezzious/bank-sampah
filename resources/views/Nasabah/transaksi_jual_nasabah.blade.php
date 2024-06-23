@@ -55,13 +55,16 @@
                 @csrf
                 <div class="row">
                     <div class="col-lg-3">
-                        <input name="txtTglAwal" id="txtTglAwal" type="date" class="form-control" size="10" required />
+                        <input name="txtTglAwal" id="txtTglAwal" type="date" class="form-control" size="10"
+                            required />
                     </div>
                     <div class="col-lg-3">
-                        <input name="txtTglAkhir" id="txtTglAkhir" type="date" class="form-control" size="10" required />
+                        <input name="txtTglAkhir" id="txtTglAkhir" type="date" class="form-control" size="10"
+                            required />
                     </div>
                     <div class="col-lg-3">
-                        <input name="btnTampil" style="color: white" class="btn btn-custom" type="submit" value="Tampilkan" />
+                        <input name="btnTampil" style="color: white" class="btn btn-custom" type="submit"
+                            value="Tampilkan" />
                     </div>
                 </div>
             </form>
@@ -73,100 +76,129 @@
                 </div>
             @endif
 
-            @if(isset($purchases))
-            <div class="mb-3"></div>
-            <div class="row">
-                <div class="col">
-                    <div class="card shadow">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="table_beli" class="table table-bordered">
-                                    <thead class="table-secondary">
-                                        <tr>
-                                            <th>No</th>
-                                            {{-- <th>Id</th> --}}
-                                            {{-- <th>RW</th> --}}
-                                            <th>Tanggal Jual</th>
-                                            <th>Jenis Sampah</th>
-                                            <th>Gambar</th>
-                                            <th>Berat (Kg)</th>
-                                            <th>Harga (Rp)</th>
-                                            <th>Total (Rp)</th>
-                                            <th>Nota</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($purchases as $purchase)
-                                        <tr>
-                                            <td> {{ $loop->iteration }} </td>
-                                            {{-- <td> {{ $purchase->id }} </td> --}}
-                                            {{-- <td> 0{{ $purchase->user->customer->rw }} </td>  --}}
-                                            <td> {{ $purchase->tanggal_beli }} </td>
-                                            <td> {{ $purchase->jenis_sampah }} </td>
-                                            <td><img src="{{ asset('storage/assets/sampah_pembelian/'.$purchase->gambar_sampah) }}"
-                                                    width="60px" height="60px"></td>
-                                            <td> {{ $purchase->berat }}</td>
-                                            <td> {{ $purchase->harga }} </td>
-                                            <td> {{ $purchase->total }} </td>
-                                            <td style="text-align: center">
-                                                <a href="#" class="btn btn-primary btn-sm" style="color: white" onclick="showNotaImage('{{ asset('storage/assets/nota_beli/'.$purchase->gambar_nota) }}')"> <i
-                                                        class="bi bi-eye-fill"></i> </a>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <a href="{{ route('edit_transaksi_jual_nasabah', ['id' => $purchase->id]) }}"
-                                                    class="btn btn-warning btn-sm" style="color: white"> <i
-                                                    class="fas fa-edit"></i> </a>
-                                                <a href="{{ route('destroy_transaksi_jual_nasabah', $purchase->id) }}" type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="return confirmDelete()"><i class="fas fa-trash"></i> </a>
-                                                </td>
+            @if (isset($purchases))
+                <div class="mb-3"></div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="table_beli" class="table table-bordered">
+                                        <thead class="table-secondary">
+                                            <tr>
+                                                <th>No</th>
+                                                {{-- <th>Id</th> --}}
+                                                {{-- <th>RW</th> --}}
+                                                <th>Tanggal Jual</th>
+                                                <th>Jenis Sampah</th>
+                                                <th>Gambar</th>
+                                                <th>Berat (Kg)</th>
+                                                <th>Harga (Rp)</th>
+                                                <th>Total (Rp)</th>
+                                                <th>Nota</th>
+                                                <th>Aksi</th>
                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($purchases as $purchase)
+                                                <tr>
+                                                    <td> {{ $loop->iteration }} </td>
+                                                    {{-- <td> {{ $purchase->id }} </td> --}}
+                                                    {{-- <td> 0{{ $purchase->user->customer->rw }} </td>  --}}
+                                                    <td> {{ $purchase->tanggal_beli }} </td>
+                                                    <td> {{ $purchase->jenis_sampah }} </td>
+                                                    <td><img src="{{ asset('storage/assets/sampah_pembelian/' . $purchase->gambar_sampah) }}"
+                                                            width="60px" height="60px"></td>
+                                                    <td> {{ $purchase->berat }}</td>
+                                                    <td> {{ $purchase->harga }} </td>
+                                                    <td> {{ $purchase->total }} </td>
+                                                    <td style="text-align: center">
+                                                        <a href="#" class="btn btn-primary btn-sm"
+                                                            style="color: white"
+                                                            onclick="showNotaImage('{{ asset('storage/assets/nota_beli/' . $purchase->gambar_nota) }}')">
+                                                            <i class="bi bi-eye-fill"></i> </a>
+                                                    </td>
+                                                    <td style="text-align: center;">
+                                                        <a href="{{ route('edit_transaksi_jual_nasabah', ['id' => $purchase->id]) }}"
+                                                            class="btn btn-warning btn-sm" style="color: white"> <i
+                                                                class="fas fa-edit"></i> </a>
+                                                        <a href="#" class="btn btn-danger btn-sm deleteButton"
+                                                            data-id="{{ $purchase->id }}">
+                                                            <i class="fas fa-trash"></i>
+                                                        </a>
+                                                        <form id="delete-form-{{ $purchase->id }}"
+                                                            action="{{ route('destroy_transaksi_jual_nasabah', $purchase->id) }}"
+                                                            method="get" style="display: none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+                                                    </td>
+                                                </tr>
                                             @endforeach
                                         </tbody>
-                                </table>
-                                <div class="d-flex justify-content-between">
-                                    <a href="{{ route('tambah_transaksi_jual_nasabah') }}" class="btn btn-custom">
-                                        <i class="fa-solid fa-cart-plus" style="color: white; margin-right: 5px;"></i>
-                                        <span style="color: white;">Tambah</span>
-                                    </a>
+                                    </table>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="{{ route('tambah_transaksi_jual_nasabah') }}" class="btn btn-custom">
+                                            <i class="fa-solid fa-cart-plus" style="color: white; margin-right: 5px;"></i>
+                                            <span style="color: white;">Tambah</span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                @endif
+            @endif
 
-                <!-- Modal -->
-                <div class="modal fade" id="gambarNotaModal" tabindex="-1" aria-labelledby="gambarNotaModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="gambarNotaModalLabel">Gambar Nota</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <img id="notaImage" src="" class="img-fluid">
-                            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="gambarNotaModal" tabindex="-1" aria-labelledby="gambarNotaModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="gambarNotaModalLabel">Gambar Nota</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img id="notaImage" src="" class="img-fluid">
                         </div>
                     </div>
                 </div>
-            @endsection
+            </div>
+        @endsection
 
-            @section('script')
-                <script src="/assets/compiled/js/jquery.min.js"></script>
-                <script src="/assets/compiled/js/jquery.dataTables.min.js"></script>
-                <script src="/assets/compiled/js/dataTables.bootstrap4.min.js"></script>
+        @section('script')
+            <script src="/assets/compiled/js/jquery.min.js"></script>
+            <script src="/assets/compiled/js/jquery.dataTables.min.js"></script>
+            <script src="/assets/compiled/js/dataTables.bootstrap4.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-                <script>
-                    $(document).ready(function() {
-                        $('#table_beli').DataTable();
+            <script>
+                $(document).ready(function() {
+                    $('#table_beli').DataTable();
+
+                    $('.deleteButton').on('click', function(e) {
+                        e.preventDefault();
+                        var purchaseId = $(this).data('id');
+                        Swal.fire({
+                            title: 'Apakah kamu yakin?',
+                            text: "Ingin Menghapus Transaksi Jual ini!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Ya, Hapus!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $('#delete-form-' + purchaseId).submit();
+                            }
+                        })
                     });
-                </script>
+                });
 
-                <script>
-                    function showNotaImage(imageUrl) {
+                function showNotaImage(imageUrl) {
                     $('#notaImage').attr('src', imageUrl);
                     $('#gambarNotaModal').modal('show');
-                    }
-                </script>
-            @endsection
+                }
+            </script>
+        @endsection
