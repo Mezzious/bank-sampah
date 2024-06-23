@@ -80,20 +80,22 @@
                             </thead>
                             <tbody id="tableBody">
                                 @foreach ($users as $user)
-                                <tr>
-                                    <td> {{ $loop->iteration }} </td>
-                                    {{-- <td> {{ $user->id }} </td> --}}
-                                    <td> {{ $user->name }} </td>
-                                    <td> {{ $user->email }} </td>
-                                    {{-- <td> {{ $user->password }} </td> --}}
-                                    <td> {{ $user->roles }} </td>
-                                    <td style="text-align: center;">
-                                        <a href="{{ route('edit_user', ['id' => $user->id])}}" class="btn btn-warning btn-sm"
-                                            style="color: white"> <i class="fas fa-edit"></i> </a>
-                                        <a href="{{ route('destroy_user', $user->id) }}" type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i
-                                                class="fas fa-trash"></i> </a>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td> {{ $loop->iteration }} </td>
+                                        {{-- <td> {{ $user->id }} </td> --}}
+                                        <td> {{ $user->name }} </td>
+                                        <td> {{ $user->email }} </td>
+                                        {{-- <td> {{ $user->password }} </td> --}}
+                                        <td> {{ $user->roles }} </td>
+                                        <td style="text-align: center;">
+                                            <a href="{{ route('edit_user', ['id' => $user->id]) }}"
+                                                class="btn btn-warning btn-sm" style="color: white"> <i
+                                                    class="fas fa-edit"></i> </a>
+                                            <a href="{{ route('destroy_user', $user->id) }}" class="btn btn-danger btn-sm" id="deleteButton">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -114,10 +116,30 @@
     <script src="/assets/compiled/js/jquery.min.js"></script>
     <script src="/assets/compiled/js/jquery.dataTables.min.js"></script>
     <script src="/assets/compiled/js/dataTables.bootstrap4.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
             $('#table_user').DataTable();
         });
+
+        document.getElementById('deleteButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default action
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Proceed with the deletion by redirecting to the href link
+                    window.location.href = event.target.href;
+                }
+            });
+        });
     </script>
+
 @endsection

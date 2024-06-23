@@ -21,7 +21,7 @@ class SuperAdminController extends Controller
     {
         // Mendapatkan data pengguna yang sedang login
         $user = Auth::user();
-        
+
         // Pastikan pengguna telah login sebelum menampilkan data
         if ($user) {
             // Data statistik
@@ -50,7 +50,7 @@ class SuperAdminController extends Controller
             $totalHargaPembelianPerBulan = $purchases->pluck('total_harga', 'month');
 
             return view('superadmin/dashboard', compact(
-                'user', 'totalBerat', 'totalPenjualan', 'totalPembelian', 'totalNasabah', 
+                'user', 'totalBerat', 'totalPenjualan', 'totalPembelian', 'totalNasabah',
                 'months', 'totalBeratPenjualanPerBulan', 'totalHargaPenjualanPerBulan',
                 'totalBeratPembelianPerBulan', 'totalHargaPembelianPerBulan'
             ));
@@ -281,7 +281,7 @@ class SuperAdminController extends Controller
         $user->email = $request->input('email');
         $user->save();
 
-        return redirect()->route('data_nasabah', $id)->with('success', 'User berhasil diupdate');
+        return redirect()->route('data_nasabah', $id)->with('success', 'Nasabah berhasil diupdate');
     }
 
     public function destroy_nasabah($id)
@@ -418,7 +418,7 @@ class SuperAdminController extends Controller
     public function transaksi_jual()
     {
         $purchases = Purchase::all();
-        
+
         return view('superadmin/transaksi_jual', compact('purchases'));
     }
 
@@ -476,7 +476,7 @@ class SuperAdminController extends Controller
 
         return view('superadmin/cetak_laporan_jual', compact('purchases', 'tglAwal', 'tglAkhir')); //return view terbalik
     }
-    
+
     public function tampilkan_tanggal_beli_transaksi(Request $request)
     {
         // Validasi input
@@ -494,7 +494,7 @@ class SuperAdminController extends Controller
         // Kembalikan view dengan data yang difilter
         return view('superadmin/transaksi_beli', compact('saleses'));
     }
-    
+
     public function tampilkan_tanggal_jual_transaksi(Request $request)
     {
         // Validasi input
@@ -541,7 +541,7 @@ class SuperAdminController extends Controller
         // Kembalikan view dengan data yang difilter
         return view('superadmin/laporan_beli', compact('saleses'));
     }
-    
+
     public function tampilkan_tanggal_jual_laporan(Request $request)
     {
         // Validasi input
