@@ -43,6 +43,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
     <link rel="stylesheet" href="./assets/compiled/css/dataTables.bootstrap4.min.css">
 
@@ -91,9 +92,16 @@
                                             <a href="{{ route('edit_user', ['id' => $user->id]) }}"
                                                 class="btn btn-warning btn-sm" style="color: white"> <i
                                                     class="fas fa-edit"></i> </a>
-                                            <a href="{{ route('destroy_user', $user->id) }}" class="btn btn-danger btn-sm" id="deleteButton">
+                                            <a href="#" class="btn btn-danger btn-sm deleteButton"
+                                                data-id="{{ $user->id }}">
                                                 <i class="fas fa-trash"></i>
                                             </a>
+                                            <form id="delete-form-{{ $user->id }}"
+                                                action="{{ route('destroy_user', $user->id) }}" method="get"
+                                                style="display: none;">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -116,30 +124,28 @@
     <script src="/assets/compiled/js/jquery.min.js"></script>
     <script src="/assets/compiled/js/jquery.dataTables.min.js"></script>
     <script src="/assets/compiled/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         $(document).ready(function() {
             $('#table_user').DataTable();
-        });
 
-        document.getElementById('deleteButton').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent the default action
-
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Proceed with the deletion by redirecting to the href link
-                    window.location.href = event.target.href;
-                }
+            $('.deleteButton').on('click', function(e) {
+                e.preventDefault();
+                var userId = $(this).data('id');
+                Swal.fire({
+                    title: 'Apakah kamu yakin?',
+                    text: "Ingin Menghapus Data User Ini!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#delete-form-' + userId).submit();
+                    }
+                })
             });
         });
     </script>
-
 @endsection
