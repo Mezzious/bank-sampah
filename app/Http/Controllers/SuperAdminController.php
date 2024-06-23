@@ -69,10 +69,25 @@ class SuperAdminController extends Controller
 
     public function tambah_user()
     {
-        $roles = User::select('roles')
-            ->whereIn('roles', ['super-admin', 'admin', 'user'])
+        // Roles yang harus ada
+        $defaultRoles = ['super-admin', 'admin', 'user'];
+
+        // Ambil roles yang ada di database
+        $existingRoles = User::select('roles')
+            ->whereIn('roles', $defaultRoles)
             ->distinct()
-            ->get();
+            ->pluck('roles')
+            ->toArray();
+
+        // Gabungkan roles dari database dengan roles default dan hilangkan duplikat
+        $roles = array_unique(array_merge($defaultRoles, $existingRoles));
+
+        // Buat array objek roles
+        $roles = array_map(function($role) {
+            return (object) ['roles' => $role];
+        }, $roles);
+
+    return view("superadmin/tambah_user", compact('roles'));
 
         return view("superadmin/tambah_user", compact('roles'));
     }
