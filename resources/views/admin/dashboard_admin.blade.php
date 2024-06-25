@@ -56,7 +56,7 @@
                     <div class="card-body d-grid" style="width: 100%">
                         <div class="row d-flex justify-content-between align-items-center">
                             <div class="col-auto">
-                                <div class="h4 mb-0 font-bold text-gray-800">{{ $totalBerat }}</div>
+                                <div class="h4 mb-0 font-bold text-gray-800">{{ $totalBerat }} Kg</div>
                                 <div class="text-xs font-bold text-primary text-uppercase mb-1">
                                     Total Sampah (Kg)</div>
                             </div>
@@ -73,7 +73,7 @@
                     <div class="card-body d-flex align-items-center align-center">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="h4 mb-0 font-bold text-gray-800">{{ $totalPenjualan }}</div>
+                                <div class="h4 mb-0 font-bold text-gray-800">Rp {{ $totalPenjualan }}</div>
                                 <div class="text-xs font-bold text-success text-uppercase mb-1">
                                     Total Penjualan Sampah(Month)</div>
                             </div>
@@ -90,7 +90,7 @@
                     <div class="card-body d-flex align-items-center align-center">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="h4 mb-0 font-bold text-gray-800">{{ $totalPembelian }}</div>
+                                <div class="h4 mb-0 font-bold text-gray-800">Rp {{ $totalPembelian }}</div>
                                 <div class="text-xs font-bold text-success text-uppercase mb-1">
                                     Total Pembelian Sampah(Month)</div>
                             </div>
