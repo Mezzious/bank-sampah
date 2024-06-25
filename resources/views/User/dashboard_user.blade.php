@@ -56,7 +56,7 @@
                     <div class="card-body d-grid" style="width: 100%">
                         <div class="row d-flex justify-content-between align-items-center">
                             <div class="col-auto">
-                                <div class="h4 mb-0 font-bold text-gray-800">{{ $totalSampah }}</div>
+                                <div class="h4 mb-0 font-bold text-gray-800">{{ $totalSampah }} Kg</div>
                                 <div class="text-xs font-bold text-primary text-uppercase mb-1">
                                     Total Sampah</div>
                             </div>
@@ -90,7 +90,7 @@
                     <div class="card-body d-flex align-items-center align-center">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="h4 mb-0 font-bold text-gray-800">{{ $totalPenjualanSampah }}</div>
+                                <div class="h4 mb-0 font-bold text-gray-800">Rp {{ $totalPenjualanSampah }}</div>
                                 <div class="text-xs font-bold text-success text-uppercase mb-1">
                                     Total Pembelian Sampah(Month)</div>
                             </div>
