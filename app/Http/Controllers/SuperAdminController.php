@@ -295,7 +295,7 @@ class SuperAdminController extends Controller
         }
         $user->delete();
 
-        return redirect()->route('data_nasabah')->with('success', 'User berhasil dihapus');
+        return redirect()->route('data_nasabah')->with('success', 'Nasabah berhasil dihapus');
     }
 
     public function data_sampah()
@@ -384,7 +384,7 @@ class SuperAdminController extends Controller
         $trash->deskripsi = $request->input('deskripsi');
         $trash->save();
 
-        return redirect()->route('data_sampah')->with('success', 'Data Sampah berhasil diperbarui');
+        return redirect()->route('data_sampah')->with('success', 'Data Sampah berhasil diupdate');
     }
 
     public function destroy_sampah($id)
@@ -401,7 +401,7 @@ class SuperAdminController extends Controller
 
         $trashes->delete();
 
-        return redirect()->route('data_sampah')->with('success', 'Sampah berhasil dihapus');
+        return redirect()->route('data_sampah')->with('success', ' Data Sampah berhasil dihapus');
     }
 
     public function tampilkan_tanggal()
