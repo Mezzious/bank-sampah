@@ -133,21 +133,21 @@
                                     <canvas id="myLineChart"></canvas>
                                 </div>
                                 <hr>
-                                Grafik Monitoring Penjualan dan Pembelian per Bulan
+                                Grafik Monitoring Total Berat Penjualan dan Pembelian per Bulan
                             </div>
                         </div>
                     
                         <!-- Bar Chart -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Line Chart</h6>
                             </div>
                             <div class="card-body">
                                 <div class="chart-bar" style="height: 400px;">
                                     <canvas id="myBarChart"></canvas>
                                 </div>
                                 <hr>
-                                Grafik Monitoring Penjualan dan Pembelian per Bulan
+                                Grafik Monitoring Total Penjualan dan Pembelian per Bulan
                             </div>
                         </div>
                     </div>            
@@ -198,7 +198,7 @@
                     // Bar Chart
                     var ctxBar = document.getElementById('myBarChart').getContext('2d');
                     var myBarChart = new Chart(ctxBar, {
-                        type: 'bar',
+                        type: 'line',
                         data: {
                             labels: months,
                             datasets: [
