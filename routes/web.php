@@ -28,8 +28,8 @@ Route::get('/home', [LandingPageController::class, 'home'])->name('home');
 
 
 Route::middleware(['guest'])->group(function () {
-    Route::get('/index', [SesiController::class, 'index'])->name('index');
-    Route::post('/index', [SesiController::class, 'login']);
+    Route::get('/', [SesiController::class, 'index'])->name('index');
+    Route::post('/', [SesiController::class, 'login']);
 });
 
 //Superadmin
