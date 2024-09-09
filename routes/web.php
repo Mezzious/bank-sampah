@@ -26,7 +26,6 @@ use App\Models\SuperAdmin;
 
 // Route::get('/home', [LandingPageController::class, 'home'])->name('home');
 
-
 Route::middleware(['guest'])->group(function () {
     Route::get('/', [SesiController::class, 'index'])->name('index');
     Route::post('/', [SesiController::class, 'login'])->name('login');
@@ -100,7 +99,7 @@ Route::group(['middleware' => ['auth', 'admin:super-admin']], function () {
     Route::get('/cetak_laporan_beli', [SuperAdminController::class, 'cetak_laporan_beli'])->name('cetak_laporan_beli');
 
     Route::post('/transaksi_jual', [SuperAdminController::class, 'tampilkan_tanggal_jual_transaksi'])->name('tampilkan_tanggal_jual_transaksi');
-    
+
     Route::post('/transaksi_beli', [SuperAdminController::class, 'tampilkan_tanggal_beli_transaksi'])->name('tampilkan_tanggal_beli_transaksi');
 
     Route::post('/laporan_jual', [SuperAdminController::class, 'tampilkan_tanggal_jual_laporan'])->name('tampilkan_tanggal_jual_laporan');
@@ -168,9 +167,9 @@ Route::group(['middleware' => ['auth', 'admin:user']], function () {
     Route::get('/transaksi_beli_user/{id}/destroy_transaksi_beli_user', [UserController::class, 'destroy_transaksi_beli_user'])->name('destroy_transaksi_beli_user');
 
     Route::get('/ganti_password_user', [UserController::class, 'ganti_password_user'])->name('ganti_password_user');
-    
+
     Route::post('/ganti_password_user', [UserController::class, 'update_password_user'])->name('update_password_user');
-    
+
     // Route::get('/laporan_jual_user', [UserController::class, 'laporan_jual_user'])->name('laporan_jual_user');
 });
 
