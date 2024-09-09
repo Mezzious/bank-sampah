@@ -116,6 +116,7 @@
                                     <th>Harga (Rp)</th>
                                     <th>Total (Rp)</th>
                                     <th>Nota</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -131,6 +132,11 @@
                                     <td style="text-align: center">
                                         <a href="#" class="btn btn-primary btn-sm" style="color: white" onclick="showNotaImage('{{ asset('storage/assets/nota_jual/'.$sales->gambar_nota) }}')">
                                             <i class="bi bi-eye-fill"></i>
+                                        </a>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <a href="{{ route('nota_transaksi_beli') }}" class="btn btn-custom btn-sm">
+                                            <i class="fa-solid fa-print"></i>
                                         </a>
                                     </td>
                                 </tr>

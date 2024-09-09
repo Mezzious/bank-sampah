@@ -570,4 +570,9 @@ class SuperAdminController extends Controller
         // Kembalikan view dengan data yang difilter
         return view('superadmin/laporan_jual', compact('purchases'));
     }
+
+    public function nota_transaksi_beli(Request $request)
+    {
+        return view('superadmin/nota_transaksi_beli');
+    }
 }

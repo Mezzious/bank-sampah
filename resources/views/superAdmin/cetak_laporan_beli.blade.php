@@ -1,8 +1,9 @@
 @extends('layout.cetak')
 
 @section('content')
-    <h1 align="center"><b>Laporan Beli Sampah</b></h1>
-    <table id="table_laporan_jual" class="table table-bordered" rules="all" align="center" border="1px" style="width: 95%">
+<hr style="border: 1px solid black">
+<h1 align="center"><b>LAPORAN BELI SAMPAH</b></h1>
+    <table id="table_laporan_jual" class="table table-bordered bold-border-table" rules="all" align="center" border="1px" style="width: 95%">
         <thead class="table-secondary">
             <tr>
                 <th>No</th>
@@ -36,6 +37,25 @@
             </tr>
         </tbody>
     </table>
+@endsection
+
+@section('style')
+    <style>
+        h1 {
+            font-size: 28px; /* Ukuran font judul utama */
+            /* margin: 0; Menghilangkan margin default */
+        }
+        
+        .bold-border-table {
+            border-collapse: collapse; /* Agar border lebih rapat */
+        }
+
+        .bold-border-table, 
+        .bold-border-table th, 
+        .bold-border-table td {
+            border: 2px solid black; /* Mengatur ketebalan border */
+        }
+    </style>
 @endsection
 
 @section('script')

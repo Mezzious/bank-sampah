@@ -106,6 +106,8 @@ Route::group(['middleware' => ['auth', 'admin:super-admin']], function () {
     Route::post('/laporan_jual', [SuperAdminController::class, 'tampilkan_tanggal_jual_laporan'])->name('tampilkan_tanggal_jual_laporan');
 
     Route::post('/laporan_beli', [SuperAdminController::class, 'tampilkan_tanggal_beli_laporan'])->name('tampilkan_tanggal_beli_laporan');
+
+    Route::get('/nota_transaksi_beli', [SuperAdminController::class, 'nota_transaksi_beli'])->name('nota_transaksi_beli');
 });
 
 //Admin
@@ -140,10 +142,6 @@ Route::group(['middleware' => ['auth', 'admin:admin']], function () {
     Route::get('/ganti_password_admin', [AdminController::class, 'ganti_password_admin'])->name('ganti_password_admin');
 
     Route::post('/ganti_password_admin', [AdminController::class, 'update_ganti_password_admin'])->name('update_ganti_password_admin');
-
-    // Route::get('/cetak_laporan_jual_admin', [AdminController::class, 'cetak_laporan_jual_admin'])->name('cetak_laporan_jual_admin');
-
-    // Route::get('/cetak_laporan_beli_admin', [AdminController::class, 'cetak_laporan_beli_admin'])->name('cetak_laporan_beli_admin');
 });
 
 //User
@@ -170,8 +168,6 @@ Route::group(['middleware' => ['auth', 'admin:user']], function () {
     Route::get('/ganti_password_user', [UserController::class, 'ganti_password_user'])->name('ganti_password_user');
     
     Route::post('/ganti_password_user', [UserController::class, 'update_password_user'])->name('update_password_user');
-    
-    // Route::get('/laporan_jual_user', [UserController::class, 'laporan_jual_user'])->name('laporan_jual_user');
 });
 
 // Nasabah Route //
@@ -194,11 +190,9 @@ Route::group(['middleware' => ['auth', 'admin:nasabah']], function () {
     Route::put('/edit_transaksi_jual_nasabah', [NasabahController::class, 'update_transaksi_jual_nasabah'])->name('update_transaksi_jual_nasabah');
 
     Route::get('/transaksi_jual_nasabah/{id}/destroy_transaksi_jual_nasabah', [NasabahController::class, 'destroy_transaksi_jual_nasabah'])->name('destroy_transaksi_jual_nasabah');
-
-    // Route::get('/laporan_beli_nasabah', [NasabahController::class, 'laporan_beli_nasabah'])->name('laporan_beli_nasabah');
-
+    
     Route::get('/ganti_password_nasabah', [NasabahController::class, 'ganti_password_nasabah'])->name('ganti_password_nasabah');
-
+    
     Route::post('/ganti_password_nasabah', [NasabahController::class, 'update_ganti_password_nasabah'])->name('update_ganti_password_nasabah');
 });
 

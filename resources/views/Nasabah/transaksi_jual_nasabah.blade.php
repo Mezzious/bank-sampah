@@ -49,6 +49,8 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
             <!-- Offcanvas Menu for smaller screens -->
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
@@ -70,6 +72,7 @@
                     </div>
                 </div>
             </div>
+            
 
             <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
             <link rel="stylesheet" href="./assets/compiled/css/dataTables.bootstrap4.min.css">
@@ -150,8 +153,9 @@
                                                     </td>
                                                     <td style="text-align: center;">
                                                         <a href="{{ route('edit_transaksi_jual_nasabah', ['id' => $purchase->id]) }}"
-                                                            class="btn btn-warning btn-sm" style="color: white"> <i
-                                                                class="fas fa-edit"></i> </a>
+                                                            class="btn btn-warning btn-sm" style="color: white"> 
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
                                                         <a href="#" class="btn btn-danger btn-sm deleteButton"
                                                             data-id="{{ $purchase->id }}">
                                                             <i class="fas fa-trash"></i>
