@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cetak Laporan</title>
+    <title>Cetak Nota</title>
 
     {{-- <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
 

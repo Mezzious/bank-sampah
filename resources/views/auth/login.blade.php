@@ -83,6 +83,9 @@
                                 <label for="remember"
                                     class="form-check-label text-secondary"><small>{{ __('Remember Me') }}</small></label>
                             </div>
+                            <a href="/storage/assets/panduan/panduan.pdf" target="_blank" class="text-secondary">
+                                <small>Buku Panduan</small>
+                            </a>
                         </div>
 
                         <div class="input-group mb-3">
