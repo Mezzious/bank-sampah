@@ -228,5 +228,18 @@ select {
     font-size: 10px;
 }
 
+h1 {
+    font-size: 28px; /* Ukuran font judul utama */
+    /* margin: 0; Menghilangkan margin default */
+}
 
+.bold-border-table {
+    border-collapse: collapse; /* Agar border lebih rapat */
+}
+
+.bold-border-table,
+.bold-border-table th,
+.bold-border-table td {
+    border: 2px solid black; /* Mengatur ketebalan border */
+}
 

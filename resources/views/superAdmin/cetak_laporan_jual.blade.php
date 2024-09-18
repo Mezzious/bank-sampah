@@ -1,6 +1,7 @@
 @extends('layout.cetak')
 
 @section('content')
+<link rel="stylesheet" href="./assets/compiled/css/all.view.css">
     <h1 align="center"><b>Laporan Jual Sampah</b></h1>
     <table id="table_laporan_beli" class="table table-bordered" rules="all" align="center" border="1px" style="width: 95%">
         <thead class="table-secondary">
@@ -17,8 +18,8 @@
         <tbody>
             @php $grandTotal = 0; @endphp
             @foreach ($purchases as $purchase)
-                @php 
-                $grandTotal += $purchase->total; 
+                @php
+                $grandTotal += $purchase->total;
                 $hargaRp = number_format($purchase->harga, 0, ',', '.'); // Ubah harga ke format Rupiah
                 $totalRp = number_format($purchase->total, 0, ',', '.'); // Ubah total ke format Rupiah
                 @endphp
