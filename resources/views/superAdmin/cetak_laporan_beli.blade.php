@@ -1,6 +1,7 @@
 @extends('layout.cetak')
 
 @section('content')
+<link rel="stylesheet" href="./assets/compiled/css/all.view.css">
 <hr style="border: 1px solid black">
 <h1 align="center"><b>LAPORAN BELI SAMPAH</b></h1>
     <table id="table_laporan_jual" class="table table-bordered bold-border-table" rules="all" align="center" border="1px" style="width: 95%">
@@ -17,8 +18,8 @@
         <tbody>
             @php $grandTotal = 0; @endphp
             @foreach ($saleses as $sales)
-                @php 
-                $grandTotal += $sales->total; 
+                @php
+                $grandTotal += $sales->total;
                 $hargaRp = number_format($sales->harga, 0, ',', '.'); // Ubah harga ke format Rupiah
                 $totalRp = number_format($sales->total, 0, ',', '.'); // Ubah total ke format Rupiah
                 @endphp
@@ -37,25 +38,6 @@
             </tr>
         </tbody>
     </table>
-@endsection
-
-@section('style')
-    <style>
-        h1 {
-            font-size: 28px; /* Ukuran font judul utama */
-            /* margin: 0; Menghilangkan margin default */
-        }
-        
-        .bold-border-table {
-            border-collapse: collapse; /* Agar border lebih rapat */
-        }
-
-        .bold-border-table, 
-        .bold-border-table th, 
-        .bold-border-table td {
-            border: 2px solid black; /* Mengatur ketebalan border */
-        }
-    </style>
 @endsection
 
 @section('script')
