@@ -57,16 +57,16 @@
 <body>
     {{-- <script src="assets/static/js/initTheme.js"></script> --}}
 
-    <div class="kop-laporan">
+    {{-- <div class="kop-laporan">
         <h1>BANK SAMPAH</h1>
         <h2>KELURAHAN DURI KEPA</h2>
         <h2>JL. KEBON RAYA NO.1 4, RT.4/RW.7, DURI KEPA, KEC. KB. JERUK, KOTA JAKARTA BARAT, <BR> DAERAH KHUSUS IBUKOTA JAKARTA 11510</h2>
-    </div>
-
+    </div> --}}
+    
     <div class="page-content">
         @yield('content')
     </div>
-
+    
     @yield('style')
         {{-- <script src="assets/static/js/components/dark.js"></script>
         <script src="assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>

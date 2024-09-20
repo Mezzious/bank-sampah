@@ -115,7 +115,7 @@
                                     <th>Berat (Kg)</th>
                                     <th>Harga (Rp)</th>
                                     <th>Total (Rp)</th>
-                                    <th>Nota</th>
+                                    {{-- <th>Nota</th> --}}
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -129,13 +129,13 @@
                                     <td>{{ $sales->berat }}</td>
                                     <td>{{ $sales->harga }}</td>
                                     <td>{{ $sales->total }}</td>
-                                    <td style="text-align: center">
+                                    {{-- <td style="text-align: center">
                                         <a href="#" class="btn btn-primary btn-sm" style="color: white" onclick="showNotaImage('{{ asset('storage/assets/nota_jual/'.$sales->gambar_nota) }}')">
                                             <i class="bi bi-eye-fill"></i>
                                         </a>
-                                    </td>
+                                    </td> --}}
                                     <td style="text-align: center">
-                                        <a href="{{ route('nota_transaksi_beli') }}" class="btn btn-custom btn-sm">
+                                        <a href="{{ route('nota_transaksi_beli', ['id' => $sales->id]) }}" target="_blank" class="btn btn-custom btn-sm">
                                             <i class="fa-solid fa-print"></i>
                                         </a>
                                     </td>
