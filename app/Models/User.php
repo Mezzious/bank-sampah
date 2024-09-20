@@ -43,11 +43,18 @@ class User extends Authenticatable
     
     protected $table = 'users';
 
-    public function purchase(){
+    public function purchase()
+    {
         return $this->hasMany(Purchase::class);
     }
 
-    public function customer(){
+    public function customer()
+    {
         return $this->hasOne(Customer::class);
+    }
+
+    public function sales()
+    {
+        return $this->hasMany(Sales::class);
     }
 }

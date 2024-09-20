@@ -37,10 +37,10 @@ class UserController extends Controller
     public function transaksi_beli_user()
     {
        // Ambil data pengguna yang sedang login
-       $user = auth()->user();
+        $user = auth()->user();
 
        // Ambil transaksi pembelian terkait dengan pengguna yang login
-       $saleses = Sales::where('user_id', $user->id)->get();
+        $saleses = Sales::where('user_id', $user->id)->get();
         return view('user/transaksi_beli_user', compact('saleses', 'user'));
     }
 

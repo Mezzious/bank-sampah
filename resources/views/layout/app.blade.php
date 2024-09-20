@@ -128,6 +128,7 @@
                                     <a href="{{ route('laporan_jual') }}" class="submenu-link">Laporan Jual</a>
 
                                 </li>
+                                
                             </ul>
 
                         </li>

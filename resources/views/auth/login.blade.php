@@ -56,13 +56,8 @@
                         <div class="input-group mb-3">
                             <input id="email" type="email"
                                 class="form-control @error('email') is-invalid @enderror form-control-lg bg-light fs-6"
-                                name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
+                                name="email" value="{{ old('email') ?? Cookie::get('remember_email') }}" required autocomplete="email" autofocus
                                 placeholder="Email address">
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
                         </div>
 
                         <div class="input-group mb-1">
@@ -81,7 +76,7 @@
                                 <input class="form-check-input" type="checkbox" name="remember" id="remember"
                                     {{ old('remember') ? 'checked' : '' }}>
                                 <label for="remember"
-                                    class="form-check-label text-secondary"><small>{{ __('Remember Me') }}</small></label>
+                                    class="form-check-label text-secondary"><small>Remember Me</small></label>
                             </div>
                             <a href="/storage/assets/panduan/panduan.pdf" target="_blank" class="text-secondary">
                                 <small>Buku Panduan</small>
