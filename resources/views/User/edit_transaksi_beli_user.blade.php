@@ -66,10 +66,10 @@
                     <input type="file" class="form-control" id="gambar_sampah" name="gambar_sampah">
                 </div>
             
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="gambar_nota">Gambar Nota</label>
                     <input type="file" class="form-control" id="gambar_nota" name="gambar_nota">
-                </div>
+                </div> --}}
             
                 <button type="submit" class="btn btn-custom">Simpan</button>
             </form>
