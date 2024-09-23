@@ -2,6 +2,8 @@
 
 @section('content')
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/5Bl1xZoDvj3FVBIpT9SNq9u/KfAZ5qON6lC7G" crossorigin="anonymous">
 
     <div class="back-button-container" style="margin-bottom: 15px">
         <a class="btn back-button" onclick="goBack()">
@@ -11,9 +13,9 @@
     </div>
 
     @if (session('status'))
-    <div class="alert alert-danger" role="alert">
-        {{ session('status') }}
-    </div>
+        <div class="alert alert-danger" role="alert">
+            {{ session('status') }}
+        </div>
     @endif
 
     @if (session('success'))
@@ -28,58 +30,77 @@
 
         <div class="card-body">
             <div class="card-body">
-            <form method="POST" action="{{ route('update_password_user') }}">
-                @csrf
+                <form method="POST" action="{{ route('update_password_user') }}">
+                    @csrf
 
-                <div class="form-group row">
-                    <label for="current_password" class="col-md-4 col-form-label text-md-right">Password Saat Ini</label>
+                    <div class="form-group row">
+                        <label for="current_password" class="col-md-4 col-form-label text-md-right">Password Saat
+                            Ini</label>
 
-                    <div class="col-md-6">
-                        <input id="current_password" type="password"
-                            class="form-control @error('current_password') is-invalid @enderror" name="current_password"
-                            required autocomplete="current-password">
+                        <div class="col-md-6">
+                            <input id="current_password" type="password"
+                                class="form-control @error('current_password') is-invalid @enderror" name="current_password"
+                                required autocomplete="current-password">
 
-                        @error('current_password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                            @error('current_password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label for="password" class="col-md-4 col-form-label text-md-right">Password Baru</label>
+                    <div class="form-group row">
+                        <label for="password" class="col-md-4 col-form-label text-md-right">Password Baru</label>
 
-                    <div class="col-md-6">
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                            name="password" required autocomplete="new-password">
+                        <div class="col-md-6">
+                            <input id="password" type="password"
+                                class="form-control @error('password') is-invalid @enderror" name="password" required
+                                autocomplete="new-password">
 
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Konfirmasi Password
-                        Baru</label>
+                    <div class="form-group row">
+                        <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Konfirmasi Password
+                            Baru</label>
 
-                    <div class="col-md-6">
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
-                            required autocomplete="new-password">
+                        <div class="col-md-6">
+                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
+                                required autocomplete="new-password">
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group row mb-0">
-                    <div class="col-md-6 offset-md-4">
-                        <button type="submit" class="btn btn-primary">
-                            Ganti Password
-                        </button>
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6 offset-md-4">
+                            <button type="submit" class="btn btn-primary">
+                                Ganti Password
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
-@endsection
+        <!-- Overlay di Tengah Layar -->
+        <div id="overlay"></div>
+        <!-- Spinner di Tengah Layar -->
+        <div id="spinner" class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    @endsection
+
+    @section('script')
+        <script>
+            document.getElementById('btnGantiPassword').addEventListener('click', function(e) {
+                // Tampilkan spinner
+                document.getElementById('spinner').style.display = 'block';
+                document.getElementById('overlay').style.display = 'block';
+                // Form akan di-submit secara normal, karena ini adalah tombol submit
+            });
+        </script>
+    @endsection

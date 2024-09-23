@@ -8,6 +8,8 @@
     @endif
 
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/5Bl1xZoDvj3FVBIpT9SNq9u/KfAZ5qON6lC7G" crossorigin="anonymous">
 
     <div class="back-button-container" style="margin-bottom: 15px">
         <a class="btn back-button" onclick="goBack()">
@@ -16,32 +18,59 @@
         </a>
     </div>
 
+    <!-- Form Edit Data User -->
     <div class="card border-bottom-primary shadow mb-4" style="margin-right: 28px">
         <div class="card-header py-3">
             <h6 class="m-0">Form Edit Data User</h6>
         </div>
         <div class="card-body">
-            <form action="{{ route('update_user', ['id' => $user->id]) }}" method="post">
+            <form id="editUserForm" action="{{ route('update_user', ['id' => $user->id]) }}" method="post">
                 @csrf
                 @method('PUT')
 
                 <div class="form-group">
                     <label for="nama_user">Nama*</label>
-                    <input type="text" class="form-control" id="nama_user" name="name" required placeholder="Nama" value="{{ $user->name }}">
+                    <input type="text" class="form-control" id="nama_user" name="name" required placeholder="Nama"
+                        value="{{ $user->name }}">
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email*</label>
-                    <input type="email" class="form-control" id="email" name="email" required placeholder="Email" value="{{ $user->email }}">
+                    <input type="email" class="form-control" id="email" name="email" required placeholder="Email"
+                        value="{{ $user->email }}">
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password*</label>
-                    <input type="password" class="form-control" id="password" name="password" required placeholder="Password" value="{{ $user->password }}">
+                    <input type="password" class="form-control" id="password" name="password" required
+                        placeholder="Password" value="{{ $user->password }}">
                 </div>
 
-                <button type="submit" class="btn btn-custom">Simpan</button>
+                <button type="submit" class="btn btn-custom" id="submitButton">Simpan</button>
             </form>
         </div>
     </div>
+
+    <!-- Overlay di Tengah Layar -->
+    <div id="overlay"></div>
+    <!-- Spinner di Tengah Layar -->
+    <div id="spinner" class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+@endsection
+
+@section('script')
+    <script>
+        document.getElementById('editUserForm').addEventListener('submit', function(e) {
+            // Tampilkan spinner
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('spinner').style.display = 'block';
+
+            // Disable tombol submit agar tidak bisa diklik lagi (opsional)
+            document.getElementById('submitButton').disabled = true;
+
+            // Allow form to submit
+            return true;
+        });
+    </script>
 @endsection

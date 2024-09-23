@@ -42,7 +42,8 @@
                         </div>
                         <!-- Hamburger menu for smaller screens -->
                         <div class="d-md-none ms-2">
-                            <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">
+                            <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
+                                aria-controls="offcanvasMenu">
                                 <i class="bi bi-person-circle"></i>
                             </button>
                         </div>
@@ -76,6 +77,8 @@
 
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
     <link rel="stylesheet" href="./assets/compiled/css/dataTables.bootstrap4.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/5Bl1xZoDvj3FVBIpT9SNq9u/KfAZ5qON6lC7G" crossorigin="anonymous">
 
     <div class="back-button-container" style="margin-bottom: 5px; margin-left: 1px;">
         <a class="btn back-button" onclick="goBack()">
@@ -120,8 +123,8 @@
                                         <td> {{ $trash->jenis_sampah }} </td>
                                         <td> {{ $trash->satuan }} </td>
                                         <td> {{ $trash->harga }} </td>
-                                        <td><img src="{{ asset('storage/assets/sampah/' . $trash->gambar) }}" width="60px"
-                                                height="60px"></td>
+                                        <td><img src="{{ asset('storage/assets/sampah/' . $trash->gambar) }}"
+                                                width="60px" height="60px"></td>
                                         <td> {{ $trash->deskripsi }} </td>
                                         <td style="text-align: center;">
                                             <a href="{{ route('edit_sampah', ['id' => $trash->id]) }}"
@@ -154,6 +157,12 @@
             </div>
         </div>
     </div>
+    <!-- Overlay di Tengah Layar -->
+    <div id="overlay"></div>
+    <!-- Spinner di Tengah Layar -->
+    <div id="spinner" class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
 @endsection
 
 @section('script')
@@ -163,14 +172,15 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
-            $('#table_sampah').DataTable();
+            $('#table_user').DataTable();
 
             $('.deleteButton').on('click', function(e) {
                 e.preventDefault();
-                var trashId = $(this).data('id');
+                var userId = $(this).data('id');
+
                 Swal.fire({
                     title: 'Apakah kamu yakin?',
-                    text: "Ingin Menghapus Data Sampah Ini!",
+                    text: "Ingin Menghapus Data User Ini!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -178,9 +188,13 @@
                     confirmButtonText: 'Ya, Hapus!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        $('#delete-form-' + trashId).submit();
+                        // Tampilkan spinner sebelum submit form
+                        document.getElementById('spinner').style.display = 'block';
+                        document.getElementById('overlay').style.display = 'block';
+                        // Submit form setelah spinner muncul
+                        $('#delete-form-' + userId).submit();
                     }
-                })
+                });
             });
         });
     </script>

@@ -243,3 +243,24 @@ h1 {
     border: 2px solid black; /* Mengatur ketebalan border */
 }
 
+#spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin: auto;
+    width: 40px;
+    height: 40px;
+    z-index: 9999;
+    display: none; /* Awalnya disembunyikan */
+}
+
+#overlay {
+    background: rgba(255, 255, 255, 0.8); /* Efek layar agak putih */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9998; /* Di bawah spinner */
+    display: none; /* Awalnya disembunyikan */
+}

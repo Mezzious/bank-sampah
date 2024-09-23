@@ -8,16 +8,18 @@
     @endif
 
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
     @endif
 
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/5Bl1xZoDvj3FVBIpT9SNq9u/KfAZ5qON6lC7G" crossorigin="anonymous">
 
     <div class="back-button-container" style="margin-bottom: 15px">
         <a class="btn back-button" onclick="goBack()">
@@ -31,20 +33,8 @@
             <h6 class="m-0">Form Input Data Sampah</h6>
         </div>
         <div class="card-body">
-            <form action="{{ route('store_sampah') }}" method="post" enctype="multipart/form-data">
+            <form id="inputDataForm" action="{{ route('store_sampah') }}" method="post" enctype="multipart/form-data">
                 @csrf
-
-                {{-- <div class="form-group">
-                    <label for="id">Id Sampah</label>
-                    <input type="text" class="form-control" id="id" name="id" style="cursor: not-allowed;"
-                        disabled="disabled" required placeholder="Id Sampah">
-                </div> --}}
-
-                {{-- <div class="form-group">
-                    <label for="user_id">User Id</label>
-                    <input type="text" class="form-control" id="user_id" name="user_id" style="cursor: not-allowed;"
-                        disabled="disabled" required placeholder="User Id">
-                </div> --}}
 
                 <div class="form-group">
                     <label for="jenis_sampah">Jenis Sampah*</label>
@@ -62,11 +52,9 @@
                     <input type="text" class="form-control" id="harga" name="harga" required placeholder="Harga">
                 </div>
 
-                <div>
-                    <div class="form-group">
+                <div class="form-group">
                     <label for="gambar">Gambar Sampah*</label>
                     <input type="file" class="form-control" name="gambar" placeholder="Masukan file disini">
-                    </div>
                 </div>
 
                 <div class="form-group">
@@ -78,4 +66,25 @@
             </form>
         </div>
     </div>
+
+    <!-- Overlay di Tengah Layar -->
+    <div id="overlay"></div>
+    <!-- Spinner di Tengah Layar -->
+    <div id="spinner" class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+
+@endsection
+
+@section('script')
+    <script>
+        document.getElementById('inputDataForm').addEventListener('submit', function() {
+            // Tampilkan overlay dan spinner
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('spinner').style.display = 'block';
+
+            // Disable tombol submit agar tidak bisa diklik lagi
+            document.querySelector('.btn-custom').disabled = true;
+        });
+    </script>
 @endsection
