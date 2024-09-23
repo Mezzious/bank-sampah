@@ -148,7 +148,8 @@
                                             <td style="text-align: center">
                                                 <a href="#" class="btn btn-primary btn-sm" style="color: white"
                                                     onclick="showNotaImage('{{ asset('storage/assets/tanda_tangan_jual/' . $sales->gambar_nota) }}')">
-                                                    <i class="bi bi-eye-fill"></i> </a>
+                                                    <i class="bi bi-eye-fill"></i> 
+                                                </a>
                                             </td>
                                             <td style="text-align: center;">
                                                 <a href="{{ route('edit_transaksi_beli_user', ['id' => $sales->id]) }}"

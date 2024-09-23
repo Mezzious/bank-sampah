@@ -142,18 +142,6 @@ class NasabahController extends Controller
             $purchase->gambar_sampah = $sampahBeli;
         }
 
-        // // Tangani file gambar_nota
-        // if ($request->hasFile('gambar_nota')) {
-        //     Storage::delete('public/assets/nota_beli/' . $purchase->gambar_nota);
-
-        //     $notaBeliName = time() . '.' . $request->gambar_nota->extension();
-        //     if (!$request->gambar_nota->isValid()) {
-        //         return back()->withErrors(['gambar_nota' => 'File gambar tidak valid']);
-        //     }
-        //     $request->gambar_nota->storeAs('public/assets/nota_beli', $notaBeliName);
-        //     $purchase->gambar_nota = $notaBeliName;
-        // }
-
         $purchase->tanggal_beli = $request->input('tanggal_beli');
         $purchase->jenis_sampah = $request->input('jenis_sampah');
         $purchase->berat = $request->input('berat');
