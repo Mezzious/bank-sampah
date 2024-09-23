@@ -64,29 +64,28 @@ class NasabahController extends Controller
                 'berat' => 'required|numeric',
                 'harga' => 'required|numeric',
                 'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'nota' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'tanda_tangan' => 'required',
             ]);
-    
-            // Membuat direktori baru untuk menyimpan nota jual
-            $path = 'public/assets/nota_beli';
-            Storage::makeDirectory($path);
-    
+
             $path1 = 'public/assets/sampah_pembelian';
             Storage::makeDirectory($path1);
             
-            // Proses upload gambar nota jual
-            $notaBeliName = time() . '.' . $request->nota->extension();
-            if (!$request->nota->isValid()) {
-                return back()->withErrors(['nota' => 'File gambar tidak valid']);
-            }
-            $request->nota->storeAs($path, $notaBeliName);
-    
             // Proses upload gambar nota jual
             $sampahBeli = time() . '.' . $request->gambar->extension();
             if (!$request->gambar->isValid()) {
                 return back()->withErrors(['gambar' => 'File gambar tidak valid']);
             }
             $request->gambar->storeAs($path1, $sampahBeli);
+
+            // Proses tanda tangan
+            $path2 = 'public/assets/tanda_tangan_beli';
+            Storage::makeDirectory($path2); // Membuat folder jika belum ada
+
+            $signatureData = $request->input('tanda_tangan');
+            $signature = str_replace('data:image/png;base64,', '', $signatureData);
+            $signature = str_replace(' ', '+', $signature);
+            $signatureName = time() . '_signature.png';
+            Storage::put($path2 . '/' . $signatureName, base64_decode($signature));
     
             // Simpan data ke dalam database
             $purchase = new Purchase();
@@ -96,7 +95,7 @@ class NasabahController extends Controller
             $purchase->berat = $request->input('berat');
             $purchase->harga = $request->input('harga');
             $purchase->total = $request->input('berat') * $request->input('harga');
-            $purchase->gambar_nota = $notaBeliName;
+            $purchase->gambar_nota = $signatureName;
             $purchase->gambar_sampah = $sampahBeli;
             $purchase->save();
     
@@ -126,7 +125,7 @@ class NasabahController extends Controller
             'berat' => 'required|numeric',
             'harga' => 'required|numeric',
             'gambar_sampah' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi untuk gambar_sampah
-            'gambar_nota' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi untuk gambar_nota
+            // 'gambar_nota' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi untuk gambar_nota
         ]);
 
         $purchase = Purchase::findOrFail($id);
@@ -143,17 +142,17 @@ class NasabahController extends Controller
             $purchase->gambar_sampah = $sampahBeli;
         }
 
-        // Tangani file gambar_nota
-        if ($request->hasFile('gambar_nota')) {
-            Storage::delete('public/assets/nota_beli/' . $purchase->gambar_nota);
+        // // Tangani file gambar_nota
+        // if ($request->hasFile('gambar_nota')) {
+        //     Storage::delete('public/assets/nota_beli/' . $purchase->gambar_nota);
 
-            $notaBeliName = time() . '.' . $request->gambar_nota->extension();
-            if (!$request->gambar_nota->isValid()) {
-                return back()->withErrors(['gambar_nota' => 'File gambar tidak valid']);
-            }
-            $request->gambar_nota->storeAs('public/assets/nota_beli', $notaBeliName);
-            $purchase->gambar_nota = $notaBeliName;
-        }
+        //     $notaBeliName = time() . '.' . $request->gambar_nota->extension();
+        //     if (!$request->gambar_nota->isValid()) {
+        //         return back()->withErrors(['gambar_nota' => 'File gambar tidak valid']);
+        //     }
+        //     $request->gambar_nota->storeAs('public/assets/nota_beli', $notaBeliName);
+        //     $purchase->gambar_nota = $notaBeliName;
+        // }
 
         $purchase->tanggal_beli = $request->input('tanggal_beli');
         $purchase->jenis_sampah = $request->input('jenis_sampah');
@@ -169,14 +168,14 @@ class NasabahController extends Controller
     {
         $purchase = Purchase::findOrFail($id);
 
-        $path = 'public/assets/nota_beli/' . $purchase->gambar_nota;
-        if (Storage::exists($path)) {
-            Storage::delete($path);
-        }
-
         $path1 = 'public/assets/sampah_pembelian/' . $purchase->gambar_sampah;
         if (Storage::exists($path1)) {
             Storage::delete($path1);
+        }
+
+        $path2 = 'public/assets/tanda_tangan_beli/' . $purchase->gambar_nota;
+        if (Storage::exists($path2)) {
+            Storage::delete($path2);
         }
 
         $purchase->delete();

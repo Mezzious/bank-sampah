@@ -32,14 +32,14 @@ class SuperAdminController extends Controller
 
             // Data untuk grafik
             $sales = Sales::selectRaw('DATE_FORMAT(tanggal_jual, "%Y-%m") as month, SUM(berat) as total_berat, SUM(total) as total_harga')
-                        ->groupBy('month')
-                        ->orderBy('month')
-                        ->get();
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get();
 
             $purchases = Purchase::selectRaw('DATE_FORMAT(tanggal_beli, "%Y-%m") as month, SUM(berat) as total_berat, SUM(total) as total_harga')
-                        ->groupBy('month')
-                        ->orderBy('month')
-                        ->get();
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get();
 
             $months = $sales->pluck('month')->union($purchases->pluck('month'))->unique()->sort();
 
@@ -50,9 +50,16 @@ class SuperAdminController extends Controller
             $totalHargaPembelianPerBulan = $purchases->pluck('total_harga', 'month');
 
             return view('superadmin/dashboard', compact(
-                'user', 'totalBerat', 'totalPenjualan', 'totalPembelian', 'totalNasabah',
-                'months', 'totalBeratPenjualanPerBulan', 'totalHargaPenjualanPerBulan',
-                'totalBeratPembelianPerBulan', 'totalHargaPembelianPerBulan'
+                'user',
+                'totalBerat',
+                'totalPenjualan',
+                'totalPembelian',
+                'totalNasabah',
+                'months',
+                'totalBeratPenjualanPerBulan',
+                'totalHargaPenjualanPerBulan',
+                'totalBeratPembelianPerBulan',
+                'totalHargaPembelianPerBulan'
             ));
         } else {
             // Jika pengguna belum login, bisa diarahkan ke halaman login atau tindakan lainnya
@@ -83,11 +90,11 @@ class SuperAdminController extends Controller
         $roles = array_unique(array_merge($defaultRoles, $existingRoles));
 
         // Buat array objek roles
-        $roles = array_map(function($role) {
+        $roles = array_map(function ($role) {
             return (object) ['roles' => $role];
         }, $roles);
 
-    return view("superadmin/tambah_user", compact('roles'));
+        return view("superadmin/tambah_user", compact('roles'));
 
         return view("superadmin/tambah_user", compact('roles'));
     }
@@ -573,6 +580,29 @@ class SuperAdminController extends Controller
 
     public function nota_transaksi_beli(Request $request)
     {
-        return view('superadmin/nota_transaksi_beli');
+        $id = $request->input('id');
+        // Mengambil data purchase berdasarkan ID
+        $saleses = Sales::with('user') // Mengambil data terkait customer dan user
+            ->where('id', $id)
+            ->firstOrFail(); // Mengambil satu data atau gagal
+
+        //mengambil user dengan role 'superadmin'
+        $superadmin = User::where('roles', 'super-admin')->first();
+
+        return view('superadmin/nota_transaksi_beli', compact('saleses', 'superadmin'));
+    }
+
+    public function nota_transaksi_jual(Request $request)
+    {
+        $id = $request->input('id');
+        // Mengambil data purchase berdasarkan ID
+        $purchases = Purchase::with('user') // Mengambil data terkait customer dan user
+            ->where('id', $id)
+            ->firstOrFail(); // Mengambil satu data atau gagal
+
+        //mengambil user dengan role 'superadmin'
+        $superadmin = User::where('roles', 'super-admin')->first();
+
+        return view('superadmin/nota_transaksi_jual', compact('purchases', 'superadmin'));
     }
 }

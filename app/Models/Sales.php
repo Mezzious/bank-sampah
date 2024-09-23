@@ -55,4 +55,9 @@ class Sales extends Model
     {
         return Carbon::parse($value)->format('d/m/Y');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

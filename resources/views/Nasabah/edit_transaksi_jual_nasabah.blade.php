@@ -66,12 +66,12 @@
 
                 <div class="form-group">
                     <label for="harga">Harga (Rp)*</label>
-                    <input type="number" class="form-control" id="harga" onchange="sum();" name="harga" value="{{ $purchase->harga }}" required disabled placeholder="Harga" readonly>
+                    <input type="number" class="form-control" id="harga" onchange="sum();" name="harga" value="{{ $purchase->harga }}" required placeholder="Harga" readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="total">Total (Rp)*</label>
-                    <input type="number" class="form-control" id="total" onchange="sum();" name="total" value="{{ $purchase->total }}" required disabled placeholder="Total" readonly>
+                    <input type="number" class="form-control" id="total" onchange="sum();" name="total" value="{{ $purchase->total }}" required placeholder="Total" readonly>
                 </div>
 
                 <div class="form-group">
@@ -79,10 +79,10 @@
                     <input type="file" class="form-control" id="gambar_sampah" name="gambar_sampah">
                 </div>
             
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="gambar_nota">Gambar Nota</label>
                     <input type="file" class="form-control" id="gambar_nota" name="gambar_nota">
-                </div>
+                </div> --}}
 
                 <button type="submit" class="btn btn-custom">Simpan</button>
             </form>

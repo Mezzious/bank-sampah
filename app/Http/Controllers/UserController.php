@@ -37,10 +37,10 @@ class UserController extends Controller
     public function transaksi_beli_user()
     {
        // Ambil data pengguna yang sedang login
-       $user = auth()->user();
+        $user = auth()->user();
 
        // Ambil transaksi pembelian terkait dengan pengguna yang login
-       $saleses = Sales::where('user_id', $user->id)->get();
+        $saleses = Sales::where('user_id', $user->id)->get();
         return view('user/transaksi_beli_user', compact('saleses', 'user'));
     }
 
@@ -59,22 +59,12 @@ class UserController extends Controller
             'berat' => 'required|numeric',
             'harga' => 'required|numeric',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'nota' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'tanda_tangan' => 'required',
         ]);
 
         // Membuat direktori baru untuk menyimpan nota jual
-        $path = 'public/assets/nota_jual';
-        Storage::makeDirectory($path);
-
         $path1 = 'public/assets/sampah_penjualan';
         Storage::makeDirectory($path1);
-
-        // Proses upload gambar nota jual
-        $notaJualName = time() . '.' . $request->nota->extension();
-        if (!$request->nota->isValid()) {
-            return back()->withErrors(['gambar' => 'File gambar tidak valid']);
-        }
-        $request->nota->storeAs($path, $notaJualName);
 
         // Proses upload gambar nota jual
         $sampahJual = time() . '.' . $request->gambar->extension();
@@ -82,6 +72,16 @@ class UserController extends Controller
             return back()->withErrors(['gambar' => 'File gambar tidak valid']);
         }
         $request->gambar->storeAs($path1, $sampahJual);
+
+        // Proses tanda tangan
+        $path2 = 'public/assets/tanda_tangan_jual';
+        Storage::makeDirectory($path2); // Membuat folder jika belum ada
+
+        $signatureData = $request->input('tanda_tangan');
+        $signature = str_replace('data:image/png;base64,', '', $signatureData);
+        $signature = str_replace(' ', '+', $signature);
+        $signatureName = time() . '_signature.png';
+        Storage::put($path2 . '/' . $signatureName, base64_decode($signature));
 
         // Simpan data ke dalam database
         $sales = new Sales();
@@ -91,7 +91,7 @@ class UserController extends Controller
         $sales->berat = $request->input('berat');
         $sales->harga = $request->input('harga');
         $sales->total = $request->input('berat') * $request->input('harga');
-        $sales->gambar_nota = $notaJualName;
+        $sales->gambar_nota = $signatureName;
         $sales->gambar_sampah = $sampahJual;
         $sales->save();
 
@@ -122,7 +122,7 @@ class UserController extends Controller
             'berat' => 'required|numeric',
             'harga' => 'required|numeric',
             'gambar_sampah' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi untuk gambar_sampah
-            'gambar_nota' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi untuk gambar_nota
+            // 'gambar_nota' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi untuk gambar_nota
         ]);
 
         $sales = Sales::findOrFail($id);
@@ -139,17 +139,17 @@ class UserController extends Controller
             $sales->gambar_sampah = $sampahJual;
         }
 
-        // Tangani file gambar_nota
-        if ($request->hasFile('gambar_nota')) {
-            Storage::delete('public/assets/nota_jual/' . $sales->gambar_nota);
+            // // Tangani file gambar_nota
+            // if ($request->hasFile('gambar_nota')) {
+            //     Storage::delete('public/assets/nota_jual/' . $sales->gambar_nota);
 
-            $notaJualName = time() . '.' . $request->gambar_nota->extension();
-            if (!$request->gambar_nota->isValid()) {
-                return back()->withErrors(['gambar_nota' => 'File gambar tidak valid']);
-            }
-            $request->gambar_nota->storeAs('public/assets/nota_jual', $notaJualName);
-            $sales->gambar_nota = $notaJualName;
-        }
+            //     $notaJualName = time() . '.' . $request->gambar_nota->extension();
+            //     if (!$request->gambar_nota->isValid()) {
+            //         return back()->withErrors(['gambar_nota' => 'File gambar tidak valid']);
+            //     }
+            //     $request->gambar_nota->storeAs('public/assets/nota_jual', $notaJualName);
+            //     $sales->gambar_nota = $notaJualName;
+            // }
 
         $sales->tanggal_jual = $request->input('tanggal_jual');
         $sales->jenis_sampah = $request->input('jenis_sampah');
@@ -166,14 +166,14 @@ class UserController extends Controller
     {
         $sales = Sales::findOrFail($id);
 
-        $path = 'public/assets/nota_jual/' . $sales->gambar_nota;
-        if (Storage::exists($path)) {
-            Storage::delete($path);
-        }
-
         $path1 = 'public/assets/sampah_penjualan/' . $sales->gambar_sampah;
         if (Storage::exists($path1)) {
             Storage::delete($path1);
+        }
+
+        $path2 = 'public/assets/tanda_tangan_jual/' . $sales->gambar_nota;
+        if (Storage::exists($path2)) {
+            Storage::delete($path2);
         }
 
         $sales->delete();

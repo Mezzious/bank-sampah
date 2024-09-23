@@ -1,5 +1,17 @@
 @extends('layout.app_nasabah')
 
+@section('style')
+    <style>
+    .signature-pad {
+        border: 1px solid black;
+        width: 100%;
+        height: auto;
+        max-width: 100%; /* Membatasi agar tidak melebihi kontainer */
+        aspect-ratio: 2 / 1; /* Menjaga rasio aspek 2:1, bisa disesuaikan */
+    }
+    </style>
+@endsection
+
 @section('content')
     @if (session('error'))
         <div class="alert alert-danger">
@@ -34,12 +46,6 @@
             <form action="{{ route('store_transaksi_jual') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
-                {{-- <div class="form-group">
-                    <label for="id">Id Beli</label>
-                    <input type="text" class="form-control" id="id" name="id" style="cursor: not-allowed;"
-                        disabled="disabled" required placeholder="Id Beli">
-                </div> --}}
-
                 @php
                     $today = \Carbon\Carbon::today()->format('Y-m-d');
                 @endphp
@@ -48,12 +54,6 @@
                     <label for="tanggal_beli">Tanggal Jual*</label>
                     <input type="date" class="form-control" id="tanggal_beli" name="tanggal_beli" value="{{ $today }}" required>
                 </div>
-
-                {{-- <div class="form-group">
-                    <label for="customer_id">Customer Id*</label>
-                    <input type="text" class="form-control" id="customer_id" name="customer_id" style="cursor: not-allowed;"
-                    disabled="disabled" required>
-                </div> --}}
 
                 <div class="form-group">
                     <label for="jenis_sampah">Jenis Sampah*</label>
@@ -69,8 +69,7 @@
 
                 <div class="form-group">
                     <label for="berat">Berat (Kg)*</label>
-                    <input type="number" step="0.01" class="form-control" id="berat" onchange="sum();" name="berat" required
-                        placeholder="Berat">
+                    <input type="number" step="0.01" class="form-control" id="berat" onchange="sum();" name="berat" required placeholder="Berat">
                 </div>
 
                 <div class="form-group">
@@ -84,46 +83,98 @@
                     <input type="number" class="form-control" id="total" onchange="sum();" name="total" required disabled placeholder="Total" readonly>
                 </div>
 
-                <div>
-                    <div class="form-group">
+                <div class="form-group">
                     <label for="gambar">Gambar Sampah*</label>
                     <input type="file" class="form-control" name="gambar" placeholder="Masukan link disini">
-                    </div>
                 </div>
 
-                <div>
-                    <div class="form-group">
-                    <label for="nota">Gambar Nota*</label>
-                    <input type="file" class="form-control" name="nota" placeholder="Masukan link disini">
-                    </div>
+                <div class="form-group">
+                    <label for="tanda_tangan">Tanda Tangan*</label><br>
+                    <canvas id="signature-pad" class="signature-pad" width=400 height=200 style="border: 1px solid black;"></canvas>
+                    <input type="hidden" id="tanda_tangan" name="tanda_tangan"><br>
+                    <button type="button" class="btn btn-secondary" id="clear-signature">Clear</button>
                 </div>
 
                 <button type="submit" class="btn btn-custom">Simpan</button>
             </form>
         </div>
     </div>
+
 @endsection
+
 @section('script')
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+
 <script>
     function sum() {
-        var txtFirstNumberValue = document.getElementById('berat').value;
-        console.log(txtFirstNumberValue)
-        var txtSecondNumberValue = document.getElementById('harga').value;
-        console.log(txtSecondNumberValue)
-        var result = parseInt(txtFirstNumberValue) * parseInt(txtSecondNumberValue);
+        var berat = document.getElementById('berat').value;
+        var harga = document.getElementById('harga').value;
+        var result = parseInt(berat) * parseInt(harga);
         if (!isNaN(result)) {
-            document.getElementById('total').value=result;
+            document.getElementById('total').value = result;
         }
     }
 
     function updateSampahDetails() {
-            var select = document.getElementById('jenis_sampah');
-            var selectedOption = select.options[select.selectedIndex];
-            var harga = selectedOption.getAttribute('data-harga');
-            var gambar = selectedOption.getAttribute('data-gambar');
+        var select = document.getElementById('jenis_sampah');
+        var selectedOption = select.options[select.selectedIndex];
+        var harga = selectedOption.getAttribute('data-harga');
 
-            document.getElementById('harga').value = harga;
-            document.getElementById('harga_display').value = harga;
+        document.getElementById('harga').value = harga;
+        document.getElementById('harga_display').value = harga;
+    }
+
+    // Signature pad logic
+    var canvas = document.getElementById('signature-pad');
+    var signaturePad = new SignaturePad(canvas);
+
+    document.getElementById('clear-signature').addEventListener('click', function () {
+        signaturePad.clear();
+    });
+
+    document.querySelector('form').addEventListener('submit', function (event) {
+        if (signaturePad.isEmpty()) {
+            event.preventDefault();
+            alert('Tanda tangan dibutuhkan.');
+        } else {
+            var signatureData = signaturePad.toDataURL();
+            document.getElementById('tanda_tangan').value = signatureData;
         }
+    });
+
+    // Function to resize the canvas
+    function resizeCanvas() {
+        var canvas = document.getElementById('signature-pad');
+        var ratio = Math.max(window.devicePixelRatio || 1, 1);
+        // Resize canvas based on its container
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = canvas.offsetHeight * ratio;
+        canvas.getContext("2d").scale(ratio, ratio);
+        signaturePad.clear(); // Clear the canvas when resized
+    }
+
+    // Initialize signature pad
+    var canvas = document.getElementById('signature-pad');
+    var signaturePad = new SignaturePad(canvas);
+
+    // Resize the canvas on page load and when window is resized
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas(); // Call it once on load
+
+    // Clear signature logic
+    document.getElementById('clear-signature').addEventListener('click', function () {
+        signaturePad.clear();
+    });
+
+    // Submit logic
+    document.querySelector('form').addEventListener('submit', function (event) {
+        if (signaturePad.isEmpty()) {
+            event.preventDefault();
+            alert('Tanda tangan dibutuhkan.');
+        } else {
+            var signatureData = signaturePad.toDataURL();
+            document.getElementById('tanda_tangan').value = signatureData;
+        }
+    });
 </script>
 @endsection

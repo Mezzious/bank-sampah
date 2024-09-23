@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NasabahController;
-use App\Models\SuperAdmin;
 
 /*
 |--------------------------------------------------------------------------
@@ -107,6 +106,8 @@ Route::group(['middleware' => ['auth', 'admin:super-admin']], function () {
     Route::post('/laporan_beli', [SuperAdminController::class, 'tampilkan_tanggal_beli_laporan'])->name('tampilkan_tanggal_beli_laporan');
 
     Route::get('/nota_transaksi_beli', [SuperAdminController::class, 'nota_transaksi_beli'])->name('nota_transaksi_beli');
+
+    Route::get('/nota_transaksi_jual', [SuperAdminController::class, 'nota_transaksi_jual'])->name('nota_transaksi_jual');
 });
 
 //Admin
