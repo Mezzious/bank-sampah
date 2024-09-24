@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cetak Laporan</title>
-
+    <link rel="icon" href="./favicon.ico">
     {{-- <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -33,19 +33,19 @@
             padding: 20px 0; /* Memberi jarak atas dan bawah */
             margin-bottom: 5px; /* Memberi jarak dari elemen di bawahnya */
         }
-    
+
         .kop-laporan h1 {
             font-size: 28px; /* Ukuran font judul utama */
             margin: 0; /* Menghilangkan margin default */
             font-weight: bold; /* Membuat teks lebih tebal */
         }
-    
+
         .kop-laporan h2 {
             font-size: 24px; /* Ukuran font sub-judul */
             margin: 5px 0; /* Jarak antara judul utama dan sub-judul */
             /* font-weight: normal; Menjaga agar tidak terlalu tebal */
         }
-    
+
         .kop-laporan p {
             font-size: 16px; /* Ukuran font untuk alamat */
             margin: 10px 0; /* Memberi jarak pada paragraf */

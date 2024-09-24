@@ -155,7 +155,7 @@
                         Grafik Monitoring Total Berat Penjualan dan Pembelian per Bulan
                     </div>
                 </div>
-            
+
                 <!-- Bar Chart -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
@@ -169,7 +169,7 @@
                         Grafik Monitoring Total Penjualan dan Pembelian per Bulan
                     </div>
                 </div>
-            </div>            
+            </div>
         </div>
     @endsection
 
@@ -248,5 +248,5 @@
                     }
                 }
             });
-        </script>    
+        </script>
     @endsection

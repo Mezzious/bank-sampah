@@ -24,7 +24,7 @@
             <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
                 style="background: #D3E3C8;">
                 <div class="featured-image mb-3">
-                    <img src="./assets/compiled/png/logo3.png" class="img-fluid" style="width: 350px;">
+                    <img src="./assets/compiled/png/login.png" class="img-fluid" style="width: 550px;">
                 </div>
             </div>
 

@@ -42,7 +42,8 @@
                         </div>
                         <!-- Hamburger menu for smaller screens -->
                         <div class="d-md-none ms-2">
-                            <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">
+                            <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
+                                aria-controls="offcanvasMenu">
                                 <i class="bi bi-person-circle"></i>
                             </button>
                         </div>
@@ -52,55 +53,62 @@
         </div>
     </div>
 
-            <!-- Offcanvas Menu for smaller screens -->
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasMenuLabel">Selamat Datang, RW 0{{ $user->customer->rw }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <div class="text-center">
-                        <a class="btn btn-block btn-custom mb-2" style="border-radius: 8px;" href="{{ route('ganti_password_admin') }}">
-                            <i class="bi bi-key-fill"></i> Ganti Password
-                        </a>
-                        <form method="get" action="{{ route('logout') }}">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <button class="btn btn-danger w-100" type="submit" style="border-radius: 8px;">
-                                <i class="bi bi-box-arrow-left"></i> Logout
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            
-
-            <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
-            <link rel="stylesheet" href="./assets/compiled/css/dataTables.bootstrap4.min.css">
-
-            <div class="back-button-container" style="margin-bottom: 10px">
-                <a class="btn back-button" onclick="goBack()">
-                    <i class="fa-solid fa-arrow-left" style="color: white;"></i>
-                    <span style="color: white;">Back</span>
+    <!-- Offcanvas Menu for smaller screens -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasMenuLabel">Selamat Datang, RW 0{{ $user->customer->rw }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="text-center">
+                <a class="btn btn-block btn-custom mb-2" style="border-radius: 8px;"
+                    href="{{ route('ganti_password_admin') }}">
+                    <i class="bi bi-key-fill"></i> Ganti Password
                 </a>
+                <form method="get" action="{{ route('logout') }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <button class="btn btn-danger w-100" type="submit" style="border-radius: 8px;">
+                        <i class="bi bi-box-arrow-left"></i> Logout
+                    </button>
+                </form>
             </div>
+        </div>
+    </div>
 
-            <form action="{{ route('tampilkan_tanggal_transaksi_nasabah') }}" method="post" name="form10">
-                @csrf
-                <div class="row">
-                    <div class="col-lg-3">
-                        <input name="txtTglAwal" id="txtTglAwal" type="date" class="form-control" size="10"
-                            required />
-                    </div>
-                    <div class="col-lg-3">
-                        <input name="txtTglAkhir" id="txtTglAkhir" type="date" class="form-control" size="10"
-                            required />
-                    </div>
-                    <div class="col-lg-3">
-                        <input name="btnTampil" style="color: white" class="btn btn-custom" type="submit"
-                            value="Tampilkan" />
-                    </div>
-                </div>
-            </form>
+
+    <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
+    <link rel="stylesheet" href="./assets/compiled/css/dataTables.bootstrap4.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/5Bl1xZoDvj3FVBIpT9SNq9u/KfAZ5qON6lC7G" crossorigin="anonymous">
+
+    <div class="back-button-container" style="margin-bottom: 10px">
+        <a class="btn back-button" onclick="goBack()">
+            <i class="fa-solid fa-arrow-left" style="color: white;"></i>
+            <span style="color: white;">Back</span>
+        </a>
+    </div>
+
+    <form action="{{ route('tampilkan_tanggal_transaksi_nasabah') }}" method="post" name="form10">
+        @csrf
+        <div class="row">
+            <div class="col-lg-3">
+                <input name="txtTglAwal" id="txtTglAwal" type="date" class="form-control" size="10" required />
+            </div>
+            <div class="col-lg-3">
+                <input name="txtTglAkhir" id="txtTglAkhir" type="date" class="form-control" size="10" required />
+            </div>
+            <div class="col-lg-3">
+                <input name="btnTampil" style="color: white" class="btn btn-custom" type="submit" value="Tampilkan" />
+            </div>
+        </div>
+    </form>
+
+    @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+        </div>
+    @endif
 
             @if (session()->has('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -183,58 +191,81 @@
                             </div>
                         </div>
                     </div>
-            @endif
-
-            <!-- Modal -->
-            <div class="modal fade" id="gambarNotaModal" tabindex="-1" aria-labelledby="gambarNotaModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="gambarNotaModalLabel">Gambar Nota</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <img id="notaImage" src="" class="img-fluid">
-                        </div>
-                    </div>
                 </div>
             </div>
-        @endsection
+    @endif
 
-        @section('script')
-            <script src="/assets/compiled/js/jquery.min.js"></script>
-            <script src="/assets/compiled/js/jquery.dataTables.min.js"></script>
-            <script src="/assets/compiled/js/dataTables.bootstrap4.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Modal -->
+    <div class="modal fade" id="gambarNotaModal" tabindex="-1" aria-labelledby="gambarNotaModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="gambarNotaModalLabel">Gambar Nota</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="notaImage" src="" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <script>
-                $(document).ready(function() {
-                    $('#table_beli').DataTable();
+    <!-- Overlay di Tengah Layar -->
+    <div id="overlay"></div>
+    <!-- Spinner di Tengah Layar -->
+    <div id="spinner" class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+@endsection
 
-                    $('.deleteButton').on('click', function(e) {
-                        e.preventDefault();
-                        var purchaseId = $(this).data('id');
-                        Swal.fire({
-                            title: 'Apakah kamu yakin?',
-                            text: "Ingin Menghapus Transaksi Jual ini!",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Ya, Hapus!'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                $('#delete-form-' + purchaseId).submit();
-                            }
-                        })
-                    });
+@section('script')
+    <script src="/assets/compiled/js/jquery.min.js"></script>
+    <script src="/assets/compiled/js/jquery.dataTables.min.js"></script>
+    <script src="/assets/compiled/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#table_beli').DataTable();
+
+            $('.deleteButton').on('click', function(e) {
+                e.preventDefault();
+                var purchaseId = $(this).data('id');
+                Swal.fire({
+                    title: 'Apakah kamu yakin?',
+                    text: "Ingin Menghapus Transaksi Jual ini!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Tampilkan spinner dan overlay setelah konfirmasi penghapusan
+                        document.getElementById('spinner').style.display = 'block';
+                        document.getElementById('overlay').style.display = 'block';
+
+                        // Submit form
+                        $('#delete-form-' + purchaseId).submit();
+                    }
                 });
+            });
+        });
 
-                function showNotaImage(imageUrl) {
-                    $('#notaImage').attr('src', imageUrl);
-                    $('#gambarNotaModal').modal('show');
-                }
-            </script>
-        @endsection
+        // jQuery to show spinner and overlay when form is submitted
+$(document).ready(function() {
+    $('form').on('submit', function() {
+        // Tampilkan overlay dan spinner saat form disubmit
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('spinner').style.display = 'block';
+    });
+});
+
+
+        function showNotaImage(imageUrl) {
+            $('#notaImage').attr('src', imageUrl);
+            $('#gambarNotaModal').modal('show');
+        }
+    </script>
+@endsection

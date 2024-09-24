@@ -246,17 +246,13 @@
     </script>
 
     <script>
-        document.getElementById('btnTampil').addEventListener('click', function(e) {
-            // Mencegah submit form langsung jika form akan di-submit
-            e.preventDefault();
-
-            // Tampilkan spinner
+        document.querySelector('form[name="form10"]').addEventListener('submit', function() {
+            // Tampilkan spinner dan overlay
             document.getElementById('spinner').style.display = 'block';
             document.getElementById('overlay').style.display = 'block';
-            // Option 1: Jika tombol memicu submit form, submit form di sini
-            // e.target.closest('form').submit();
 
-            // Option 2: Jika tombol hanya untuk menampilkan data, gunakan logika tambahan di sini
+            // Nonaktifkan tombol submit
+            document.querySelector('input[name="btnTampil"]').disabled = true;
         });
     </script>
 @endsection
