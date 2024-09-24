@@ -2,13 +2,15 @@
 
 @section('style')
     <style>
-    .signature-pad {
-        border: 1px solid black;
-        width: 100%;
-        height: auto;
-        max-width: 100%; /* Membatasi agar tidak melebihi kontainer */
-        aspect-ratio: 2 / 1; /* Menjaga rasio aspek 2:1, bisa disesuaikan */
-    }
+        .signature-pad {
+            border: 1px solid black;
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            /* Membatasi agar tidak melebihi kontainer */
+            aspect-ratio: 2 / 1;
+            /* Menjaga rasio aspek 2:1, bisa disesuaikan */
+        }
     </style>
 @endsection
 
@@ -37,7 +39,7 @@
         <div class="card-body">
             <form action="{{ route('store_transaksi_beli') }}" method="post" enctype="multipart/form-data">
                 @csrf
-                
+
 
                 @php
                     $today = \Carbon\Carbon::today()->format('Y-m-d');
@@ -89,7 +91,8 @@
 
                 <div class="form-group">
                     <label for="tanda_tangan">Tanda Tangan*</label><br>
-                    <canvas id="signature-pad" class="signature-pad" width=400 height=200 style="border: 1px solid black;"></canvas>
+                    <canvas id="signature-pad" class="signature-pad" width=400 height=200
+                        style="border: 1px solid black;"></canvas>
                     <input type="hidden" id="tanda_tangan" name="tanda_tangan"><br>
                     <button type="button" class="btn btn-secondary" id="clear-signature">Clear</button>
 
@@ -108,82 +111,92 @@
 @endsection
 
 @section('script')
-<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 
-<script>
-    function sum() {
-        var txtFirstNumberValue = document.getElementById('berat').value;
-        console.log(txtFirstNumberValue)
-        var txtSecondNumberValue = document.getElementById('harga').value;
-        console.log(txtSecondNumberValue)
-        var result = parseInt(txtFirstNumberValue) * parseInt(txtSecondNumberValue);
-        if (!isNaN(result)) {
-            document.getElementById('total').value=result;
+    <script>
+        function sum() {
+            var txtFirstNumberValue = document.getElementById('berat').value;
+            console.log(txtFirstNumberValue)
+            var txtSecondNumberValue = document.getElementById('harga').value;
+            console.log(txtSecondNumberValue)
+            var result = parseInt(txtFirstNumberValue) * parseInt(txtSecondNumberValue);
+            if (!isNaN(result)) {
+                document.getElementById('total').value = result;
+            }
         }
-    }
 
-    function updateSampahDetails() {
-        var select = document.getElementById('jenis_sampah');
-        var selectedOption = select.options[select.selectedIndex];
-        var harga = selectedOption.getAttribute('data-harga');
-        var gambar = selectedOption.getAttribute('data-gambar');
+        function updateSampahDetails() {
+            var select = document.getElementById('jenis_sampah');
+            var selectedOption = select.options[select.selectedIndex];
+            var harga = selectedOption.getAttribute('data-harga');
+            var gambar = selectedOption.getAttribute('data-gambar');
 
-        document.getElementById('harga').value = harga;
-        document.getElementById('gambar').value = gambar;
-    }
-
-    // Signature pad logic
-    var canvas = document.getElementById('signature-pad');
-    var signaturePad = new SignaturePad(canvas);
-
-    document.getElementById('clear-signature').addEventListener('click', function () {
-        signaturePad.clear();
-    });
-
-    document.querySelector('form').addEventListener('submit', function (event) {
-        if (signaturePad.isEmpty()) {
-            event.preventDefault();
-            alert('Tanda tangan dibutuhkan.');
-        } else {
-            var signatureData = signaturePad.toDataURL();
-            document.getElementById('tanda_tangan').value = signatureData;
+            document.getElementById('harga').value = harga;
+            document.getElementById('gambar').value = gambar;
         }
-    });
 
-    // Function to resize the canvas
-    function resizeCanvas() {
+        // Signature pad logic
         var canvas = document.getElementById('signature-pad');
-        var ratio = Math.max(window.devicePixelRatio || 1, 1);
-        // Resize canvas based on its container
-        canvas.width = canvas.offsetWidth * ratio;
-        canvas.height = canvas.offsetHeight * ratio;
-        canvas.getContext("2d").scale(ratio, ratio);
-        signaturePad.clear(); // Clear the canvas when resized
-    }
+        var signaturePad = new SignaturePad(canvas);
 
-    // Initialize signature pad
-    var canvas = document.getElementById('signature-pad');
-    var signaturePad = new SignaturePad(canvas);
+        document.getElementById('clear-signature').addEventListener('click', function() {
+            signaturePad.clear();
+        });
 
-    // Resize the canvas on page load and when window is resized
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas(); // Call it once on load
+        document.querySelector('form').addEventListener('submit', function(event) {
+            if (signaturePad.isEmpty()) {
+                event.preventDefault();
+                alert('Tanda tangan dibutuhkan.');
+            } else {
+                var signatureData = signaturePad.toDataURL();
+                document.getElementById('tanda_tangan').value = signatureData;
+            }
+        });
 
-    // Clear signature logic
-    document.getElementById('clear-signature').addEventListener('click', function () {
-        signaturePad.clear();
-    });
-
-    // Submit logic
-    document.querySelector('form').addEventListener('submit', function (event) {
-        if (signaturePad.isEmpty()) {
-            event.preventDefault();
-            alert('Tanda tangan dibutuhkan.');
-        } else {
-            var signatureData = signaturePad.toDataURL();
-            document.getElementById('tanda_tangan').value = signatureData;
+        // Function to resize the canvas
+        function resizeCanvas() {
+            var canvas = document.getElementById('signature-pad');
+            var ratio = Math.max(window.devicePixelRatio || 1, 1);
+            // Resize canvas based on its container
+            canvas.width = canvas.offsetWidth * ratio;
+            canvas.height = canvas.offsetHeight * ratio;
+            canvas.getContext("2d").scale(ratio, ratio);
+            signaturePad.clear(); // Clear the canvas when resized
         }
-    });
-</script>
-@endsection
 
+        // Initialize signature pad
+        var canvas = document.getElementById('signature-pad');
+        var signaturePad = new SignaturePad(canvas);
+
+        // Resize the canvas on page load and when window is resized
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas(); // Call it once on load
+
+        // Clear signature logic
+        document.getElementById('clear-signature').addEventListener('click', function() {
+            signaturePad.clear();
+        });
+
+        // Submit logic
+        document.querySelector('form').addEventListener('submit', function(event) {
+            if (signaturePad.isEmpty()) {
+                event.preventDefault();
+                alert('Tanda tangan dibutuhkan.');
+            } else {
+                var signatureData = signaturePad.toDataURL();
+                document.getElementById('tanda_tangan').value = signatureData;
+            }
+        });
+    </script>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function() {
+            // Tampilkan spinner dan overlay
+            document.getElementById('spinner').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+
+            // Nonaktifkan tombol submit
+            document.querySelector('.btn-custom').disabled = true;
+        });
+    </script>
+@endsection

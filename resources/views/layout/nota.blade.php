@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cetak Nota</title>
+    <link rel="icon" href="./favicon.ico">
 
     {{-- <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
 
@@ -33,19 +34,19 @@
             padding: 20px 0; /* Memberi jarak atas dan bawah */
             margin-bottom: 5px; /* Memberi jarak dari elemen di bawahnya */
         }
-    
+
         .kop-laporan h1 {
             font-size: 28px; /* Ukuran font judul utama */
             margin: 0; /* Menghilangkan margin default */
             font-weight: bold; /* Membuat teks lebih tebal */
         }
-    
+
         .kop-laporan h2 {
             font-size: 24px; /* Ukuran font sub-judul */
             margin: 5px 0; /* Jarak antara judul utama dan sub-judul */
             /* font-weight: normal; Menjaga agar tidak terlalu tebal */
         }
-    
+
         .kop-laporan p {
             font-size: 16px; /* Ukuran font untuk alamat */
             margin: 10px 0; /* Memberi jarak pada paragraf */
@@ -62,11 +63,11 @@
         <h2>KELURAHAN DURI KEPA</h2>
         <h2>JL. KEBON RAYA NO.1 4, RT.4/RW.7, DURI KEPA, KEC. KB. JERUK, KOTA JAKARTA BARAT, <BR> DAERAH KHUSUS IBUKOTA JAKARTA 11510</h2>
     </div> --}}
-    
+
     <div class="page-content">
         @yield('content')
     </div>
-    
+
     @yield('style')
         {{-- <script src="assets/static/js/components/dark.js"></script>
         <script src="assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>

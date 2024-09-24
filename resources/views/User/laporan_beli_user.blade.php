@@ -1,4 +1,4 @@
-@extends('layout.app_nasabah')
+@extends('layout.app_user')
 
 @section('content')
     <div class="main">

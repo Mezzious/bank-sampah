@@ -41,7 +41,8 @@
                         </div>
                         <!-- Hamburger menu for smaller screens -->
                         <div class="d-md-none ms-2">
-                            <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">
+                            <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
+                                aria-controls="offcanvasMenu">
                                 <i class="bi bi-person-circle"></i>
                             </button>
                         </div>
@@ -75,7 +76,8 @@
 
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
     <link rel="stylesheet" href="./assets/compiled/css/dataTables.bootstrap4.min.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/5Bl1xZoDvj3FVBIpT9SNq9u/KfAZ5qON6lC7G" crossorigin="anonymous">
     <div class="back-button-container" style="margin-bottom: 10px;">
         <a class="btn back-button" onclick="goBack()">
             <i class="fa-solid fa-arrow-left" style="color: white;"></i>
@@ -98,60 +100,64 @@
         </div>
     </form>
 
-    @if(isset($purchases))
-    <div class="mb-3"></div>
-    <div class="row">
-        <div class="col">
-            <div class="card shadow">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="table_laporan_beli" class="table table-bordered">
-                            <thead class="table-secondary">
-                                <tr>
-                                    <th>No</th>
-                                    <th>RW</th>
-                                    <th>Tanggal Jual</th>
-                                    <th>Jenis Sampah</th>
-                                    <th>Gambar</th>
-                                    <th>Berat (Kg)</th>
-                                    <th>Harga (Rp)</th>
-                                    <th>Total (Rp)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php $grandTotal = 0; @endphp
-                                @foreach ($purchases as $purchase)
-                                    @php $grandTotal += $purchase->total; @endphp
+    @if (isset($purchases))
+        <div class="mb-3"></div>
+        <div class="row">
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="table_laporan_beli" class="table table-bordered">
+                                <thead class="table-secondary">
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>0{{ $purchase->user->customer->rw }}</td>
-                                        <td>{{ $purchase->tanggal_beli }}</td>
-                                        <td>{{ $purchase->jenis_sampah }}</td>
-                                        <td><img src="{{ asset('storage/assets/sampah_pembelian/'.$purchase->gambar_sampah) }}" width="60px" height="60px"></td>
-                                        <td>{{ $purchase->berat }}</td>
-                                        <td>{{ $purchase->harga }}</td>
-                                        <td>{{ $purchase->total }}</td>
+                                        <th>No</th>
+                                        <th>RW</th>
+                                        <th>Tanggal Jual</th>
+                                        <th>Jenis Sampah</th>
+                                        <th>Gambar</th>
+                                        <th>Berat (Kg)</th>
+                                        <th>Harga (Rp)</th>
+                                        <th>Total (Rp)</th>
                                     </tr>
-                                @endforeach
-                                <tr>
-                                    <td colspan="7" class="text-right font-weight-bold">Jumlah Total</td>
-                                    <td colspan="2" class="font-weight-bold">{{ $grandTotal }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div>
-                            <a href="{{ route('cetak_laporan_jual') }}" target="_blank" class="btn btn-custom" id="printButton">
-                                <i class="fa-solid fa-print" style="color: white;"></i> <span style="color: white;">Cetak</span>
-                            </a>
+                                </thead>
+                                <tbody>
+                                    @php $grandTotal = 0; @endphp
+                                    @foreach ($purchases as $purchase)
+                                        @php $grandTotal += $purchase->total; @endphp
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>0{{ $purchase->user->customer->rw }}</td>
+                                            <td>{{ $purchase->tanggal_beli }}</td>
+                                            <td>{{ $purchase->jenis_sampah }}</td>
+                                            <td><img src="{{ asset('storage/assets/sampah_pembelian/' . $purchase->gambar_sampah) }}"
+                                                    width="60px" height="60px"></td>
+                                            <td>{{ $purchase->berat }}</td>
+                                            <td>{{ $purchase->harga }}</td>
+                                            <td>{{ $purchase->total }}</td>
+                                        </tr>
+                                    @endforeach
+                                    <tr>
+                                        <td colspan="7" class="text-right font-weight-bold">Jumlah Total</td>
+                                        <td colspan="2" class="font-weight-bold">{{ $grandTotal }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                <a href="{{ route('cetak_laporan_jual') }}" target="_blank" class="btn btn-custom"
+                                    id="printButton">
+                                    <i class="fa-solid fa-print" style="color: white;"></i> <span
+                                        style="color: white;">Cetak</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     @endif
 
-    <div class="modal fade" id="gambarNotaModal" tabindex="-1" aria-labelledby="gambarNotaModalLabel" aria-hidden="true">
+    <div class="modal fade" id="gambarNotaModal" tabindex="-1" aria-labelledby="gambarNotaModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -163,6 +169,12 @@
                 </div>
             </div>
         </div>
+    </div>
+    <!-- Overlay di Tengah Layar -->
+    <div id="overlay"></div>
+    <!-- Spinner di Tengah Layar -->
+    <div id="spinner" class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
     </div>
 @endsection
 
@@ -180,5 +192,11 @@
             $('#notaImage').attr('src', imageUrl);
             $('#gambarNotaModal').modal('show');
         }
+
+        document.getElementById('dateReportForm').addEventListener('submit', function() {
+            // Show overlay and spinner
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('spinner').style.display = 'block';
+        });
     </script>
 @endsection

@@ -2,18 +2,19 @@
 
 @section('content')
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/5Bl1xZoDvj3FVBIpT9SNq9u/KfAZ5qON6lC7G" crossorigin="anonymous">
     <div class="back-button-container" style="margin-bottom: 15px">
         <a class="btn back-button" onclick="goBack()">
             <i class="fa-solid fa-arrow-left" style="color: white;"></i>
             <span style="color: white;">Back</span>
         </a>
     </div>
-    
+
     @if (session('status'))
-    <div class="alert alert-danger" role="alert">
-        {{ session('status') }}
-    </div>
+        <div class="alert alert-danger" role="alert">
+            {{ session('status') }}
+        </div>
     @endif
 
     @if (session('success'))
@@ -80,4 +81,23 @@
             </form>
         </div>
     </div>
+    <!-- Overlay di Tengah Layar -->
+    <div id="overlay"></div>
+    <!-- Spinner di Tengah Layar -->
+    <div id="spinner" class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+@endsection
+
+@section('script')
+    <script>
+        // jQuery to show spinner and overlay when form is submitted
+        $(document).ready(function() {
+            $('form').on('submit', function() {
+                // Tampilkan overlay dan spinner saat form disubmit
+                document.getElementById('overlay').style.display = 'block';
+                document.getElementById('spinner').style.display = 'block';
+            });
+        });
+    </script>
 @endsection

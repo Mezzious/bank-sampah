@@ -41,7 +41,8 @@
                         </div>
                         <!-- Hamburger menu for smaller screens -->
                         <div class="d-md-none ms-2">
-                            <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">
+                            <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
+                                aria-controls="offcanvasMenu">
                                 <i class="bi bi-person-circle"></i>
                             </button>
                         </div>
@@ -75,7 +76,8 @@
 
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
     <link rel="stylesheet" href="./assets/compiled/css/dataTables.bootstrap4.min.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/5Bl1xZoDvj3FVBIpT9SNq9u/KfAZ5qON6lC7G" crossorigin="anonymous">
     <div class="back-button-container" style="margin-bottom: 10px;">
         <a class="btn back-button" onclick="goBack()">
             <i class="fa-solid fa-arrow-left" style="color: white;"></i>
@@ -98,61 +100,64 @@
         </div>
     </form>
 
-    @if(isset($purchases))
-    <div class="mb-3"></div>
-    <div class="row">
-        <div class="col">
-            <div class="card shadow">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="table_beli" class="table table-bordered">
-                            <thead class="table-secondary">
-                                <tr>
-                                    <th>No</th>
-                                    <th>RW</th>
-                                    <th>Tanggal Jual</th>
-                                    <th>Jenis Sampah</th>
-                                    <th>Gambar</th>
-                                    <th>Berat (Kg)</th>
-                                    <th>Harga (Rp)</th>
-                                    <th>Total (Rp)</th>
-                                    {{-- <th>Nota</th> --}}
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($purchases as $purchase)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>0{{ $purchase->user->customer->rw }}</td>
-                                    <td>{{ $purchase->tanggal_beli }}</td>
-                                    <td>{{ $purchase->jenis_sampah }}</td>
-                                    <td><img src="{{ asset('storage/assets/sampah_pembelian/'.$purchase->gambar_sampah) }}" width="60px" height="60px"></td>
-                                    <td>{{ $purchase->berat }}</td>
-                                    <td>{{ $purchase->harga }}</td>
-                                    <td>{{ $purchase->total }}</td>
-                                    {{-- <td style="text-align: center">
+    @if (isset($purchases))
+        <div class="mb-3"></div>
+        <div class="row">
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="table_beli" class="table table-bordered">
+                                <thead class="table-secondary">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>RW</th>
+                                        <th>Tanggal Jual</th>
+                                        <th>Jenis Sampah</th>
+                                        <th>Gambar</th>
+                                        <th>Berat (Kg)</th>
+                                        <th>Harga (Rp)</th>
+                                        <th>Total (Rp)</th>
+                                        {{-- <th>Nota</th> --}}
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($purchases as $purchase)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>0{{ $purchase->user->customer->rw }}</td>
+                                            <td>{{ $purchase->tanggal_beli }}</td>
+                                            <td>{{ $purchase->jenis_sampah }}</td>
+                                            <td><img src="{{ asset('storage/assets/sampah_pembelian/' . $purchase->gambar_sampah) }}"
+                                                    width="60px" height="60px"></td>
+                                            <td>{{ $purchase->berat }}</td>
+                                            <td>{{ $purchase->harga }}</td>
+                                            <td>{{ $purchase->total }}</td>
+                                            {{-- <td style="text-align: center">
                                         <a href="#" class="btn btn-primary btn-sm" style="color: white" onclick="showNotaImage('{{ asset('storage/assets/nota_beli/'.$purchase->gambar_nota) }}')">
                                             <i class="bi bi-eye-fill"></i>
                                         </a>
                                     </td> --}}
-                                    <td style="text-align: center">
-                                        <a href="{{ route('nota_transaksi_jual', ['id' => $purchase->id]) }}" target="_blank" class="btn btn-custom btn-sm">
-                                            <i class="fa-solid fa-print"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                            <td style="text-align: center">
+                                                <a href="{{ route('nota_transaksi_jual', ['id' => $purchase->id]) }}"
+                                                    target="_blank" class="btn btn-custom btn-sm">
+                                                    <i class="fa-solid fa-print"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     @endif
 
-    <div class="modal fade" id="gambarNotaModal" tabindex="-1" aria-labelledby="gambarNotaModalLabel" aria-hidden="true">
+    <div class="modal fade" id="gambarNotaModal" tabindex="-1" aria-labelledby="gambarNotaModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -164,6 +169,12 @@
                 </div>
             </div>
         </div>
+    </div>
+    <!-- Overlay di Tengah Layar -->
+    <div id="overlay"></div>
+    <!-- Spinner di Tengah Layar -->
+    <div id="spinner" class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
     </div>
 @endsection
 
@@ -181,5 +192,11 @@
             $('#notaImage').attr('src', imageUrl);
             $('#gambarNotaModal').modal('show');
         }
+
+        document.getElementById('transactionForm').addEventListener('submit', function() {
+            // Show overlay and spinner
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('spinner').style.display = 'block';
+        });
     </script>
 @endsection

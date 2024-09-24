@@ -2,13 +2,15 @@
 
 @section('style')
     <style>
-    .signature-pad {
-        border: 1px solid black;
-        width: 100%;
-        height: auto;
-        max-width: 100%; /* Membatasi agar tidak melebihi kontainer */
-        aspect-ratio: 2 / 1; /* Menjaga rasio aspek 2:1, bisa disesuaikan */
-    }
+        .signature-pad {
+            border: 1px solid black;
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            /* Membatasi agar tidak melebihi kontainer */
+            aspect-ratio: 2 / 1;
+            /* Menjaga rasio aspek 2:1, bisa disesuaikan */
+        }
     </style>
 @endsection
 
@@ -30,7 +32,8 @@
     @endif
 
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/5Bl1xZoDvj3FVBIpT9SNq9u/KfAZ5qON6lC7G" crossorigin="anonymous">
     <div class="back-button-container" style="margin-bottom: 15px">
         <a class="btn back-button" onclick="goBack()">
             <i class="fa-solid fa-arrow-left" style="color: white;"></i>
@@ -52,14 +55,16 @@
 
                 <div class="form-group">
                     <label for="tanggal_beli">Tanggal Jual*</label>
-                    <input type="date" class="form-control" id="tanggal_beli" name="tanggal_beli" value="{{ $today }}" required>
+                    <input type="date" class="form-control" id="tanggal_beli" name="tanggal_beli"
+                        value="{{ $today }}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="jenis_sampah">Jenis Sampah*</label>
-                    <select class="form-control" id="jenis_sampah" name="jenis_sampah" required onchange="updateSampahDetails()">
+                    <select class="form-control" id="jenis_sampah" name="jenis_sampah" required
+                        onchange="updateSampahDetails()">
                         <option value="">Pilih Jenis Sampah</option>
-                        @foreach($trashes as $trash)
+                        @foreach ($trashes as $trash)
                             <option value="{{ $trash->jenis_sampah }}" data-harga="{{ $trash->harga }}">
                                 {{ $trash->jenis_sampah }}
                             </option>
@@ -69,18 +74,21 @@
 
                 <div class="form-group">
                     <label for="berat">Berat (Kg)*</label>
-                    <input type="number" step="0.01" class="form-control" id="berat" onchange="sum();" name="berat" required placeholder="Berat">
+                    <input type="number" step="0.01" class="form-control" id="berat" onchange="sum();"
+                        name="berat" required placeholder="Berat">
                 </div>
 
                 <div class="form-group">
                     <label for="harga">Harga (Rp)*</label>
-                    <input type="number" class="form-control" id="harga_display" onchange="sum();" name="harga" disabled placeholder="Harga" readonly>
+                    <input type="number" class="form-control" id="harga_display" onchange="sum();" name="harga" disabled
+                        placeholder="Harga" readonly>
                     <input type="hidden" id="harga" name="harga">
                 </div>
 
                 <div class="form-group">
                     <label for="total">Total (Rp)*</label>
-                    <input type="number" class="form-control" id="total" onchange="sum();" name="total" required disabled placeholder="Total" readonly>
+                    <input type="number" class="form-control" id="total" onchange="sum();" name="total" required
+                        disabled placeholder="Total" readonly>
                 </div>
 
                 <div class="form-group">
@@ -90,7 +98,8 @@
 
                 <div class="form-group">
                     <label for="tanda_tangan">Tanda Tangan*</label><br>
-                    <canvas id="signature-pad" class="signature-pad" width=400 height=200 style="border: 1px solid black;"></canvas>
+                    <canvas id="signature-pad" class="signature-pad" width=400 height=200
+                        style="border: 1px solid black;"></canvas>
                     <input type="hidden" id="tanda_tangan" name="tanda_tangan"><br>
                     <button type="button" class="btn btn-secondary" id="clear-signature">Clear</button>
                 </div>
@@ -99,82 +108,96 @@
             </form>
         </div>
     </div>
-
+    <!-- Overlay di Tengah Layar -->
+    <div id="overlay"></div>
+    <!-- Spinner di Tengah Layar -->
+    <div id="spinner" class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
 @endsection
 
 @section('script')
-<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 
-<script>
-    function sum() {
-        var berat = document.getElementById('berat').value;
-        var harga = document.getElementById('harga').value;
-        var result = parseInt(berat) * parseInt(harga);
-        if (!isNaN(result)) {
-            document.getElementById('total').value = result;
+    <script>
+        function sum() {
+            var berat = document.getElementById('berat').value;
+            var harga = document.getElementById('harga').value;
+            var result = parseInt(berat) * parseInt(harga);
+            if (!isNaN(result)) {
+                document.getElementById('total').value = result;
+            }
         }
-    }
 
-    function updateSampahDetails() {
-        var select = document.getElementById('jenis_sampah');
-        var selectedOption = select.options[select.selectedIndex];
-        var harga = selectedOption.getAttribute('data-harga');
+        function updateSampahDetails() {
+            var select = document.getElementById('jenis_sampah');
+            var selectedOption = select.options[select.selectedIndex];
+            var harga = selectedOption.getAttribute('data-harga');
 
-        document.getElementById('harga').value = harga;
-        document.getElementById('harga_display').value = harga;
-    }
-
-    // Signature pad logic
-    var canvas = document.getElementById('signature-pad');
-    var signaturePad = new SignaturePad(canvas);
-
-    document.getElementById('clear-signature').addEventListener('click', function () {
-        signaturePad.clear();
-    });
-
-    document.querySelector('form').addEventListener('submit', function (event) {
-        if (signaturePad.isEmpty()) {
-            event.preventDefault();
-            alert('Tanda tangan dibutuhkan.');
-        } else {
-            var signatureData = signaturePad.toDataURL();
-            document.getElementById('tanda_tangan').value = signatureData;
+            document.getElementById('harga').value = harga;
+            document.getElementById('harga_display').value = harga;
         }
-    });
 
-    // Function to resize the canvas
-    function resizeCanvas() {
+        // Signature pad logic
         var canvas = document.getElementById('signature-pad');
-        var ratio = Math.max(window.devicePixelRatio || 1, 1);
-        // Resize canvas based on its container
-        canvas.width = canvas.offsetWidth * ratio;
-        canvas.height = canvas.offsetHeight * ratio;
-        canvas.getContext("2d").scale(ratio, ratio);
-        signaturePad.clear(); // Clear the canvas when resized
-    }
+        var signaturePad = new SignaturePad(canvas);
 
-    // Initialize signature pad
-    var canvas = document.getElementById('signature-pad');
-    var signaturePad = new SignaturePad(canvas);
+        document.getElementById('clear-signature').addEventListener('click', function() {
+            signaturePad.clear();
+        });
 
-    // Resize the canvas on page load and when window is resized
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas(); // Call it once on load
+        document.querySelector('form').addEventListener('submit', function(event) {
+            if (signaturePad.isEmpty()) {
+                event.preventDefault();
+                alert('Tanda tangan dibutuhkan.');
+            } else {
+                var signatureData = signaturePad.toDataURL();
+                document.getElementById('tanda_tangan').value = signatureData;
+            }
+        });
 
-    // Clear signature logic
-    document.getElementById('clear-signature').addEventListener('click', function () {
-        signaturePad.clear();
-    });
-
-    // Submit logic
-    document.querySelector('form').addEventListener('submit', function (event) {
-        if (signaturePad.isEmpty()) {
-            event.preventDefault();
-            alert('Tanda tangan dibutuhkan.');
-        } else {
-            var signatureData = signaturePad.toDataURL();
-            document.getElementById('tanda_tangan').value = signatureData;
+        // Function to resize the canvas
+        function resizeCanvas() {
+            var canvas = document.getElementById('signature-pad');
+            var ratio = Math.max(window.devicePixelRatio || 1, 1);
+            // Resize canvas based on its container
+            canvas.width = canvas.offsetWidth * ratio;
+            canvas.height = canvas.offsetHeight * ratio;
+            canvas.getContext("2d").scale(ratio, ratio);
+            signaturePad.clear(); // Clear the canvas when resized
         }
-    });
-</script>
+
+        // Initialize signature pad
+        var canvas = document.getElementById('signature-pad');
+        var signaturePad = new SignaturePad(canvas);
+
+        // Resize the canvas on page load and when window is resized
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas(); // Call it once on load
+
+        // Clear signature logic
+        document.getElementById('clear-signature').addEventListener('click', function() {
+            signaturePad.clear();
+        });
+
+        // Submit logic
+        document.querySelector('form').addEventListener('submit', function(event) {
+            if (signaturePad.isEmpty()) {
+                event.preventDefault();
+                alert('Tanda tangan dibutuhkan.');
+            } else {
+                var signatureData = signaturePad.toDataURL();
+                document.getElementById('tanda_tangan').value = signatureData;
+            }
+        });
+
+        // jQuery to show spinner and overlay when form is submitted
+        $(document).ready(function() {
+            $('form').on('submit', function() {
+                // Tampilkan overlay dan spinner saat form disubmit
+                document.getElementById('overlay').style.display = 'block';
+                document.getElementById('spinner').style.display = 'block';
+            });
+        });
+    </script>
 @endsection
