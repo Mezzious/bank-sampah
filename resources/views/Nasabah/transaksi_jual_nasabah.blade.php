@@ -110,73 +110,84 @@
         </div>
     @endif
 
-    @if (isset($purchases))
-        <div class="mb-3"></div>
-        <div class="row">
-            <div class="col">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="table_beli" class="table table-bordered">
-                                <thead class="table-secondary">
-                                    <tr>
-                                        <th>No</th>
-                                        {{-- <th>Id</th> --}}
-                                        {{-- <th>RW</th> --}}
-                                        <th>Tanggal Jual</th>
-                                        <th>Jenis Sampah</th>
-                                        <th>Gambar</th>
-                                        <th>Berat (Kg)</th>
-                                        <th>Harga (Rp)</th>
-                                        <th>Total (Rp)</th>
-                                        <th>Nota</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($purchases as $purchase)
-                                        <tr>
-                                            <td> {{ $loop->iteration }} </td>
-                                            {{-- <td> {{ $purchase->id }} </td> --}}
-                                            {{-- <td> 0{{ $purchase->user->customer->rw }} </td>  --}}
-                                            <td> {{ $purchase->tanggal_beli }} </td>
-                                            <td> {{ $purchase->jenis_sampah }} </td>
-                                            <td><img src="{{ asset('storage/assets/sampah_pembelian/' . $purchase->gambar_sampah) }}"
-                                                    width="60px" height="60px"></td>
-                                            <td> {{ $purchase->berat }}</td>
-                                            <td> {{ $purchase->harga }} </td>
-                                            <td> {{ $purchase->total }} </td>
-                                            <td style="text-align: center">
-                                                <a href="#" class="btn btn-primary btn-sm" style="color: white"
-                                                    onclick="showNotaImage('{{ asset('storage/assets/tanda_tangan_beli/' . $purchase->gambar_nota) }}')">
-                                                    <i class="bi bi-eye-fill"></i> </a>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <a href="{{ route('edit_transaksi_jual_nasabah', ['id' => $purchase->id]) }}"
-                                                    class="btn btn-warning btn-sm" style="color: white">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <a href="#" class="btn btn-danger btn-sm deleteButton"
-                                                    data-id="{{ $purchase->id }}">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
-                                                <form id="delete-form-{{ $purchase->id }}"
-                                                    action="{{ route('destroy_transaksi_jual_nasabah', $purchase->id) }}"
-                                                    method="get" style="display: none;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            <br>
-                            <div class="d-flex justify-content-between">
-                                <a href="{{ route('tambah_transaksi_jual_nasabah') }}" class="btn btn-custom">
-                                    <i class="fa-solid fa-cart-plus" style="color: white; margin-right: 5px;"></i>
-                                    <span style="color: white;">Tambah</span>
-                                </a>
+            @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                </div>
+            @endif
+
+            @if (isset($purchases))
+                <div class="mb-3"></div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="table_beli" class="table table-bordered">
+                                        <thead class="table-secondary">
+                                            <tr>
+                                                <th>No</th>
+                                                {{-- <th>Id</th> --}}
+                                                {{-- <th>RW</th> --}}
+                                                <th>Tanggal Jual</th>
+                                                <th>Jenis Sampah</th>
+                                                <th>Gambar</th>
+                                                <th>Berat (Kg)</th>
+                                                <th>Harga (Rp)</th>
+                                                <th>Total (Rp)</th>
+                                                <th>Nota</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($purchases as $purchase)
+                                                <tr>
+                                                    <td> {{ $loop->iteration }} </td>
+                                                    {{-- <td> {{ $purchase->id }} </td> --}}
+                                                    {{-- <td> 0{{ $purchase->user->customer->rw }} </td>  --}}
+                                                    <td> {{ $purchase->tanggal_beli }} </td>
+                                                    <td> {{ $purchase->jenis_sampah }} </td>
+                                                    <td><img src="{{ asset('storage/assets/sampah_pembelian/' . $purchase->gambar_sampah) }}"
+                                                            width="60px" height="60px"></td>
+                                                    <td> {{ $purchase->berat }}</td>
+                                                    <td> {{ $purchase->harga }} </td>
+                                                    <td> {{ $purchase->total }} </td>
+                                                    <td style="text-align: center">
+                                                        <a href="#" class="btn btn-primary btn-sm"
+                                                            style="color: white"
+                                                            onclick="showNotaImage('{{ asset('storage/assets/tanda_tangan_beli/' . $purchase->gambar_nota) }}')">
+                                                            <i class="bi bi-eye-fill"></i> 
+                                                        </a>
+                                                    </td>
+                                                    <td style="text-align: center;">
+                                                        <a href="{{ route('edit_transaksi_jual_nasabah', ['id' => $purchase->id]) }}"
+                                                            class="btn btn-warning btn-sm" style="color: white"> 
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <a href="#" class="btn btn-danger btn-sm deleteButton"
+                                                            data-id="{{ $purchase->id }}">
+                                                            <i class="fas fa-trash"></i>
+                                                        </a>
+                                                        <form id="delete-form-{{ $purchase->id }}"
+                                                            action="{{ route('destroy_transaksi_jual_nasabah', $purchase->id) }}"
+                                                            method="get" style="display: none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <br>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="{{ route('tambah_transaksi_jual_nasabah') }}" class="btn btn-custom">
+                                            <i class="fa-solid fa-cart-plus" style="color: white; margin-right: 5px;"></i>
+                                            <span style="color: white;">Tambah</span>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
