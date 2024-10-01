@@ -83,7 +83,7 @@
         </a>
     </div>
 
-    <form action="{{ route('tampilkan_tanggal_beli_laporan') }}" method="post" name="form10">
+    <form action="{{ route('tampilkan_tanggal_laporan_beli_user') }}" method="post" name="form10">
         @csrf
         <div class="row">
             <div class="col-lg-3">
@@ -138,7 +138,7 @@
                             </tbody>
                         </table>
                         <div>
-                            <a href="{{ route('cetak_laporan_beli') }}" target="_blank" class="btn btn-custom" id="printButton">
+                            <a href="{{ route('cetak_laporan_beli_user') }}" target="_blank" class="btn btn-custom" id="printButton">
                                 <i class="fa-solid fa-print" style="color: white;"></i> <span style="color: white;">Cetak</span>
                             </a>
                         </div>

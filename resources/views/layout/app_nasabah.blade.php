@@ -88,7 +88,7 @@
                             <ul class="submenu ">
 
                                 <li class="submenu-item  ">
-                                    <a href="#" class="submenu-link">Laporan Jual</a>
+                                    <a href="{{ route('laporan_jual_nasabah') }}" class="submenu-link">Laporan Jual</a>
 
                                 </li>
 
