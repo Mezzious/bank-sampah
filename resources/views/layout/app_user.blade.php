@@ -85,7 +85,7 @@
                             <ul class="submenu ">
 
                                 <li class="submenu-item  ">
-                                    <a href="#" class="submenu-link">Laporan Beli</a>
+                                    <a href="{{ route('laporan_beli_user') }}" class="submenu-link">Laporan Beli</a>
 
                                 </li>
                             </ul>

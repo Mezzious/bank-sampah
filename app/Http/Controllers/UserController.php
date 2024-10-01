@@ -233,4 +233,75 @@ class UserController extends Controller
         // Kembalikan view dengan data yang difilter
         return view('user/transaksi_beli_user', compact('saleses', 'user'));
     }
+
+    public function laporan_beli_user()
+    {
+        // Ambil data pengguna yang sedang login
+        $user = auth()->user();
+
+       // Ambil transaksi pembelian terkait dengan pengguna yang login
+        $saleses = Sales::where('user_id', $user->id)->get();
+        return view('user/laporan_beli_user', compact('saleses', 'user'));
+    }
+
+    public function tampilkan_tanggal_laporan_beli_user(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'txtTglAwal' => 'required|date',
+            'txtTglAkhir' => 'required|date|after_or_equal:txtTglAwal',
+        ]);
+
+        $tglAwal = $request->input('txtTglAwal');
+        $tglAkhir = $request->input('txtTglAkhir');
+
+        // Ambil user yang sedang login
+        $user = auth()->user();
+
+        // Simpan tanggal di sesi jika diberikan
+        if ($tglAwal && $tglAkhir) {
+            session(['tglAwal' => $tglAwal, 'tglAkhir' => $tglAkhir]);
+        } else {
+            session()->forget(['tglAwal', 'tglAkhir']);
+        }
+
+        // Ambil data dari database sesuai dengan rentang tanggal jika ada, jika tidak ambil semua data
+        if ($tglAwal && $tglAkhir) {
+            $saleses = Sales::where('user_id', $user->id)
+            ->whereBetween('tanggal_jual', [$tglAwal, $tglAkhir])
+            ->get();
+        } else {
+            $saleses = Sales::all();
+        }
+
+        // Kembalikan view dengan data yang difilter
+        return view('user/laporan_beli_user', compact('saleses'));
+    }
+
+    public function cetak_laporan_beli_user(Request $request)
+    {
+        // Ambil tanggal dari sesi
+        $tglAwal = session('tglAwal');
+        $tglAkhir = session('tglAkhir');
+
+        // Ambil user yang sedang login
+        $user = auth()->user();
+
+        // Cek apakah tanggal awal dan akhir diberikan
+        if ($tglAwal && $tglAkhir) {
+            // Ambil data dari database sesuai dengan rentang tanggal
+            $saleses = Sales::where('user_id', $user->id)
+                ->whereBetween('tanggal_jual', [$tglAwal, $tglAkhir])
+                ->get();
+        } else {
+            // Jika tanggal tidak diberikan, ambil semua data
+            $saleses = Sales::all();
+        }
+
+        // Hapus sesi tanggal setelah data diambil
+        session()->forget(['tglAwal', 'tglAkhir']);
+
+        // Return view cetak laporan dengan data yang difilter
+        return view('user/cetak_laporan_beli_user', compact('saleses', 'tglAwal', 'tglAkhir'));
+    }
 }

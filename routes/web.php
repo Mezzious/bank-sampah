@@ -168,6 +168,12 @@ Route::group(['middleware' => ['auth', 'admin:user']], function () {
     Route::get('/ganti_password_user', [UserController::class, 'ganti_password_user'])->name('ganti_password_user');
 
     Route::post('/ganti_password_user', [UserController::class, 'update_password_user'])->name('update_password_user');
+
+    Route::get('/laporan_beli_user', [UserController::class, 'laporan_beli_user'])->name('laporan_beli_user');
+
+    Route::post('/laporan_beli_user', [UserController::class, 'tampilkan_tanggal_laporan_beli_user'])->name('tampilkan_tanggal_laporan_beli_user');
+
+    Route::get('/cetak_laporan_beli_user', [UserController::class, 'cetak_laporan_beli_user'])->name('cetak_laporan_beli_user');
 });
 
 // Nasabah Route //
@@ -194,6 +200,12 @@ Route::group(['middleware' => ['auth', 'admin:nasabah']], function () {
     Route::get('/ganti_password_nasabah', [NasabahController::class, 'ganti_password_nasabah'])->name('ganti_password_nasabah');
     
     Route::post('/ganti_password_nasabah', [NasabahController::class, 'update_ganti_password_nasabah'])->name('update_ganti_password_nasabah');
+
+    Route::get('/laporan_jual_nasabah', [NasabahController::class, 'laporan_jual_nasabah'])->name('laporan_jual_nasabah');
+
+    Route::get('/cetak_laporan_jual_nasabah', [NasabahController::class, 'cetak_laporan_jual_nasabah'])->name('cetak_laporan_jual_nasabah');
+
+    Route::post('/laporan_jual_nasabah', [NasabahController::class, 'tampilkan_tanggal_laporan_jual_nasabah'])->name('tampilkan_tanggal_laporan_jual_nasabah');
 });
 
 
