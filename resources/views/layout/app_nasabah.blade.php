@@ -35,8 +35,8 @@
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="#"><img src="./assets/compiled/png/logoterbaru1.png" alt="Logo"
-                                    srcset="" style="height: 45px; width: 45px;"></a>
+                            <a href="#"><img src="./assets/compiled/png/kelurahan.png" alt="Logo"
+                                    srcset="" style="height: 70px; width: 70px;"></a>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                             <div class="form-check form-switch fs-6">
