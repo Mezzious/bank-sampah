@@ -1,9 +1,10 @@
 @extends('layout.cetak')
 
 @section('content')
-<link rel="stylesheet" href="./assets/compiled/css/all.view.css">
-    <h1 align="center"><b>Laporan Jual Sampah</b></h1>
-    <table id="table_laporan_beli" class="table table-bordered" rules="all" align="center" border="1px" style="width: 95%">
+    <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
+    <hr style="border: 1px solid black">
+    <h1 align="center"><b>LAPORAN JUAL SAMPAH</b></h1>
+    <table id="table_laporan_beli" class="table table-bordered bold-border-table" rules="all" align="center" border="1px" style="width: 95%">
         <thead class="table-secondary">
             <tr>
                 <th>No</th>
@@ -19,9 +20,9 @@
             @php $grandTotal = 0; @endphp
             @foreach ($purchases as $purchase)
                 @php
-                $grandTotal += $purchase->total;
-                $hargaRp = number_format($purchase->harga, 0, ',', '.'); // Ubah harga ke format Rupiah
-                $totalRp = number_format($purchase->total, 0, ',', '.'); // Ubah total ke format Rupiah
+                    $grandTotal += $purchase->total;
+                    $hargaRp = number_format($purchase->harga, 0, ',', '.'); // Ubah harga ke format Rupiah
+                    $totalRp = number_format($purchase->total, 0, ',', '.'); // Ubah total ke format Rupiah
                 @endphp
                 <tr align="center">
                     <td>{{ $loop->iteration }}</td>

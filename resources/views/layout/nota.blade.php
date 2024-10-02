@@ -30,27 +30,91 @@
     <style>
         .kop-laporan {
             text-align: center;
-            width: 100%; /* Lebar penuh untuk menempatkan kop di tengah */
-            padding: 20px 0; /* Memberi jarak atas dan bawah */
-            margin-bottom: 5px; /* Memberi jarak dari elemen di bawahnya */
+            width: 100%;
+            /* Lebar penuh untuk menempatkan kop di tengah */
+            padding: 20px 0;
+            /* Memberi jarak atas dan bawah */
+            margin-bottom: 5px;
+            /* Memberi jarak dari elemen di bawahnya */
         }
 
         .kop-laporan h1 {
-            font-size: 28px; /* Ukuran font judul utama */
-            margin: 0; /* Menghilangkan margin default */
-            font-weight: bold; /* Membuat teks lebih tebal */
+            font-size: 28px;
+            /* Ukuran font judul utama */
+            margin: 0;
+            /* Menghilangkan margin default */
+            font-weight: bold;
+            /* Membuat teks lebih tebal */
         }
 
         .kop-laporan h2 {
-            font-size: 24px; /* Ukuran font sub-judul */
-            margin: 5px 0; /* Jarak antara judul utama dan sub-judul */
+            font-size: 24px;
+            /* Ukuran font sub-judul */
+            margin: 5px 0;
+            /* Jarak antara judul utama dan sub-judul */
             /* font-weight: normal; Menjaga agar tidak terlalu tebal */
         }
 
         .kop-laporan p {
-            font-size: 16px; /* Ukuran font untuk alamat */
-            margin: 10px 0; /* Memberi jarak pada paragraf */
-            line-height: 1.5; /* Mengatur jarak antar-baris agar lebih enak dibaca */
+            font-size: 16px;
+            /* Ukuran font untuk alamat */
+            margin: 10px 0;
+            /* Memberi jarak pada paragraf */
+            line-height: 1.5;
+            /* Mengatur jarak antar-baris agar lebih enak dibaca */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            width: 58mm;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nota-container {
+            padding: 5px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .header p {
+            margin: 0;
+            font-size: 9px;
+        }
+
+        h2 {
+            font-size: 12px;
+            margin: 10px 0;
+        }
+
+        table {
+            width: 100%;
+            font-size: 11px;
+            border-collapse: collapse;
+        }
+
+        table td {
+            padding: 3px 0;
+        }
+
+        hr {
+            margin: 10px 0;
+        }
+
+        .footer {
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .footer div {
+            width: 45%;
+            display: inline-block;
+            text-align: center;
+            font-size: 10px;
         }
     </style>
 </head>
@@ -69,7 +133,7 @@
     </div>
 
     @yield('style')
-        {{-- <script src="assets/static/js/components/dark.js"></script>
+    {{-- <script src="assets/static/js/components/dark.js"></script>
         <script src="assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 
 
@@ -128,11 +192,11 @@
             });
         </script> --}}
 
-        <!-- Page level custom scripts -->
-        {{-- <script src="resources/js/demo/chart-area-demo.js"></script>
+    <!-- Page level custom scripts -->
+    {{-- <script src="resources/js/demo/chart-area-demo.js"></script>
         <script src="resources/js/demo/chart-pie-demo.js"></script>
         <script src="resources/js/demo/chart-bar-demo.js"></script> --}}
-        @yield('script')
+    @yield('script')
 </body>
 
 </html>

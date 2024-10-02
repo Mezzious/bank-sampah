@@ -1,94 +1,47 @@
 @extends('layout.nota')
 
 @section('content')
-<div class="nota-container">
-    <div class="header" align="center">
-        <h1>BANK SAMPAH KELURAHAN DURI KEPA</h1>
-        <p>Jl. Kebon Raya No.1 4, RT.4/RW.7, Duri Kepa, Kec. Kb. Jeruk,</p>
-        <p>Jakarta Barat, DKI Jakarta 11510</p>
-    </div>
-
-    <hr style="border: 1px dashed black">
-
-    <h2 align="center"><b>NOTA PEMBELIAN SAMPAH</b></h2>
-
-    <table style="width: 100%;">
-        <tr>
-            <td> Tanggal: {{ $saleses->tanggal_jual }} </td>
-            <td align="right">Harga: {{ $saleses->harga }} / Kg</td>
-        </tr>
-        <tr>
-            <td>Jenis Sampah: {{ $saleses->jenis_sampah }}</td>
-            <td align="right">Berat: {{ $saleses->berat }} Kg</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td align="right">Total: {{ $saleses->total }} </td>
-        </tr>
-    </table>
-
-    <hr style="border: 1px dashed black; margin: 10px 0;">
-
-    <div class="footer">
-        <div style="float: left; text-align: center; width: 45%;">
-            <p>Pengepul</p>
-            <p>({{ $saleses->user->name }})</p>
+    <div class="nota-container">
+        <div class="header" align="center">
+            <h1>BANK SAMPAH KELURAHAN DURI KEPA</h1>
+            <p>Jl. Kebon Raya No.1 4, RT.4/RW.7, Duri Kepa, Kec. Kb. Jeruk,</p>
+            <p>Jakarta Barat, DKI Jakarta 11510</p>
         </div>
-        <div style="float: right; text-align: center; width: 45%;">
-            <p>Petugas Bank Sampah</p>
-            <img src="{{ asset('storage/assets/tanda_tangan_jual/' . $saleses->gambar_nota) }}" alt="Tanda Tangan" style="max-width: 100px; max-height: 50px;">
-            <p> ({{ $superadmin->name }}) </p>
+
+        <hr style="border: 1px dashed black">
+
+        <h2 align="center"><b>NOTA PEMBELIAN SAMPAH</b></h2>
+
+        <table style="width: 100%;">
+            <tr>
+                <td> Tanggal: {{ $saleses->tanggal_jual }} </td>
+                <td align="right">Harga: {{ $saleses->harga }} / Kg</td>
+            </tr>
+            <tr>
+                <td>Jenis Sampah: {{ $saleses->jenis_sampah }}</td>
+                <td align="right">Berat: {{ $saleses->berat }} Kg</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td align="right">Total: {{ $saleses->total }} </td>
+            </tr>
+        </table>
+
+        <hr style="border: 1px dashed black; margin: 10px 0;">
+
+        <div class="footer">
+            <div style="float: left; text-align: center; width: 45%;">
+                <p>Pengepul</p>
+                <p>({{ $saleses->user->name }})</p>
+            </div>
+            <div style="float: right; text-align: center; width: 45%;">
+                <p>Petugas Bank Sampah</p>
+                <img src="{{ asset('storage/assets/tanda_tangan_jual/' . $saleses->gambar_nota) }}" alt="Tanda Tangan"
+                    style="max-width: 100px; max-height: 50px;">
+                <p> ({{ $superadmin->name }}) </p>
+            </div>
         </div>
+
+        <div style="clear: both;"></div>
     </div>
-
-    <div style="clear: both;"></div>
-</div>
-@endsection
-
-@section('style')
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        font-size: 11px;
-        width: 58mm;
-        margin: 0;
-        padding: 0;
-    }
-    .nota-container {
-        padding: 5px;
-    }
-    .header h1 {
-        margin: 0;
-        font-size: 13px;
-    }
-    .header p {
-        margin: 0;
-        font-size: 9px;
-    }
-    h2 {
-        font-size: 12px;
-        margin: 10px 0;
-    }
-    table {
-        width: 100%;
-        font-size: 11px;
-        border-collapse: collapse;
-    }
-    table td {
-        padding: 3px 0;
-    }
-    hr {
-        margin: 10px 0;
-    }
-    .footer {
-        margin-top: 15px;
-        width: 100%;
-    }
-    .footer div {
-        width: 45%;
-        display: inline-block;
-        text-align: center;
-        font-size: 10px;
-    }
-</style>
 @endsection
