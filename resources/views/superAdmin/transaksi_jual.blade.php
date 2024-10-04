@@ -118,7 +118,6 @@
                                         <th>Berat (Kg)</th>
                                         <th>Harga (Rp)</th>
                                         <th>Total (Rp)</th>
-                                        {{-- <th>Nota</th> --}}
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -134,11 +133,6 @@
                                             <td>{{ $purchase->berat }}</td>
                                             <td>{{ $purchase->harga }}</td>
                                             <td>{{ $purchase->total }}</td>
-                                            {{-- <td style="text-align: center">
-                                        <a href="#" class="btn btn-primary btn-sm" style="color: white" onclick="showNotaImage('{{ asset('storage/assets/nota_beli/'.$purchase->gambar_nota) }}')">
-                                            <i class="bi bi-eye-fill"></i>
-                                        </a>
-                                    </td> --}}
                                             <td style="text-align: center">
                                                 <a href="{{ route('nota_transaksi_jual', ['id' => $purchase->id]) }}"
                                                     target="_blank" class="btn btn-custom btn-sm">
@@ -149,6 +143,11 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div>
+                                <button id="exportButton" class="btn btn-custom">
+                                    <i class="fa-solid fa-file-export" style="color: white;"></i> <span style="color: white;">Export</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -182,6 +181,7 @@
     <script src="/assets/compiled/js/jquery.min.js"></script>
     <script src="/assets/compiled/js/jquery.dataTables.min.js"></script>
     <script src="/assets/compiled/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -197,6 +197,44 @@
             // Show overlay and spinner
             document.getElementById('overlay').style.display = 'block';
             document.getElementById('spinner').style.display = 'block';
+        });
+    </script>
+
+    <script>
+        document.getElementById('exportButton').addEventListener('click', function() {
+            // Ambil tabel laporan beli
+            var table = document.getElementById('table_beli');
+            var data = [];
+            
+            // Ambil header tabel (thead) tanpa kolom gambar dan aksi
+            var headers = [];
+            table.querySelectorAll('thead th').forEach(function(th, index) {
+                // Ambil kolom header kecuali kolom gambar (indeks 4) dan aksi (indeks 8)
+                if (index !== 4 && index !== 8) {
+                    headers.push(th.innerText);
+                }
+            });
+            data.push(headers);
+
+            // Ambil isi tabel (tbody) tanpa kolom gambar dan aksi
+            table.querySelectorAll('tbody tr').forEach(function(row) {
+                var rowData = [];
+                row.querySelectorAll('td').forEach(function(td, index) {
+                    // Skip kolom gambar (indeks 4) dan aksi (indeks 8)
+                    if (index !== 4 && index !== 8) {
+                        rowData.push(td.innerText);
+                    }
+                });
+                data.push(rowData);
+            });
+
+            // Membuat workbook Excel dengan SheetJS
+            var worksheet = XLSX.utils.aoa_to_sheet(data);
+            var workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Transaksi Jual Sampah");
+
+            // Ekspor dan unduh file Excel
+            XLSX.writeFile(workbook, 'Transaksi_Jual_Sampah.xlsx');
         });
     </script>
 @endsection
