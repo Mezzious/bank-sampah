@@ -107,7 +107,7 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="table_laporan_beli" class="table table-bordered">
+                            <table id="table_laporan_jual" class="table table-bordered">
                                 <thead class="table-secondary">
                                     <tr>
                                         <th>No</th>
@@ -136,11 +136,11 @@
                                             <td>{{ $purchase->total }}</td>
                                         </tr>
                                     @endforeach
-                                    <tr>
-                                        <td colspan="7" class="text-right font-weight-bold">Jumlah Total</td>
-                                        <td colspan="2" class="font-weight-bold">{{ $grandTotal }}</td>
-                                    </tr>
                                 </tbody>
+                                <tr>
+                                    <td colspan="7" class="text-right font-weight-bold">Jumlah Total</td>
+                                    <td colspan="2" class="font-weight-bold">{{ $grandTotal }}</td>
+                                </tr>
                             </table>
                             <div>
                                 <a href="{{ route('cetak_laporan_jual') }}" target="_blank" class="btn btn-custom"
@@ -148,6 +148,9 @@
                                     <i class="fa-solid fa-print" style="color: white;"></i> <span
                                         style="color: white;">Cetak</span>
                                 </a>
+                                <button id="exportButton" class="btn btn-custom">
+                                    <i class="fa-solid fa-file-export" style="color: white;"></i> <span style="color: white;">Export</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -182,10 +185,11 @@
     <script src="/assets/compiled/js/jquery.min.js"></script>
     <script src="/assets/compiled/js/jquery.dataTables.min.js"></script>
     <script src="/assets/compiled/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
 
     <script>
         $(document).ready(function() {
-            $('#table_laporan_beli').DataTable();
+            $('#table_laporan_jual').DataTable();
         });
 
         function showNotaImage(imageUrl) {
@@ -199,4 +203,43 @@
             document.getElementById('spinner').style.display = 'block';
         });
     </script>
+
+    <script>
+        document.getElementById('exportButton').addEventListener('click', function() {
+            // Ambil tabel laporan beli
+            var table = document.getElementById('table_laporan_jual');
+            var data = [];
+            
+            // Ambil header tabel (thead)
+            var headers = [];
+            table.querySelectorAll('thead th').forEach(function(th, index) {
+                // Skip kolom gambar
+                if (index !== 4) {  // Kolom gambar ada di indeks 3
+                    headers.push(th.innerText);
+                }
+            });
+            data.push(headers);
+
+            // Ambil isi tabel (tbody)
+            table.querySelectorAll('tbody tr').forEach(function(row) {
+                var rowData = [];
+                row.querySelectorAll('td').forEach(function(td, index) {
+                    // Skip kolom gambar
+                    if (index !== 4) {  // Kolom gambar ada di indeks 3
+                        rowData.push(td.innerText);
+                    }
+                });
+                data.push(rowData);
+            });
+
+            // Membuat workbook Excel dengan SheetJS
+            var worksheet = XLSX.utils.aoa_to_sheet(data);
+            var workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Laporan Jual Sampah");
+
+            // Ekspor dan unduh file Excel
+            XLSX.writeFile(workbook, 'Laporan_Jual_Sampah.xlsx');
+        });
+    </script>
+
 @endsection
