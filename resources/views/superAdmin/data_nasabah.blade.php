@@ -174,7 +174,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
-            $('#table_user').DataTable();
+            $('#table_nasabah').DataTable();
 
             $('.deleteButton').on('click', function(e) {
                 e.preventDefault();

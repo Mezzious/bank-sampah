@@ -15,14 +15,14 @@ class Purchase extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id',
         'tanggal_beli',
         'jenis_sampah',
         'berat',
         'harga',
         'total',
         'gambar_sampah',
-        'gambar_nota',
+        'gambar_ttd',
+        'user_id',
     ];
 
     /**
