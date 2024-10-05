@@ -59,7 +59,6 @@
         </div>
         <div class="offcanvas-body">
             <div class="text-center">
-                {{-- <p class="user-dropdown-name">Selamat Datang, {{ $user->name }}</p> --}}
                 <a class="btn btn-block btn-custom mb-2" style="border-radius: 8px;" href="{{ route('ganti_password') }}">
                     <i class="bi bi-key-fill"></i> Ganti Password
                 </a>
@@ -131,11 +130,11 @@
                                         <td>{{ $sales->total }}</td>
                                     </tr>
                                 @endforeach
-                                <tr>
-                                    <td colspan="6" class="text-right font-weight-bold">Jumlah Total</td>
-                                    <td colspan="2" class="font-weight-bold">{{ $grandTotal }}</td>
-                                </tr>
                             </tbody>
+                            <tr>
+                                <td colspan="6" class="text-center font-weight-bold">Jumlah Total</td>
+                                <td colspan="2" class="font-weight-bold">{{ $grandTotal }}</td>
+                            </tr>
                         </table>
                         <div>
                             <a href="{{ route('cetak_laporan_beli_user') }}" target="_blank" class="btn btn-custom" id="printButton">

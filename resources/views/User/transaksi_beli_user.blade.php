@@ -116,12 +116,10 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="table_jual" class="table table-bordered">
+                            <table id="table_user" class="table table-bordered">
                                 <thead class="table-secondary">
                                     <tr>
                                         <th>No</th>
-                                        {{-- <th>Id</th>
-                                <th>User_Id</th> --}}
                                         <th>Tanggal Beli</th>
                                         <th>Jenis Sampah</th>
                                         <th>Gambar Sampah</th>
@@ -136,8 +134,6 @@
                                     @foreach ($saleses as $sales)
                                         <tr>
                                             <td> {{ $loop->iteration }} </td>
-                                            {{-- <td> {{ $sales->id }} </td>
-                                {{-- <td> {{ $sales->user_id }} </td> --}}
                                             <td> {{ $sales->tanggal_jual }} </td>
                                             <td> {{ $sales->jenis_sampah }} </td>
                                             <td><img src="{{ asset('storage/assets/sampah_penjualan/' . $sales->gambar_sampah) }}"width="60px"
@@ -147,7 +143,7 @@
                                             <td> {{ $sales->total }} </td>
                                             <td style="text-align: center">
                                                 <a href="#" class="btn btn-primary btn-sm" style="color: white"
-                                                    onclick="showNotaImage('{{ asset('storage/assets/tanda_tangan_jual/' . $sales->gambar_nota) }}')">
+                                                    onclick="showNotaImage('{{ asset('storage/assets/tanda_tangan_jual/' . $sales->gambar_ttd) }}')">
                                                     <i class="bi bi-eye-fill"></i> 
                                                 </a>
                                             </td>

@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
-use App\Models\Nasabah;
 use App\Models\Purchase;
-use App\Models\SuperAdmin;
 use App\Models\Trash;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -23,14 +20,10 @@ class NasabahController extends Controller
         // Pastikan pengguna telah login sebelum menampilkan data
         if ($user) {
             // Mendapatkan data Customer yang terkait dengan pengguna yang sedang login
-            // $customer = Customer::where('user_id', $user->id)->first();
             $customer = $user->customer;
 
             $totalSampah = Purchase::where('user_id', $user->id)->sum('berat');
             $totalPenjualanSampah = Purchase::where('user_id', $user->id)->sum('total');
-
-            // Mendapatkan nilai RW dari customer yang terkait
-            // $rw = $customer ? $customer->RW : 'Default RW';
 
             // Mengirimkan data ke tampilan
             return view('nasabah/dashboard_nasabah', compact('customer', 'totalSampah', 'totalPenjualanSampah'));
@@ -95,7 +88,7 @@ class NasabahController extends Controller
             $purchase->berat = $request->input('berat');
             $purchase->harga = $request->input('harga');
             $purchase->total = $request->input('berat') * $request->input('harga');
-            $purchase->gambar_nota = $signatureName;
+            $purchase->gambar_ttd = $signatureName;
             $purchase->gambar_sampah = $sampahBeli;
             $purchase->save();
     
@@ -125,7 +118,6 @@ class NasabahController extends Controller
             'berat' => 'required|numeric',
             'harga' => 'required|numeric',
             'gambar_sampah' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi untuk gambar_sampah
-            // 'gambar_nota' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi untuk gambar_nota
         ]);
 
         $purchase = Purchase::findOrFail($id);
@@ -161,7 +153,7 @@ class NasabahController extends Controller
             Storage::delete($path1);
         }
 
-        $path2 = 'public/assets/tanda_tangan_beli/' . $purchase->gambar_nota;
+        $path2 = 'public/assets/tanda_tangan_beli/' . $purchase->gambar_ttd;
         if (Storage::exists($path2)) {
             Storage::delete($path2);
         }

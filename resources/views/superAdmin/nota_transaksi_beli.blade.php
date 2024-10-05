@@ -36,7 +36,7 @@
             </div>
             <div style="float: right; text-align: center; width: 45%;">
                 <p>Petugas Bank Sampah</p>
-                <img src="{{ asset('storage/assets/tanda_tangan_jual/' . $saleses->gambar_nota) }}" alt="Tanda Tangan"
+                <img src="{{ asset('storage/assets/tanda_tangan_jual/' . $saleses->gambar_ttd) }}" alt="Tanda Tangan"
                     style="max-width: 100px; max-height: 50px;">
                 <p> ({{ $superadmin->name }}) </p>
             </div>

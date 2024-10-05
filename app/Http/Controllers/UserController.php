@@ -91,7 +91,7 @@ class UserController extends Controller
         $sales->berat = $request->input('berat');
         $sales->harga = $request->input('harga');
         $sales->total = $request->input('berat') * $request->input('harga');
-        $sales->gambar_nota = $signatureName;
+        $sales->gambar_ttd = $signatureName;
         $sales->gambar_sampah = $sampahJual;
         $sales->save();
 
@@ -122,7 +122,6 @@ class UserController extends Controller
             'berat' => 'required|numeric',
             'harga' => 'required|numeric',
             'gambar_sampah' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi untuk gambar_sampah
-            // 'gambar_nota' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi untuk gambar_nota
         ]);
 
         $sales = Sales::findOrFail($id);
@@ -138,18 +137,6 @@ class UserController extends Controller
             $request->gambar_sampah->storeAs('public/assets/sampah_penjualan', $sampahJual);
             $sales->gambar_sampah = $sampahJual;
         }
-
-            // // Tangani file gambar_nota
-            // if ($request->hasFile('gambar_nota')) {
-            //     Storage::delete('public/assets/nota_jual/' . $sales->gambar_nota);
-
-            //     $notaJualName = time() . '.' . $request->gambar_nota->extension();
-            //     if (!$request->gambar_nota->isValid()) {
-            //         return back()->withErrors(['gambar_nota' => 'File gambar tidak valid']);
-            //     }
-            //     $request->gambar_nota->storeAs('public/assets/nota_jual', $notaJualName);
-            //     $sales->gambar_nota = $notaJualName;
-            // }
 
         $sales->tanggal_jual = $request->input('tanggal_jual');
         $sales->jenis_sampah = $request->input('jenis_sampah');
@@ -171,7 +158,7 @@ class UserController extends Controller
             Storage::delete($path1);
         }
 
-        $path2 = 'public/assets/tanda_tangan_jual/' . $sales->gambar_nota;
+        $path2 = 'public/assets/tanda_tangan_jual/' . $sales->gambar_ttd;
         if (Storage::exists($path2)) {
             Storage::delete($path2);
         }

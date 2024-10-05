@@ -17,11 +17,12 @@ class Sales extends Model
     protected $fillable = [
         'tanggal_jual',
         'jenis_sampah',
-        'gambar_sampah',
-        'gambar_nota',
         'berat',
         'harga',
-        'total'
+        'total',
+        'gambar_sampah',
+        'gambar_ttd',
+        'user_id',
     ];
 
         /**
