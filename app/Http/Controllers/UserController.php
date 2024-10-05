@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Purchase;
-use App\Models\Sales;
-use App\Models\SuperAdmin;
 use App\Models\Trash;
 use Illuminate\Http\Request;
 
@@ -24,10 +22,10 @@ class UserController extends Controller
         // Pastikan pengguna telah login sebelum menampilkan data
         if ($user) {
             
-            $totalSampah = Sales::where('user_id', $user->id)->sum('berat');
-            $totalPenjualanSampah = Sales::where('user_id', $user->id)->sum('total');
+            $totalSampah = Purchase::where('user_id', $user->id)->sum('berat');
+            $totalPembelianSampah = Purchase::where('user_id', $user->id)->sum('total');
 
-            return view('user/dashboard_user', compact('user', 'totalSampah', 'totalPenjualanSampah'));
+            return view('user/dashboard_user', compact('user', 'totalSampah', 'totalPembelianSampah'));
         } else {
             // Jika pengguna belum login, bisa diarahkan ke halaman login atau tindakan lainnya
             return redirect()->route('login');
@@ -40,8 +38,8 @@ class UserController extends Controller
         $user = auth()->user();
 
        // Ambil transaksi pembelian terkait dengan pengguna yang login
-        $saleses = Sales::where('user_id', $user->id)->get();
-        return view('user/transaksi_beli_user', compact('saleses', 'user'));
+        $purchases = Purchase::where('user_id', $user->id)->get();
+        return view('user/transaksi_beli_user', compact('purchases', 'user'));
     }
 
     public function tambah_transaksi_beli_user()
@@ -54,7 +52,7 @@ class UserController extends Controller
     {
         // Validasi input
         $request->validate([
-            'tanggal_jual' => 'required|date',
+            'tanggal_beli' => 'required|date',
             'jenis_sampah' => 'required|string',
             'berat' => 'required|numeric',
             'harga' => 'required|numeric',
@@ -63,18 +61,18 @@ class UserController extends Controller
         ]);
 
         // Membuat direktori baru untuk menyimpan nota jual
-        $path1 = 'public/assets/sampah_penjualan';
+        $path1 = 'public/assets/sampah_pembelian';
         Storage::makeDirectory($path1);
 
         // Proses upload gambar nota jual
-        $sampahJual = time() . '.' . $request->gambar->extension();
+        $sampahBeli = time() . '.' . $request->gambar->extension();
         if (!$request->gambar->isValid()) {
             return back()->withErrors(['gambar' => 'File gambar tidak valid']);
         }
-        $request->gambar->storeAs($path1, $sampahJual);
+        $request->gambar->storeAs($path1, $sampahBeli);
 
         // Proses tanda tangan
-        $path2 = 'public/assets/tanda_tangan_jual';
+        $path2 = 'public/assets/tanda_tangan_beli';
         Storage::makeDirectory($path2); // Membuat folder jika belum ada
 
         $signatureData = $request->input('tanda_tangan');
@@ -84,16 +82,16 @@ class UserController extends Controller
         Storage::put($path2 . '/' . $signatureName, base64_decode($signature));
 
         // Simpan data ke dalam database
-        $sales = new Sales();
-        $sales->user_id = auth()->id();
-        $sales->tanggal_jual = $request->input('tanggal_jual');
-        $sales->jenis_sampah = $request->input('jenis_sampah');
-        $sales->berat = $request->input('berat');
-        $sales->harga = $request->input('harga');
-        $sales->total = $request->input('berat') * $request->input('harga');
-        $sales->gambar_ttd = $signatureName;
-        $sales->gambar_sampah = $sampahJual;
-        $sales->save();
+        $purchases = new Purchase();
+        $purchases->user_id = auth()->id();
+        $purchases->tanggal_beli = $request->input('tanggal_beli');
+        $purchases->jenis_sampah = $request->input('jenis_sampah');
+        $purchases->berat = $request->input('berat');
+        $purchases->harga = $request->input('harga');
+        $purchases->total = $request->input('berat') * $request->input('harga');
+        $purchases->gambar_ttd = $signatureName;
+        $purchases->gambar_sampah = $sampahBeli;
+        $purchases->save();
 
         // Redirect ke halaman yang sesuai dengan pesan sukses atau lainnya
         return redirect()->route('transaksi_beli_user')->with('success', 'Data pembelian berhasil disimpan.');
@@ -102,48 +100,48 @@ class UserController extends Controller
     public function edit_transaksi_beli_user(Request $request)
     {
         $id = $request->input('id');
-        $sales = Sales::findOrFail($id);
+        $purchases = Purchase::findOrFail($id);
 
-        if (!$sales) {
+        if (!$purchases) {
             return back()->with('error', 'Data penjualan tidak ditemukan.');
         }
 
         $trashes = Trash::all();
 
-        return view('user/edit_transaksi_beli_user', compact('sales', 'trashes'));
+        return view('user/edit_transaksi_beli_user', compact('purchases', 'trashes'));
     }
 
     public function update_transaksi_beli_user(Request $request)
     {
         $id = $request->input('id');
         $request->validate([
-            'tanggal_jual' => 'required|date',
+            'tanggal_beli' => 'required|date',
             'jenis_sampah' => 'required|string',
             'berat' => 'required|numeric',
             'harga' => 'required|numeric',
             'gambar_sampah' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi untuk gambar_sampah
         ]);
 
-        $sales = Sales::findOrFail($id);
+        $pruchases = Purchase::findOrFail($id);
 
         // Tangani file gambar_sampah
         if ($request->hasFile('gambar_sampah')) {
-            Storage::delete('public/assets/sampah_penjualan/' . $sales->gambar_sampah);
+            Storage::delete('public/assets/sampah_pembelian/' . $pruchases->gambar_sampah);
 
             $sampahJual = time() . '.' . $request->gambar_sampah->extension();
             if (!$request->gambar_sampah->isValid()) {
                 return back()->withErrors(['gambar_sampah' => 'File gambar tidak valid']);
             }
-            $request->gambar_sampah->storeAs('public/assets/sampah_penjualan', $sampahJual);
-            $sales->gambar_sampah = $sampahJual;
+            $request->gambar_sampah->storeAs('public/assets/sampah_pembelian', $sampahJual);
+            $pruchases->gambar_sampah = $sampahJual;
         }
 
-        $sales->tanggal_jual = $request->input('tanggal_jual');
-        $sales->jenis_sampah = $request->input('jenis_sampah');
-        $sales->berat = $request->input('berat');
-        $sales->harga = $request->input('harga');
-        $sales->total = $request->input('berat') * $request->input('harga');
-        $sales->save();
+        $pruchases->tanggal_beli = $request->input('tanggal_beli');
+        $pruchases->jenis_sampah = $request->input('jenis_sampah');
+        $pruchases->berat = $request->input('berat');
+        $pruchases->harga = $request->input('harga');
+        $pruchases->total = $request->input('berat') * $request->input('harga');
+        $pruchases->save();
 
         return redirect()->route('transaksi_beli_user')->with('success', 'Data pembelian berhasil diperbarui.');
     }
@@ -151,19 +149,19 @@ class UserController extends Controller
 
     public function destroy_transaksi_beli_user($id)
     {
-        $sales = Sales::findOrFail($id);
+        $purchases = Purchase::findOrFail($id);
 
-        $path1 = 'public/assets/sampah_penjualan/' . $sales->gambar_sampah;
+        $path1 = 'public/assets/sampah_pembelian/' . $purchases->gambar_sampah;
         if (Storage::exists($path1)) {
             Storage::delete($path1);
         }
 
-        $path2 = 'public/assets/tanda_tangan_jual/' . $sales->gambar_ttd;
+        $path2 = 'public/assets/tanda_tangan_beli/' . $purchases->gambar_ttd;
         if (Storage::exists($path2)) {
             Storage::delete($path2);
         }
 
-        $sales->delete();
+        $purchases->delete();
 
         return redirect()->route('transaksi_beli_user')->with('success', 'Data pembelian berhasil dihapus.');
     }
@@ -213,12 +211,12 @@ class UserController extends Controller
         $user = auth()->user();
 
         // Ambil data transaksi pembelian sesuai dengan rentang tanggal
-        $saleses = Sales::where('user_id', $user->id)
-            ->whereBetween('tanggal_jual', [$tglAwal, $tglAkhir])
+        $purchases = Purchase::where('user_id', $user->id)
+            ->whereBetween('tanggal_beli', [$tglAwal, $tglAkhir])
             ->get();
 
         // Kembalikan view dengan data yang difilter
-        return view('user/transaksi_beli_user', compact('saleses', 'user'));
+        return view('user/transaksi_beli_user', compact('purchases', 'user'));
     }
 
     public function laporan_beli_user()
@@ -227,8 +225,8 @@ class UserController extends Controller
         $user = auth()->user();
 
        // Ambil transaksi pembelian terkait dengan pengguna yang login
-        $saleses = Sales::where('user_id', $user->id)->get();
-        return view('user/laporan_beli_user', compact('saleses', 'user'));
+        $purchases = Purchase::where('user_id', $user->id)->get();
+        return view('user/laporan_beli_user', compact('purchases', 'user'));
     }
 
     public function tampilkan_tanggal_laporan_beli_user(Request $request)
@@ -254,15 +252,15 @@ class UserController extends Controller
 
         // Ambil data dari database sesuai dengan rentang tanggal jika ada, jika tidak ambil semua data
         if ($tglAwal && $tglAkhir) {
-            $saleses = Sales::where('user_id', $user->id)
-            ->whereBetween('tanggal_jual', [$tglAwal, $tglAkhir])
+            $purchases = Purchase::where('user_id', $user->id)
+            ->whereBetween('tanggal_beli', [$tglAwal, $tglAkhir])
             ->get();
         } else {
-            $saleses = Sales::all();
+            $purchases = Purchase::all();
         }
 
         // Kembalikan view dengan data yang difilter
-        return view('user/laporan_beli_user', compact('saleses'));
+        return view('user/laporan_beli_user', compact('purchases'));
     }
 
     public function cetak_laporan_beli_user(Request $request)
@@ -277,18 +275,18 @@ class UserController extends Controller
         // Cek apakah tanggal awal dan akhir diberikan
         if ($tglAwal && $tglAkhir) {
             // Ambil data dari database sesuai dengan rentang tanggal
-            $saleses = Sales::where('user_id', $user->id)
-                ->whereBetween('tanggal_jual', [$tglAwal, $tglAkhir])
+            $purchases = Purchase::where('user_id', $user->id)
+                ->whereBetween('tanggal_beli', [$tglAwal, $tglAkhir])
                 ->get();
         } else {
             // Jika tanggal tidak diberikan, ambil semua data
-            $saleses = Sales::all();
+            $purchases = Purchase::all();
         }
 
         // Hapus sesi tanggal setelah data diambil
         session()->forget(['tglAwal', 'tglAkhir']);
 
         // Return view cetak laporan dengan data yang difilter
-        return view('user/cetak_laporan_beli_user', compact('saleses', 'tglAwal', 'tglAkhir'));
+        return view('user/cetak_laporan_beli_user', compact('purchases', 'tglAwal', 'tglAkhir'));
     }
 }

@@ -6,11 +6,9 @@ use App\Models\Customer;
 use App\Models\Purchase;
 use App\Models\Sales;
 use Illuminate\Http\Request;
-use App\Models\SuperAdmin;
 use App\Models\Trash;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -418,52 +416,29 @@ class SuperAdminController extends Controller
 
     public function transaksi_beli()
     {
-        $saleses = Sales::all();
-        return view('superadmin/transaksi_beli', compact('saleses'));
+        $purchases = Purchase::all();
+        return view('superadmin/transaksi_beli', compact('purchases'));
     }
 
     public function transaksi_jual()
     {
-        $purchases = Purchase::all();
-
-        return view('superadmin/transaksi_jual', compact('purchases'));
+        $saleses = Sales::all();
+        return view('superadmin/transaksi_jual', compact('saleses'));
     }
 
     public function laporan_beli()
     {
-        $saleses = Sales::all();
-        return view('superadmin/laporan_beli', compact('saleses'));
+        $purchases = Purchase::all();
+        return view('superadmin/laporan_beli', compact('purchases'));
     }
 
     public function laporan_jual()
     {
-        $purchases = Purchase::all();
-        return view('superadmin/laporan_jual', compact('purchases'));
+        $saleses = Sales::all();
+        return view('superadmin/laporan_jual', compact('saleses'));
     }
 
     public function cetak_laporan_beli(Request $request)
-    {
-        // Ambil tanggal dari sesi
-        $tglAwal = session('tglAwal');
-        $tglAkhir = session('tglAkhir');
-
-        // Cek apakah tanggal awal dan akhir diberikan
-        if ($tglAwal && $tglAkhir) {
-            // Ambil data dari database sesuai dengan rentang tanggal
-            $saleses = Sales::whereBetween('tanggal_jual', [$tglAwal, $tglAkhir])->get();
-        } else {
-            // Jika tanggal tidak diberikan, ambil semua data
-            $saleses = Sales::all();
-        }
-
-        // Hapus sesi tanggal setelah data diambil
-        session()->forget(['tglAwal', 'tglAkhir']);
-
-        // Return view cetak laporan dengan data yang difilter
-        return view('superadmin/cetak_laporan_beli', compact('saleses', 'tglAwal', 'tglAkhir'));
-    }
-
-    public function cetak_laporan_jual(Request $request)
     {
         // Ambil tanggal dari sesi
         $tglAwal = session('tglAwal');
@@ -481,7 +456,29 @@ class SuperAdminController extends Controller
         // Hapus sesi tanggal setelah data diambil
         session()->forget(['tglAwal', 'tglAkhir']);
 
-        return view('superadmin/cetak_laporan_jual', compact('purchases', 'tglAwal', 'tglAkhir')); //return view terbalik
+        // Return view cetak laporan dengan data yang difilter
+        return view('superadmin/cetak_laporan_beli', compact('purchases', 'tglAwal', 'tglAkhir'));
+    }
+
+    public function cetak_laporan_jual(Request $request)
+    {
+        // Ambil tanggal dari sesi
+        $tglAwal = session('tglAwal');
+        $tglAkhir = session('tglAkhir');
+
+        // Cek apakah tanggal awal dan akhir diberikan
+        if ($tglAwal && $tglAkhir) {
+            // Ambil data dari database sesuai dengan rentang tanggal
+            $saleses = Sales::whereBetween('tanggal_jual', [$tglAwal, $tglAkhir])->get();
+        } else {
+            // Jika tanggal tidak diberikan, ambil semua data
+            $saleses = Sales::all();
+        }
+
+        // Hapus sesi tanggal setelah data diambil
+        session()->forget(['tglAwal', 'tglAkhir']);
+
+        return view('superadmin/cetak_laporan_jual', compact('saleses', 'tglAwal', 'tglAkhir')); //return view terbalik
     }
 
     public function tampilkan_tanggal_beli_transaksi(Request $request)
@@ -496,10 +493,10 @@ class SuperAdminController extends Controller
         $tglAkhir = $request->input('txtTglAkhir');
 
         // Ambil data dari database sesuai dengan rentang tanggal
-        $saleses = Sales::whereBetween('tanggal_jual', [$tglAwal, $tglAkhir])->get();
+        $purchases = Purchase::whereBetween('tanggal_beli', [$tglAwal, $tglAkhir])->get();
 
         // Kembalikan view dengan data yang difilter
-        return view('superadmin/transaksi_beli', compact('saleses'));
+        return view('superadmin/transaksi_beli', compact('purchases'));
     }
 
     public function tampilkan_tanggal_jual_transaksi(Request $request)
@@ -514,10 +511,10 @@ class SuperAdminController extends Controller
         $tglAkhir = $request->input('txtTglAkhir');
 
         // Ambil data dari database sesuai dengan rentang tanggal
-        $purchases = Purchase::whereBetween('tanggal_beli', [$tglAwal, $tglAkhir])->get();
+        $saleses = Sales::whereBetween('tanggal_jual', [$tglAwal, $tglAkhir])->get();
 
         // Kembalikan view dengan data yang difilter
-        return view('superadmin/transaksi_jual', compact('purchases'));
+        return view('superadmin/transaksi_jual', compact('saleses'));
     }
 
     public function tampilkan_tanggal_beli_laporan(Request $request)
@@ -540,13 +537,13 @@ class SuperAdminController extends Controller
 
         // Ambil data dari database sesuai dengan rentang tanggal jika ada, jika tidak ambil semua data
         if ($tglAwal && $tglAkhir) {
-            $saleses = Sales::whereBetween('tanggal_jual', [$tglAwal, $tglAkhir])->get();
+            $purchases = Purchase::whereBetween('tanggal_jual', [$tglAwal, $tglAkhir])->get();
         } else {
-            $saleses = Sales::all();
+            $purchases = Purchase::all();
         }
 
         // Kembalikan view dengan data yang difilter
-        return view('superadmin/laporan_beli', compact('saleses'));
+        return view('superadmin/laporan_beli', compact('purchases'));
     }
 
     public function tampilkan_tanggal_jual_laporan(Request $request)
@@ -569,30 +566,16 @@ class SuperAdminController extends Controller
 
         // Ambil data dari database sesuai dengan rentang tanggal jika ada, jika tidak ambil semua data
         if ($tglAwal && $tglAkhir) {
-            $purchases = Purchase::whereBetween('tanggal_beli', [$tglAwal, $tglAkhir])->get();
+            $saleses = Sales::whereBetween('tanggal_jual', [$tglAwal, $tglAkhir])->get();
         } else {
-            $purchases = Purchase::all();
+            $saleses = Sales::all();
         }
 
         // Kembalikan view dengan data yang difilter
-        return view('superadmin/laporan_jual', compact('purchases'));
+        return view('superadmin/laporan_jual', compact('saleses'));
     }
 
     public function nota_transaksi_beli(Request $request)
-    {
-        $id = $request->input('id');
-        // Mengambil data purchase berdasarkan ID
-        $saleses = Sales::with('user') // Mengambil data terkait customer dan user
-            ->where('id', $id)
-            ->firstOrFail(); // Mengambil satu data atau gagal
-
-        //mengambil user dengan role 'superadmin'
-        $superadmin = User::where('roles', 'super-admin')->first();
-
-        return view('superadmin/nota_transaksi_beli', compact('saleses', 'superadmin'));
-    }
-
-    public function nota_transaksi_jual(Request $request)
     {
         $id = $request->input('id');
         // Mengambil data purchase berdasarkan ID
@@ -603,6 +586,20 @@ class SuperAdminController extends Controller
         //mengambil user dengan role 'superadmin'
         $superadmin = User::where('roles', 'super-admin')->first();
 
-        return view('superadmin/nota_transaksi_jual', compact('purchases', 'superadmin'));
+        return view('superadmin/nota_transaksi_beli', compact('purchases', 'superadmin'));
+    }
+
+    public function nota_transaksi_jual(Request $request)
+    {
+        $id = $request->input('id');
+        // Mengambil data purchase berdasarkan ID
+        $saleses = Sales::with('user') // Mengambil data terkait customer dan user
+            ->where('id', $id)
+            ->firstOrFail(); // Mengambil satu data atau gagal
+
+        //mengambil user dengan role 'superadmin'
+        $superadmin = User::where('roles', 'super-admin')->first();
+
+        return view('superadmin/nota_transaksi_jual', compact('saleses', 'superadmin'));
     }
 }

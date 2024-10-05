@@ -100,7 +100,7 @@
         </div>
     </form>
 
-    @if (isset($saleses))
+    @if (isset($purchases))
         <div class="mb-3"></div>
         <div class="row">
             <div class="col">
@@ -121,18 +121,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($saleses as $sales)
+                                    @foreach ($purchases as $purchase)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $sales->tanggal_jual }}</td>
-                                            <td>{{ $sales->jenis_sampah }}</td>
-                                            <td><img src="{{ asset('storage/assets/sampah_penjualan/' . $sales->gambar_sampah) }}"
+                                            <td>{{ $purchase->tanggal_beli }}</td>
+                                            <td>{{ $purchase->jenis_sampah }}</td>
+                                            <td><img src="{{ asset('storage/assets/sampah_pembelian/' . $purchase->gambar_sampah) }}"
                                                     width="60px" height="60px"></td>
-                                            <td>{{ $sales->berat }}</td>
-                                            <td>{{ $sales->harga }}</td>
-                                            <td>{{ $sales->total }}</td>
+                                            <td>{{ $purchase->berat }}</td>
+                                            <td>{{ $purchase->harga }}</td>
+                                            <td>{{ $purchase->total }}</td>
                                             <td style="text-align: center">
-                                                <a href="{{ route('nota_transaksi_beli', ['id' => $sales->id]) }}"
+                                                <a href="{{ route('nota_transaksi_beli', ['id' => $purchase->id]) }}"
                                                     target="_blank" class="btn btn-custom btn-sm">
                                                     <i class="fa-solid fa-print"></i>
                                                 </a>

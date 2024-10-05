@@ -22,7 +22,7 @@
             <h6 class="m-0">Form Edit Transaksi Jual</h6>
         </div>
         <div class="card-body">
-            <form id="myForm" action="{{ route('update_transaksi_jual_nasabah', ['id' => $purchase->id]) }}"
+            <form id="myForm" action="{{ route('update_transaksi_jual_nasabah', ['id' => $saleses->id]) }}"
                 method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -32,8 +32,8 @@
                 @endphp
 
                 <div class="form-group">
-                    <label for="tanggal_beli">Tanggal Jual*</label>
-                    <input type="date" class="form-control" id="tanggal_beli" name="tanggal_beli"
+                    <label for="tanggal_jual">Tanggal Jual*</label>
+                    <input type="date" class="form-control" id="tanggal_jual" name="tanggal_jual"
                         value="{{ $today }}" required>
                 </div>
 
@@ -53,19 +53,19 @@
                 <div class="form-group">
                     <label for="berat">Berat (Kg)*</label>
                     <input type="number" step="0.01" class="form-control" id="berat" onchange="sum();"
-                        name="berat" value="{{ $purchase->berat }}" required placeholder="Berat">
+                        name="berat" value="{{ $saleses->berat }}" required placeholder="Berat">
                 </div>
 
                 <div class="form-group">
                     <label for="harga">Harga (Rp)*</label>
                     <input type="number" class="form-control" id="harga" onchange="sum();" name="harga"
-                        value="{{ $purchase->harga }}" required placeholder="Harga" readonly>
+                        value="{{ $saleses->harga }}" required placeholder="Harga" readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="total">Total (Rp)*</label>
                     <input type="number" class="form-control" id="total" onchange="sum();" name="total"
-                        value="{{ $purchase->total }}" required placeholder="Total" readonly>
+                        value="{{ $saleses->total }}" required placeholder="Total" readonly>
                 </div>
 
                 <div class="form-group">

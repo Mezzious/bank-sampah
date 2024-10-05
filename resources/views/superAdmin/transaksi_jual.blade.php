@@ -100,7 +100,7 @@
         </div>
     </form>
 
-    @if (isset($purchases))
+    @if (isset($saleses))
         <div class="mb-3"></div>
         <div class="row">
             <div class="col">
@@ -122,19 +122,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($purchases as $purchase)
+                                    @foreach ($saleses as $sales)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>0{{ $purchase->user->customer->rw }}</td>
-                                            <td>{{ $purchase->tanggal_beli }}</td>
-                                            <td>{{ $purchase->jenis_sampah }}</td>
-                                            <td><img src="{{ asset('storage/assets/sampah_pembelian/' . $purchase->gambar_sampah) }}"
+                                            <td>0{{ $sales->user->customer->rw }}</td>
+                                            <td>{{ $sales->tanggal_jual }}</td>
+                                            <td>{{ $sales->jenis_sampah }}</td>
+                                            <td><img src="{{ asset('storage/assets/sampah_penjualan/' . $sales->gambar_sampah) }}"
                                                     width="60px" height="60px"></td>
-                                            <td>{{ $purchase->berat }}</td>
-                                            <td>{{ $purchase->harga }}</td>
-                                            <td>{{ $purchase->total }}</td>
+                                            <td>{{ $sales->berat }}</td>
+                                            <td>{{ $sales->harga }}</td>
+                                            <td>{{ $sales->total }}</td>
                                             <td style="text-align: center">
-                                                <a href="{{ route('nota_transaksi_jual', ['id' => $purchase->id]) }}"
+                                                <a href="{{ route('nota_transaksi_jual', ['id' => $sales->id]) }}"
                                                     target="_blank" class="btn btn-custom btn-sm">
                                                     <i class="fa-solid fa-print"></i>
                                                 </a>
