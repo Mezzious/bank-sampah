@@ -17,17 +17,17 @@
         </thead>
         <tbody>
             @php $grandTotal = 0; @endphp
-            @foreach ($saleses as $sales)
+            @foreach ($purchases as $purchase)
                 @php
-                $grandTotal += $sales->total;
-                $hargaRp = number_format($sales->harga, 0, ',', '.'); // Ubah harga ke format Rupiah
-                $totalRp = number_format($sales->total, 0, ',', '.'); // Ubah total ke format Rupiah
+                $grandTotal += $purchase->total;
+                $hargaRp = number_format($purchase->harga, 0, ',', '.'); // Ubah harga ke format Rupiah
+                $totalRp = number_format($purchase->total, 0, ',', '.'); // Ubah total ke format Rupiah
                 @endphp
                 <tr align="center">
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $sales->tanggal_jual }}</td>
-                    <td>{{ $sales->jenis_sampah }}</td>
-                    <td>{{ $sales->berat }}</td>
+                    <td>{{ $purchase->tanggal_beli }}</td>
+                    <td>{{ $purchase->jenis_sampah }}</td>
+                    <td>{{ $purchase->berat }}</td>
                     <td>{{ $hargaRp }}</td>
                     <td>{{ $totalRp }}</td>
                 </tr>

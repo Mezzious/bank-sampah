@@ -14,16 +14,16 @@
 
         <table style="width: 100%;">
             <tr>
-                <td> Tanggal: {{ $saleses->tanggal_jual }} </td>
-                <td align="right">Harga: {{ $saleses->harga }} / Kg</td>
+                <td> Tanggal: {{ $purchases->tanggal_beli }} </td>
+                <td align="right">Harga: {{ $purchases->harga }} / Kg</td>
             </tr>
             <tr>
-                <td>Jenis Sampah: {{ $saleses->jenis_sampah }}</td>
-                <td align="right">Berat: {{ $saleses->berat }} Kg</td>
+                <td>Jenis Sampah: {{ $purchases->jenis_sampah }}</td>
+                <td align="right">Berat: {{ $purchases->berat }} Kg</td>
             </tr>
             <tr>
                 <td></td>
-                <td align="right">Total: {{ $saleses->total }} </td>
+                <td align="right">Total: {{ $purchases->total }} </td>
             </tr>
         </table>
 
@@ -32,11 +32,11 @@
         <div class="footer">
             <div style="float: left; text-align: center; width: 45%;">
                 <p>Pengepul</p>
-                <p>({{ $saleses->user->name }})</p>
+                <p>({{ $purchases->user->name }})</p>
             </div>
             <div style="float: right; text-align: center; width: 45%;">
                 <p>Petugas Bank Sampah</p>
-                <img src="{{ asset('storage/assets/tanda_tangan_jual/' . $saleses->gambar_ttd) }}" alt="Tanda Tangan"
+                <img src="{{ asset('storage/assets/tanda_tangan_beli/' . $purchases->gambar_ttd) }}" alt="Tanda Tangan"
                     style="max-width: 100px; max-height: 50px;">
                 <p> ({{ $superadmin->name }}) </p>
             </div>

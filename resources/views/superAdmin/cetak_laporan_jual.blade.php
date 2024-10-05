@@ -18,18 +18,18 @@
         </thead>
         <tbody>
             @php $grandTotal = 0; @endphp
-            @foreach ($purchases as $purchase)
+            @foreach ($saleses as $sales)
                 @php
-                    $grandTotal += $purchase->total;
-                    $hargaRp = number_format($purchase->harga, 0, ',', '.'); // Ubah harga ke format Rupiah
-                    $totalRp = number_format($purchase->total, 0, ',', '.'); // Ubah total ke format Rupiah
+                    $grandTotal += $sales->total;
+                    $hargaRp = number_format($sales->harga, 0, ',', '.'); // Ubah harga ke format Rupiah
+                    $totalRp = number_format($sales->total, 0, ',', '.'); // Ubah total ke format Rupiah
                 @endphp
                 <tr align="center">
                     <td>{{ $loop->iteration }}</td>
-                    <td>0{{ $purchase->user->customer->rw }}</td>
-                    <td>{{ $purchase->tanggal_beli }}</td>
-                    <td>{{ $purchase->jenis_sampah }}</td>
-                    <td>{{ $purchase->berat }}</td>
+                    <td>0{{ $sales->user->customer->rw }}</td>
+                    <td>{{ $sales->tanggal_jual }}</td>
+                    <td>{{ $sales->jenis_sampah }}</td>
+                    <td>{{ $sales->berat }}</td>
                     <td>{{ $hargaRp }}</td>
                     <td>{{ $totalRp }}</td>
                 </tr>

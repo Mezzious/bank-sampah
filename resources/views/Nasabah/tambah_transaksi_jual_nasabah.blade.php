@@ -54,8 +54,8 @@
                 @endphp
 
                 <div class="form-group">
-                    <label for="tanggal_beli">Tanggal Jual*</label>
-                    <input type="date" class="form-control" id="tanggal_beli" name="tanggal_beli"
+                    <label for="tanggal_jual">Tanggal Jual*</label>
+                    <input type="date" class="form-control" id="tanggal_jual" name="tanggal_jual"
                         value="{{ $today }}" required>
                 </div>
 

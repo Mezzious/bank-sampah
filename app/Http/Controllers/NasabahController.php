@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Purchase;
+use App\Models\Sales;
 use App\Models\Trash;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -22,8 +22,8 @@ class NasabahController extends Controller
             // Mendapatkan data Customer yang terkait dengan pengguna yang sedang login
             $customer = $user->customer;
 
-            $totalSampah = Purchase::where('user_id', $user->id)->sum('berat');
-            $totalPenjualanSampah = Purchase::where('user_id', $user->id)->sum('total');
+            $totalSampah = Sales::where('user_id', $user->id)->sum('berat');
+            $totalPenjualanSampah = Sales::where('user_id', $user->id)->sum('total');
 
             // Mengirimkan data ke tampilan
             return view('nasabah/dashboard_nasabah', compact('customer', 'totalSampah', 'totalPenjualanSampah'));
@@ -39,9 +39,9 @@ class NasabahController extends Controller
         $user = auth()->user();
 
         // Ambil transaksi pembelian terkait dengan pengguna yang login
-        $purchases = Purchase::where('user_id', $user->id)->get();
+        $saleses = Sales::where('user_id', $user->id)->get();
 
-        return view('nasabah/transaksi_jual_nasabah', compact('purchases', 'user'));
+        return view('nasabah/transaksi_jual_nasabah', compact('saleses', 'user'));
     }
 
     public function tambah_transaksi_jual_nasabah(){
@@ -52,7 +52,7 @@ class NasabahController extends Controller
     public function store_transaksi_jual(Request $request){
             // Validasi input
             $request->validate([
-                'tanggal_beli' => 'required|date',
+                'tanggal_jual' => 'required|date',
                 'jenis_sampah' => 'required|string',
                 'berat' => 'required|numeric',
                 'harga' => 'required|numeric',
@@ -60,7 +60,7 @@ class NasabahController extends Controller
                 'tanda_tangan' => 'required',
             ]);
 
-            $path1 = 'public/assets/sampah_pembelian';
+            $path1 = 'public/assets/sampah_penjualan';
             Storage::makeDirectory($path1);
             
             // Proses upload gambar nota jual
@@ -71,7 +71,7 @@ class NasabahController extends Controller
             $request->gambar->storeAs($path1, $sampahBeli);
 
             // Proses tanda tangan
-            $path2 = 'public/assets/tanda_tangan_beli';
+            $path2 = 'public/assets/tanda_tangan_jual';
             Storage::makeDirectory($path2); // Membuat folder jika belum ada
 
             $signatureData = $request->input('tanda_tangan');
@@ -81,16 +81,17 @@ class NasabahController extends Controller
             Storage::put($path2 . '/' . $signatureName, base64_decode($signature));
     
             // Simpan data ke dalam database
-            $purchase = new Purchase();
-            $purchase->user_id = auth()->id();
-            $purchase->tanggal_beli = $request->input('tanggal_beli');
-            $purchase->jenis_sampah = $request->input('jenis_sampah');
-            $purchase->berat = $request->input('berat');
-            $purchase->harga = $request->input('harga');
-            $purchase->total = $request->input('berat') * $request->input('harga');
-            $purchase->gambar_ttd = $signatureName;
-            $purchase->gambar_sampah = $sampahBeli;
-            $purchase->save();
+            $saleses = new Sales();
+            $saleses->user_id = auth()->id();
+            $saleses->tanggal_jual = $request->input('tanggal_jual');
+            $saleses->jenis_sampah = $request->input('jenis_sampah');
+            $saleses->berat = $request->input('berat');
+            $saleses->harga = $request->input('harga');
+            $saleses->total = $request->input('berat') * $request->input('harga');
+            $saleses->gambar_ttd = $signatureName;
+            $saleses->gambar_sampah = $sampahBeli;
+            $saleses->save();
+            $saleses->user_id = auth()->id();
     
             // Redirect ke halaman yang sesuai dengan pesan sukses atau lainnya
             return redirect()->route('transaksi_jual_nasabah')->with('success', 'Data penjualan berhasil disimpan.');
@@ -98,67 +99,67 @@ class NasabahController extends Controller
 
     public function edit_transaksi_jual_nasabah(Request $request){
         $id = $request->input('id');
-        $purchase = Purchase::findOrFail($id);
+        $saleses = Sales::findOrFail($id);
 
-        if (!$purchase) {
+        if (!$saleses) {
             return back()->with('error', 'Data penjualan tidak ditemukan.');
         }
 
         $trashes = Trash::all();
 
-        return view('nasabah/edit_transaksi_jual_nasabah', compact('purchase', 'trashes'));
+        return view('nasabah/edit_transaksi_jual_nasabah', compact('saleses', 'trashes'));
     }
 
     public function update_transaksi_jual_nasabah(Request $request) 
     {
         $id = $request->input('id');
         $request->validate([
-            'tanggal_beli' => 'required|date',
+            'tanggal_jual' => 'required|date',
             'jenis_sampah' => 'required|string',
             'berat' => 'required|numeric',
             'harga' => 'required|numeric',
             'gambar_sampah' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi untuk gambar_sampah
         ]);
 
-        $purchase = Purchase::findOrFail($id);
+        $saleses = Sales::findOrFail($id);
 
         // Tangani file gambar_sampah
         if ($request->hasFile('gambar_sampah')) {
-            Storage::delete('public/assets/sampah_pembelian/' . $purchase->gambar_sampah);
+            Storage::delete('public/assets/sampah_penjualan/' . $saleses->gambar_sampah);
 
             $sampahBeli = time() . '.' . $request->gambar_sampah->extension();
             if (!$request->gambar_sampah->isValid()) {
                 return back()->withErrors(['gambar_sampah' => 'File gambar tidak valid']);
             }
-            $request->gambar_sampah->storeAs('public/assets/sampah_pembelian', $sampahBeli);
-            $purchase->gambar_sampah = $sampahBeli;
+            $request->gambar_sampah->storeAs('public/assets/sampah_penjualan', $sampahBeli);
+            $saleses->gambar_sampah = $sampahBeli;
         }
 
-        $purchase->tanggal_beli = $request->input('tanggal_beli');
-        $purchase->jenis_sampah = $request->input('jenis_sampah');
-        $purchase->berat = $request->input('berat');
-        $purchase->harga = $request->input('harga');
-        $purchase->total = $request->input('berat') * $request->input('harga');
-        $purchase->save();
+        $saleses->tanggal_jual = $request->input('tanggal_jual');
+        $saleses->jenis_sampah = $request->input('jenis_sampah');
+        $saleses->berat = $request->input('berat');
+        $saleses->harga = $request->input('harga');
+        $saleses->total = $request->input('berat') * $request->input('harga');
+        $saleses->save();
 
         return redirect()->route('transaksi_jual_nasabah')->with('success', 'Data Penjualan berhasil diperbarui.');
     }
 
     public function destroy_transaksi_jual_nasabah($id)
     {
-        $purchase = Purchase::findOrFail($id);
+        $saleses = Sales::findOrFail($id);
 
-        $path1 = 'public/assets/sampah_pembelian/' . $purchase->gambar_sampah;
+        $path1 = 'public/assets/sampah_penjualan/' . $saleses->gambar_sampah;
         if (Storage::exists($path1)) {
             Storage::delete($path1);
         }
 
-        $path2 = 'public/assets/tanda_tangan_beli/' . $purchase->gambar_ttd;
+        $path2 = 'public/assets/tanda_tangan_jual/' . $saleses->gambar_ttd;
         if (Storage::exists($path2)) {
             Storage::delete($path2);
         }
 
-        $purchase->delete();
+        $saleses->delete();
 
         return redirect()->route('transaksi_jual_nasabah')->with('success', 'Data Penjualan berhasil dihapus.');
     }
@@ -206,12 +207,12 @@ class NasabahController extends Controller
         $user = auth()->user();
 
         // Ambil data transaksi pembelian sesuai dengan rentang tanggal
-        $purchases = Purchase::where('user_id', $user->id)
-            ->whereBetween('tanggal_beli', [$tglAwal, $tglAkhir])
+        $saleses = Sales::where('user_id', $user->id)
+            ->whereBetween('tanggal_jual', [$tglAwal, $tglAkhir])
             ->get();
 
         // Kembalikan view dengan data yang difilter
-        return view('nasabah/transaksi_jual_nasabah', compact('purchases', 'user'));
+        return view('nasabah/transaksi_jual_nasabah', compact('saleses', 'user'));
     }
 
     public function laporan_jual_nasabah()
@@ -220,9 +221,9 @@ class NasabahController extends Controller
         $user = auth()->user();
 
         // Ambil transaksi pembelian terkait dengan pengguna yang login
-        $purchases = Purchase::where('user_id', $user->id)->get();
+        $saleses = Sales::where('user_id', $user->id)->get();
 
-        return view('nasabah/laporan_jual_nasabah', compact('purchases', 'user'));
+        return view('nasabah/laporan_jual_nasabah', compact('saleses', 'user'));
     }
 
     public function cetak_laporan_jual_nasabah(Request $request)
@@ -237,18 +238,18 @@ class NasabahController extends Controller
         // Cek apakah tanggal awal dan akhir diberikan
         if ($tglAwal && $tglAkhir) {
             // Ambil data dari database sesuai dengan rentang tanggal dan hanya untuk user yang login
-            $purchases = Purchase::where('user_id', $user->id)
-                ->whereBetween('tanggal_beli', [$tglAwal, $tglAkhir])
+            $saleses = Sales::where('user_id', $user->id)
+                ->whereBetween('tanggal_jual', [$tglAwal, $tglAkhir])
                 ->get();
         } else {
             // Jika tanggal tidak diberikan, ambil semua data untuk user yang login
-            $purchases = Purchase::where('user_id', $user->id)->get();
+            $saleses = Sales::where('user_id', $user->id)->get();
         }
 
         // Hapus sesi tanggal setelah data diambil
         session()->forget(['tglAwal', 'tglAkhir']);
 
-        return view('nasabah/cetak_laporan_jual_nasabah', compact('purchases', 'tglAwal', 'tglAkhir'));
+        return view('nasabah/cetak_laporan_jual_nasabah', compact('saleses', 'tglAwal', 'tglAkhir'));
     }
 
     public function tampilkan_tanggal_laporan_jual_nasabah(Request $request)
@@ -271,12 +272,12 @@ class NasabahController extends Controller
 
         // Ambil data dari database sesuai dengan rentang tanggal jika ada, jika tidak ambil semua data
         if ($tglAwal && $tglAkhir) {
-            $purchases = Purchase::whereBetween('tanggal_beli', [$tglAwal, $tglAkhir])->get();
+            $saleses = Sales::whereBetween('tanggal_jual', [$tglAwal, $tglAkhir])->get();
         } else {
-            $purchases = Purchase::all();
+            $saleses = Sales::all();
         }
 
         // Kembalikan view dengan data yang difilter
-        return view('nasabah/laporan_jual_nasabah', compact('purchases'));
+        return view('nasabah/laporan_jual_nasabah', compact('saleses'));
     }
 }
