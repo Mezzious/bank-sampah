@@ -102,7 +102,7 @@
         </div>
     </form>
 
-    @if (isset($saleses))
+    @if (isset($purchases))
         <div class="mb-3"></div>
         <div class="row">
             <div class="col">
@@ -119,23 +119,23 @@
                                         <th>Berat (Kg)</th>
                                         <th>Harga (Rp)</th>
                                         <th>Total (Rp)</th>
-                                        <th>Nota</th>
+                                        <th>TTD</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($saleses as $sales)
+                                    @foreach ($purchases as $purchase)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $sales->tanggal_jual }}</td>
-                                            <td>{{ $sales->jenis_sampah }}</td>
-                                            <td><img src="{{ asset('storage/assets/sampah_penjualan/' . $sales->gambar_sampah) }}"
+                                            <td>{{ $purchase->tanggal_beli }}</td>
+                                            <td>{{ $purchase->jenis_sampah }}</td>
+                                            <td><img src="{{ asset('storage/assets/sampah_pembelian/' . $purchase->gambar_sampah) }}"
                                                     width="60px" height="60px"></td>
-                                            <td>{{ $sales->berat }}</td>
-                                            <td>{{ $sales->harga }}</td>
-                                            <td>{{ $sales->total }}</td>
+                                            <td>{{ $purchase->berat }}</td>
+                                            <td>{{ $purchase->harga }}</td>
+                                            <td>{{ $purchase->total }}</td>
                                             <td style="text-align: center">
                                                 <a href="#" class="btn btn-primary btn-sm" style="color: white"
-                                                    onclick="showNotaImage('{{ asset('storage/assets/nota_jual/' . $sales->gambar_nota) }}')">
+                                                    onclick="showNotaImage('{{ asset('storage/assets/tanda_tangan_beli/' . $purchase->gambar_ttd) }}')">
                                                     <i class="bi bi-eye-fill"></i>
                                                 </a>
                                             </td>
