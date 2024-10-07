@@ -537,7 +537,7 @@ class SuperAdminController extends Controller
 
         // Ambil data dari database sesuai dengan rentang tanggal jika ada, jika tidak ambil semua data
         if ($tglAwal && $tglAkhir) {
-            $purchases = Purchase::whereBetween('tanggal_jual', [$tglAwal, $tglAkhir])->get();
+            $purchases = Purchase::whereBetween('tanggal_beli', [$tglAwal, $tglAkhir])->get();
         } else {
             $purchases = Purchase::all();
         }
