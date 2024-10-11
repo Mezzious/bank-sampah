@@ -44,3 +44,9 @@
     <div style="clear: both;"></div>
 </div>
 @endsection
+
+@section('script')
+    <script>
+        window.print();
+    </script>
+@endsection
