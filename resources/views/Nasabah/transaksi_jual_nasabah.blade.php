@@ -127,7 +127,7 @@
                                                 <th>Berat (Kg)</th>
                                                 <th>Harga (Rp)</th>
                                                 <th>Total (Rp)</th>
-                                                <th>Nota</th>
+                                                <th>TTD</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -146,12 +146,12 @@
                                                         <a href="#" class="btn btn-primary btn-sm"
                                                             style="color: white"
                                                             onclick="showNotaImage('{{ asset('storage/assets/tanda_tangan_jual/' . $sales->gambar_ttd) }}')">
-                                                            <i class="bi bi-eye-fill"></i> 
+                                                            <i class="bi bi-eye-fill"></i>
                                                         </a>
                                                     </td>
                                                     <td style="text-align: center;">
                                                         <a href="{{ route('edit_transaksi_jual_nasabah', ['id' => $sales->id]) }}"
-                                                            class="btn btn-warning btn-sm" style="color: white"> 
+                                                            class="btn btn-warning btn-sm" style="color: white">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
                                                         <a href="#" class="btn btn-danger btn-sm deleteButton"
