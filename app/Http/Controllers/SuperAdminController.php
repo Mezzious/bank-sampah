@@ -213,7 +213,7 @@ class SuperAdminController extends Controller
             'email' => 'required|email',
             'password' => 'required|string|min:6',
             'RW' => 'required|string|min:1',
-            'telepon' => 'required|string|min:12',
+            'telepon' => 'required|string|max:12',
             'alamat' => 'required',
         ]);
 
@@ -257,7 +257,7 @@ class SuperAdminController extends Controller
             'nama_nasabah' => 'required|string',
             'email' => 'required|email',
             'RW' => 'required|string|min:1',
-            'telepon' => 'required|string|min:12',
+            'telepon' => 'required|string|max:12',
             'alamat' => 'required',
         ]);
 
@@ -601,5 +601,23 @@ class SuperAdminController extends Controller
         $superadmin = User::where('roles', 'super-admin')->first();
 
         return view('superadmin/nota_transaksi_jual', compact('saleses', 'superadmin'));
+    }
+
+    public function update_status_transaksi_beli(Request $request, $id)
+    {
+        $transaksi = Purchase::findOrFail($id);
+        $transaksi->status_konfirmasi = $request->status; // Status dari tombol
+        $transaksi->save();
+
+        return redirect()->back()->with('success', 'Status transaksi berhasil diperbarui.');
+    }
+
+    public function update_status_transaksi_jual(Request $request, $id)
+    {
+        $transaksi = Sales::findOrFail($id);
+        $transaksi->status_konfirmasi = $request->status; // Status dari tombol
+        $transaksi->save();
+
+        return redirect()->back()->with('success', 'Status transaksi berhasil diperbarui.');
     }
 }

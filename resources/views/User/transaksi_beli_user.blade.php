@@ -127,6 +127,7 @@
                                         <th>Harga (Rp)</th>
                                         <th>Total (Rp)</th>
                                         <th>TTD</th>
+                                        <th>Status Konfirmasi</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -146,6 +147,17 @@
                                                     onclick="showNotaImage('{{ asset('storage/assets/tanda_tangan_beli/' . $purchase->gambar_ttd) }}')">
                                                     <i class="bi bi-eye-fill"></i>
                                                 </a>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                @if($purchase->status_konfirmasi == 'belum dikonfirmasi')
+                                                    <span class="badge bg-danger">Belum Dikonfirmasi</span>
+                                                @elseif($purchase->status_konfirmasi == 'sedang dijemput')
+                                                    <span class="badge bg-warning">Sedang Dijemput</span>
+                                                @elseif($purchase->status_konfirmasi == 'sampah telah diterima')
+                                                    <span class="badge bg-info">Sampah Telah Diterima</span>
+                                                @elseif($purchase->status_konfirmasi == 'sudah dikonfirmasi')
+                                                    <span class="badge bg-success">Sudah Dikonfirmasi</span>
+                                                @endif
                                             </td>
                                             <td style="text-align: center;">
                                                 <a href="{{ route('edit_transaksi_beli_user', ['id' => $purchase->id]) }}"
@@ -239,6 +251,66 @@
             $('#notaImage').attr('src', imageUrl);
             $('#gambarNotaModal').modal('show');
         }
+
+        // Fungsi AJAX untuk memperbarui status transaksi
+        function fetchTransactionStatus() {
+            $.ajax({
+                url: "{{ route('transaksi_beli_user') }}",
+                method: 'GET',
+                success: function(data) {
+                    $('#purchase-table-body').empty(); // Bersihkan isi tabel
+                    data.forEach(function(purchase, index) {
+                        $('#purchase-table-body').append(`
+                            <tr id="purchase-${purchase.id}">
+                                <td>${index + 1}</td>
+                                <td>${purchase.tanggal_jual}</td>
+                                <td>${purchase.jenis_sampah}</td>
+                                <td><img src="{{ asset('storage/assets/sampah_pembelian') }}/${purchase.gambar_sampah}" width="60px" height="60px"></td>
+                                <td>${purchase.berat}</td>
+                                <td>${purchase.harga}</td>
+                                <td>${purchase.total}</td>
+                                <td style="text-align: center">
+                                    <a href="#" class="btn btn-primary btn-sm" style="color: white" onclick="showNotaImage('{{ asset('storage/assets/tanda_tangan_beli') }}/${purchase.gambar_ttd}')">
+                                        <i class="bi bi-eye-fill"></i>
+                                    </a>
+                                </td>
+                                <td style="text-align: center;">
+                                    ${renderStatus(purchase.status_konfirmasi)}
+                                </td>
+                                <td style="text-align: center;">
+                                    <a href="{{ route('edit_transaksi_beli_user', ['id' => '']) }}${purchase.id}" class="btn btn-warning btn-sm" style="color: white"> 
+                                        <i class="fas fa-edit"></i> 
+                                    </a>
+                                    <a href="#" class="btn btn-danger btn-sm deleteButton" data-id="${purchase.id}">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                    <form id="delete-form-${purchase.id}" action="{{ route('destroy_transaksi_beli_user', '') }}${purchase.id}" method="get" style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                </td>
+                            </tr>
+                        `);
+                    });
+                }
+            });
+        }
+
+        // Fungsi untuk menampilkan status konfirmasi
+        function renderStatus(status) {
+            if (status == 'belum dikonfirmasi') {
+                return `<span class="badge bg-danger">Belum Dikonfirmasi</span>`;
+            } else if (status == 'sedang dijemput') {
+                return `<span class="badge bg-warning">Sedang Dijemput</span>`;
+            } else if (status == 'sampah telah diterima') {
+                return `<span class="badge bg-info">Sampah Telah Diterima</span>`;
+            } else if (status == 'sudah dikonfirmasi') {
+                return `<span class="badge bg-success">Sudah Dikonfirmasi</span>`;
+            }
+        }
+
+        // Jalankan fetchTransactionStatus setiap 5 detik
+        setInterval(fetchTransactionStatus, 5000);
     </script>
 
     <script>

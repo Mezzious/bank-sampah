@@ -23,6 +23,7 @@ class Sales extends Model
         'gambar_sampah',
         'gambar_ttd',
         'user_id',
+        'status_konfirmasi',
     ];
 
         /**
