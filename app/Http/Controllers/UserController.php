@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,11 +22,23 @@ class UserController extends Controller
 
         // Pastikan pengguna telah login sebelum menampilkan data
         if ($user) {
-            
+            // Mendapatkan data Customer yang terkait dengan pengguna yang sedang login
+            $customer = $user->customer;
+
             $totalSampah = Purchase::where('user_id', $user->id)->sum('berat');
             $totalPembelianSampah = Purchase::where('user_id', $user->id)->sum('total');
 
-            return view('user/dashboard_user', compact('user', 'totalSampah', 'totalPembelianSampah'));
+            // Mengelompokkan data sampah per jenis dan menghitung berat untuk setiap jenis
+            $sampahPerJenis = Purchase::where('user_id', $user->id)
+                ->select('jenis_sampah', DB::raw('SUM(berat) as total_berat'))
+                ->groupBy('jenis_sampah')
+                ->get();
+
+            // Menyiapkan data untuk Chart.js
+            $jenisSampah = $sampahPerJenis->pluck('jenis_sampah'); // Nama jenis sampah
+            $beratSampah = $sampahPerJenis->pluck('total_berat'); // Berat per jenis sampah
+
+            return view('user/dashboard_user', compact('user','customer', 'totalSampah', 'totalPembelianSampah', 'jenisSampah', 'beratSampah'));
         } else {
             // Jika pengguna belum login, bisa diarahkan ke halaman login atau tindakan lainnya
             return redirect()->route('login');
@@ -34,10 +47,10 @@ class UserController extends Controller
 
     public function transaksi_beli_user()
     {
-       // Ambil data pengguna yang sedang login
+        // Ambil data pengguna yang sedang login
         $user = auth()->user();
 
-       // Ambil transaksi pembelian terkait dengan pengguna yang login
+        // Ambil transaksi pembelian terkait dengan pengguna yang login
         $purchases = Purchase::where('user_id', $user->id)->get();
         return view('user/transaksi_beli_user', compact('purchases', 'user'));
     }
@@ -224,7 +237,7 @@ class UserController extends Controller
         // Ambil data pengguna yang sedang login
         $user = auth()->user();
 
-       // Ambil transaksi pembelian terkait dengan pengguna yang login
+        // Ambil transaksi pembelian terkait dengan pengguna yang login
         $purchases = Purchase::where('user_id', $user->id)->get();
         return view('user/laporan_beli_user', compact('purchases', 'user'));
     }
@@ -253,8 +266,8 @@ class UserController extends Controller
         // Ambil data dari database sesuai dengan rentang tanggal jika ada, jika tidak ambil semua data
         if ($tglAwal && $tglAkhir) {
             $purchases = Purchase::where('user_id', $user->id)
-            ->whereBetween('tanggal_beli', [$tglAwal, $tglAkhir])
-            ->get();
+                ->whereBetween('tanggal_beli', [$tglAwal, $tglAkhir])
+                ->get();
         } else {
             $purchases = Purchase::all();
         }

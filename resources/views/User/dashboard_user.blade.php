@@ -114,7 +114,48 @@
             </div>
         </div>
 
-        </body>
+        <!-- Bar Chart for Sampah per Jenis -->
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body">
+                        <h5 class="m-0 font-weight-bold text-primary">Sampah per Jenis (Kg)</h5>
+                        <canvas id="sampahJenisChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+@endsection
+@section('script')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Data Sampah per Jenis
+    const jenisSampah = @json($jenisSampah); // array jenis sampah
+    const beratSampah = @json($beratSampah); // array berat per jenis
 
-        </html>
-    @endsection
+    // Setup Chart.js
+    const ctx = document.getElementById('sampahJenisChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: jenisSampah, // Nama jenis sampah
+            datasets: [{
+                label: 'Jumlah Sampah (Kg)',
+                data: beratSampah, // Berat per jenis sampah
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+@endsection

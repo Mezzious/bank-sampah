@@ -7,6 +7,7 @@ use App\Models\Trash;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,11 +23,22 @@ class NasabahController extends Controller
             // Mendapatkan data Customer yang terkait dengan pengguna yang sedang login
             $customer = $user->customer;
 
+            // Mendapatkan total berat dan total penjualan berdasarkan pengguna login
             $totalSampah = Sales::where('user_id', $user->id)->sum('berat');
             $totalPenjualanSampah = Sales::where('user_id', $user->id)->sum('total');
 
+            // Mengelompokkan data sampah per jenis dan menghitung berat untuk setiap jenis
+            $sampahPerJenis = Sales::where('user_id', $user->id)
+                ->select('jenis_sampah', DB::raw('SUM(berat) as total_berat'))
+                ->groupBy('jenis_sampah')
+                ->get();
+
+            // Menyiapkan data untuk Chart.js
+            $jenisSampah = $sampahPerJenis->pluck('jenis_sampah'); // Nama jenis sampah
+            $beratSampah = $sampahPerJenis->pluck('total_berat'); // Berat per jenis sampah
+
             // Mengirimkan data ke tampilan
-            return view('nasabah/dashboard_nasabah', compact('customer', 'totalSampah', 'totalPenjualanSampah'));
+            return view('nasabah/dashboard_nasabah', compact('customer', 'totalSampah', 'totalPenjualanSampah', 'jenisSampah', 'beratSampah'));
         } else {
             // Jika pengguna belum login, bisa diarahkan ke halaman login atau tindakan lainnya
             return redirect()->route('login');
@@ -44,60 +56,63 @@ class NasabahController extends Controller
         return view('nasabah/transaksi_jual_nasabah', compact('saleses', 'user'));
     }
 
-    public function tambah_transaksi_jual_nasabah(){
+    public function tambah_transaksi_jual_nasabah()
+    {
         $trashes = Trash::all();
         return view('nasabah/tambah_transaksi_jual_nasabah', compact('trashes'));
     }
 
-    public function store_transaksi_jual(Request $request){
-            // Validasi input
-            $request->validate([
-                'tanggal_jual' => 'required|date',
-                'jenis_sampah' => 'required|string',
-                'berat' => 'required|numeric',
-                'harga' => 'required|numeric',
-                'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'tanda_tangan' => 'required',
-            ]);
+    public function store_transaksi_jual(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'tanggal_jual' => 'required|date',
+            'jenis_sampah' => 'required|string',
+            'berat' => 'required|numeric',
+            'harga' => 'required|numeric',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'tanda_tangan' => 'required',
+        ]);
 
-            $path1 = 'public/assets/sampah_penjualan';
-            Storage::makeDirectory($path1);
-            
-            // Proses upload gambar nota jual
-            $sampahBeli = time() . '.' . $request->gambar->extension();
-            if (!$request->gambar->isValid()) {
-                return back()->withErrors(['gambar' => 'File gambar tidak valid']);
-            }
-            $request->gambar->storeAs($path1, $sampahBeli);
+        $path1 = 'public/assets/sampah_penjualan';
+        Storage::makeDirectory($path1);
 
-            // Proses tanda tangan
-            $path2 = 'public/assets/tanda_tangan_jual';
-            Storage::makeDirectory($path2); // Membuat folder jika belum ada
+        // Proses upload gambar nota jual
+        $sampahBeli = time() . '.' . $request->gambar->extension();
+        if (!$request->gambar->isValid()) {
+            return back()->withErrors(['gambar' => 'File gambar tidak valid']);
+        }
+        $request->gambar->storeAs($path1, $sampahBeli);
 
-            $signatureData = $request->input('tanda_tangan');
-            $signature = str_replace('data:image/png;base64,', '', $signatureData);
-            $signature = str_replace(' ', '+', $signature);
-            $signatureName = time() . '_signature.png';
-            Storage::put($path2 . '/' . $signatureName, base64_decode($signature));
-    
-            // Simpan data ke dalam database
-            $saleses = new Sales();
-            $saleses->user_id = auth()->id();
-            $saleses->tanggal_jual = $request->input('tanggal_jual');
-            $saleses->jenis_sampah = $request->input('jenis_sampah');
-            $saleses->berat = $request->input('berat');
-            $saleses->harga = $request->input('harga');
-            $saleses->total = $request->input('berat') * $request->input('harga');
-            $saleses->gambar_ttd = $signatureName;
-            $saleses->gambar_sampah = $sampahBeli;
-            $saleses->save();
-            $saleses->user_id = auth()->id();
-    
-            // Redirect ke halaman yang sesuai dengan pesan sukses atau lainnya
-            return redirect()->route('transaksi_jual_nasabah')->with('success', 'Data penjualan berhasil disimpan.');
+        // Proses tanda tangan
+        $path2 = 'public/assets/tanda_tangan_jual';
+        Storage::makeDirectory($path2); // Membuat folder jika belum ada
+
+        $signatureData = $request->input('tanda_tangan');
+        $signature = str_replace('data:image/png;base64,', '', $signatureData);
+        $signature = str_replace(' ', '+', $signature);
+        $signatureName = time() . '_signature.png';
+        Storage::put($path2 . '/' . $signatureName, base64_decode($signature));
+
+        // Simpan data ke dalam database
+        $saleses = new Sales();
+        $saleses->user_id = auth()->id();
+        $saleses->tanggal_jual = $request->input('tanggal_jual');
+        $saleses->jenis_sampah = $request->input('jenis_sampah');
+        $saleses->berat = $request->input('berat');
+        $saleses->harga = $request->input('harga');
+        $saleses->total = $request->input('berat') * $request->input('harga');
+        $saleses->gambar_ttd = $signatureName;
+        $saleses->gambar_sampah = $sampahBeli;
+        $saleses->save();
+        $saleses->user_id = auth()->id();
+
+        // Redirect ke halaman yang sesuai dengan pesan sukses atau lainnya
+        return redirect()->route('transaksi_jual_nasabah')->with('success', 'Data penjualan berhasil disimpan.');
     }
 
-    public function edit_transaksi_jual_nasabah(Request $request){
+    public function edit_transaksi_jual_nasabah(Request $request)
+    {
         $id = $request->input('id');
         $saleses = Sales::findOrFail($id);
 
@@ -110,7 +125,7 @@ class NasabahController extends Controller
         return view('nasabah/edit_transaksi_jual_nasabah', compact('saleses', 'trashes'));
     }
 
-    public function update_transaksi_jual_nasabah(Request $request) 
+    public function update_transaksi_jual_nasabah(Request $request)
     {
         $id = $request->input('id');
         $request->validate([
@@ -164,11 +179,13 @@ class NasabahController extends Controller
         return redirect()->route('transaksi_jual_nasabah')->with('success', 'Data Penjualan berhasil dihapus.');
     }
 
-    public function ganti_password_nasabah(){
+    public function ganti_password_nasabah()
+    {
         return view('nasabah/ganti_password_nasabah');
     }
 
-    public function update_ganti_password_nasabah(Request $request){
+    public function update_ganti_password_nasabah(Request $request)
+    {
         $request->validate([
             'current_password' => 'required',
             'password' => 'required|confirmed|min:6',

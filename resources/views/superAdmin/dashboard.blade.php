@@ -145,47 +145,44 @@
                 <!-- Line Chart -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Line Chart</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Grafik Monitoring Total Berat Penjualan dan Pembelian per Bulan</h6>
                     </div>
                     <div class="card-body">
                         <div class="chart-area" style="height: 400px;">
                             <canvas id="myLineChart"></canvas>
                         </div>
-                        <hr>
-                        Grafik Monitoring Total Berat Penjualan dan Pembelian per Bulan
                     </div>
                 </div>
 
                 <!-- Bar Chart -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Line Chart</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Grafik Monitoring Total Penjualan dan Pembelian per Bulan</h6>
                     </div>
                     <div class="card-body">
                         <div class="chart-bar" style="height: 400px;">
                             <canvas id="myBarChart"></canvas>
                         </div>
-                        <hr>
-                        Grafik Monitoring Total Penjualan dan Pembelian per Bulan
                     </div>
                 </div>
             </div>
         </div>
-    @endsection
+    </section>
+@endsection
 
     @section('script')
         <!-- Chart.js Script -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
-            var months = @json($months);
-            var totalBeratPenjualanPerBulan = @json($totalBeratPenjualanPerBulan);
-            var totalHargaPenjualanPerBulan = @json($totalHargaPenjualanPerBulan);
-            var totalBeratPembelianPerBulan = @json($totalBeratPembelianPerBulan);
-            var totalHargaPembelianPerBulan = @json($totalHargaPembelianPerBulan);
-
+            const months = @json($months);
+            const totalBeratPenjualanPerBulan = @json($totalBeratPenjualanPerBulan);
+            const totalHargaPenjualanPerBulan = @json($totalHargaPenjualanPerBulan);
+            const totalBeratPembelianPerBulan = @json($totalBeratPembelianPerBulan);
+            const totalHargaPembelianPerBulan = @json($totalHargaPembelianPerBulan);
+        
             // Line Chart
-            var ctxLine = document.getElementById('myLineChart').getContext('2d');
-            var myLineChart = new Chart(ctxLine, {
+            const ctxLine = document.getElementById('myLineChart').getContext('2d');
+            const myLineChart = new Chart(ctxLine, {
                 type: 'line',
                 data: {
                     labels: months,
@@ -215,10 +212,10 @@
                     }
                 }
             });
-
+        
             // Bar Chart
-            var ctxBar = document.getElementById('myBarChart').getContext('2d');
-            var myBarChart = new Chart(ctxBar, {
+            const ctxBar = document.getElementById('myBarChart').getContext('2d');
+            const myBarChart = new Chart(ctxBar, {
                 type: 'line',
                 data: {
                     labels: months,
@@ -248,5 +245,5 @@
                     }
                 }
             });
-        </script>
+        </script>        
     @endsection
