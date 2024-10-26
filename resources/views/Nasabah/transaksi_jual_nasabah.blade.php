@@ -128,6 +128,7 @@
                                                 <th>Harga (Rp)</th>
                                                 <th>Total (Rp)</th>
                                                 <th>TTD</th>
+                                                <th>Status Konfirmasi</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -148,6 +149,17 @@
                                                             onclick="showNotaImage('{{ asset('storage/assets/tanda_tangan_jual/' . $sales->gambar_ttd) }}')">
                                                             <i class="bi bi-eye-fill"></i>
                                                         </a>
+                                                    </td>
+                                                    <td style="text-align: center;">
+                                                        @if($sales->status_konfirmasi == 'belum dikonfirmasi')
+                                                            <span class="badge bg-danger">Belum Dikonfirmasi</span>
+                                                        @elseif($sales->status_konfirmasi == 'sedang dijemput')
+                                                            <span class="badge bg-warning">Sedang Dijemput</span>
+                                                        @elseif($sales->status_konfirmasi == 'sampah telah diterima')
+                                                            <span class="badge bg-info">Sampah Telah Diterima</span>
+                                                        @elseif($sales->status_konfirmasi == 'sudah dikonfirmasi')
+                                                            <span class="badge bg-success">Sudah Dikonfirmasi</span>
+                                                        @endif
                                                     </td>
                                                     <td style="text-align: center;">
                                                         <a href="{{ route('edit_transaksi_jual_nasabah', ['id' => $sales->id]) }}"
@@ -243,18 +255,78 @@
         });
 
         // jQuery to show spinner and overlay when form is submitted
-$(document).ready(function() {
-    $('form').on('submit', function() {
-        // Tampilkan overlay dan spinner saat form disubmit
-        document.getElementById('overlay').style.display = 'block';
-        document.getElementById('spinner').style.display = 'block';
-    });
-});
+        $(document).ready(function() {
+            $('form').on('submit', function() {
+                // Tampilkan overlay dan spinner saat form disubmit
+                document.getElementById('overlay').style.display = 'block';
+                document.getElementById('spinner').style.display = 'block';
+            });
+        });
 
 
         function showNotaImage(imageUrl) {
             $('#notaImage').attr('src', imageUrl);
             $('#gambarNotaModal').modal('show');
         }
+
+        // Fungsi AJAX untuk memperbarui status transaksi
+        function fetchTransactionStatus() {
+            $.ajax({
+                url: "{{ route('transaksi_jual_nasabah') }}",
+                method: 'GET',
+                success: function(data) {
+                    $('#sales-table-body').empty(); // Bersihkan isi tabel
+                    data.forEach(function(sales, index) {
+                        $('#sales-table-body').append(`
+                            <tr id="sales-${sales.id}">
+                                <td>${index + 1}</td>
+                                <td>${sales.tanggal_jual}</td>
+                                <td>${sales.jenis_sampah}</td>
+                                <td><img src="{{ asset('storage/assets/sampah_penjualan') }}/${sales.gambar_sampah}" width="60px" height="60px"></td>
+                                <td>${sales.berat}</td>
+                                <td>${sales.harga}</td>
+                                <td>${sales.total}</td>
+                                <td style="text-align: center">
+                                    <a href="#" class="btn btn-primary btn-sm" style="color: white" onclick="showNotaImage('{{ asset('storage/assets/tanda_tangan_jual') }}/${sales.gambar_ttd}')">
+                                        <i class="bi bi-eye-fill"></i>
+                                    </a>
+                                </td>
+                                <td style="text-align: center;">
+                                    ${renderStatus(sales.status_konfirmasi)}
+                                </td>
+                                <td style="text-align: center;">
+                                    <a href="{{ route('edit_transaksi_jual_nasabah', ['id' => '']) }}${sales.id}" class="btn btn-warning btn-sm" style="color: white"> 
+                                        <i class="fas fa-edit"></i> 
+                                    </a>
+                                    <a href="#" class="btn btn-danger btn-sm deleteButton" data-id="${sales.id}">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                    <form id="delete-form-${sales.id}" action="{{ route('destroy_transaksi_jual_nasabah', '') }}${sales.id}" method="get" style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                </td>
+                            </tr>
+                        `);
+                    });
+                }
+            });
+        }
+
+        // Fungsi untuk menampilkan status konfirmasi
+        function renderStatus(status) {
+            if (status == 'belum dikonfirmasi') {
+                return `<span class="badge bg-danger">Belum Dikonfirmasi</span>`;
+            } else if (status == 'sedang dijemput') {
+                return `<span class="badge bg-warning">Sedang Dijemput</span>`;
+            } else if (status == 'sampah telah diterima') {
+                return `<span class="badge bg-info">Sampah Telah Diterima</span>`;
+            } else if (status == 'sudah dikonfirmasi') {
+                return `<span class="badge bg-success">Sudah Dikonfirmasi</span>`;
+            }
+        }
+
+        // Jalankan fetchTransactionStatus setiap 5 detik
+        setInterval(fetchTransactionStatus, 5000);
     </script>
 @endsection

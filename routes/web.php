@@ -108,6 +108,10 @@ Route::group(['middleware' => ['auth', 'admin:super-admin']], function () {
     Route::get('/nota_transaksi_beli', [SuperAdminController::class, 'nota_transaksi_beli'])->name('nota_transaksi_beli');
 
     Route::get('/nota_transaksi_jual', [SuperAdminController::class, 'nota_transaksi_jual'])->name('nota_transaksi_jual');
+
+    Route::post('/transaksi_jual/update_status/{id}', [SuperAdminController::class, 'update_status_transaksi_beli'])->name('update_status_transaksi_beli');
+
+    Route::post('/transaksi_beli/update_status/{id}', [SuperAdminController::class, 'update_status_transaksi_jual'])->name('update_status_transaksi_jual');
 });
 
 //Admin

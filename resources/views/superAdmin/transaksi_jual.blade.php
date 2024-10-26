@@ -118,6 +118,7 @@
                                         <th>Berat (Kg)</th>
                                         <th>Harga (Rp)</th>
                                         <th>Total (Rp)</th>
+                                        <th>Status Konfirmasi</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -133,6 +134,20 @@
                                             <td>{{ $sales->berat }}</td>
                                             <td>{{ $sales->harga }}</td>
                                             <td>{{ $sales->total }}</td>
+                                            <td style="text-align: center;">
+                                                <form action="{{ route('update_status_transaksi_jual', $sales->id) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @if($sales->status_konfirmasi == 'belum dikonfirmasi')
+                                                        <button type="submit" name="status" value="sedang dijemput" class="btn btn-warning btn-sm">Sedang Dijemput</button>
+                                                    @elseif($sales->status_konfirmasi == 'sedang dijemput')
+                                                        <button type="submit" name="status" value="sampah telah diterima" class="btn btn-info btn-sm">Sampah Telah Diterima</button>
+                                                    @elseif($sales->status_konfirmasi == 'sampah telah diterima')
+                                                        <button type="submit" name="status" value="sudah dikonfirmasi" class="btn btn-success btn-sm">Sudah Dikonfirmasi</button>
+                                                    @elseif($sales->status_konfirmasi == 'sudah dikonfirmasi')
+                                                        <button type="button" class="btn btn-secondary btn-sm" disabled>Sudah Dikonfirmasi</button>
+                                                    @endif          
+                                                </form>
+                                            </td>
                                             <td style="text-align: center">
                                                 <a href="{{ route('nota_transaksi_jual', ['id' => $sales->id]) }}"
                                                     target="_blank" class="btn btn-custom btn-sm">
@@ -181,6 +196,7 @@
     <script src="/assets/compiled/js/jquery.min.js"></script>
     <script src="/assets/compiled/js/jquery.dataTables.min.js"></script>
     <script src="/assets/compiled/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
 
     <script>
@@ -236,5 +252,50 @@
             // Ekspor dan unduh file Excel
             XLSX.writeFile(workbook, 'Transaksi_Jual_Sampah.xlsx');
         });
+    </script>
+
+    <script>
+        function fetchTransactionStatus() {
+            $.ajax({
+                url: "{{ route('transaksi_jual_nasabah') }}",
+                method: 'GET',
+                success: function(data) {
+                    $('#sales-table-body').empty(); // Bersihkan isi tabel
+                    data.forEach(function(sales, index) {
+                        $('#sales-table-body').append(`
+                            <tr id="sales-${sales.id}">
+                                <td>${index + 1}</td>
+                                <td>${sales.tanggal_jual}</td>
+                                <td>${sales.jenis_sampah}</td>
+                                <td><img src="{{ asset('storage/assets/sampah_penjualan') }}/${sales.gambar_sampah}" width="60px" height="60px"></td>
+                                <td>${sales.berat}</td>
+                                <td>${sales.harga}</td>
+                                <td>${sales.total}</td>
+                                <td style="text-align: center">
+                                    <a href="#" class="btn btn-primary btn-sm" style="color: white" onclick="showNotaImage('{{ asset('storage/assets/tanda_tangan_jual') }}/${sales.gambar_ttd}')">
+                                        <i class="bi bi-eye-fill"></i>
+                                    </a>
+                                </td>
+                                <td>${sales.status_konfirmasi}</td>
+                                <td style="text-align: center;">
+                                    <a href="{{ route('edit_transaksi_jual_nasabah', ['id' => '']) }}${sales.id}" class="btn btn-warning btn-sm" style="color: white"> 
+                                        <i class="fas fa-edit"></i> 
+                                    </a>
+                                    <a href="#" class="btn btn-danger btn-sm deleteButton" data-id="${sales.id}">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                    <form id="delete-form-${sales.id}" action="{{ route('destroy_transaksi_jual_nasabah', '') }}${sales.id}" method="get" style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                </td>
+                            </tr>
+                        `);
+                    });
+                }
+            });
+        }
+
+        setInterval(fetchTransactionStatus, 5000); // Update setiap 5 detik
     </script>
 @endsection
