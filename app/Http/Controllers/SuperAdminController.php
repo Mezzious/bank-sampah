@@ -101,9 +101,11 @@ class SuperAdminController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|email',
-            'password' => 'required|string|min:6',
+            'email' => 'required|unique:users,email',
             'roles' => 'required|in:super-admin,admin,user', // Pastikan rolenya sesuai dengan yang diizinkan
+            'password' => 'required|min:8|regex:/[a-zA-Z]/|regex:/[0-9]/|regex:/[@$!%*?&]/',
+        ], [
+            'password.regex' => 'Password harus mengandung setidaknya satu huruf, satu angka, dan satu karakter khusus (contoh: @$!%*?&).'
         ]);
 
         // Simpan data ke dalam database
@@ -136,7 +138,9 @@ class SuperAdminController extends Controller
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'required|string|min:6',
+            'password' => 'nullable|min:8|regex:/[a-zA-Z]/|regex:/[0-9]/|regex:/[@$!%*?&]/',
+        ], [
+            'password.regex' => 'Password harus mengandung setidaknya satu huruf, satu angka, dan satu karakter khusus (contoh: @$!%*?&).'
         ]);
 
         $user = User::find($id);
@@ -172,23 +176,32 @@ class SuperAdminController extends Controller
 
     public function update_password(Request $request)
     {
+        // Define password format rules
         $request->validate([
             'current_password' => 'required',
-            'password' => 'required|confirmed|min:6',
+            'password' => 'required|confirmed|min:8|regex:/[a-zA-Z]/|regex:/[0-9]/|regex:/[@$!%*?&]/',
+        ], [
+            'password.regex' => 'Password harus mengandung setidaknya satu huruf, satu angka, dan satu karakter khusus (contoh: @$!%*?&).'
         ]);
 
         $user = User::find(Auth::id());
 
-        //cek password lama
+        // Check current password
         if (!Hash::check($request->current_password, auth()->user()->password)) {
             return back()->with('status', 'Password anda saat ini tidak sesuai');
         }
 
-        //cek password baru dan konfirmasi password
+        // Check if the new password is the same as the current password
+        if ($request->current_password === $request->password) {
+            return back()->with('status', 'Password baru tidak boleh sama dengan password saat ini');
+        }
+
+        // Check if new password and confirmation match
         if ($request->password != $request->password_confirmation) {
             return back()->with('status', 'Password baru dan Konfirmasi Password Baru tidak sesuai');
         }
 
+        // Update the password
         $user->password = Hash::make($request->password);
         $user->save();
 
@@ -210,11 +223,13 @@ class SuperAdminController extends Controller
     {
         $request->validate([
             'nama_nasabah' => 'required|string',
-            'email' => 'required|email',
-            'password' => 'required|string|min:6',
+            'email' => 'required|unique:users,email|email',
             'RW' => 'required|string|min:1',
             'telepon' => 'required|string|max:12',
             'alamat' => 'required',
+            'password' => 'required|min:8|regex:/[a-zA-Z]/|regex:/[0-9]/|regex:/[@$!%*?&]/',
+        ], [
+            'password.regex' => 'Password harus mengandung setidaknya satu huruf, satu angka, dan satu karakter khusus (contoh: @$!%*?&).'
         ]);
 
         // Simpan data ke dalam database
@@ -252,13 +267,20 @@ class SuperAdminController extends Controller
     {
         $id = $request->input('id');
 
+        // Ambil data nasabah berdasarkan id
+        $customer = Customer::findOrFail($id);
+        $user = User::findOrFail($customer->user_id);
+
         // Validasi input
         $request->validate([
             'nama_nasabah' => 'required|string',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email,' . $user->id,
             'RW' => 'required|string|min:1',
             'telepon' => 'required|string|max:12',
             'alamat' => 'required',
+            'password' => 'nullable|min:8|regex:/[a-zA-Z]/|regex:/[0-9]/|regex:/[@$!%*?&]/',
+        ], [
+            'password.regex' => 'Password harus mengandung setidaknya satu huruf, satu angka, dan satu karakter khusus (contoh: @$!%*?&).'
         ]);
 
         // Ambil data nasabah berdasarkan id
@@ -284,6 +306,9 @@ class SuperAdminController extends Controller
         // Update data pengguna (user)
         $user->name = $request->input('nama_nasabah');
         $user->email = $request->input('email');
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->input('password'));
+        }
         $user->save();
 
         return redirect()->route('data_nasabah', $id)->with('success', 'Nasabah berhasil diupdate');
@@ -317,9 +342,9 @@ class SuperAdminController extends Controller
     public function store_sampah(Request $request)
     {
         $request->validate([
-            'jenis_sampah' => 'required|string',
+            'jenis_sampah' => 'required|string|unique:trashes,jenis_sampah',
             'satuan' => 'required|string|max:2',
-            'harga' => 'required|numeric',
+            'harga' => 'required|numeric|max:10000',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'deskripsi' => 'required',
         ]);
@@ -362,7 +387,7 @@ class SuperAdminController extends Controller
         $request->validate([
             'jenis_sampah' => 'required|string',
             'satuan' => 'required|string|max:2',
-            'harga' => 'required|numeric',
+            'harga' => 'required|numeric|max:10000',
             'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'deskripsi' => 'required',
         ]);

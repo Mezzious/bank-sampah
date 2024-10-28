@@ -38,7 +38,7 @@ class UserController extends Controller
             $jenisSampah = $sampahPerJenis->pluck('jenis_sampah'); // Nama jenis sampah
             $beratSampah = $sampahPerJenis->pluck('total_berat'); // Berat per jenis sampah
 
-            return view('user/dashboard_user', compact('user','customer', 'totalSampah', 'totalPembelianSampah', 'jenisSampah', 'beratSampah'));
+            return view('user/dashboard_user', compact('user', 'customer', 'totalSampah', 'totalPembelianSampah', 'jenisSampah', 'beratSampah'));
         } else {
             // Jika pengguna belum login, bisa diarahkan ke halaman login atau tindakan lainnya
             return redirect()->route('login');
@@ -188,7 +188,9 @@ class UserController extends Controller
     {
         $request->validate([
             'current_password' => 'required',
-            'password' => 'required|confirmed|min:6',
+            'password' => 'required|confirmed|min:8|regex:/[a-zA-Z]/|regex:/[0-9]/|regex:/[@$!%*?&]/',
+        ], [
+            'password.regex' => 'Password harus mengandung setidaknya satu huruf, satu angka, dan satu karakter khusus (contoh: @$!%*?&).'
         ]);
 
         $user = User::find(Auth::id());

@@ -12,6 +12,16 @@
         </a>
     </div>
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     @if (session('status'))
         <div class="alert alert-danger" role="alert">
             {{ session('status') }}
@@ -38,10 +48,15 @@
                             Ini</label>
 
                         <div class="col-md-6">
-                            <input id="current_password" type="password"
-                                class="form-control @error('current_password') is-invalid @enderror" name="current_password"
-                                required autocomplete="current-password">
-
+                            <div class="input-group">
+                                <input id="current_password" type="password"
+                                    class="form-control @error('current_password') is-invalid @enderror"
+                                    name="current_password" autocomplete="current-password">
+                                <button class="btn btn-outline-secondary" type="button"
+                                    onclick="togglePassword('current_password')" style="background-color: #d3d3d3;">
+                                    <i class="bi bi-eye-slash"></i>
+                                </button>
+                            </div>
                             @error('current_password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -54,10 +69,15 @@
                         <label for="password" class="col-md-4 col-form-label text-md-right">Password Baru</label>
 
                         <div class="col-md-6">
-                            <input id="password" type="password"
-                                class="form-control @error('password') is-invalid @enderror" name="password" required
-                                autocomplete="new-password">
-
+                            <div class="input-group">
+                                <input id="password" type="password"
+                                    class="form-control @error('password') is-invalid @enderror" name="password"
+                                    autocomplete="new-password">
+                                <button class="btn btn-outline-secondary" type="button"
+                                    onclick="togglePassword('password')" style="background-color: #d3d3d3;">
+                                    <i class="bi bi-eye-slash"></i>
+                                </button>
+                            </div>
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -71,8 +91,14 @@
                             Baru</label>
 
                         <div class="col-md-6">
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
-                                required autocomplete="new-password">
+                            <div class="input-group">
+                                <input id="password-confirm" type="password" class="form-control"
+                                    name="password_confirmation" autocomplete="new-password">
+                                <button class="btn btn-outline-secondary" type="button"
+                                    onclick="togglePassword('password-confirm')" style="background-color: #d3d3d3;">
+                                    <i class="bi bi-eye-slash"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
 

@@ -36,48 +36,41 @@
             <form action="{{ route('store_nasabah') }}" method="post">
                 @csrf
 
-                {{-- <div class="form-group">
-                    <label for="id">Id Nasabah</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        style="cursor: not-allowed;" disabled="disabled" required placeholder="Id Nasabah">
-                </div> --}}
-
-                {{-- <div class="form-group">
-                    <label for="customer_id">Customer_Id</label>
-                    <input type="text" class="form-control" id="customer_id" name="customer_id"
-                        style="cursor: not-allowed;" disabled="disabled" required placeholder="Customer_Id">
-                </div> --}}
-
                 <div class="form-group">
                     <label for="nama_nasabah">Nama*</label>
-                    <input type="text" class="form-control" id="nama_nasabah" name="nama_nasabah" required
+                    <input type="text" class="form-control" id="nama_nasabah" name="nama_nasabah"
                         placeholder="Nama">
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email*</label>
-                    <input type="text" class="form-control" id="email" name="email" required placeholder="Email">
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Email">
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password*</label>
-                    <input type="password" class="form-control" id="password" name="password" required
-                        placeholder="Password">
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" name="password"
+                            placeholder="Password">
+                        <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()" style="background-color: #d3d3d3;">
+                            <i class="bi bi-eye-slash" id="eyeIcon"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="RW">RW*</label>
-                    <input type="text" class="form-control" id="RW" name="RW" required placeholder="RW">
+                    <input type="text" class="form-control" id="RW" name="RW" placeholder="RW">
                 </div>
 
                 <div class="form-group">
                     <label for="telepon">Telepon*</label>
-                    <input type="text" class="form-control" id="telepon" name="telepon" required placeholder="telepon">
+                    <input type="text" class="form-control" id="telepon" name="telepon" placeholder="telepon">
                 </div>
 
                 <div class="form-group">
                     <label for="alamat">Alamat*</label>
-                    <textarea class="form-control" id="alamat" name="alamat" rows="3" required placeholder="Alamat lengkap"></textarea>
+                    <textarea class="form-control" id="alamat" name="alamat" rows="3" placeholder="Alamat lengkap"></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-custom">Simpan</button>
@@ -103,5 +96,22 @@
             // Nonaktifkan tombol submit
             document.querySelector('.btn-custom').disabled = true;
         });
+    </script>
+
+    <script>
+        function togglePassword() {
+            const passwordField = document.getElementById("password");
+            const eyeIcon = document.getElementById("eyeIcon");
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                eyeIcon.classList.remove("bi-eye-slash");
+                eyeIcon.classList.add("bi-eye");
+            } else {
+                passwordField.type = "password";
+                eyeIcon.classList.remove("bi-eye");
+                eyeIcon.classList.add("bi-eye-slash");
+            }
+        }
     </script>
 @endsection

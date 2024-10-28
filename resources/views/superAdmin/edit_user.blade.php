@@ -1,11 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
+    
 
     <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -17,6 +13,22 @@
             <span style="color: white;">Back</span>
         </a>
     </div>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 
     <!-- Form Edit Data User -->
     <div class="card border-bottom-primary shadow mb-4" style="margin-right: 28px">
@@ -30,20 +42,25 @@
 
                 <div class="form-group">
                     <label for="nama_user">Nama*</label>
-                    <input type="text" class="form-control" id="nama_user" name="name" required placeholder="Nama"
+                    <input type="text" class="form-control" id="nama_user" name="name" placeholder="Nama"
                         value="{{ $user->name }}">
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email*</label>
-                    <input type="email" class="form-control" id="email" name="email" required placeholder="Email"
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email"
                         value="{{ $user->email }}">
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password*</label>
-                    <input type="password" class="form-control" id="password" name="password" required
-                        placeholder="Password" value="{{ $user->password }}">
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" name="password"
+                            placeholder="Password">
+                        <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()" style="background-color: #d3d3d3;">
+                            <i class="bi bi-eye-slash" id="eyeIcon"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn btn-custom" id="submitButton">Simpan</button>
@@ -72,5 +89,22 @@
             // Allow form to submit
             return true;
         });
+    </script>
+
+    <script>
+        function togglePassword() {
+            const passwordField = document.getElementById("password");
+            const eyeIcon = document.getElementById("eyeIcon");
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                eyeIcon.classList.remove("bi-eye-slash");
+                eyeIcon.classList.add("bi-eye");
+            } else {
+                passwordField.type = "password";
+                eyeIcon.classList.remove("bi-eye");
+                eyeIcon.classList.add("bi-eye-slash");
+            }
+        }
     </script>
 @endsection

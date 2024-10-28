@@ -104,11 +104,8 @@
                             <thead class="table-secondary">
                                 <tr>
                                     <th>No</th>
-                                    <th>Id</th>
-                                    {{-- <th>User_Id</th> --}}
                                     <th>Nama</th>
                                     <th>Email</th>
-                                    {{-- <th>Password</th> --}}
                                     <th>RW</th>
                                     <th>Telepon</th>
                                     <th>Alamat</th>
@@ -119,11 +116,8 @@
                                 @foreach ($cust as $customer)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $customer->id }}</td>
-                                        {{-- <td>{{ $customer->user_id }}</td> --}}
                                         <td>{{ $customer->user->name }}</td>
                                         <td>{{ $customer->user->email }}</td>
-                                        {{-- <td>{{ $customer->user->password }}</td> --}}
                                         <td>{{ $customer->rw }}</td>
                                         <td>{{ $customer->telepon }}</td>
                                         <td>{{ $customer->alamat }}</td>
