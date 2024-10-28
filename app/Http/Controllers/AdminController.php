@@ -116,7 +116,9 @@ class AdminController extends Controller
     public function update_ganti_password_admin(Request $request){
         $request->validate([
             'current_password' => 'required',
-            'password' => 'required|confirmed|min:6',
+            'password' => 'required|confirmed|min:8|regex:/[a-zA-Z]/|regex:/[0-9]/|regex:/[@$!%*?&]/',
+        ], [
+            'password.regex' => 'Password harus mengandung setidaknya satu huruf, satu angka, dan satu karakter khusus (contoh: @$!%*?&).'
         ]);
 
         $user = User::find(Auth::id());

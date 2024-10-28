@@ -78,6 +78,7 @@
     <link rel="stylesheet" href="./assets/compiled/css/dataTables.bootstrap4.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/5Bl1xZoDvj3FVBIpT9SNq9u/KfAZ5qON6lC7G" crossorigin="anonymous">
+
     <div class="back-button-container" style="margin-bottom: 10px;">
         <a class="btn back-button" onclick="goBack()">
             <i class="fa-solid fa-arrow-left" style="color: white;"></i>
@@ -107,7 +108,7 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="table_jual" class="table table-bordered">
+                            <table id="table_beli" class="table table-bordered">
                                 <thead class="table-secondary">
                                     <tr>
                                         <th>No</th>
@@ -191,15 +192,15 @@
 @endsection
 
 @section('script')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
     <script src="/assets/compiled/js/jquery.min.js"></script>
     <script src="/assets/compiled/js/jquery.dataTables.min.js"></script>
     <script src="/assets/compiled/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
 
     <script>
         $(document).ready(function() {
-            $('#table_jual').DataTable();
+            $('#table_beli').DataTable();
         });
 
         function showNotaImage(imageUrl) {
@@ -216,7 +217,7 @@
     <script>
         document.getElementById('exportButton').addEventListener('click', function() {
             // Ambil tabel laporan beli
-            var table = document.getElementById('table_jual');
+            var table = document.getElementById('table_beli');
             var data = [];
             
             // Ambil header tabel (thead) tanpa kolom gambar dan aksi

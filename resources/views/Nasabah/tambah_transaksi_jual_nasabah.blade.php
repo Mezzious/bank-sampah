@@ -56,12 +56,12 @@
                 <div class="form-group">
                     <label for="tanggal_jual">Tanggal Jual*</label>
                     <input type="date" class="form-control" id="tanggal_jual" name="tanggal_jual"
-                        value="{{ $today }}" required>
+                        value="{{ $today }}">
                 </div>
 
                 <div class="form-group">
                     <label for="jenis_sampah">Jenis Sampah*</label>
-                    <select class="form-control" id="jenis_sampah" name="jenis_sampah" required
+                    <select class="form-control" id="jenis_sampah" name="jenis_sampah"
                         onchange="updateSampahDetails()">
                         <option value="">Pilih Jenis Sampah</option>
                         @foreach ($trashes as $trash)
@@ -74,8 +74,8 @@
 
                 <div class="form-group">
                     <label for="berat">Berat (Kg)*</label>
-                    <input type="number" step="0.01" class="form-control" id="berat" onchange="sum();"
-                        name="berat" required placeholder="Berat">
+                    <input type="number" step="0" min="0" class="form-control" id="berat" onchange="sum();"
+                        name="berat" placeholder="Berat">
                 </div>
 
                 <div class="form-group">
@@ -87,7 +87,7 @@
 
                 <div class="form-group">
                     <label for="total">Total (Rp)*</label>
-                    <input type="number" class="form-control" id="total" onchange="sum();" name="total" required
+                    <input type="number" class="form-control" id="total" onchange="sum();" name="total"
                         disabled placeholder="Total" readonly>
                 </div>
 

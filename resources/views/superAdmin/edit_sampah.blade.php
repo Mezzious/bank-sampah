@@ -39,19 +39,19 @@
 
                 <div class="form-group">
                     <label for="jenis_sampah">Jenis Sampah*</label>
-                    <input type="text" class="form-control" id="jenis_sampah" name="jenis_sampah" required
+                    <input type="text" class="form-control" id="jenis_sampah" name="jenis_sampah"
                         placeholder="Jenis Sampah" value="{{ $trashes->jenis_sampah }}">
                 </div>
 
                 <div class="form-group">
                     <label for="satuan">Satuan*</label>
-                    <input type="text" class="form-control" id="satuan" name="satuan" required placeholder="Satuan"
+                    <input type="text" class="form-control" id="satuan" name="satuan" placeholder="Satuan"
                         value="{{ $trashes->satuan }}">
                 </div>
 
                 <div class="form-group">
                     <label for="harga">Harga*</label>
-                    <input type="text" class="form-control" id="harga" name="harga" required placeholder="Harga"
+                    <input type="text" class="form-control" id="harga" name="harga" placeholder="Harga"
                         value="{{ $trashes->harga }}">
                 </div>
 
@@ -63,7 +63,7 @@
 
                 <div class="form-group">
                     <label for="deskripsi">Deskripsi*</label>
-                    <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required placeholder="Deskripsi">{{ $trashes->deskripsi }}</textarea>
+                    <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" placeholder="Deskripsi">{{ $trashes->deskripsi }}</textarea>
                 </div>
 
                 <button type="submit" class="btn btn-custom" id="submitButton">Simpan</button>

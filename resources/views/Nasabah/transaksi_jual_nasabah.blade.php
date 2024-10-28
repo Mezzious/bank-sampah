@@ -92,10 +92,10 @@
         @csrf
         <div class="row">
             <div class="col-lg-3">
-                <input name="txtTglAwal" id="txtTglAwal" type="date" class="form-control" size="10" required />
+                <input name="txtTglAwal" id="txtTglAwal" type="date" class="form-control" size="10" />
             </div>
             <div class="col-lg-3">
-                <input name="txtTglAkhir" id="txtTglAkhir" type="date" class="form-control" size="10" required />
+                <input name="txtTglAkhir" id="txtTglAkhir" type="date" class="form-control" size="10" />
             </div>
             <div class="col-lg-3">
                 <input name="btnTampil" style="color: white" class="btn btn-custom" type="submit" value="Tampilkan" />
@@ -103,97 +103,95 @@
         </div>
     </form>
 
-            @if (session()->has('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
-                </div>
-            @endif
+    @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+        </div>
+    @endif
 
-            @if (isset($saleses))
-                <div class="mb-3"></div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card shadow">
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table id="table_beli" class="table table-bordered">
-                                        <thead class="table-secondary">
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Tanggal Jual</th>
-                                                <th>Jenis Sampah</th>
-                                                <th>Gambar</th>
-                                                <th>Berat (Kg)</th>
-                                                <th>Harga (Rp)</th>
-                                                <th>Total (Rp)</th>
-                                                <th>TTD</th>
-                                                <th>Status Konfirmasi</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($saleses as $sales)
-                                                <tr>
-                                                    <td> {{ $loop->iteration }} </td>
-                                                    <td> {{ $sales->tanggal_jual }} </td>
-                                                    <td> {{ $sales->jenis_sampah }} </td>
-                                                    <td><img src="{{ asset('storage/assets/sampah_penjualan/' . $sales->gambar_sampah) }}"
-                                                            width="60px" height="60px"></td>
-                                                    <td> {{ $sales->berat }}</td>
-                                                    <td> {{ $sales->harga }} </td>
-                                                    <td> {{ $sales->total }} </td>
-                                                    <td style="text-align: center">
-                                                        <a href="#" class="btn btn-primary btn-sm"
-                                                            style="color: white"
-                                                            onclick="showNotaImage('{{ asset('storage/assets/tanda_tangan_jual/' . $sales->gambar_ttd) }}')">
-                                                            <i class="bi bi-eye-fill"></i>
-                                                        </a>
-                                                    </td>
-                                                    <td style="text-align: center;">
-                                                        @if($sales->status_konfirmasi == 'belum dikonfirmasi')
-                                                            <span class="badge bg-danger">Belum Dikonfirmasi</span>
-                                                        @elseif($sales->status_konfirmasi == 'sedang dijemput')
-                                                            <span class="badge bg-warning">Sedang Dijemput</span>
-                                                        @elseif($sales->status_konfirmasi == 'sampah telah diterima')
-                                                            <span class="badge bg-info">Sampah Telah Diterima</span>
-                                                        @elseif($sales->status_konfirmasi == 'sudah dikonfirmasi')
-                                                            <span class="badge bg-success">Sudah Dikonfirmasi</span>
-                                                        @endif
-                                                    </td>
-                                                    <td style="text-align: center;">
-                                                        <a href="{{ route('edit_transaksi_jual_nasabah', ['id' => $sales->id]) }}"
-                                                            class="btn btn-warning btn-sm" style="color: white">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a>
-                                                        <a href="#" class="btn btn-danger btn-sm deleteButton"
-                                                            data-id="{{ $sales->id }}">
-                                                            <i class="fas fa-trash"></i>
-                                                        </a>
-                                                        <form id="delete-form-{{ $sales->id }}"
-                                                            action="{{ route('destroy_transaksi_jual_nasabah', $sales->id) }}"
-                                                            method="get" style="display: none;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <br>
-                                    <div class="d-flex justify-content-between">
-                                        <a href="{{ route('tambah_transaksi_jual_nasabah') }}" class="btn btn-custom">
-                                            <i class="fa-solid fa-cart-plus" style="color: white; margin-right: 5px;"></i>
-                                            <span style="color: white;">Tambah</span>
-                                        </a>
-                                    </div>
-                                </div>
+    @if (isset($saleses))
+        <div class="mb-3"></div>
+        <div class="row">
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="table_beli" class="table table-bordered">
+                                <thead class="table-secondary">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Tanggal Jual</th>
+                                        <th>Jenis Sampah</th>
+                                        <th>Gambar</th>
+                                        <th>Berat (Kg)</th>
+                                        <th>Harga (Rp)</th>
+                                        <th>Total (Rp)</th>
+                                        <th>TTD</th>
+                                        <th>Status Konfirmasi</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($saleses as $sales)
+                                        <tr>
+                                            <td> {{ $loop->iteration }} </td>
+                                            <td> {{ $sales->tanggal_jual }} </td>
+                                            <td> {{ $sales->jenis_sampah }} </td>
+                                            <td><img src="{{ asset('storage/assets/sampah_penjualan/' . $sales->gambar_sampah) }}"
+                                                    width="60px" height="60px"></td>
+                                            <td> {{ $sales->berat }}</td>
+                                            <td> {{ $sales->harga }} </td>
+                                            <td> {{ $sales->total }} </td>
+                                            <td style="text-align: center">
+                                                <a href="#" class="btn btn-primary btn-sm" style="color: white"
+                                                    onclick="showNotaImage('{{ asset('storage/assets/tanda_tangan_jual/' . $sales->gambar_ttd) }}')">
+                                                    <i class="bi bi-eye-fill"></i>
+                                                </a>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                @if ($sales->status_konfirmasi == 'belum dikonfirmasi')
+                                                    <span class="badge bg-danger">Belum Dikonfirmasi</span>
+                                                @elseif($sales->status_konfirmasi == 'sedang dijemput')
+                                                    <span class="badge bg-warning">Sedang Dijemput</span>
+                                                @elseif($sales->status_konfirmasi == 'sampah telah diterima')
+                                                    <span class="badge bg-info">Sampah Telah Diterima</span>
+                                                @elseif($sales->status_konfirmasi == 'sudah dikonfirmasi')
+                                                    <span class="badge bg-success">Sudah Dikonfirmasi</span>
+                                                @endif
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <a href="{{ route('edit_transaksi_jual_nasabah', ['id' => $sales->id]) }}"
+                                                    class="btn btn-warning btn-sm" style="color: white">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-danger btn-sm deleteButton"
+                                                    data-id="{{ $sales->id }}">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                                <form id="delete-form-{{ $sales->id }}"
+                                                    action="{{ route('destroy_transaksi_jual_nasabah', $sales->id) }}"
+                                                    method="get" style="display: none;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <br>
+                            <div class="d-flex justify-content-between">
+                                <a href="{{ route('tambah_transaksi_jual_nasabah') }}" class="btn btn-custom">
+                                    <i class="fa-solid fa-cart-plus" style="color: white; margin-right: 5px;"></i>
+                                    <span style="color: white;">Tambah</span>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     @endif
 
     <!-- Modal -->

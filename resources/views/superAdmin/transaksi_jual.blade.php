@@ -89,10 +89,10 @@
         @csrf
         <div class="row">
             <div class="col-lg-3">
-                <input name="txtTglAwal" id="txtTglAwal" type="date" class="form-control" size="10" required />
+                <input name="txtTglAwal" id="txtTglAwal" type="date" class="form-control" size="10" />
             </div>
             <div class="col-lg-3">
-                <input name="txtTglAkhir" id="txtTglAkhir" type="date" class="form-control" size="10" required />
+                <input name="txtTglAkhir" id="txtTglAkhir" type="date" class="form-control" size="10" />
             </div>
             <div class="col-lg-3">
                 <input name="btnTampil" style="color: white" class="btn btn-custom" type="submit" value="Tampilkan" />
@@ -107,7 +107,7 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="table_beli" class="table table-bordered">
+                            <table id="table_jual" class="table table-bordered">
                                 <thead class="table-secondary">
                                     <tr>
                                         <th>No</th>
@@ -135,17 +135,23 @@
                                             <td>{{ $sales->harga }}</td>
                                             <td>{{ $sales->total }}</td>
                                             <td style="text-align: center;">
-                                                <form action="{{ route('update_status_transaksi_jual', $sales->id) }}" method="POST" class="d-inline">
+                                                <form action="{{ route('update_status_transaksi_jual', $sales->id) }}"
+                                                    method="POST" class="d-inline">
                                                     @csrf
-                                                    @if($sales->status_konfirmasi == 'belum dikonfirmasi')
-                                                        <button type="submit" name="status" value="sedang dijemput" class="btn btn-warning btn-sm">Sedang Dijemput</button>
+                                                    @if ($sales->status_konfirmasi == 'belum dikonfirmasi')
+                                                        <button type="submit" name="status" value="sedang dijemput"
+                                                            class="btn btn-warning btn-sm">Sedang Dijemput</button>
                                                     @elseif($sales->status_konfirmasi == 'sedang dijemput')
-                                                        <button type="submit" name="status" value="sampah telah diterima" class="btn btn-info btn-sm">Sampah Telah Diterima</button>
+                                                        <button type="submit" name="status"
+                                                            value="sampah telah diterima"
+                                                            class="btn btn-info btn-sm">Sampah Telah Diterima</button>
                                                     @elseif($sales->status_konfirmasi == 'sampah telah diterima')
-                                                        <button type="submit" name="status" value="sudah dikonfirmasi" class="btn btn-success btn-sm">Sudah Dikonfirmasi</button>
+                                                        <button type="submit" name="status" value="sudah dikonfirmasi"
+                                                            class="btn btn-success btn-sm">Sudah Dikonfirmasi</button>
                                                     @elseif($sales->status_konfirmasi == 'sudah dikonfirmasi')
-                                                        <button type="button" class="btn btn-secondary btn-sm" disabled>Sudah Dikonfirmasi</button>
-                                                    @endif          
+                                                        <button type="button" class="btn btn-secondary btn-sm"
+                                                            disabled>Sudah Dikonfirmasi</button>
+                                                    @endif
                                                 </form>
                                             </td>
                                             <td style="text-align: center">
@@ -160,7 +166,8 @@
                             </table>
                             <div>
                                 <button id="exportButton" class="btn btn-custom">
-                                    <i class="fa-solid fa-file-export" style="color: white;"></i> <span style="color: white;">Export</span>
+                                    <i class="fa-solid fa-file-export" style="color: white;"></i> <span
+                                        style="color: white;">Export</span>
                                 </button>
                             </div>
                         </div>
@@ -193,15 +200,15 @@
 @endsection
 
 @section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/assets/compiled/js/jquery.min.js"></script>
     <script src="/assets/compiled/js/jquery.dataTables.min.js"></script>
     <script src="/assets/compiled/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
 
     <script>
         $(document).ready(function() {
-            $('#table_beli').DataTable();
+            $('#table_jual').DataTable();
         });
 
         function showNotaImage(imageUrl) {
@@ -219,9 +226,9 @@
     <script>
         document.getElementById('exportButton').addEventListener('click', function() {
             // Ambil tabel laporan beli
-            var table = document.getElementById('table_beli');
+            var table = document.getElementById('table_jual');
             var data = [];
-            
+
             // Ambil header tabel (thead) tanpa kolom gambar dan aksi
             var headers = [];
             table.querySelectorAll('thead th').forEach(function(th, index) {
