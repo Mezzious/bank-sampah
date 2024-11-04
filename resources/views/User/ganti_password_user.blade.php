@@ -122,6 +122,15 @@
 
     @section('script')
         <script>
+            function togglePassword(id) {
+                const input = document.getElementById(id);
+                const icon = input.nextElementSibling.querySelector('i');
+                const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                input.setAttribute('type', type);
+                icon.classList.toggle('bi-eye');
+                icon.classList.toggle('bi-eye-slash');
+            }
+
             document.getElementById('btnGantiPassword').addEventListener('click', function(e) {
                 // Tampilkan spinner
                 document.getElementById('spinner').style.display = 'block';

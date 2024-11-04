@@ -35,15 +35,15 @@ class AdminController extends Controller
 
             // Mendapatkan data penjualan per bulan
             $sales = Sales::selectRaw('DATE_FORMAT(tanggal_jual, "%Y-%m") as month, SUM(berat) as total_berat, SUM(total) as total_harga')
-                            ->groupBy('month')
-                            ->orderBy('month')
-                            ->get();
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get();
 
             // Mendapatkan data pembelian per bulan
             $purchases = Purchase::selectRaw('DATE_FORMAT(tanggal_beli, "%Y-%m") as month, SUM(berat) as total_berat, SUM(total) as total_harga')
-                                ->groupBy('month')
-                                ->orderBy('month')
-                                ->get();
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get();
 
             // Menggabungkan bulan-bulan dari penjualan dan pembelian, diurutkan dan unik
             $months = $sales->pluck('month')->union($purchases->pluck('month'))->unique()->sort();
@@ -58,9 +58,16 @@ class AdminController extends Controller
 
             // Mengirimkan data ke tampilan
             return view('admin/dashboard_admin', compact(
-                'roles', 'totalBerat', 'totalPenjualan', 'totalPembelian', 'totalNasabah',
-                'months', 'totalBeratPenjualanPerBulan', 'totalHargaPenjualanPerBulan',
-                'totalBeratPembelianPerBulan', 'totalHargaPembelianPerBulan'
+                'roles',
+                'totalBerat',
+                'totalPenjualan',
+                'totalPembelian',
+                'totalNasabah',
+                'months',
+                'totalBeratPenjualanPerBulan',
+                'totalHargaPenjualanPerBulan',
+                'totalBeratPembelianPerBulan',
+                'totalHargaPembelianPerBulan'
             ));
         } else {
             // Jika pengguna belum login, bisa diarahkan ke halaman login atau tindakan lainnya
@@ -88,32 +95,38 @@ class AdminController extends Controller
     }
 
 
-    public function transaksi_beli_admin(){
+    public function transaksi_beli_admin()
+    {
         $purchases = Purchase::all();
         return view('admin/transaksi_beli_admin', compact('purchases'));
     }
 
-    public function transaksi_jual_admin(){
+    public function transaksi_jual_admin()
+    {
         $saleses = Sales::all();
         return view('admin/transaksi_jual_admin', compact('saleses'));
     }
 
 
-    public function laporan_beli_admin(){
+    public function laporan_beli_admin()
+    {
         $purchases = Purchase::all();
         return view('admin/laporan_beli_admin', compact('purchases'));
     }
 
-    public function laporan_jual_admin(){
+    public function laporan_jual_admin()
+    {
         $saleses = Sales::all();
         return view('admin/laporan_jual_admin', compact('saleses'));
     }
 
-    public function ganti_password_admin(){
+    public function ganti_password_admin()
+    {
         return view('admin/ganti_password_admin');
     }
-    
-    public function update_ganti_password_admin(Request $request){
+
+    public function update_ganti_password_admin(Request $request)
+    {
         $request->validate([
             'current_password' => 'required',
             'password' => 'required|confirmed|min:8|regex:/[a-zA-Z]/|regex:/[0-9]/|regex:/[@$!%*?&]/',
@@ -126,6 +139,11 @@ class AdminController extends Controller
         //cek password lama
         if (!Hash::check($request->current_password, auth()->user()->password)) {
             return back()->with('status', 'Password anda saat ini tidak sesuai');
+        }
+
+        // Check if the new password is the same as the current password
+        if ($request->current_password === $request->password) {
+            return back()->with('status', 'Password baru tidak boleh sama dengan password saat ini');
         }
 
         //cek password baru dan konfirmasi password
@@ -203,7 +221,7 @@ class AdminController extends Controller
         // Kembalikan view dengan data yang difilter
         return view('admin/laporan_beli_admin', compact('purchases'));
     }
-    
+
     public function tampilkan_tanggal_jual_laporan_admin(Request $request)
     {
         // Validasi input

@@ -90,10 +90,10 @@
         @csrf
         <div class="row">
             <div class="col-lg-3">
-                <input name="txtTglAwal" id="txtTglAwal" type="date" class="form-control" size="10" required />
+                <input name="txtTglAwal" id="txtTglAwal" type="date" class="form-control" size="10" />
             </div>
             <div class="col-lg-3">
-                <input name="txtTglAkhir" id="txtTglAkhir" type="date" class="form-control" size="10" required />
+                <input name="txtTglAkhir" id="txtTglAkhir" type="date" class="form-control" size="10" />
             </div>
             <div class="col-lg-3">
                 <input name="btnTampil" style="color: white" class="btn btn-custom" type="submit" value="Tampilkan" />

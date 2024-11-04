@@ -200,6 +200,11 @@ class UserController extends Controller
             return back()->with('status', 'Password anda saat ini tidak sesuai');
         }
 
+        // Check if the new password is the same as the current password
+        if ($request->current_password === $request->password) {
+            return back()->with('status', 'Password baru tidak boleh sama dengan password saat ini');
+        }
+
         //cek password baru dan konfirmasi password
         if ($request->password != $request->password_confirmation) {
             return back()->with('status', 'Password baru dan Konfirmasi Password Baru tidak sesuai');
