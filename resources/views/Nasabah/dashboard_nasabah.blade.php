@@ -60,7 +60,7 @@
         <!-- Offcanvas Menu for smaller screens -->
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasMenuLabel">Selamat Datang, RW 0{{ $customer->rw }}</h5>
+                <h5 class="offcanvas-title" id="offcanvasMenuLabel">Selamat Datang, {{ auth()->user()->name }}~</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
