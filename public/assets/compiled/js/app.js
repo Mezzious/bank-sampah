@@ -7813,10 +7813,13 @@ function clearSearchBar() {
     searchTable(); // Re-run search to display all rows
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    var backButton = document.querySelector('.back-button');
-    backButton.classList.add('visible');
+document.addEventListener('DOMContentLoaded', function () {
+    const element = document.getElementById('myElement');
+    if (element) {
+        element.classList.add('active');
+    }
 });
+
 
 function goBack() {
     var backButton = document.querySelector('.back-button');

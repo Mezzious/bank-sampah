@@ -9,11 +9,28 @@
     <style>
         .kop-laporan {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            /* Menjaga jarak antara logo kiri dan kanan */
+            align-items: flex-start;
+            /* Menyelaraskan kedua logo ke bagian atas */
             width: 100%;
-            padding: 20px 0;
-            margin-bottom: 5px;
+        }
+
+        .logo-kiri img,
+        .logo-kanan img {
+            width: 70px;
+            /* Sesuaikan ukuran logo menjadi sama */
+            height: 70px;
+            /* Sesuaikan tinggi logo menjadi sama */
+            object-fit: contain;
+            /* Menjaga proporsi gambar */
+        }
+
+        .kop-laporan div {
+            margin: 0;
+            /* Menghapus margin default */
+            padding: 0;
+            /* Menghapus padding default */
         }
 
         .kop-laporan h1,
@@ -26,6 +43,8 @@
         .kop-laporan h1 {
             font-size: 28px;
             font-weight: bold;
+            margin-top: 5px;
+            /* Jarak antara logo dan judul */
         }
 
         .kop-laporan h2 {
@@ -43,20 +62,14 @@
             flex-grow: 1;
             /* Teks berada di tengah antara dua logo */
         }
-
-        .kop-laporan img {
-            max-width: 80px;
-            /* Sesuaikan ukuran logo */
-            height: auto;
-        }
     </style>
 </head>
 
 <body>
     <div class="kop-laporan">
-        <!-- Logo Kiri -->
-        <img src="./assets/compiled/png/durkep.png" alt="Logo Kiri" style="height: 65px; width: 65px;">
-
+        <div class="logo-kiri">
+            <img src="./assets/compiled/png/durkep2.png" alt="Logo Kiri">
+        </div>
         <!-- Konten Teks di Tengah -->
         <div class="kop-content">
             <h1>BANK SAMPAH</h1>
@@ -64,14 +77,15 @@
             <p>JL. KEBON RAYA NO.1 4, RT.4/RW.7, DURI KEPA, KEC. KB. JERUK, KOTA JAKARTA BARAT,<br>
                 DAERAH KHUSUS IBUKOTA JAKARTA 11510</p>
         </div>
-
-        <!-- Logo Kanan -->
-        <img src="./assets/compiled/png/jakarta.png" alt="Logo Kanan" style="height: 95px; width: 95px;">
+        <div class="logo-kanan">
+            <img src="./assets/compiled/png/jakarta2.png" alt="Logo Kanan">
+        </div>
     </div>
 
     <div class="page-content">
         @yield('content')
     </div>
 </body>
-    @yield('script')
+@yield('script')
+
 </html>

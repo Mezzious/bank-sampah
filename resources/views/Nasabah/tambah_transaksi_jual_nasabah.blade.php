@@ -7,7 +7,6 @@
             width: 100%;
             height: auto;
             max-width: 100%;
-            /* Membatasi agar tidak melebihi kontainer */
             aspect-ratio: 2 / 1;
             /* Menjaga rasio aspek 2:1, bisa disesuaikan */
         }
@@ -46,7 +45,8 @@
             <h6 class="m-0">Form Input Transaksi Jual</h6>
         </div>
         <div class="card-body">
-            <form action="{{ route('store_transaksi_jual') }}" method="post" enctype="multipart/form-data">
+            <form id="transaction-form" action="{{ route('store_transaksi_jual') }}" method="post"
+                enctype="multipart/form-data">
                 @csrf
 
                 @php
@@ -61,8 +61,7 @@
 
                 <div class="form-group">
                     <label for="jenis_sampah">Jenis Sampah*</label>
-                    <select class="form-control" id="jenis_sampah" name="jenis_sampah"
-                        onchange="updateSampahDetails()">
+                    <select class="form-control" id="jenis_sampah" name="jenis_sampah" onchange="updateSampahDetails()">
                         <option value="">Pilih Jenis Sampah</option>
                         @foreach ($trashes as $trash)
                             <option value="{{ $trash->jenis_sampah }}" data-harga="{{ $trash->harga }}">
@@ -74,8 +73,8 @@
 
                 <div class="form-group">
                     <label for="berat">Berat (Kg)*</label>
-                    <input type="number" step="0" min="0" class="form-control" id="berat" onchange="sum();"
-                        name="berat" placeholder="Berat">
+                    <input type="number" step="0" min="0" class="form-control" id="berat"
+                        onchange="sum();" name="berat" placeholder="Berat">
                 </div>
 
                 <div class="form-group">
@@ -87,8 +86,8 @@
 
                 <div class="form-group">
                     <label for="total">Total (Rp)*</label>
-                    <input type="number" class="form-control" id="total" onchange="sum();" name="total"
-                        disabled placeholder="Total" readonly>
+                    <input type="number" class="form-control" id="total" onchange="sum();" name="total" disabled
+                        placeholder="Total" readonly>
                 </div>
 
                 <div class="form-group">
@@ -108,6 +107,7 @@
             </form>
         </div>
     </div>
+
     <!-- Overlay di Tengah Layar -->
     <div id="overlay"></div>
     <!-- Spinner di Tengah Layar -->
@@ -146,7 +146,8 @@
             signaturePad.clear();
         });
 
-        document.querySelector('form').addEventListener('submit', function(event) {
+        document.getElementById('transaction-form').addEventListener('submit', function(event) {
+            // Periksa apakah tanda tangan kosong
             if (signaturePad.isEmpty()) {
                 event.preventDefault();
                 alert('Tanda tangan dibutuhkan.');
@@ -154,6 +155,9 @@
                 var signatureData = signaturePad.toDataURL();
                 document.getElementById('tanda_tangan').value = signatureData;
             }
+            // Tampilkan overlay dan spinner saat form disubmit
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('spinner').style.display = 'block';
         });
 
         // Function to resize the canvas
@@ -167,37 +171,8 @@
             signaturePad.clear(); // Clear the canvas when resized
         }
 
-        // Initialize signature pad
-        var canvas = document.getElementById('signature-pad');
-        var signaturePad = new SignaturePad(canvas);
-
         // Resize the canvas on page load and when window is resized
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas(); // Call it once on load
-
-        // Clear signature logic
-        document.getElementById('clear-signature').addEventListener('click', function() {
-            signaturePad.clear();
-        });
-
-        // Submit logic
-        document.querySelector('form').addEventListener('submit', function(event) {
-            if (signaturePad.isEmpty()) {
-                event.preventDefault();
-                alert('Tanda tangan dibutuhkan.');
-            } else {
-                var signatureData = signaturePad.toDataURL();
-                document.getElementById('tanda_tangan').value = signatureData;
-            }
-        });
-
-        // jQuery to show spinner and overlay when form is submitted
-        $(document).ready(function() {
-            $('form').on('submit', function() {
-                // Tampilkan overlay dan spinner saat form disubmit
-                document.getElementById('overlay').style.display = 'block';
-                document.getElementById('spinner').style.display = 'block';
-            });
-        });
     </script>
 @endsection

@@ -56,7 +56,7 @@
     <!-- Offcanvas Menu for smaller screens -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasMenuLabel">Selamat Datang, RW 0{{ $user->customer->rw }}</h5>
+            <h5 class="offcanvas-title" id="offcanvasMenuLabel">Selamat Datang, RW 0{{ $user->customer->name }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
@@ -293,8 +293,8 @@
                                     ${renderStatus(sales.status_konfirmasi)}
                                 </td>
                                 <td style="text-align: center;">
-                                    <a href="{{ route('edit_transaksi_jual_nasabah', ['id' => '']) }}${sales.id}" class="btn btn-warning btn-sm" style="color: white"> 
-                                        <i class="fas fa-edit"></i> 
+                                    <a href="{{ route('edit_transaksi_jual_nasabah', ['id' => '']) }}${sales.id}" class="btn btn-warning btn-sm" style="color: white">
+                                        <i class="fas fa-edit"></i>
                                     </a>
                                     <a href="#" class="btn btn-danger btn-sm deleteButton" data-id="${sales.id}">
                                         <i class="fas fa-trash"></i>
