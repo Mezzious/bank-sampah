@@ -27,7 +27,7 @@
                 <tr align="center">
                     <td>{{ $loop->iteration }}</td>
                     <td>0{{ $sales->user->customer->rw }}</td>
-                    <td>{{ $sales->tanggal_beli }}</td>
+                    <td>{{ $sales->tanggal_jual }}</td>
                     <td>{{ $sales->jenis_sampah }}</td>
                     <td>{{ $sales->berat }}</td>
                     <td>{{ $hargaRp }}</td>

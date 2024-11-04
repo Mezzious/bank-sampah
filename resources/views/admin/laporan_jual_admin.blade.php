@@ -91,10 +91,10 @@
         @csrf
         <div class="row">
             <div class="col-lg-3">
-                <input id="txtTglAwal" name="txtTglAwal" type="date" class="form-control" size="10" required />
+                <input id="txtTglAwal" name="txtTglAwal" type="date" class="form-control" size="10" />
             </div>
             <div class="col-lg-3">
-                <input id="txtTglAkhir" name="txtTglAkhir" type="date" class="form-control" size="10" required />
+                <input id="txtTglAkhir" name="txtTglAkhir" type="date" class="form-control" size="10" />
             </div>
             <div class="col-lg-3">
                 <input name="btnTampil" style="color: white" class="btn btn-custom" type="submit" value="Tampilkan" />
