@@ -52,6 +52,11 @@ class UserController extends Controller
 
         // Ambil transaksi pembelian terkait dengan pengguna yang login
         $purchases = Purchase::where('user_id', $user->id)->get();
+
+        if (request()->ajax()) {
+            return response()->json($purchases); // Mengembalikan data dalam bentuk JSON
+        }
+
         return view('user/transaksi_beli_user', compact('purchases', 'user'));
     }
 
