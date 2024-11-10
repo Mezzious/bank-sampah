@@ -53,6 +53,10 @@ class NasabahController extends Controller
         // Ambil transaksi pembelian terkait dengan pengguna yang login
         $saleses = Sales::where('user_id', $user->id)->get();
 
+        if (request()->ajax()) {
+            return response()->json($saleses); // Mengembalikan data dalam bentuk JSON
+        }
+
         return view('nasabah/transaksi_jual_nasabah', compact('saleses', 'user'));
     }
 
