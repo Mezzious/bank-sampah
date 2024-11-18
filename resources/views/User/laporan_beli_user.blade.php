@@ -104,7 +104,7 @@
             <div class="card shadow">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="table_laporan_jual" class="table table-bordered">
+                        <table id="table_laporan_beli" class="table table-bordered">
                             <thead class="table-secondary">
                                 <tr>
                                     <th>No</th>
@@ -170,7 +170,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#table_laporan_jual').DataTable();
+            $('#table_laporan_beli').DataTable();
         });
 
         function showNotaImage(imageUrl) {
