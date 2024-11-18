@@ -20,7 +20,7 @@
 
     <div class="card border-bottom-primary shadow mb-4" style="margin-right: 28px">
         <div class="card-header py-3">
-            <h6 class="m-0">Form Edit Transaksi Jual</h6>
+            <h6 class="m-0">Form Edit Transaksi Beli</h6>
         </div>
         <div class="card-body">
             <form action="{{ route('update_transaksi_beli_user', ['id' => $purchases->id]) }}" method="post"
@@ -33,7 +33,7 @@
                 @endphp
 
                 <div class="form-group">
-                    <label for="tanggal_beli">Tanggal Jual*</label>
+                    <label for="tanggal_beli">Tanggal Beli*</label>
                     <input type="date" class="form-control" id="tanggal_beli" name="tanggal_beli"
                         value="{{ $today }}" required>
                 </div>

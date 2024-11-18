@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="./assets/compiled/css/all.view.css">
 <hr style="border: 1px solid black">
 <h1 align="center"><b>LAPORAN BELI SAMPAH</b></h1>
-    <table id="table_laporan_jual" class="table table-bordered bold-border-table" rules="all" align="center" border="1px" style="width: 95%">
+    <table id="table_laporan_beli" class="table table-bordered bold-border-table" rules="all" align="center" border="1px" style="width: 95%">
         <thead class="table-secondary">
             <tr>
                 <th>No</th>
