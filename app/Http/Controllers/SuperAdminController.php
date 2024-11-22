@@ -41,11 +41,11 @@ class SuperAdminController extends Controller
 
             $months = $sales->pluck('month')->union($purchases->pluck('month'))->unique()->sort();
 
-            $totalBeratPenjualanPerBulan = $sales->pluck('total_berat', 'month');
-            $totalHargaPenjualanPerBulan = $sales->pluck('total_harga', 'month');
+            $totalBeratPenjualanPerBulan = $purchases->pluck('total_berat', 'month');
+            $totalHargaPenjualanPerBulan = $purchases->pluck('total_harga', 'month');
 
-            $totalBeratPembelianPerBulan = $purchases->pluck('total_berat', 'month');
-            $totalHargaPembelianPerBulan = $purchases->pluck('total_harga', 'month');
+            $totalBeratPembelianPerBulan = $sales->pluck('total_berat', 'month');
+            $totalHargaPembelianPerBulan = $sales->pluck('total_harga', 'month');
 
             return view('superadmin/dashboard', compact(
                 'user',
@@ -64,7 +64,6 @@ class SuperAdminController extends Controller
             return redirect()->route('login');
         }
     }
-
 
     public function data_user()
     {

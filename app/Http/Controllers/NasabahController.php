@@ -109,7 +109,6 @@ class NasabahController extends Controller
         $saleses->gambar_ttd = $signatureName;
         $saleses->gambar_sampah = $sampahBeli;
         $saleses->save();
-        $saleses->user_id = auth()->id();
 
         // Redirect ke halaman yang sesuai dengan pesan sukses atau lainnya
         return redirect()->route('transaksi_jual_nasabah')->with('success', 'Data penjualan berhasil disimpan.');
