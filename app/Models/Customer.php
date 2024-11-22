@@ -4,10 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Customer extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'id';    // Tentukan primary key
+    public $incrementing = false;    // Nonaktifkan auto increment
+    protected $keyType = 'string';   // Gunakan string untuk tipe key
+
     /**
      * The attributes that are mass assignable.
      *
@@ -38,6 +44,29 @@ class Customer extends Model
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($customer) {
+            // Generate custom ID untuk user dengan panjang tertentu
+            $latestUser = DB::table('customers')->orderBy('id', 'desc')->first();
+
+            if ($latestUser) {
+                $lastId = $latestUser->id;
+                $number = (int)substr($lastId, 3) + 1; // Ambil angka terakhir
+                $customer->id = 'CUS' . str_pad($number, 3, '0', STR_PAD_LEFT); // Format dengan panjang 6 karakter
+            } else {
+                $customer->id = 'CUS001'; // ID pertama
+            }
+
+            // Validasi panjang ID
+            if (strlen($customer->id) !== 6) {
+                throw new \Exception('ID harus memiliki panjang tepat 6 karakter.');
+            }
+        });
+    }
 
     public $timestamps = false;
     

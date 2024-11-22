@@ -14,12 +14,11 @@ class CreateNasabahTable extends Migration
     public function up()
     {
         Schema::create('customers', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id');
-            $table->integer('rw');
-            $table->string('telepon', 12);
-            $table->string('alamat');
-            $table->integer('sampah')->nullable();
+            $table->string('id', 6)->primary();
+            $table->string('user_id', 6)->index();
+            $table->string('rw', 3);
+            $table->string('telepon', 13);
+            $table->string('alamat', 100);
         });
     }
 

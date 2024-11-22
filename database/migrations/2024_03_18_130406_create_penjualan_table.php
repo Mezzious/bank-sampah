@@ -14,15 +14,16 @@ class CreatePenjualanTable extends Migration
     public function up()
     {
         Schema::create('saleses', function (Blueprint $table) {
-            $table->id();
+            $table->string('id', 6)->primary();
+            $table->string('user_id', 6)->index();
             $table->date('tanggal_jual');
-            $table->string('jenis_sampah');
-            $table->string('gambar_sampah');
-            $table->string('gambar_nota');
-            $table->integer('berat');
-            $table->string('harga');
-            $table->string('total');
-            $table->foreignId('user_id');
+            $table->string('jenis_sampah', 20);
+            $table->string('berat', 3);
+            $table->string('harga', 6);
+            $table->string('total', 9);
+            $table->string('gambar_ttd', 50);
+            $table->string('gambar_sampah', 50);
+            $table->string('status_konfirmasi', 50)->default('belum dikonfirmasi');;
         });
     }
 

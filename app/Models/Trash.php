@@ -4,10 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Trash extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'id';    // Tentukan primary key
+    public $incrementing = false;    // Nonaktifkan auto increment
+    protected $keyType = 'string';   // Gunakan string untuk tipe key
+
     /**
      * The attributes that are mass assignable.
      *
@@ -40,6 +46,29 @@ class Trash extends Model
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($trash) {
+            // Generate custom ID untuk user dengan panjang tertentu
+            $latestUser = DB::table('trashes')->orderBy('id', 'desc')->first();
+
+            if ($latestUser) {
+                $lastId = $latestUser->id;
+                $number = (int)substr($lastId, 3) + 1; // Ambil angka terakhir
+                $trash->id = 'TRS' . str_pad($number, 3, '0', STR_PAD_LEFT); // Format dengan panjang 6 karakter
+            } else {
+                $trash->id = 'TRS001'; // ID pertama
+            }
+
+            // Validasi panjang ID
+            if (strlen($trash->id) !== 6) {
+                throw new \Exception('ID harus memiliki panjang tepat 6 karakter.');
+            }
+        });
+    }
 
     public $timestamps = false;
     
