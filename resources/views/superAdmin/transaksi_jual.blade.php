@@ -164,12 +164,6 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div>
-                                <button id="exportButton" class="btn btn-custom">
-                                    <i class="fa-solid fa-file-export" style="color: white;"></i> <span
-                                        style="color: white;">Export</span>
-                                </button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -220,44 +214,6 @@
             // Show overlay and spinner
             document.getElementById('overlay').style.display = 'block';
             document.getElementById('spinner').style.display = 'block';
-        });
-    </script>
-
-    <script>
-        document.getElementById('exportButton').addEventListener('click', function() {
-            // Ambil tabel laporan beli
-            var table = document.getElementById('table_jual');
-            var data = [];
-
-            // Ambil header tabel (thead) tanpa kolom gambar dan aksi
-            var headers = [];
-            table.querySelectorAll('thead th').forEach(function(th, index) {
-                // Ambil kolom header kecuali kolom gambar (indeks 4) dan aksi (indeks 8)
-                if (index !== 4 && index !== 8) {
-                    headers.push(th.innerText);
-                }
-            });
-            data.push(headers);
-
-            // Ambil isi tabel (tbody) tanpa kolom gambar dan aksi
-            table.querySelectorAll('tbody tr').forEach(function(row) {
-                var rowData = [];
-                row.querySelectorAll('td').forEach(function(td, index) {
-                    // Skip kolom gambar (indeks 4) dan aksi (indeks 8)
-                    if (index !== 4 && index !== 8) {
-                        rowData.push(td.innerText);
-                    }
-                });
-                data.push(rowData);
-            });
-
-            // Membuat workbook Excel dengan SheetJS
-            var worksheet = XLSX.utils.aoa_to_sheet(data);
-            var workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "Transaksi Jual Sampah");
-
-            // Ekspor dan unduh file Excel
-            XLSX.writeFile(workbook, 'Transaksi_Jual_Sampah.xlsx');
         });
     </script>
 
