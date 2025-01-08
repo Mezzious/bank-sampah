@@ -151,13 +151,19 @@
             if (signaturePad.isEmpty()) {
                 event.preventDefault();
                 alert('Tanda tangan dibutuhkan.');
-            } else {
-                var signatureData = signaturePad.toDataURL();
-                document.getElementById('tanda_tangan').value = signatureData;
+                return; // Hentikan eksekusi jika validasi gagal
             }
-            // Tampilkan overlay dan spinner saat form disubmit
+
+            // Set tanda tangan ke input hidden
+            var signatureData = signaturePad.toDataURL();
+            document.getElementById('tanda_tangan').value = signatureData;
+
+            // Tampilkan overlay dan spinner hanya jika validasi lolos
             document.getElementById('overlay').style.display = 'block';
             document.getElementById('spinner').style.display = 'block';
+
+            // Nonaktifkan tombol submit untuk mencegah klik ulang
+            document.querySelector('.btn-custom').disabled = true;
         });
 
         // Function to resize the canvas
