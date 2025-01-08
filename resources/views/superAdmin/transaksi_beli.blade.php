@@ -134,17 +134,16 @@
                                             <td>{{ $purchase->harga }}</td>
                                             <td>{{ $purchase->total }}</td>
                                             <td style="text-align: center;">
-                                                <form action="{{ route('update_status_transaksi_beli', $purchase->id) }}" method="POST" class="d-inline">
+                                                <form action="{{ route('update_status_transaksi_beli', $purchase->id) }}"
+                                                    method="POST" class="d-inline">
                                                     @csrf
-                                                    @if($purchase->status_konfirmasi == 'belum dikonfirmasi')
-                                                        <button type="submit" name="status" value="sedang dijemput" class="btn btn-warning btn-sm">Sedang Dijemput</button>
-                                                    @elseif($purchase->status_konfirmasi == 'sedang dijemput')
-                                                        <button type="submit" name="status" value="sampah telah diterima" class="btn btn-info btn-sm">Sampah Telah Diterima</button>
-                                                    @elseif($purchase->status_konfirmasi == 'sampah telah diterima')
-                                                        <button type="submit" name="status" value="sudah dikonfirmasi" class="btn btn-success btn-sm">Sudah Dikonfirmasi</button>
+                                                    @if ($purchase->status_konfirmasi == 'belum dikonfirmasi')
+                                                        <button type="submit" name="status" value="sudah dikonfirmasi"
+                                                            class="btn btn-success btn-sm">Sudah Dikonfirmasi</button>
                                                     @elseif($purchase->status_konfirmasi == 'sudah dikonfirmasi')
-                                                        <button type="button" class="btn btn-secondary btn-sm" disabled>Sudah Dikonfirmasi</button>
-                                                    @endif          
+                                                        <button type="button" class="btn btn-secondary btn-sm"
+                                                            disabled>Sudah Dikonfirmasi</button>
+                                                    @endif
                                                 </form>
                                             </td>
                                             <td style="text-align: center">

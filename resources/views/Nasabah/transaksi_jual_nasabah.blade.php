@@ -227,8 +227,7 @@
     <script>
         $(document).ready(function() {
             $('#table_nasabah').DataTable();
-
-            $('.deleteButton').on('click', function(e) {
+            $(document).on('click', '.deleteButton', function(e) {
                 e.preventDefault();
                 var purchaseId = $(this).data('id');
                 Swal.fire({
@@ -241,15 +240,13 @@
                     confirmButtonText: 'Ya, Hapus!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Tampilkan spinner dan overlay setelah konfirmasi penghapusan
                         document.getElementById('spinner').style.display = 'block';
                         document.getElementById('overlay').style.display = 'block';
-
-                        // Submit form
                         $('#delete-form-' + purchaseId).submit();
                     }
                 });
             });
+
         });
 
         // jQuery to show spinner and overlay when form is submitted

@@ -170,13 +170,13 @@
         $(document).ready(function() {
             $('#table_nasabah').DataTable();
 
-            $('.deleteButton').on('click', function(e) {
+            $(document).on('click', '.deleteButton', function(e) {
                 e.preventDefault();
                 var userId = $(this).data('id');
 
                 Swal.fire({
                     title: 'Apakah kamu yakin?',
-                    text: "Ingin Menghapus Data User Ini!",
+                    text: "Ingin Menghapus Data Nasabah Ini!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',

@@ -149,7 +149,8 @@
                                         style="color: white;">Cetak</span>
                                 </a>
                                 <button id="exportButton" class="btn btn-custom">
-                                    <i class="fa-solid fa-file-export" style="color: white;"></i> <span style="color: white;">Export</span>
+                                    <i class="fa-solid fa-file-export" style="color: white;"></i> <span
+                                        style="color: white;">Export</span>
                                 </button>
                             </div>
                         </div>
@@ -206,40 +207,49 @@
 
     <script>
         document.getElementById('exportButton').addEventListener('click', function() {
-            // Ambil tabel laporan beli
-            var table = document.getElementById('table_laporan_jual');
+            var table = $('#table_laporan_jual').DataTable(); // Gunakan DataTables instance
             var data = [];
-            
-            // Ambil header tabel (thead)
+            var grandTotal = 0; // Variabel untuk menghitung total keseluruhan
+
+            // Ambil header tabel
             var headers = [];
-            table.querySelectorAll('thead th').forEach(function(th, index) {
-                // Skip kolom gambar
-                if (index !== 4) {  // Kolom gambar ada di indeks 3
-                    headers.push(th.innerText);
+            table.columns().header().each(function(th, index) {
+                if (index !== 4) { // Abaikan kolom gambar (indeks 4)
+                    headers.push($(th).text());
                 }
             });
             data.push(headers);
 
-            // Ambil isi tabel (tbody)
-            table.querySelectorAll('tbody tr').forEach(function(row) {
+            // Ambil seluruh data dari DataTables
+            table.rows().every(function(rowIdx, tableLoop, rowLoop) {
                 var rowData = [];
-                row.querySelectorAll('td').forEach(function(td, index) {
-                    // Skip kolom gambar
-                    if (index !== 4) {  // Kolom gambar ada di indeks 3
-                        rowData.push(td.innerText);
+                var cells = this.data(); // Mengambil semua data pada baris
+                cells.forEach(function(cell, index) {
+                    if (index !== 4) { // Abaikan kolom gambar
+                        rowData.push(cell);
+                        if (index === 7) { // Kolom 'Total (Rp)' ada di indeks 7
+                            grandTotal += parseFloat(cell.replace(/[^0-9]/g, '')) ||
+                            0; // Hilangkan format dan tambahkan
+                        }
                     }
                 });
                 data.push(rowData);
             });
 
-            // Membuat workbook Excel dengan SheetJS
+            // Tambahkan jumlah total di baris terakhir
+            var totalRow = Array(headers.length).fill(''); // Buat array kosong sesuai jumlah kolom
+            totalRow[headers.length - 2] = 'Jumlah Total'; // Kolom kedua terakhir
+            totalRow[headers.length - 1] = grandTotal.toLocaleString(
+            'id-ID'); // Format angka dengan separator ribuan
+            data.push(totalRow);
+
+            // Membuat workbook Excel
             var worksheet = XLSX.utils.aoa_to_sheet(data);
             var workbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(workbook, worksheet, "Laporan Jual Sampah");
 
-            // Ekspor dan unduh file Excel
+            // Ekspor ke file Excel
             XLSX.writeFile(workbook, 'Laporan_Jual_Sampah.xlsx');
         });
     </script>
-
 @endsection
