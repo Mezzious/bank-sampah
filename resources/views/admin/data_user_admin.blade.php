@@ -77,7 +77,7 @@
     <link rel="stylesheet" href="./assets/compiled/css/dataTables.bootstrap4.min.css">
 
     <div class="back-button-container" style="margin-bottom: 5px; margin-left: 1px;">
-        <a class="btn back-button" onclick="goBack()">
+        <a href="{{ route('dashboard_admin') }}" class="btn back-button"">
             <i class="fa-solid fa-arrow-left" style="color: white;"></i>
             <span style="color: white;">Back</span>
         </a>

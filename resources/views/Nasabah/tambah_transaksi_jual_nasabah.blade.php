@@ -34,7 +34,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/5Bl1xZoDvj3FVBIpT9SNq9u/KfAZ5qON6lC7G" crossorigin="anonymous">
     <div class="back-button-container" style="margin-bottom: 15px">
-        <a class="btn back-button" onclick="goBack()">
+        <a href="{{ route('transaksi_jual_nasabah') }}" class="btn back-button">
             <i class="fa-solid fa-arrow-left" style="color: white;"></i>
             <span style="color: white;">Back</span>
         </a>
@@ -73,7 +73,7 @@
 
                 <div class="form-group">
                     <label for="berat">Berat (Kg)*</label>
-                    <input type="number" step="0" min="0" class="form-control" id="berat"
+                    <input type="number" min="1" max="999" class="form-control" id="berat"
                         onchange="sum();" name="berat" placeholder="Berat">
                 </div>
 
