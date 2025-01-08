@@ -170,7 +170,7 @@
         $(document).ready(function() {
             $('#table_user').DataTable();
 
-            $('.deleteButton').on('click', function(e) {
+            $(document).on('click', '.deleteButton', function(e) {
                 e.preventDefault();
                 var userId = $(this).data('id');
 

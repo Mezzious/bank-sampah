@@ -149,12 +149,8 @@
                                                 </a>
                                             </td>
                                             <td style="text-align: center;">
-                                                @if($purchase->status_konfirmasi == 'belum dikonfirmasi')
+                                                @if ($purchase->status_konfirmasi == 'belum dikonfirmasi')
                                                     <span class="badge bg-danger">Belum Dikonfirmasi</span>
-                                                @elseif($purchase->status_konfirmasi == 'sedang dijemput')
-                                                    <span class="badge bg-warning">Sedang Dijemput</span>
-                                                @elseif($purchase->status_konfirmasi == 'sampah telah diterima')
-                                                    <span class="badge bg-info">Sampah Telah Diterima</span>
                                                 @elseif($purchase->status_konfirmasi == 'sudah dikonfirmasi')
                                                     <span class="badge bg-success">Sudah Dikonfirmasi</span>
                                                 @endif
@@ -222,14 +218,12 @@
     <script>
         $(document).ready(function() {
             $('#table_user').DataTable();
-
-            $('.deleteButton').on('click', function(e) {
+            $(document).on('click', '.deleteButton', function(e) {
                 e.preventDefault();
                 var userId = $(this).data('id');
-
                 Swal.fire({
                     title: 'Apakah kamu yakin?',
-                    text: "Ingin Menghapus Data User Ini!",
+                    text: "Ingin Menghapus Transaksi Beli Ini!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -300,10 +294,6 @@
         function renderStatus(status) {
             if (status == 'belum dikonfirmasi') {
                 return `<span class="badge bg-danger">Belum Dikonfirmasi</span>`;
-            } else if (status == 'sedang dijemput') {
-                return `<span class="badge bg-warning">Sedang Dijemput</span>`;
-            } else if (status == 'sampah telah diterima') {
-                return `<span class="badge bg-info">Sampah Telah Diterima</span>`;
             } else if (status == 'sudah dikonfirmasi') {
                 return `<span class="badge bg-success">Sudah Dikonfirmasi</span>`;
             }
