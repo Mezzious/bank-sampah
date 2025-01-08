@@ -189,14 +189,14 @@
                     datasets: [
                         {
                             label: 'Total Berat Pembelian (Kg)',
-                            data: totalBeratPenjualanPerBulan,
+                            data: totalBeratPembelianPerBulan,
                             borderColor: 'rgba(75, 192, 192, 1)',
                             backgroundColor: 'rgba(75, 192, 192, 0.2)',
                             fill: true
                         },
                         {
                             label: 'Total Berat Penjualan (Kg)',
-                            data: totalBeratPembelianPerBulan,
+                            data: totalBeratPenjualanPerBulan,
                             borderColor: 'rgba(255, 99, 132, 1)',
                             backgroundColor: 'rgba(255, 99, 132, 0.2)',
                             fill: true
@@ -222,14 +222,14 @@
                     datasets: [
                         {
                             label: 'Total Pembelian (Rp)',
-                            data: totalHargaPenjualanPerBulan,
+                            data: totalHargaPembelianPerBulan,
                             borderColor: 'rgba(75, 192, 192, 1)',
                             backgroundColor: 'rgba(75, 192, 192, 0.2)',
                             fill: true
                         },
                         {
                             label: 'Total Penjualan (Rp)',
-                            data: totalHargaPembelianPerBulan,
+                            data: totalHargaPenjualanPerBulan,
                             borderColor: 'rgba(255, 99, 132, 1)',
                             backgroundColor: 'rgba(255, 99, 132, 0.2)',
                             fill: true
