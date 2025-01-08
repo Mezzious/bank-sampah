@@ -63,8 +63,7 @@
 
                 <div class="form-group">
                     <label for="jenis_sampah">Jenis Sampah*</label>
-                    <select class="form-control" id="jenis_sampah" name="jenis_sampah"
-                        onchange="updateSampahDetails()">
+                    <select class="form-control" id="jenis_sampah" name="jenis_sampah" onchange="updateSampahDetails()">
                         <option value="">Pilih Jenis Sampah</option>
                         @foreach ($trashes as $trash)
                             <option value="{{ $trash->jenis_sampah }}">
@@ -192,16 +191,13 @@
             if (signaturePad.isEmpty()) {
                 event.preventDefault();
                 alert('Tanda tangan dibutuhkan.');
-            } else {
-                var signatureData = signaturePad.toDataURL();
-                document.getElementById('tanda_tangan').value = signatureData;
+                return; // Hentikan proses submit dan spinner
             }
-        });
-    </script>
 
-    <script>
-        document.querySelector('form').addEventListener('submit', function() {
-            // Tampilkan spinner dan overlay
+            var signatureData = signaturePad.toDataURL();
+            document.getElementById('tanda_tangan').value = signatureData;
+
+            // Tampilkan spinner dan overlay hanya jika validasi berhasil
             document.getElementById('spinner').style.display = 'block';
             document.getElementById('overlay').style.display = 'block';
 
